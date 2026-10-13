@@ -1,4 +1,4 @@
-﻿package com.example.pokedex.camera
+package com.example.pokedex.camera
 
 import android.util.Size
 import androidx.camera.core.CameraSelector
@@ -55,12 +55,27 @@ fun CameraPreview(
             
             try {
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(
+                val camera = cameraProvider.bindToLifecycle(
                     lifecycleOwner,
                     cameraSelector,
                     preview,
                     imageAnalyzer
                 )
+                
+                // Tap-to-focus on preview touch
+                previewView.setOnTouchListener { view, event ->
+                    if (event.action == android.view.MotionEvent.ACTION_UP) {
+                        val factory = previewView.meteringPointFactory
+                        val point = factory.createPoint(event.x, event.y)
+                        val action = androidx.camera.core.FocusMeteringAction.Builder(
+                            point, 
+                            androidx.camera.core.FocusMeteringAction.FLAG_AF or androidx.camera.core.FocusMeteringAction.FLAG_AE
+                        ).setAutoCancelDuration(3, java.util.concurrent.TimeUnit.SECONDS).build()
+                        camera.cameraControl.startFocusAndMetering(action)
+                        view.performClick()
+                    }
+                    true
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }

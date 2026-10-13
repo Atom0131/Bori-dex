@@ -11,7 +11,6 @@ class TFLiteClassifier(context: Context) {
     private val interpreter: Interpreter
     private val labels: List<String>
     private val inputBuffer: ByteBuffer
-    private val outputBuffer: ByteBuffer
     private val intValues = IntArray(224 * 224)
     
     init {
@@ -27,15 +26,13 @@ class TFLiteClassifier(context: Context) {
         inputBuffer = ByteBuffer.allocateDirect(1 * 224 * 224 * 3 * 4).apply {
             order(ByteOrder.nativeOrder())
         }
-        // Output: [1, 1025] FLOAT32 (4,100 bytes)
-        outputBuffer = ByteBuffer.allocateDirect(1 * labels.size * 4).apply {
-            order(ByteOrder.nativeOrder())
-        }
         
         val inTensor = interpreter.getInputTensor(0)
         val outTensor = interpreter.getOutputTensor(0)
         android.util.Log.d("TFLiteClassifier", "Model init -> In: shape=${inTensor.shape().contentToString()}, type=${inTensor.dataType()} | Out: shape=${outTensor.shape().contentToString()}, type=${outTensor.dataType()} | labels=${labels.size}")
     }
+
+    private val outputArray = Array(1) { FloatArray(labels.size) }
 
     fun getLabels(): List<String> = labels
 
@@ -62,12 +59,19 @@ class TFLiteClassifier(context: Context) {
         }
         
         inputBuffer.rewind()
-        outputBuffer.rewind()
-        interpreter.run(inputBuffer, outputBuffer)
-        outputBuffer.rewind()
-        val floatBuf = outputBuffer.asFloatBuffer()
-        val probabilities = FloatArray(labels.size)
-        floatBuf.get(probabilities)
+        outputArray[0].fill(0f)
+        interpreter.run(inputBuffer, outputArray)
+        val probabilities = outputArray[0].copyOf()
+
+        val pMax = probabilities.maxOrNull() ?: 0f
+        if (pMax > 0.05f) {
+            val top3 = probabilities.withIndex().sortedByDescending { it.value }.take(3)
+            android.util.Log.d(
+                "TFLiteClassifier",
+                "Frame Top 3 -> ${labels.getOrNull(top3[0].index)} (${"%.4f".format(top3[0].value)}), ${labels.getOrNull(top3.getOrNull(1)?.index ?: 0)} (${"%.4f".format(top3.getOrNull(1)?.value ?: 0f)})"
+            )
+        }
+
         return probabilities
     }
 

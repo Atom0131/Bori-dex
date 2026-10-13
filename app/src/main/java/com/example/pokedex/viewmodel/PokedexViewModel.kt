@@ -9,6 +9,7 @@ import com.example.pokedex.data.PokemonEntity
 import com.example.pokedex.tts.OfflineTTS
 import com.example.pokedex.tts.VoiceProfile
 import com.example.pokedex.tts.VoiceItem
+import com.example.pokedex.tts.ScanFlowPreset
 import com.example.pokedex.tts.PokemonSoundPlayer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -85,6 +86,103 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
     fun selectRegion(region: PokemonRegion?) {
         _selectedRegion.value = region
+    }
+
+    private val _scanFlowPreset = MutableStateFlow(
+        ScanFlowPreset.fromId(prefs.getString("scan_flow_preset", ScanFlowPreset.NOSTALGIC.id) ?: ScanFlowPreset.NOSTALGIC.id)
+    )
+    val scanFlowPreset: StateFlow<ScanFlowPreset> = _scanFlowPreset.asStateFlow()
+
+    private val _playFanfare = MutableStateFlow(prefs.getBoolean("scan_play_fanfare", true))
+    val playFanfare: StateFlow<Boolean> = _playFanfare.asStateFlow()
+
+    private val _playVoiceReveal = MutableStateFlow(prefs.getBoolean("scan_voice_reveal", true))
+    val playVoiceReveal: StateFlow<Boolean> = _playVoiceReveal.asStateFlow()
+
+    private val _playCryOnReveal = MutableStateFlow(prefs.getBoolean("scan_cry_on_reveal", false))
+    val playCryOnReveal: StateFlow<Boolean> = _playCryOnReveal.asStateFlow()
+
+    private val _autoPlayCryEntry = MutableStateFlow(prefs.getBoolean("scan_auto_cry_entry", false))
+    val autoPlayCryEntry: StateFlow<Boolean> = _autoPlayCryEntry.asStateFlow()
+
+    private val _autoReadDexEntry = MutableStateFlow(prefs.getBoolean("auto_read_dex_entry", true))
+    val autoReadDexEntry: StateFlow<Boolean> = _autoReadDexEntry.asStateFlow()
+
+    private val _preferredGameEdition = MutableStateFlow(prefs.getString("preferred_game_edition", "Default") ?: "Default")
+    val preferredGameEdition: StateFlow<String> = _preferredGameEdition.asStateFlow()
+
+    fun setPreferredGameEdition(edition: String) {
+        _preferredGameEdition.value = edition
+        prefs.edit().putString("preferred_game_edition", edition).apply()
+    }
+
+    fun getEffectiveFlavorText(pokemon: PokemonEntity): String {
+        val preferred = _preferredGameEdition.value
+        if (preferred != "Default" && pokemon.pokedexEntries.isNotBlank()) {
+            try {
+                val obj = org.json.JSONObject(pokemon.pokedexEntries)
+                val preferredCandidates = if (preferred.contains("/")) {
+                    preferred.split("/").map { it.trim() }
+                } else if (preferred.equals("Legends Arceus", ignoreCase = true) || preferred.equals("Legends: Arceus", ignoreCase = true)) {
+                    listOf("Legends Arceus", "Legends: Arceus", "Hisui")
+                } else {
+                    listOf(preferred)
+                }
+
+                for (candidate in preferredCandidates) {
+                    val keys = obj.keys()
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        if (key.equals(candidate, ignoreCase = true)) {
+                            return obj.getString(key)
+                        }
+                    }
+                }
+            } catch (_: Exception) {}
+        }
+        return pokemon.flavorText
+    }
+
+    fun setScanFlowPreset(preset: ScanFlowPreset) {
+        _scanFlowPreset.value = preset
+        prefs.edit().putString("scan_flow_preset", preset.id).apply()
+        if (preset != ScanFlowPreset.CUSTOM) {
+            setPlayFanfare(preset.defaultFanfare)
+            setPlayVoiceReveal(preset.defaultVoiceReveal)
+            setPlayCryOnReveal(preset.defaultCryOnReveal)
+            setAutoPlayCryEntry(preset.defaultAutoCryEntry)
+        }
+    }
+
+    fun setAutoReadDexEntry(enabled: Boolean) {
+        _autoReadDexEntry.value = enabled
+        prefs.edit().putBoolean("auto_read_dex_entry", enabled).apply()
+    }
+
+    fun setPlayFanfare(enabled: Boolean) {
+        _playFanfare.value = enabled
+        prefs.edit().putBoolean("scan_play_fanfare", enabled).apply()
+    }
+
+    fun setPlayVoiceReveal(enabled: Boolean) {
+        _playVoiceReveal.value = enabled
+        prefs.edit().putBoolean("scan_voice_reveal", enabled).apply()
+    }
+
+    fun setPlayCryOnReveal(enabled: Boolean) {
+        _playCryOnReveal.value = enabled
+        prefs.edit().putBoolean("scan_cry_on_reveal", enabled).apply()
+    }
+
+    fun setAutoPlayCryEntry(enabled: Boolean) {
+        _autoPlayCryEntry.value = enabled
+        prefs.edit().putBoolean("scan_auto_cry_entry", enabled).apply()
+    }
+
+    fun playPokemonCry(pokemonId: Int) {
+        viewModelScope.launch {
+            PokemonSoundPlayer.playPokemonCry(getApplication(), pokemonId)
+        }
     }
 
     val filteredPokemonList: StateFlow<List<PokemonEntity>> = kotlinx.coroutines.flow.combine(
@@ -208,6 +306,58 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         _searchQuery.value = query
     }
 
+    suspend fun getPreEvolution(name: String): PokemonEntity? {
+        return kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            pokemonDao.getPreEvolution(name)
+        }
+    }
+
+    suspend fun getFullEvolutionChain(pokemon: PokemonEntity): List<PokemonEntity> {
+        return kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            // 1. Walk up to the root (base form)
+            var root = pokemon
+            val visitedPre = mutableSetOf(pokemon.id)
+            while (true) {
+                val pre = pokemonDao.getPreEvolution(root.name) ?: break
+                if (pre.id in visitedPre) break
+                visitedPre.add(pre.id)
+                root = pre
+            }
+
+            // 2. Walk down from root to build the full chain
+            val chain = mutableListOf<PokemonEntity>()
+            chain.add(root)
+            var current = root
+            val visitedNext = mutableSetOf(root.id)
+            while (current.evolvesTo.isNotBlank()) {
+                val nextNames = current.evolvesTo.split(",").map { it.trim().lowercase() }.filter { it.isNotEmpty() }
+                if (nextNames.isEmpty()) break
+
+                // If one of the next evolutions is the target pokemon or leads to it, pick that path
+                val chosenName = if (nextNames.contains(pokemon.name.lowercase())) {
+                    pokemon.name.lowercase()
+                } else {
+                    var foundName = nextNames.first()
+                    for (candidate in nextNames) {
+                        val candPokemon = pokemonDao.getPokemonByName(candidate)
+                        if (candPokemon != null && candPokemon.evolvesTo.lowercase().contains(pokemon.name.lowercase())) {
+                            foundName = candidate
+                            break
+                        }
+                    }
+                    foundName
+                }
+
+                val nextPokemon = pokemonDao.getPokemonByName(chosenName) ?: break
+                if (nextPokemon.id in visitedNext) break
+                visitedNext.add(nextPokemon.id)
+                chain.add(nextPokemon)
+                current = nextPokemon
+            }
+            chain
+        }
+    }
+
     fun selectPokemonByName(name: String, evolvedFrom: String? = null) {
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             val pokemon = pokemonDao.getPokemonByName(name)
@@ -246,8 +396,16 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         }
         
         val typeText = "It is a ${pokemon.type.replace("/", " and ")} type Pokemon. "
+        val rawFlavor = getEffectiveFlavorText(pokemon)
+        val cleanedFlavor = rawFlavor.replace("\n", " ").replace("\u000c", " ").replace("\\f", " ").replace(Regex("\\s+"), " ").trim()
         
-        tts.speak("${evoText}${typeText}${pokemon.flavorText}")
+        if (_autoReadDexEntry.value && !isBackNavigation) {
+            tts.speak("${evoText}${typeText}${cleanedFlavor}")
+        }
+
+        if (_autoPlayCryEntry.value) {
+            playPokemonCry(pokemon.id)
+        }
     }
 
     fun readFlavorText(pokemon: PokemonEntity, flavorText: String) {
@@ -257,7 +415,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
             .split(" ")
             .joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
         val typeText = "It is a ${pokemon.type.replace("/", " and ")} type Pokemon. "
-        tts.speak("${capitalizedName}. ${typeText}${flavorText}")
+        val cleaned = flavorText.replace("\n", " ").replace("\u000c", " ").replace("\\f", " ").replace(Regex("\\s+"), " ").trim()
+        tts.speak("${capitalizedName}. ${typeText}${cleaned}")
     }
 
     fun goBack() {
@@ -388,9 +547,9 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     )
 
                     // Robust Consensus Criteria:
-                    // 1. Top average probability >= 0.20 (20%)
+                    // 1. Top average probability >= 0.15 (15% - 150x above random baseline of 0.097%)
                     // 2. Clear margin >= 1.25x over runner-up (eliminates ambiguous ties)
-                    val meetsThreshold = top1Val >= 0.20f
+                    val meetsThreshold = top1Val >= 0.15f
                     val meetsMargin = top2Val == 0f || (top1Val >= top2Val * 1.25f)
 
                     if (meetsThreshold && meetsMargin) {
@@ -402,25 +561,27 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                             _scanStatusText.value = "LOCKED: ${pokemon.name.uppercase()}!"
                             scanningJob?.cancel()
                             val finalBitmap = bestBitmap ?: bitmap
-                            _uiState.value = PokedexState.WhosThat(finalBitmap)
 
                             tts.stop()
                             _isSpeaking.value = false
 
-                            // Authentic 1997 anime fanfare & kids callout SFX
-                            PokemonSoundPlayer.playWhosThatPokemon(getApplication())
-                            delay(3400)
+                            if (_playFanfare.value) {
+                                _uiState.value = PokedexState.WhosThat(finalBitmap)
+                                // Authentic 1997 anime fanfare & kids callout SFX
+                                PokemonSoundPlayer.playWhosThatPokemon(getApplication())
+                                delay(3400)
+                            }
 
-                            _uiState.value = PokedexState.Reveal(pokemon, finalBitmap)
+                            if (_playCryOnReveal.value) {
+                                PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
+                            }
 
-                            // Play official Pokémon cry
-                            PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
+                            if (_playVoiceReveal.value) {
+                                _uiState.value = PokedexState.Reveal(pokemon, finalBitmap)
+                                tts.speak("It's ${pokemon.name}!")
+                                delay(2400)
+                            }
 
-                            tts.stop()
-                            _isSpeaking.value = false
-                            tts.speak("It's ${pokemon.name}!")
-
-                            delay(2800)
                             selectPokemon(pokemon)
                             framesAnalyzed = 0
                             accumulatedProbabilities.fill(0f)
@@ -487,20 +648,23 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                         tts.stop()
                         _isSpeaking.value = false
 
-                        // Authentic 1997 anime fanfare & kids callout SFX
-                        PokemonSoundPlayer.playWhosThatPokemon(getApplication())
-                        delay(3400)
+                        if (_playFanfare.value) {
+                            _uiState.value = PokedexState.WhosThat(bitmap)
+                            // Authentic 1997 anime fanfare & kids callout SFX
+                            PokemonSoundPlayer.playWhosThatPokemon(getApplication())
+                            delay(3400)
+                        }
 
-                        _uiState.value = PokedexState.Reveal(pokemon, bitmap)
+                        if (_playCryOnReveal.value) {
+                            PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
+                        }
 
-                        // Play official Pokémon cry
-                        PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
+                        if (_playVoiceReveal.value) {
+                            _uiState.value = PokedexState.Reveal(pokemon, bitmap)
+                            tts.speak("It's ${pokemon.name}!")
+                            delay(2400)
+                        }
 
-                        tts.stop()
-                        _isSpeaking.value = false
-                        tts.speak("It's ${pokemon.name}!")
-
-                        delay(2800)
                         selectPokemon(pokemon)
                         return@launch
                     }

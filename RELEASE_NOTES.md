@@ -1,3 +1,38 @@
+# 🚀 Release Notes - Bori-dex v1.1.0
+
+**Release Date:** October 13, 2026  
+**Platform:** Android (API 24 to API 36)  
+**Binary:** `app-release.apk`
+
+---
+
+## What's New in v1.1.0
+
+### 🌟 Key Enhancements
+
+1. **Tabbed Settings Menu (Zero Scrolling Clutter)**:
+   - Completely redesigned settings into 3 dedicated, organized tabs:
+     - **`VOICE`**: Voice Category, Profile / Accents, 90s Hardware DSP Filter, Voice Pitch, and Speech Speed.
+     - **`SOUND & SCAN`**: Scanning Preset, Commercial Fanfare, Voice Callout, Cry on Reveal, Auto-Cry, and Auto-Read.
+     - **`GAME VERSION`**: Prioritized generation release selection.
+   - Quick `✕` close button in header alongside bottom `CLOSE` and `TEST VOICE` action buttons.
+
+2. **Grouped & Paired Game Releases**:
+   - Replaced lengthy individual game version dropdowns with paired releases (`Red / Blue`, `Gold / Silver`, `Ruby / Sapphire`, `Diamond / Pearl`, `Black / White`, `X / Y`, `Sun / Moon`, `Sword / Shield`, `Legends: Arceus`, `Scarlet / Violet`).
+   - Automatically prioritizes entries matching your chosen generation pair across all Pokémon.
+
+3. **Directional Auto-Speech (Forward Only)**:
+   - When advancing forward (`▶` next or picking a Pokémon from list/search), Dexter auto-reads the entry.
+   - When navigating backward (`◀` previous or Back button), speech is automatically silenced so moving through history remains smooth and quiet.
+
+4. **Dedicated `🗣 SPEAK` Replay Button**:
+   - Added a prominent `🗣 SPEAK` action button right next to `🔊 CRY` on the Pokédex result screen to easily replay/hear Dexter's narration on demand anytime.
+
+5. **Human-Friendly 54dp Page-Turn Controls**:
+   - High-contrast 54dp page-turn arrow buttons (`◀` / `▶`) positioned at the screen edges for effortless one-handed browsing without blocking Pokémon art.
+
+---
+
 # 🚀 Release Notes - Bori-dex v1.0.0
 
 **Release Date:** October 13, 2026  

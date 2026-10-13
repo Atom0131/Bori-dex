@@ -28,6 +28,9 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon ORDER BY id ASC LIMIT 1")
     fun getFirstPokemon(): PokemonEntity?
 
+    @Query("SELECT * FROM pokemon WHERE evolvesTo LIKE '%' || :name || '%' LIMIT 1")
+    fun getPreEvolution(name: String): PokemonEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(pokemon: List<PokemonEntity>)
 }

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-10-13
+
+### Added
+- Tabbed settings modal layout separating options into `VOICE`, `SOUND & SCAN`, and `GAME VERSION` to eliminate scrolling.
+- Paired game version preference (`Red / Blue`, `Ruby / Sapphire`, `Sword / Shield`, etc.) prioritizing era-appropriate entry data.
+- Dedicated `🗣 SPEAK` replay button on entry detail screen.
+- Edge-placed 54dp page-turn arrow buttons (`◀` / `▶`) for human-friendly navigation.
+- Directional auto-speech control: plays when moving forward, automatically silences when navigating backward.
+- Quick `✕` close button on settings dialog.
+
 ## [1.0.0] - 2026-10-13
 
 ### Added
