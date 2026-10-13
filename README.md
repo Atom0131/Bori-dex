@@ -1,6 +1,7 @@
 # 🔴 Bori-dex
 
 [![Platform](https://img.shields.io/badge/Platform-Android_14_--_16-3DDC84.svg?style=flat&logo=android)](https://www.android.com/)
+[![Download APK](https://img.shields.io/badge/Download-Bori--dex%20APK-00FFCC?logo=android)](https://github.com/Atom0131/Bori-dex/releases)
 [![Language](https://img.shields.io/badge/Language-Kotlin-7F52FF.svg?style=flat&logo=kotlin)](https://kotlinlang.org/)
 [![UI](https://img.shields.io/badge/UI-Jetpack_Compose_Material_3-4285F4.svg?style=flat&logo=jetpackcompose)](https://developer.android.com/jetpack/compose)
 [![ML](https://img.shields.io/badge/ML-TensorFlow_Lite-FF6F00.svg?style=flat&logo=tensorflow)](https://www.tensorflow.org/lite)
@@ -8,6 +9,13 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 > **Bori-dex** is an authentic, offline-first AI Pokédex application for Android. It combines on-device TensorFlow Lite computer vision, 1997 anime Dexter robotic voice calibration with hardware DSP echo, the iconic *"Who's That Pokémon?!"* commercial transition, and an edge-to-edge adaptive interface.
+
+---
+
+## 📥 Download APK
+
+Ready-to-install Android package available on GitHub Releases:
+- 📲 **[Download Latest Bori-dex APK](https://github.com/Atom0131/Bori-dex/releases)** *(Android 7.0+ / API 24–36 compatible)*
 
 ---
 
