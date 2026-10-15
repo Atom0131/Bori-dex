@@ -19,6 +19,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -41,7 +44,11 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.geometry.Offset
 import coil.compose.AsyncImage
+import androidx.compose.ui.graphics.FilterQuality
+import com.example.pokedex.data.EvolutionGuideRepository
+import com.example.pokedex.data.EvolutionTarget
 import com.example.pokedex.data.PokemonEntity
+import com.example.pokedex.data.getCanonicalId
 import com.example.pokedex.data.PokemonRegion
 import com.example.pokedex.tts.VoiceProfile
 import com.example.pokedex.viewmodel.PokedexState
@@ -68,6 +75,683 @@ fun getColorForType(type: String): Color {
         typeStr.contains("fighting") -> Color(0xFFC03028)
         typeStr.contains("flying") -> Color(0xFFA890F0)
         else -> Color(0xFFA8A878) // Normal
+    }
+}
+
+data class GroupedEditionEntry(
+    val groupLabel: String,
+    val flavorText: String
+)
+
+data class GameCartridge(
+    val id: String,
+    val displayName: String,
+    val candidateKeys: List<String>,
+    val cartridgeColor: Color,
+    val textColor: Color = Color.White,
+    val generation: String = "",
+    val mascotAsset: String = "default.png"
+)
+
+val ALL_GAME_CARTRIDGES = listOf(
+    // Default / Debut
+    GameCartridge("Default", "AUTO / DEBUT", listOf("Default"), Color(0xFF37474F), Color(0xFF00FFCC), "Default", "default.png"),
+    
+    // Gen 1 Kanto
+    GameCartridge("Red", "RED", listOf("Red"), Color(0xFFD32F2F), Color.White, "Gen 1", "red.png"),
+    GameCartridge("Blue", "BLUE", listOf("Blue"), Color(0xFF1976D2), Color.White, "Gen 1", "blue.png"),
+    GameCartridge("Yellow", "YELLOW", listOf("Yellow"), Color(0xFFFBC02D), Color.Black, "Gen 1", "yellow.png"),
+    
+    // Gen 2 Johto
+    GameCartridge("Gold", "GOLD", listOf("Gold"), Color(0xFFC5A059), Color.Black, "Gen 2", "gold.png"),
+    GameCartridge("Silver", "SILVER", listOf("Silver"), Color(0xFF9E9E9E), Color.Black, "Gen 2", "silver.png"),
+    GameCartridge("Crystal", "CRYSTAL", listOf("Crystal"), Color(0xFF00BCD4), Color.Black, "Gen 2", "crystal.png"),
+    
+    // Gen 3 Hoenn & Remakes
+    GameCartridge("Ruby", "RUBY", listOf("Ruby"), Color(0xFFC2185B), Color.White, "Gen 3", "ruby.png"),
+    GameCartridge("Sapphire", "SAPPHIRE", listOf("Sapphire"), Color(0xFF0D47A1), Color.White, "Gen 3", "sapphire.png"),
+    GameCartridge("Emerald", "EMERALD", listOf("Emerald"), Color(0xFF00897B), Color.White, "Gen 3", "emerald.png"),
+    GameCartridge("FireRed", "FIRERED", listOf("FireRed", "Firered"), Color(0xFFFF5722), Color.White, "Gen 1 Remake", "firered.png"),
+    GameCartridge("LeafGreen", "LEAFGREEN", listOf("LeafGreen", "Leafgreen"), Color(0xFF43A047), Color.White, "Gen 1 Remake", "leafgreen.png"),
+    
+    // Gen 4 Sinnoh & Remakes
+    GameCartridge("Diamond", "DIAMOND", listOf("Diamond"), Color(0xFF0288D1), Color.White, "Gen 4", "diamond.png"),
+    GameCartridge("Pearl", "PEARL", listOf("Pearl"), Color(0xFFD81B60), Color.White, "Gen 4", "pearl.png"),
+    GameCartridge("Platinum", "PLATINUM", listOf("Platinum"), Color(0xFF78909C), Color.White, "Gen 4", "platinum.png"),
+    GameCartridge("HeartGold", "HEARTGOLD", listOf("HeartGold", "Heartgold"), Color(0xFFFFA000), Color.Black, "Gen 2 Remake", "heartgold.png"),
+    GameCartridge("SoulSilver", "SOULSILVER", listOf("SoulSilver", "Soulsilver"), Color(0xFF546E7A), Color.White, "Gen 2 Remake", "soulsilver.png"),
+    
+    // Gen 5 Unova
+    GameCartridge("Black", "BLACK", listOf("Black"), Color(0xFF263238), Color.White, "Gen 5", "black.png"),
+    GameCartridge("White", "WHITE", listOf("White"), Color(0xFFECEFF1), Color(0xFF212121), "Gen 5", "white.png"),
+    GameCartridge("Black 2", "BLACK 2", listOf("Black 2", "Black2"), Color(0xFF212121), Color(0xFF80D8FF), "Gen 5", "black2.png"),
+    GameCartridge("White 2", "WHITE 2", listOf("White 2", "White2"), Color(0xFFEEEEEE), Color(0xFFD84315), "Gen 5", "white2.png"),
+    
+    // Gen 6 Kalos & Remakes
+    GameCartridge("X", "X", listOf("X"), Color(0xFF1565C0), Color.White, "Gen 6", "x.png"),
+    GameCartridge("Y", "Y", listOf("Y"), Color(0xFFC62828), Color.White, "Gen 6", "y.png"),
+    GameCartridge("Omega Ruby", "OMEGA RUBY", listOf("Omega Ruby", "Omegaruby"), Color(0xFFBF360C), Color.White, "Gen 3 Remake", "omegaruby.png"),
+    GameCartridge("Alpha Sapphire", "ALPHA SAPPHIRE", listOf("Alpha Sapphire", "Alphasapphire"), Color(0xFF01579B), Color.White, "Gen 3 Remake", "alphasapphire.png"),
+    
+    // Gen 7 Alola & Kanto
+    GameCartridge("Sun", "SUN", listOf("Sun"), Color(0xFFE65100), Color.White, "Gen 7", "sun.png"),
+    GameCartridge("Moon", "MOON", listOf("Moon"), Color(0xFF4A148C), Color.White, "Gen 7", "moon.png"),
+    GameCartridge("Ultra Sun", "ULTRA SUN", listOf("Ultra Sun", "Ultrasun"), Color(0xFFFF6F00), Color.White, "Gen 7", "ultrasun.png"),
+    GameCartridge("Ultra Moon", "ULTRA MOON", listOf("Ultra Moon", "Ultramoon"), Color(0xFF311B92), Color.White, "Gen 7", "ultramoon.png"),
+    GameCartridge("Let's Go Pikachu", "LET'S GO PIKACHU", listOf("Let's Go Pikachu", "Lets Go Pikachu", "Lets-go-pikachu"), Color(0xFFFDD835), Color.Black, "Gen 7", "letsgopikachu.png"),
+    GameCartridge("Let's Go Eevee", "LET'S GO EEVEE", listOf("Let's Go Eevee", "Lets Go Eevee", "Lets-go-eevee"), Color(0xFF8D6E63), Color.White, "Gen 7", "letsgoeevee.png"),
+    
+    // Gen 8 Galar & Hisui
+    GameCartridge("Sword", "SWORD", listOf("Sword"), Color(0xFF0097A7), Color.White, "Gen 8", "sword.png"),
+    GameCartridge("Shield", "SHIELD", listOf("Shield"), Color(0xFFAD1457), Color.White, "Gen 8", "shield.png"),
+    GameCartridge("Legends: Arceus", "LEGENDS: ARCEUS", listOf("Legends: Arceus", "Legends Arceus", "Hisui"), Color(0xFF1B5E20), Color.White, "Gen 8", "legendsarceus.png"),
+    
+    // Gen 9 Paldea & Lumiose
+    GameCartridge("Scarlet", "SCARLET", listOf("Scarlet"), Color(0xFFD32F2F), Color.White, "Gen 9", "scarlet.png"),
+    GameCartridge("Violet", "VIOLET", listOf("Violet"), Color(0xFF6A1B9A), Color.White, "Gen 9", "violet.png"),
+    GameCartridge("Legends: Z-A", "LEGENDS: Z-A", listOf("Legends: Z-A", "Legends Z-A", "Legends ZA", "ZA", "Lumiose"), Color(0xFF00E676), Color.Black, "Gen 9", "legendsza.png")
+)
+
+@Composable
+fun PixelCartridgeIcon(assetName: String, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val bitmap = remember(assetName) {
+        try {
+            context.assets.open("cartridges/$assetName").use { inputStream ->
+                android.graphics.BitmapFactory.decodeStream(inputStream)
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+    if (bitmap != null) {
+        Image(
+            bitmap = bitmap.asImageBitmap(),
+            contentDescription = assetName,
+            filterQuality = FilterQuality.None,
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+fun GameEditionModal(
+    title: String = "SELECT POKÉDEX VERSION",
+    subtitle: String = "Choose a game edition to load its canonical lore & narration:",
+    cartridges: List<GameCartridge>,
+    selectedCartridgeId: String?,
+    onSelectCartridge: (GameCartridge) -> Unit,
+    onDismiss: () -> Unit
+) {
+    Dialog(onDismissRequest = onDismiss) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.80f)
+                .background(Color(0xFF1A1A1A), RoundedCornerShape(16.dp))
+                .border(2.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(16.dp))
+                .padding(16.dp)
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = title,
+                            color = Color(0xFF00FFCC),
+                            fontWeight = FontWeight.Black,
+                            fontSize = 15.sp
+                        )
+                        Text(
+                            text = subtitle,
+                            color = Color.LightGray,
+                            fontSize = 11.sp
+                        )
+                    }
+                    IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                    ) {
+                        Text("✖", color = Color.White, fontSize = 14.sp)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // 2-Column Grid of Cartridges
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+                    items(cartridges) { cartridge ->
+                        val isSelected = cartridge.id.equals(selectedCartridgeId, ignoreCase = true) ||
+                                (selectedCartridgeId != null && cartridge.candidateKeys.any { it.equals(selectedCartridgeId, ignoreCase = true) })
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(68.dp)
+                                .background(cartridge.cartridgeColor, RoundedCornerShape(10.dp))
+                                .border(
+                                    width = if (isSelected) 2.5.dp else 1.5.dp,
+                                    color = if (isSelected) Color(0xFF00FFCC) else Color.Black.copy(alpha = 0.5f),
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+                                .clickable {
+                                    onSelectCartridge(cartridge)
+                                }
+                                .padding(4.dp)
+                        ) {
+                            // Inner Cartridge Label Sticker
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(6.dp))
+                                    .border(1.dp, Color.White.copy(alpha = 0.2f), RoundedCornerShape(6.dp))
+                                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxSize(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Column(
+                                        modifier = Modifier.weight(1f),
+                                        verticalArrangement = Arrangement.Center
+                                    ) {
+                                        Text(
+                                            text = cartridge.displayName,
+                                            color = Color.White,
+                                            fontWeight = FontWeight.Black,
+                                            fontSize = 12.sp,
+                                            maxLines = 1
+                                        )
+                                        Spacer(modifier = Modifier.height(2.dp))
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text(
+                                                text = cartridge.generation,
+                                                color = Color.White.copy(alpha = 0.7f),
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 10.sp
+                                            )
+                                            if (isSelected) {
+                                                Spacer(modifier = Modifier.width(6.dp))
+                                                Text(
+                                                    text = "★ ACTIVE",
+                                                    color = Color(0xFF00FFCC),
+                                                    fontWeight = FontWeight.Black,
+                                                    fontSize = 9.sp
+                                                )
+                                            }
+                                        }
+                                    }
+
+                                    // Authentic Mascot Pixel Artwork
+                                    Box(
+                                        modifier = Modifier
+                                            .size(44.dp)
+                                            .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(6.dp))
+                                            .border(1.dp, if (isSelected) Color(0xFF00FFCC) else Color.White.copy(alpha = 0.15f), RoundedCornerShape(6.dp)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        PixelCartridgeIcon(
+                                            assetName = cartridge.mascotAsset,
+                                            modifier = Modifier.size(40.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun EvolutionAndFormsModal(
+    pokemon: PokemonEntity,
+    activeEditionKey: String,
+    evolutionChain: List<PokemonEntity>,
+    viewModel: PokedexViewModel,
+    onDismiss: () -> Unit
+) {
+    val context = LocalContext.current
+    val evolutions = remember(pokemon.id) {
+        EvolutionGuideRepository.getEvolutionsForPokemon(context, pokemon.id)
+    }
+
+    Dialog(onDismissRequest = onDismiss) {
+        val allList by viewModel.pokemonList.collectAsState()
+        val canonicalId = pokemon.getCanonicalId(allList)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .heightIn(min = 200.dp, max = 540.dp)
+                .background(Color(0xFF1E1E1E), RoundedCornerShape(16.dp))
+                .border(2.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(16.dp))
+                .padding(16.dp)
+        ) {
+            Column(modifier = Modifier.wrapContentHeight().fillMaxWidth()) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "⚡ FORMS & EVOLUTIONS",
+                            color = Color(0xFF00FFCC),
+                            fontWeight = FontWeight.Black,
+                            fontSize = 16.sp
+                        )
+                        Text(
+                            text = "${pokemon.name.replace("-", " ").uppercase()} • #${canonicalId.toString().padStart(3, '0')}",
+                            color = Color.White.copy(alpha = 0.7f),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 11.sp
+                        )
+                    }
+                    IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                    ) {
+                        Text("✖", color = Color.White, fontSize = 14.sp)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Scrollable Body
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f, fill = false)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                ) {
+                    // SECTION 1: ALTERNATE FORMS & MEGAS
+                    if (pokemon.forms.isNotEmpty()) {
+                        val formsList = pokemon.forms.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+                        val currentName = pokemon.name.lowercase()
+                        val baseCandidate = formsList.firstOrNull { !it.contains("-") } ?: if (!currentName.contains("-")) currentName else currentName.substringBefore("-")
+                        
+                        val orderedForms = mutableListOf<String>()
+                        if (currentName.equals(baseCandidate, ignoreCase = true) || formsList.contains(baseCandidate)) {
+                            orderedForms.add(baseCandidate)
+                        }
+                        val otherForms = (formsList + listOf(currentName))
+                            .filter { !it.equals(baseCandidate, ignoreCase = true) }
+                            .distinct()
+                            .sorted()
+                        orderedForms.addAll(otherForms)
+
+                        if (orderedForms.size > 1) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(10.dp))
+                                    .padding(12.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "ALTERNATE FORMS & MEGAS",
+                                        color = Color(0xFF00FFCC),
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 12.sp
+                                    )
+                                    Text(
+                                        text = "${orderedForms.size} AVAILABLE",
+                                        color = Color.LightGray,
+                                        fontSize = 10.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(8.dp))
+
+                                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    orderedForms.forEach { formName ->
+                                        val isCurrent = formName.equals(currentName, ignoreCase = true)
+                                        val label = when {
+                                            formName.equals(baseCandidate, ignoreCase = true) -> "BASE FORM"
+                                            formName.endsWith("-mega-x", ignoreCase = true) -> "MEGA ${baseCandidate.uppercase()} X"
+                                            formName.endsWith("-mega-y", ignoreCase = true) -> "MEGA ${baseCandidate.uppercase()} Y"
+                                            formName.endsWith("-mega-z", ignoreCase = true) -> "MEGA ${baseCandidate.uppercase()} Z"
+                                            formName.endsWith("-mega", ignoreCase = true) -> "MEGA ${baseCandidate.uppercase()}"
+                                            formName.endsWith("-gmax", ignoreCase = true) -> "${baseCandidate.uppercase()} G-MAX"
+                                            formName.endsWith("-alola", ignoreCase = true) -> "ALOLAN ${baseCandidate.uppercase()}"
+                                            formName.endsWith("-galar", ignoreCase = true) -> "GALARIAN ${baseCandidate.uppercase()}"
+                                            formName.endsWith("-hisui", ignoreCase = true) -> "HISUIAN ${baseCandidate.uppercase()}"
+                                            formName.endsWith("-paldea", ignoreCase = true) -> "PALDEAN ${baseCandidate.uppercase()}"
+                                            else -> formName.replace(baseCandidate, "").replace("-", " ").trim().uppercase().ifEmpty { formName.uppercase() }
+                                        }
+
+                                        val stoneItem = when {
+                                            formName.endsWith("-mega-x", ignoreCase = true) -> "${baseCandidate}ite-x.png"
+                                            formName.endsWith("-mega-y", ignoreCase = true) -> "${baseCandidate}ite-y.png"
+                                            formName.endsWith("-mega-z", ignoreCase = true) -> "${baseCandidate}ite-z.png"
+                                            formName.endsWith("-mega", ignoreCase = true) -> "${baseCandidate}ite.png"
+                                            formName.endsWith("-gmax", ignoreCase = true) -> "dynamax-band.png"
+                                            else -> null
+                                        }
+
+                                        Row(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .background(
+                                                    if (isCurrent) Color(0xFF00FFCC).copy(alpha = 0.15f) else Color.Black.copy(alpha = 0.25f),
+                                                    RoundedCornerShape(8.dp)
+                                                )
+                                                .border(
+                                                    width = if (isCurrent) 1.5.dp else 1.dp,
+                                                    color = if (isCurrent) Color(0xFF00FFCC) else Color.White.copy(alpha = 0.15f),
+                                                    shape = RoundedCornerShape(8.dp)
+                                                )
+                                                .clickable {
+                                                    if (!isCurrent) {
+                                                        viewModel.selectPokemonByName(formName)
+                                                        onDismiss()
+                                                    }
+                                                }
+                                                .padding(10.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.SpaceBetween
+                                        ) {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                if (stoneItem != null) {
+                                                    PixelItemIcon(
+                                                        itemName = stoneItem,
+                                                        modifier = Modifier
+                                                            .size(26.dp)
+                                                            .padding(end = 8.dp)
+                                                    )
+                                                }
+                                                Text(
+                                                    text = label,
+                                                    color = if (isCurrent) Color(0xFF00FFCC) else Color.White,
+                                                    fontWeight = FontWeight.Bold,
+                                                    fontSize = 12.sp
+                                                )
+                                            }
+
+                                            Button(
+                                                onClick = {
+                                                    if (!isCurrent) {
+                                                        viewModel.selectPokemonByName(formName)
+                                                        onDismiss()
+                                                    }
+                                                },
+                                                colors = ButtonDefaults.buttonColors(
+                                                    containerColor = if (isCurrent) Color(0xFF00FFCC) else Color.DarkGray
+                                                ),
+                                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                                shape = RoundedCornerShape(6.dp),
+                                                modifier = Modifier.height(28.dp)
+                                            ) {
+                                                Text(
+                                                    text = if (isCurrent) "ACTIVE" else "SWAP",
+                                                    color = if (isCurrent) Color.Black else Color.White,
+                                                    fontWeight = FontWeight.Black,
+                                                    fontSize = 10.sp
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // SECTION 2: FAMILY EVOLUTION CHAIN
+                    if (evolutionChain.size > 1) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(10.dp))
+                                .padding(12.dp)
+                        ) {
+                            Text(
+                                text = "FAMILY EVOLUTION CHAIN",
+                                color = Color(0xFF00FFCC),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 12.sp
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState()),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                evolutionChain.forEachIndexed { index, evoPokemon ->
+                                    val isCurrent = evoPokemon.id == pokemon.id
+                                    val formattedName = evoPokemon.name.replace("-", " ")
+                                        .split(" ")
+                                        .joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
+
+                                    Box(
+                                        modifier = Modifier
+                                            .background(
+                                                if (isCurrent) Color(0xFF00FFCC) else Color.Black.copy(alpha = 0.5f),
+                                                RoundedCornerShape(6.dp)
+                                            )
+                                            .border(
+                                                if (isCurrent) 1.5.dp else 1.dp,
+                                                if (isCurrent) Color.White else Color.Black.copy(alpha = 0.3f),
+                                                RoundedCornerShape(6.dp)
+                                            )
+                                            .clickable(enabled = !isCurrent) {
+                                                viewModel.selectPokemon(evoPokemon)
+                                                onDismiss()
+                                            }
+                                            .padding(horizontal = 10.dp, vertical = 6.dp)
+                                    ) {
+                                        Text(
+                                            text = formattedName.uppercase(),
+                                            color = if (isCurrent) Color.Black else Color.White,
+                                            fontWeight = if (isCurrent) FontWeight.Black else FontWeight.Bold,
+                                            fontSize = 11.sp
+                                        )
+                                    }
+
+                                    if (index < evolutionChain.size - 1) {
+                                        Text(
+                                            text = " ➔ ",
+                                            color = Color(0xFF00FFCC),
+                                            fontWeight = FontWeight.Black,
+                                            fontSize = 12.sp,
+                                            modifier = Modifier.padding(horizontal = 4.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // SECTION 3: HOW TO EVOLVE (Methods & Pixel Items)
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(10.dp))
+                            .padding(12.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "HOW TO EVOLVE",
+                                color = Color(0xFF00FFCC),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 12.sp
+                            )
+                            Text(
+                                text = "VER: ${activeEditionKey.uppercase()}",
+                                color = Color(0xFF00FFCC).copy(alpha = 0.8f),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        if (evolutions.isEmpty()) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color.Black.copy(alpha = 0.25f), RoundedCornerShape(8.dp))
+                                    .padding(12.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = "FINAL STAGE / DOES NOT EVOLVE FURTHER",
+                                    color = Color.White.copy(alpha = 0.7f),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 11.sp
+                                )
+                            }
+                        } else {
+                            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                evolutions.forEach { evo ->
+                                    val versionOverride = evo.versionNotes.entries.firstOrNull { (k, _) ->
+                                        k.equals(activeEditionKey, ignoreCase = true) ||
+                                        (activeEditionKey.contains("/") && k.replace(" ", "").equals(activeEditionKey.replace(" ", ""), ignoreCase = true)) ||
+                                        (activeEditionKey.contains("Legends", ignoreCase = true) && k.contains("Legends", ignoreCase = true) && (activeEditionKey.contains("Z", ignoreCase = true) == k.contains("Z", ignoreCase = true)))
+                                    }?.value
+
+                                    val methodText = versionOverride?.method ?: evo.defaultMethod
+                                    val itemSprite = versionOverride?.item ?: evo.defaultItem
+                                    val noteText = versionOverride?.note
+
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(Color.Black.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
+                                            .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.35f), RoundedCornerShape(8.dp))
+                                            .clickable {
+                                                viewModel.selectPokemonById(evo.targetId)
+                                                onDismiss()
+                                            }
+                                            .padding(10.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(54.dp)
+                                                .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(8.dp))
+                                                .border(1.dp, Color.White.copy(alpha = 0.2f), RoundedCornerShape(8.dp)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            AsyncImage(
+                                                model = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evo.targetId}.png",
+                                                contentDescription = evo.targetName,
+                                                modifier = Modifier.size(48.dp)
+                                            )
+                                        }
+
+                                        Spacer(modifier = Modifier.width(10.dp))
+
+                                        Column(modifier = Modifier.weight(1f)) {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                Text(
+                                                    text = "➔ ${evo.targetName.uppercase()}",
+                                                    color = Color(0xFF00FFCC),
+                                                    fontWeight = FontWeight.Black,
+                                                    fontSize = 13.sp
+                                                )
+                                                Spacer(modifier = Modifier.width(6.dp))
+                                                Text(
+                                                    text = "#${evo.targetId.toString().padStart(3, '0')}",
+                                                    color = Color.White.copy(alpha = 0.6f),
+                                                    fontWeight = FontWeight.Bold,
+                                                    fontSize = 10.sp
+                                                )
+                                            }
+
+                                            Spacer(modifier = Modifier.height(4.dp))
+
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                if (itemSprite != null) {
+                                                    PixelItemIcon(
+                                                        itemName = itemSprite,
+                                                        modifier = Modifier
+                                                            .size(28.dp)
+                                                            .padding(end = 6.dp)
+                                                    )
+                                                }
+                                                Text(
+                                                    text = methodText,
+                                                    color = Color.White,
+                                                    fontWeight = FontWeight.Normal,
+                                                    fontSize = 12.sp,
+                                                    lineHeight = 16.sp
+                                                )
+                                            }
+
+                                            if (!noteText.isNullOrBlank()) {
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text(
+                                                    text = "★ $noteText",
+                                                    color = Color(0xFFFFDD00),
+                                                    fontWeight = FontWeight.Medium,
+                                                    fontSize = 10.sp,
+                                                    lineHeight = 14.sp
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun PixelItemIcon(itemName: String?, modifier: Modifier = Modifier) {
+    if (itemName == null) return
+    val context = LocalContext.current
+    val bitmap = remember(itemName) {
+        try {
+            context.assets.open("items/$itemName").use { inputStream ->
+                android.graphics.BitmapFactory.decodeStream(inputStream)
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+    if (bitmap != null) {
+        Image(
+            bitmap = bitmap.asImageBitmap(),
+            contentDescription = itemName,
+            modifier = modifier,
+            filterQuality = FilterQuality.None
+        )
     }
 }
 
@@ -466,9 +1150,10 @@ fun PokedexDisplay(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(horizontal = 10.dp, vertical = 8.dp)
-                                .verticalScroll(rememberScrollState())
                         ) {
-                            var showShiny by remember { mutableStateOf(false) }
+                            var showShiny by remember(state.pokemon.id) { mutableStateOf(false) }
+                            var showEvolutionModal by remember { mutableStateOf(false) }
+                            var showEditionModal by remember { mutableStateOf(false) }
                             val currentSprite = if (showShiny && !state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
                                 state.pokemon.shinySpriteUrl
                             } else {
@@ -476,6 +1161,7 @@ fun PokedexDisplay(
                             }
 
                             // 1. Top Header: Number, Name, Type Badge
+                            val canonicalId = state.pokemon.getCanonicalId(pokemonList)
                             val displayName = state.pokemon.name.replace("-", " ")
                                 .split(" ")
                                 .joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
@@ -488,7 +1174,7 @@ fun PokedexDisplay(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = "NO. ${state.pokemon.id.toString().padStart(3, '0')}",
+                                    text = "NO. ${canonicalId.toString().padStart(3, '0')}",
                                     color = Color.White,
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Black
@@ -546,6 +1232,31 @@ fun PokedexDisplay(
                                         modifier = Modifier.size(115.dp),
                                         contentScale = androidx.compose.ui.layout.ContentScale.Fit
                                     )
+
+                                    if (!state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
+                                        Box(
+                                            modifier = Modifier
+                                                .align(Alignment.BottomEnd)
+                                                .padding(6.dp)
+                                                .size(28.dp)
+                                                .background(
+                                                    Color.Black.copy(alpha = 0.55f),
+                                                    CircleShape
+                                                )
+                                                .border(
+                                                    1.dp,
+                                                    Color.White.copy(alpha = 0.35f),
+                                                    CircleShape
+                                                )
+                                                .clickable { showShiny = !showShiny },
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Text(
+                                                text = "✨",
+                                                fontSize = 13.sp
+                                            )
+                                        }
+                                    }
                                 }
 
                                 IconButton(
@@ -559,7 +1270,7 @@ fun PokedexDisplay(
                                 }
                             }
 
-                            // Unified Action & Forms Bar (Cry, Shiny, Mega, G-Max in ONE single row)
+                            // Action Buttons (Cry, Speak, Shiny)
                             Row(
                                 horizontalArrangement = Arrangement.Center,
                                 verticalAlignment = Alignment.CenterVertically,
@@ -602,28 +1313,19 @@ fun PokedexDisplay(
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Button(
                                         onClick = { showShiny = !showShiny },
-                                        colors = ButtonDefaults.buttonColors(containerColor = if (showShiny) Color(0xFF00FFCC) else Color.Black.copy(alpha = 0.5f)),
-                                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = if (showShiny) Color(0xFFFFD700) else Color.Black.copy(alpha = 0.5f)
+                                        ),
+                                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 4.dp),
                                         shape = RoundedCornerShape(6.dp),
                                         modifier = Modifier.heightIn(min = 34.dp)
                                     ) {
-                                        Text(if (showShiny) "★ SHINY" else "NORMAL", color = if (showShiny) Color.Black else Color.White, fontWeight = FontWeight.Bold, fontSize = 11.sp)
-                                    }
-                                }
-
-                                if (state.pokemon.forms.isNotEmpty()) {
-                                    val formsList = state.pokemon.forms.split(",")
-                                    formsList.forEach { formName ->
-                                        Spacer(modifier = Modifier.width(6.dp))
-                                        Button(
-                                            onClick = { viewModel.selectPokemonByName(formName) },
-                                            colors = ButtonDefaults.buttonColors(containerColor = Color.Black.copy(alpha = 0.5f)),
-                                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                                            shape = RoundedCornerShape(6.dp),
-                                            modifier = Modifier.heightIn(min = 34.dp)
-                                        ) {
-                                            Text(formName.uppercase(), color = Color(0xFFFFCC00), fontWeight = FontWeight.Bold, fontSize = 11.sp)
-                                        }
+                                        Text(
+                                            text = if (showShiny) "★ SHINY" else "NORMAL",
+                                            color = if (showShiny) Color.Black else Color.White,
+                                            fontWeight = if (showShiny) FontWeight.Black else FontWeight.Bold,
+                                            fontSize = 11.sp
+                                        )
                                     }
                                 }
                             }
@@ -696,7 +1398,7 @@ fun PokedexDisplay(
                                 Spacer(modifier = Modifier.height(4.dp))
                             }
 
-                            // 4. Unified Pokédex Data Panel
+                            // 4. Unified Pokédex Data Panel with Paired Edition Grouping
                             var entriesMap by remember { mutableStateOf<Map<String, String>>(emptyMap()) }
                             LaunchedEffect(state.pokemon.pokedexEntries) {
                                 try {
@@ -714,33 +1416,49 @@ fun PokedexDisplay(
                             }
 
                             val preferredEdition by viewModel.preferredGameEdition.collectAsState()
-                            var selectedVersion by remember { mutableStateOf("Default") }
-                            var expanded by remember { mutableStateOf(false) }
 
-                            LaunchedEffect(entriesMap, preferredEdition) {
-                                if (entriesMap.isNotEmpty()) {
-                                    val candidates = if (preferredEdition.contains("/")) {
-                                        preferredEdition.split("/").map { it.trim() }
-                                    } else if (preferredEdition.equals("Legends Arceus", ignoreCase = true) || preferredEdition.equals("Legends: Arceus", ignoreCase = true)) {
-                                        listOf("Legends Arceus", "Legends: Arceus", "Hisui")
-                                    } else {
-                                        listOf(preferredEdition)
+                            val availableCartridges = remember(entriesMap) {
+                                ALL_GAME_CARTRIDGES.filter { cartridge ->
+                                    cartridge.id == "Default" || entriesMap.keys.any { key ->
+                                        cartridge.candidateKeys.any { it.equals(key, ignoreCase = true) }
                                     }
-
-                                    var matchedKey: String? = null
-                                    for (cand in candidates) {
-                                        val found = entriesMap.keys.firstOrNull { it.equals(cand, ignoreCase = true) }
-                                        if (found != null) {
-                                            matchedKey = found
-                                            break
-                                        }
-                                    }
-
-                                    selectedVersion = matchedKey ?: if (entriesMap.containsKey(selectedVersion)) selectedVersion else entriesMap.keys.first()
                                 }
                             }
 
-                            val displayFlavorText = entriesMap[selectedVersion] ?: state.pokemon.flavorText
+                            var selectedCartridgeId by remember { mutableStateOf<String?>(null) }
+
+                            LaunchedEffect(state.pokemon.id, availableCartridges, preferredEdition) {
+                                if (availableCartridges.isNotEmpty()) {
+                                    val preferredMatch = availableCartridges.firstOrNull {
+                                        it.id.equals(preferredEdition, ignoreCase = true) ||
+                                        it.candidateKeys.any { k -> k.equals(preferredEdition, ignoreCase = true) }
+                                    }
+                                    selectedCartridgeId = preferredMatch?.id ?: availableCartridges.first().id
+                                } else {
+                                    selectedCartridgeId = "Default"
+                                }
+                            }
+
+                            val activeCartridge = availableCartridges.firstOrNull { it.id == selectedCartridgeId }
+                                ?: availableCartridges.firstOrNull()
+                                ?: ALL_GAME_CARTRIDGES.first()
+
+                            val displayFlavorText = remember(activeCartridge, state.pokemon, entriesMap) {
+                                if (activeCartridge.id == "Default") {
+                                    state.pokemon.flavorText
+                                } else {
+                                    var found: String? = null
+                                    for (cand in activeCartridge.candidateKeys) {
+                                        val match = entriesMap.entries.firstOrNull { it.key.equals(cand, ignoreCase = true) }
+                                        if (match != null) {
+                                            found = match.value
+                                            break
+                                        }
+                                    }
+                                    found ?: state.pokemon.flavorText
+                                }
+                            }
+
                             val cleanedFlavorText = displayFlavorText
                                 .replace("\n", " ")
                                 .replace("\u000c", " ")
@@ -751,7 +1469,7 @@ fun PokedexDisplay(
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .defaultMinSize(minHeight = 150.dp)
+                                    .weight(1f)
                                     .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(10.dp))
                                     .padding(horizontal = 12.dp, vertical = 10.dp)
                             ) {
@@ -767,61 +1485,103 @@ fun PokedexDisplay(
                                             fontSize = 12.sp,
                                             fontWeight = FontWeight.Bold
                                         )
-                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Spacer(modifier = Modifier.width(6.dp))
                                         IconButton(
-                                            onClick = { viewModel.readFlavorText(state.pokemon, cleanedFlavorText) },
-                                            modifier = Modifier.size(30.dp)
+                                            onClick = { viewModel.readFlavorText(state.pokemon, displayFlavorText) },
+                                            modifier = Modifier.size(28.dp)
                                         ) {
-                                            Text("🔊", fontSize = 16.sp)
+                                            Text("🔊", fontSize = 15.sp)
                                         }
                                     }
 
-                                    if (entriesMap.size > 1) {
-                                        Box {
-                                            Button(
-                                                onClick = { expanded = true },
-                                                colors = ButtonDefaults.buttonColors(containerColor = Color.Black.copy(alpha = 0.5f)),
-                                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
-                                                shape = RoundedCornerShape(6.dp),
-                                                modifier = Modifier.heightIn(min = 32.dp)
-                                            ) {
-                                                Text("VER: ${selectedVersion.uppercase()} ▼", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 10.sp)
-                                            }
-                                            DropdownMenu(
-                                                expanded = expanded,
-                                                onDismissRequest = { expanded = false },
-                                                modifier = Modifier
-                                                    .background(Color(0xFF222222))
-                                                    .heightIn(max = 240.dp)
-                                            ) {
-                                                entriesMap.keys.forEach { version ->
-                                                    DropdownMenuItem(
-                                                        text = { Text(version.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 11.sp) },
-                                                        onClick = {
-                                                            selectedVersion = version
-                                                            expanded = false
-                                                            viewModel.readFlavorText(state.pokemon, entriesMap[version] ?: state.pokemon.flavorText)
-                                                        }
-                                                    )
-                                                }
-                                            }
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Button(
+                                            onClick = { showEvolutionModal = true },
+                                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
+                                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                            shape = RoundedCornerShape(6.dp),
+                                            modifier = Modifier.heightIn(min = 30.dp)
+                                        ) {
+                                            Text("⚡ FORMS & EVOS", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 10.sp)
+                                        }
+
+                                        Spacer(modifier = Modifier.width(6.dp))
+
+                                        Button(
+                                            onClick = { showEditionModal = true },
+                                            colors = ButtonDefaults.buttonColors(containerColor = activeCartridge.cartridgeColor),
+                                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                            shape = RoundedCornerShape(6.dp),
+                                            modifier = Modifier
+                                                .heightIn(min = 30.dp)
+                                                .border(1.dp, activeCartridge.textColor.copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                                        ) {
+                                            Text(
+                                                text = "VER: ${activeCartridge.displayName} ▼",
+                                                color = activeCartridge.textColor,
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 10.sp
+                                            )
                                         }
                                     }
                                 }
 
                                 Spacer(modifier = Modifier.height(6.dp))
 
-                                Text(
-                                    text = cleanedFlavorText,
-                                    color = Color.White,
-                                    fontWeight = FontWeight.Normal,
-                                    fontSize = 15.sp,
-                                    lineHeight = 22.sp,
+                                Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .defaultMinSize(minHeight = 92.dp)
+                                        .weight(1f)
                                         .background(Color.Black.copy(alpha = 0.25f), RoundedCornerShape(8.dp))
                                         .padding(12.dp)
+                                        .verticalScroll(rememberScrollState())
+                                ) {
+                                    Text(
+                                        text = cleanedFlavorText,
+                                        color = Color.White,
+                                        fontWeight = FontWeight.Normal,
+                                        fontSize = 15.sp,
+                                        lineHeight = 22.sp,
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                }
+                            }
+
+                            if (showEvolutionModal) {
+                                EvolutionAndFormsModal(
+                                    pokemon = state.pokemon,
+                                    activeEditionKey = activeCartridge.id,
+                                    evolutionChain = evolutionChain,
+                                    viewModel = viewModel,
+                                    onDismiss = { showEvolutionModal = false }
+                                )
+                            }
+
+                            if (showEditionModal) {
+                                GameEditionModal(
+                                    title = "SELECT POKÉDEX VERSION",
+                                    subtitle = "Choose an edition to load its authentic lore & narration:",
+                                    cartridges = availableCartridges,
+                                    selectedCartridgeId = activeCartridge.id,
+                                    onSelectCartridge = { cartridge ->
+                                        selectedCartridgeId = cartridge.id
+                                        showEditionModal = false
+                                        val newText = if (cartridge.id == "Default") {
+                                            state.pokemon.flavorText
+                                        } else {
+                                            var matchText: String? = null
+                                            for (cand in cartridge.candidateKeys) {
+                                                val m = entriesMap.entries.firstOrNull { cand.equals(it.key, ignoreCase = true) }
+                                                if (m != null) {
+                                                    matchText = m.value
+                                                    break
+                                                }
+                                            }
+                                            matchText ?: state.pokemon.flavorText
+                                        }
+                                        viewModel.readFlavorText(state.pokemon, newText)
+                                    },
+                                    onDismiss = { showEditionModal = false }
                                 )
                             }
                         }
@@ -866,7 +1626,7 @@ fun SettingsDialog(viewModel: PokedexViewModel, onDismiss: () -> Unit) {
     var showCategoryDropdown by remember { mutableStateOf(false) }
     var showVoiceDropdown by remember { mutableStateOf(false) }
     var showScanPresetDropdown by remember { mutableStateOf(false) }
-    var showGameEditionDropdown by remember { mutableStateOf(false) }
+    var showGameEditionModal by remember { mutableStateOf(false) }
 
     val currentCategory = when (currentProfile) {
         VoiceProfile.ORIGINAL_90S_MALE, VoiceProfile.RETRO_FEMALE_90S -> VoiceCategory.RETRO_90S
@@ -1354,85 +2114,55 @@ fun SettingsDialog(viewModel: PokedexViewModel, onDismiss: () -> Unit) {
                                     fontSize = 11.sp
                                 )
 
-                                val gameEditions = listOf(
-                                    "Default" to "Auto / Debut Generation",
-                                    "Red / Blue" to "Red / Blue (Gen 1 Kanto)",
-                                    "Yellow" to "Yellow (Gen 1 Kanto)",
-                                    "Gold / Silver" to "Gold / Silver (Gen 2 Johto)",
-                                    "Crystal" to "Crystal (Gen 2 Johto)",
-                                    "Ruby / Sapphire" to "Ruby / Sapphire (Gen 3 Hoenn)",
-                                    "Emerald" to "Emerald (Gen 3 Hoenn)",
-                                    "FireRed / LeafGreen" to "FireRed / LeafGreen (Gen 1)",
-                                    "Diamond / Pearl" to "Diamond / Pearl (Gen 4 Sinnoh)",
-                                    "Platinum" to "Platinum (Gen 4 Sinnoh)",
-                                    "HeartGold / SoulSilver" to "HeartGold / SoulSilver (Gen 2)",
-                                    "Black / White" to "Black / White (Gen 5 Unova)",
-                                    "Black 2 / White 2" to "Black 2 / White 2 (Gen 5 Unova)",
-                                    "X / Y" to "X / Y (Gen 6 Kalos)",
-                                    "Omega Ruby / Alpha Sapphire" to "Omega Ruby / Alpha Sapphire (Gen 3)",
-                                    "Sun / Moon" to "Sun / Moon (Gen 7 Alola)",
-                                    "Ultra Sun / Ultra Moon" to "Ultra Sun / Ultra Moon (Gen 7 Alola)",
-                                    "Let's Go Pikachu / Eevee" to "Let's Go Pikachu / Eevee",
-                                    "Sword / Shield" to "Sword / Shield (Gen 8 Galar)",
-                                    "Legends: Arceus" to "Legends: Arceus (Hisui)",
-                                    "Scarlet / Violet" to "Scarlet / Violet (Gen 9 Paldea)"
-                                )
-
-                                val selectedEditionDisplay = gameEditions.firstOrNull { 
-                                    it.first.equals(preferredEdition, ignoreCase = true) || 
-                                    (preferredEdition.contains("/") && it.first.replace(" ", "").equals(preferredEdition.replace(" ", ""), ignoreCase = true))
-                                }?.second ?: if (preferredEdition == "Default") "Auto / Debut Generation" else preferredEdition
+                                val selectedCartridge = ALL_GAME_CARTRIDGES.firstOrNull {
+                                    it.id.equals(preferredEdition, ignoreCase = true) ||
+                                    it.candidateKeys.any { k -> k.equals(preferredEdition, ignoreCase = true) }
+                                } ?: ALL_GAME_CARTRIDGES.first()
 
                                 Box(modifier = Modifier.fillMaxWidth()) {
                                     Button(
-                                        onClick = { showGameEditionDropdown = true },
-                                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2C2C2C)),
-                                        shape = RoundedCornerShape(6.dp),
-                                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
-                                        modifier = Modifier.fillMaxWidth().height(42.dp)
+                                        onClick = { showGameEditionModal = true },
+                                        colors = ButtonDefaults.buttonColors(containerColor = selectedCartridge.cartridgeColor),
+                                        shape = RoundedCornerShape(8.dp),
+                                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp),
+                                        modifier = Modifier.fillMaxWidth().height(48.dp)
                                     ) {
                                         Row(
                                             modifier = Modifier.fillMaxWidth(),
                                             horizontalArrangement = Arrangement.SpaceBetween,
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            Text(
-                                                text = selectedEditionDisplay,
-                                                color = Color(0xFF00FFCC),
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 12.sp,
-                                                maxLines = 1
-                                            )
-                                            Text("▼", color = Color.Gray, fontSize = 11.sp)
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .size(12.dp)
+                                                        .background(selectedCartridge.textColor, CircleShape)
+                                                )
+                                                Spacer(modifier = Modifier.width(10.dp))
+                                                Text(
+                                                    text = "${selectedCartridge.displayName} (${selectedCartridge.generation})",
+                                                    color = selectedCartridge.textColor,
+                                                    fontWeight = FontWeight.Black,
+                                                    fontSize = 13.sp
+                                                )
+                                            }
+                                            Text("CHANGE ▼", color = selectedCartridge.textColor.copy(alpha = 0.85f), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                         }
                                     }
+                                }
 
-                                    DropdownMenu(
-                                        expanded = showGameEditionDropdown,
-                                        onDismissRequest = { showGameEditionDropdown = false },
-                                        modifier = Modifier
-                                            .fillMaxWidth(0.85f)
-                                            .heightIn(max = 240.dp)
-                                            .background(Color(0xFF222222))
-                                    ) {
-                                        gameEditions.forEach { (key, label) ->
-                                            val isSelected = key.equals(preferredEdition, ignoreCase = true)
-                                            DropdownMenuItem(
-                                                text = {
-                                                    Text(
-                                                        text = label,
-                                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                                        color = if (isSelected) Color(0xFF00FFCC) else Color.White,
-                                                        fontSize = 12.sp
-                                                    )
-                                                },
-                                                onClick = {
-                                                    showGameEditionDropdown = false
-                                                    viewModel.setPreferredGameEdition(key)
-                                                }
-                                            )
-                                        }
-                                    }
+                                if (showGameEditionModal) {
+                                    GameEditionModal(
+                                        title = "STANDARD GAME VERSION",
+                                        subtitle = "Select your preferred version for Pokédex data & narration:",
+                                        cartridges = ALL_GAME_CARTRIDGES,
+                                        selectedCartridgeId = selectedCartridge.id,
+                                        onSelectCartridge = { cartridge ->
+                                            viewModel.setPreferredGameEdition(cartridge.id)
+                                            showGameEditionModal = false
+                                        },
+                                        onDismiss = { showGameEditionModal = false }
+                                    )
                                 }
                             }
                         }

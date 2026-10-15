@@ -18,3 +18,18 @@ data class PokemonEntity(
     val forms: String,
     val pokedexEntries: String
 )
+
+fun PokemonEntity.getCanonicalId(allList: List<PokemonEntity>? = null): Int {
+    if (this.id <= 1025) return this.id
+    val cName = this.name.lowercase()
+    if (allList != null) {
+        val match = allList.firstOrNull { base ->
+            base.id <= 1025 && (
+                base.forms.split(",").map { it.trim().lowercase() }.contains(cName) ||
+                (base.name.lowercase().split("-")[0] == cName.split("-")[0])
+            )
+        }
+        if (match != null) return match.id
+    }
+    return this.id
+}

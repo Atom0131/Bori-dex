@@ -1,0 +1,9597 @@
+{
+  "1": {
+    "id": 1,
+    "name": "bulbasaur",
+    "evolutions": [
+      {
+        "targetId": 2,
+        "targetName": "Ivysaur",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "2": {
+    "id": 2,
+    "name": "ivysaur",
+    "evolutions": [
+      {
+        "targetId": 3,
+        "targetName": "Venusaur",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "3": {
+    "id": 3,
+    "name": "venusaur",
+    "evolutions": [
+      {
+        "targetId": 10033,
+        "targetName": "Mega Venusaur",
+        "defaultMethod": "Mega Evolve using Venusaurite",
+        "defaultItem": "venusaurite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Venusaurite in Lumiose City battles",
+            "item": "venusaurite.png",
+            "note": "Requires Mega Bracelet / Mega Ring."
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Venusaurite",
+            "item": "venusaurite.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City."
+          }
+        }
+      }
+    ]
+  },
+  "4": {
+    "id": 4,
+    "name": "charmander",
+    "evolutions": [
+      {
+        "targetId": 5,
+        "targetName": "Charmeleon",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "5": {
+    "id": 5,
+    "name": "charmeleon",
+    "evolutions": [
+      {
+        "targetId": 6,
+        "targetName": "Charizard",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "6": {
+    "id": 6,
+    "name": "charizard",
+    "evolutions": [
+      {
+        "targetId": 10034,
+        "targetName": "Mega Charizard X",
+        "defaultMethod": "Mega Evolve using Charizardite X",
+        "defaultItem": "charizardite-x.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Charizardite X in Lumiose City battles",
+            "item": "charizardite-x.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Transforms into Fire/Dragon type!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Charizardite X (Pokemon X)",
+            "item": "charizardite-x.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon X."
+          }
+        }
+      },
+      {
+        "targetId": 10035,
+        "targetName": "Mega Charizard Y",
+        "defaultMethod": "Mega Evolve using Charizardite Y",
+        "defaultItem": "charizardite-y.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Charizardite Y in Lumiose City battles",
+            "item": "charizardite-y.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Summons harsh sunlight with Drought!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Charizardite Y (Pokemon Y)",
+            "item": "charizardite-y.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon Y."
+          }
+        }
+      }
+    ]
+  },
+  "7": {
+    "id": 7,
+    "name": "squirtle",
+    "evolutions": [
+      {
+        "targetId": 8,
+        "targetName": "Wartortle",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "8": {
+    "id": 8,
+    "name": "wartortle",
+    "evolutions": [
+      {
+        "targetId": 9,
+        "targetName": "Blastoise",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "9": {
+    "id": 9,
+    "name": "blastoise",
+    "evolutions": [
+      {
+        "targetId": 10036,
+        "targetName": "Mega Blastoise",
+        "defaultMethod": "Mega Evolve using Blastoisinite",
+        "defaultItem": "blastoisinite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Blastoisinite in Lumiose City battles",
+            "item": "blastoisinite.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Mega Launcher powers up pulse moves!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Blastoisinite",
+            "item": "blastoisinite.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City."
+          }
+        }
+      }
+    ]
+  },
+  "10": {
+    "id": 10,
+    "name": "caterpie",
+    "evolutions": [
+      {
+        "targetId": 11,
+        "targetName": "Metapod",
+        "defaultMethod": "Reach Level 7",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "11": {
+    "id": 11,
+    "name": "metapod",
+    "evolutions": [
+      {
+        "targetId": 12,
+        "targetName": "Butterfree",
+        "defaultMethod": "Reach Level 10",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "12": {
+    "id": 12,
+    "name": "butterfree",
+    "evolutions": []
+  },
+  "13": {
+    "id": 13,
+    "name": "weedle",
+    "evolutions": [
+      {
+        "targetId": 14,
+        "targetName": "Kakuna",
+        "defaultMethod": "Reach Level 7",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "14": {
+    "id": 14,
+    "name": "kakuna",
+    "evolutions": [
+      {
+        "targetId": 15,
+        "targetName": "Beedrill",
+        "defaultMethod": "Reach Level 10",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "15": {
+    "id": 15,
+    "name": "beedrill",
+    "evolutions": []
+  },
+  "16": {
+    "id": 16,
+    "name": "pidgey",
+    "evolutions": [
+      {
+        "targetId": 17,
+        "targetName": "Pidgeotto",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "17": {
+    "id": 17,
+    "name": "pidgeotto",
+    "evolutions": [
+      {
+        "targetId": 18,
+        "targetName": "Pidgeot",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "18": {
+    "id": 18,
+    "name": "pidgeot",
+    "evolutions": []
+  },
+  "19": {
+    "id": 19,
+    "name": "rattata",
+    "evolutions": [
+      {
+        "targetId": 20,
+        "targetName": "Raticate",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "20": {
+    "id": 20,
+    "name": "raticate",
+    "evolutions": []
+  },
+  "21": {
+    "id": 21,
+    "name": "spearow",
+    "evolutions": [
+      {
+        "targetId": 22,
+        "targetName": "Fearow",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "22": {
+    "id": 22,
+    "name": "fearow",
+    "evolutions": []
+  },
+  "23": {
+    "id": 23,
+    "name": "ekans",
+    "evolutions": [
+      {
+        "targetId": 24,
+        "targetName": "Arbok",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "24": {
+    "id": 24,
+    "name": "arbok",
+    "evolutions": []
+  },
+  "25": {
+    "id": 25,
+    "name": "pikachu",
+    "evolutions": [
+      {
+        "targetId": 26,
+        "targetName": "Raichu",
+        "defaultMethod": "Use Thunder Stone",
+        "defaultItem": "thunder-stone.png",
+        "versionNotes": {
+          "Sun / Moon": {
+            "method": "Use Thunder Stone (evolves into Psychic/Electric Alolan Raichu!)",
+            "item": "thunder-stone.png"
+          },
+          "Ultra Sun / Ultra Moon": {
+            "method": "Use Thunder Stone (evolves into Alolan Raichu in Alola, or Kantonian Raichu in Ultra Space!)",
+            "item": "thunder-stone.png"
+          }
+        }
+      }
+    ]
+  },
+  "26": {
+    "id": 26,
+    "name": "raichu",
+    "evolutions": []
+  },
+  "27": {
+    "id": 27,
+    "name": "sandshrew",
+    "evolutions": [
+      {
+        "targetId": 28,
+        "targetName": "Sandslash",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "28": {
+    "id": 28,
+    "name": "sandslash",
+    "evolutions": []
+  },
+  "29": {
+    "id": 29,
+    "name": "nidoran-f",
+    "evolutions": [
+      {
+        "targetId": 30,
+        "targetName": "Nidorina",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "30": {
+    "id": 30,
+    "name": "nidorina",
+    "evolutions": [
+      {
+        "targetId": 31,
+        "targetName": "Nidoqueen",
+        "defaultMethod": "Use Moon Stone",
+        "defaultItem": "moon-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "31": {
+    "id": 31,
+    "name": "nidoqueen",
+    "evolutions": []
+  },
+  "32": {
+    "id": 32,
+    "name": "nidoran-m",
+    "evolutions": [
+      {
+        "targetId": 33,
+        "targetName": "Nidorino",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "33": {
+    "id": 33,
+    "name": "nidorino",
+    "evolutions": [
+      {
+        "targetId": 34,
+        "targetName": "Nidoking",
+        "defaultMethod": "Use Moon Stone",
+        "defaultItem": "moon-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "34": {
+    "id": 34,
+    "name": "nidoking",
+    "evolutions": []
+  },
+  "35": {
+    "id": 35,
+    "name": "clefairy",
+    "evolutions": [
+      {
+        "targetId": 36,
+        "targetName": "Clefable",
+        "defaultMethod": "Use Moon Stone",
+        "defaultItem": "moon-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "36": {
+    "id": 36,
+    "name": "clefable",
+    "evolutions": []
+  },
+  "37": {
+    "id": 37,
+    "name": "vulpix",
+    "evolutions": [
+      {
+        "targetId": 38,
+        "targetName": "Ninetales",
+        "defaultMethod": "Use Fire Stone",
+        "defaultItem": "fire-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "38": {
+    "id": 38,
+    "name": "ninetales",
+    "evolutions": []
+  },
+  "39": {
+    "id": 39,
+    "name": "jigglypuff",
+    "evolutions": [
+      {
+        "targetId": 40,
+        "targetName": "Wigglytuff",
+        "defaultMethod": "Use Moon Stone",
+        "defaultItem": "moon-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "40": {
+    "id": 40,
+    "name": "wigglytuff",
+    "evolutions": []
+  },
+  "41": {
+    "id": 41,
+    "name": "zubat",
+    "evolutions": [
+      {
+        "targetId": 42,
+        "targetName": "Golbat",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "42": {
+    "id": 42,
+    "name": "golbat",
+    "evolutions": [
+      {
+        "targetId": 169,
+        "targetName": "Crobat",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "43": {
+    "id": 43,
+    "name": "oddish",
+    "evolutions": [
+      {
+        "targetId": 44,
+        "targetName": "Gloom",
+        "defaultMethod": "Reach Level 21",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "44": {
+    "id": 44,
+    "name": "gloom",
+    "evolutions": [
+      {
+        "targetId": 45,
+        "targetName": "Vileplume",
+        "defaultMethod": "Use Leaf Stone",
+        "defaultItem": "leaf-stone.png",
+        "versionNotes": {}
+      },
+      {
+        "targetId": 182,
+        "targetName": "Bellossom",
+        "defaultMethod": "Use Sun Stone",
+        "defaultItem": "sun-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "45": {
+    "id": 45,
+    "name": "vileplume",
+    "evolutions": []
+  },
+  "46": {
+    "id": 46,
+    "name": "paras",
+    "evolutions": [
+      {
+        "targetId": 47,
+        "targetName": "Parasect",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "47": {
+    "id": 47,
+    "name": "parasect",
+    "evolutions": []
+  },
+  "48": {
+    "id": 48,
+    "name": "venonat",
+    "evolutions": [
+      {
+        "targetId": 49,
+        "targetName": "Venomoth",
+        "defaultMethod": "Reach Level 31",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "49": {
+    "id": 49,
+    "name": "venomoth",
+    "evolutions": []
+  },
+  "50": {
+    "id": 50,
+    "name": "diglett",
+    "evolutions": [
+      {
+        "targetId": 51,
+        "targetName": "Dugtrio",
+        "defaultMethod": "Reach Level 26",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "51": {
+    "id": 51,
+    "name": "dugtrio",
+    "evolutions": []
+  },
+  "52": {
+    "id": 52,
+    "name": "meowth",
+    "evolutions": [
+      {
+        "targetId": 53,
+        "targetName": "Persian",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 863,
+        "targetName": "Perrserker",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "53": {
+    "id": 53,
+    "name": "persian",
+    "evolutions": []
+  },
+  "54": {
+    "id": 54,
+    "name": "psyduck",
+    "evolutions": [
+      {
+        "targetId": 55,
+        "targetName": "Golduck",
+        "defaultMethod": "Reach Level 33",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "55": {
+    "id": 55,
+    "name": "golduck",
+    "evolutions": []
+  },
+  "56": {
+    "id": 56,
+    "name": "mankey",
+    "evolutions": [
+      {
+        "targetId": 57,
+        "targetName": "Primeape",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "57": {
+    "id": 57,
+    "name": "primeape",
+    "evolutions": [
+      {
+        "targetId": 979,
+        "targetName": "Annihilape",
+        "defaultMethod": "Use Move",
+        "defaultItem": null,
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Use Rage Fist 20 times in battle, then level up",
+            "item": null,
+            "note": "Primeape learns Rage Fist at Level 35. Moves count even against Normal types or protected hits."
+          }
+        }
+      }
+    ]
+  },
+  "58": {
+    "id": 58,
+    "name": "growlithe",
+    "evolutions": [
+      {
+        "targetId": 59,
+        "targetName": "Arcanine",
+        "defaultMethod": "Use Fire Stone",
+        "defaultItem": "fire-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "59": {
+    "id": 59,
+    "name": "arcanine",
+    "evolutions": []
+  },
+  "60": {
+    "id": 60,
+    "name": "poliwag",
+    "evolutions": [
+      {
+        "targetId": 61,
+        "targetName": "Poliwhirl",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "61": {
+    "id": 61,
+    "name": "poliwhirl",
+    "evolutions": [
+      {
+        "targetId": 62,
+        "targetName": "Poliwrath",
+        "defaultMethod": "Use Water Stone",
+        "defaultItem": "water-stone.png",
+        "versionNotes": {}
+      },
+      {
+        "targetId": 186,
+        "targetName": "Politoed",
+        "defaultMethod": "Trade holding Kings Rock",
+        "defaultItem": "kings-rock.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "62": {
+    "id": 62,
+    "name": "poliwrath",
+    "evolutions": []
+  },
+  "63": {
+    "id": 63,
+    "name": "abra",
+    "evolutions": [
+      {
+        "targetId": 64,
+        "targetName": "Kadabra",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "64": {
+    "id": 64,
+    "name": "kadabra",
+    "evolutions": [
+      {
+        "targetId": 65,
+        "targetName": "Alakazam",
+        "defaultMethod": "Trade with another player",
+        "defaultItem": null,
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Linking Cord item (no trade needed!)",
+            "item": "linking-cord.png",
+            "note": "Can also be caught as Alpha in Sandgem Flats."
+          }
+        }
+      }
+    ]
+  },
+  "65": {
+    "id": 65,
+    "name": "alakazam",
+    "evolutions": []
+  },
+  "66": {
+    "id": 66,
+    "name": "machop",
+    "evolutions": [
+      {
+        "targetId": 67,
+        "targetName": "Machoke",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "67": {
+    "id": 67,
+    "name": "machoke",
+    "evolutions": [
+      {
+        "targetId": 68,
+        "targetName": "Machamp",
+        "defaultMethod": "Trade with another player",
+        "defaultItem": null,
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Linking Cord item (no trade needed!)",
+            "item": "linking-cord.png",
+            "note": "Can also be caught as Alpha in Arena's Approach."
+          }
+        }
+      }
+    ]
+  },
+  "68": {
+    "id": 68,
+    "name": "machamp",
+    "evolutions": []
+  },
+  "69": {
+    "id": 69,
+    "name": "bellsprout",
+    "evolutions": [
+      {
+        "targetId": 70,
+        "targetName": "Weepinbell",
+        "defaultMethod": "Reach Level 21",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "70": {
+    "id": 70,
+    "name": "weepinbell",
+    "evolutions": [
+      {
+        "targetId": 71,
+        "targetName": "Victreebel",
+        "defaultMethod": "Use Leaf Stone",
+        "defaultItem": "leaf-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "71": {
+    "id": 71,
+    "name": "victreebel",
+    "evolutions": []
+  },
+  "72": {
+    "id": 72,
+    "name": "tentacool",
+    "evolutions": [
+      {
+        "targetId": 73,
+        "targetName": "Tentacruel",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "73": {
+    "id": 73,
+    "name": "tentacruel",
+    "evolutions": []
+  },
+  "74": {
+    "id": 74,
+    "name": "geodude",
+    "evolutions": [
+      {
+        "targetId": 75,
+        "targetName": "Graveler",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "75": {
+    "id": 75,
+    "name": "graveler",
+    "evolutions": [
+      {
+        "targetId": 76,
+        "targetName": "Golem",
+        "defaultMethod": "Trade with another player",
+        "defaultItem": null,
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Linking Cord item (no trade needed!)",
+            "item": "linking-cord.png",
+            "note": "Can also be caught as Alpha in Bolderoll Ravine."
+          }
+        }
+      }
+    ]
+  },
+  "76": {
+    "id": 76,
+    "name": "golem",
+    "evolutions": []
+  },
+  "77": {
+    "id": 77,
+    "name": "ponyta",
+    "evolutions": [
+      {
+        "targetId": 78,
+        "targetName": "Rapidash",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "78": {
+    "id": 78,
+    "name": "rapidash",
+    "evolutions": []
+  },
+  "79": {
+    "id": 79,
+    "name": "slowpoke",
+    "evolutions": [
+      {
+        "targetId": 80,
+        "targetName": "Slowbro",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 199,
+        "targetName": "Slowking",
+        "defaultMethod": "Trade holding Kings Rock",
+        "defaultItem": "kings-rock.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "80": {
+    "id": 80,
+    "name": "slowbro",
+    "evolutions": []
+  },
+  "81": {
+    "id": 81,
+    "name": "magnemite",
+    "evolutions": [
+      {
+        "targetId": 82,
+        "targetName": "Magneton",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "82": {
+    "id": 82,
+    "name": "magneton",
+    "evolutions": [
+      {
+        "targetId": 462,
+        "targetName": "Magnezone",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {
+          "Diamond / Pearl": {
+            "method": "Level up in magnetic field at Mt. Coronet",
+            "item": null
+          },
+          "Black / White": {
+            "method": "Level up in magnetic field at Chargestone Cave",
+            "item": null
+          },
+          "X / Y": {
+            "method": "Level up in magnetic field on Route 13",
+            "item": null
+          },
+          "Sun / Moon": {
+            "method": "Level up in magnetic field at Blush Mountain",
+            "item": null
+          },
+          "Sword / Shield": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Legends: Arceus": {
+            "method": "Use Thunder Stone (or level up at Coronet Highlands)",
+            "item": "thunder-stone.png"
+          },
+          "Scarlet / Violet": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          }
+        }
+      }
+    ]
+  },
+  "83": {
+    "id": 83,
+    "name": "farfetchd",
+    "evolutions": [
+      {
+        "targetId": 865,
+        "targetName": "Sirfetchd",
+        "defaultMethod": "Three Critical Hits",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "84": {
+    "id": 84,
+    "name": "doduo",
+    "evolutions": [
+      {
+        "targetId": 85,
+        "targetName": "Dodrio",
+        "defaultMethod": "Reach Level 31",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "85": {
+    "id": 85,
+    "name": "dodrio",
+    "evolutions": []
+  },
+  "86": {
+    "id": 86,
+    "name": "seel",
+    "evolutions": [
+      {
+        "targetId": 87,
+        "targetName": "Dewgong",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "87": {
+    "id": 87,
+    "name": "dewgong",
+    "evolutions": []
+  },
+  "88": {
+    "id": 88,
+    "name": "grimer",
+    "evolutions": [
+      {
+        "targetId": 89,
+        "targetName": "Muk",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "89": {
+    "id": 89,
+    "name": "muk",
+    "evolutions": []
+  },
+  "90": {
+    "id": 90,
+    "name": "shellder",
+    "evolutions": [
+      {
+        "targetId": 91,
+        "targetName": "Cloyster",
+        "defaultMethod": "Use Water Stone",
+        "defaultItem": "water-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "91": {
+    "id": 91,
+    "name": "cloyster",
+    "evolutions": []
+  },
+  "92": {
+    "id": 92,
+    "name": "gastly",
+    "evolutions": [
+      {
+        "targetId": 93,
+        "targetName": "Haunter",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "93": {
+    "id": 93,
+    "name": "haunter",
+    "evolutions": [
+      {
+        "targetId": 94,
+        "targetName": "Gengar",
+        "defaultMethod": "Trade with another player",
+        "defaultItem": null,
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Linking Cord item (no trade needed!)",
+            "item": "linking-cord.png",
+            "note": "Purchase Linking Cord at Simona's Merit Point shop in Jubilife Village."
+          },
+          "Scarlet / Violet": {
+            "method": "Trade with another player, OR in-game trade in Levincia",
+            "item": null,
+            "note": "Trade a Pincurchin to Blossom in Levincia for Haunter ('Hauntikins'), which evolves into Gengar immediately upon receipt!"
+          },
+          "Let's Go Pikachu / Eevee": {
+            "method": "Trade with another player, or transfer Gengar from Pokémon GO",
+            "item": null,
+            "note": "Can be transferred directly into GO Park in Fuchsia City."
+          }
+        }
+      }
+    ]
+  },
+  "94": {
+    "id": 94,
+    "name": "gengar",
+    "evolutions": [
+      {
+        "targetId": 10038,
+        "targetName": "Mega Gengar",
+        "defaultMethod": "Mega Evolve using Gengarite",
+        "defaultItem": "gengarite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Gengarite in Lumiose City battles",
+            "item": "gengarite.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Shadow Tag prevents foes from fleeing!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Gengarite",
+            "item": "gengarite.png",
+            "note": "Found in Laverre City from an occultist."
+          }
+        }
+      }
+    ]
+  },
+  "95": {
+    "id": 95,
+    "name": "onix",
+    "evolutions": [
+      {
+        "targetId": 208,
+        "targetName": "Steelix",
+        "defaultMethod": "Trade holding Metal Coat",
+        "defaultItem": "metal-coat.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Metal Coat directly as an evolution item (no trade required!)",
+            "item": "metal-coat.png"
+          }
+        }
+      }
+    ]
+  },
+  "96": {
+    "id": 96,
+    "name": "drowzee",
+    "evolutions": [
+      {
+        "targetId": 97,
+        "targetName": "Hypno",
+        "defaultMethod": "Reach Level 26",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "97": {
+    "id": 97,
+    "name": "hypno",
+    "evolutions": []
+  },
+  "98": {
+    "id": 98,
+    "name": "krabby",
+    "evolutions": [
+      {
+        "targetId": 99,
+        "targetName": "Kingler",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "99": {
+    "id": 99,
+    "name": "kingler",
+    "evolutions": []
+  },
+  "100": {
+    "id": 100,
+    "name": "voltorb",
+    "evolutions": [
+      {
+        "targetId": 101,
+        "targetName": "Electrode",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "101": {
+    "id": 101,
+    "name": "electrode",
+    "evolutions": []
+  },
+  "102": {
+    "id": 102,
+    "name": "exeggcute",
+    "evolutions": [
+      {
+        "targetId": 103,
+        "targetName": "Exeggutor",
+        "defaultMethod": "Use Leaf Stone",
+        "defaultItem": "leaf-stone.png",
+        "versionNotes": {
+          "Sun / Moon": {
+            "method": "Use Leaf Stone (evolves into Grass/Dragon Alolan Exeggutor!)",
+            "item": "leaf-stone.png"
+          },
+          "Ultra Sun / Ultra Moon": {
+            "method": "Use Leaf Stone (evolves into Alolan Exeggutor in Alola, Kantonian in Ultra Space!)",
+            "item": "leaf-stone.png"
+          }
+        }
+      }
+    ]
+  },
+  "103": {
+    "id": 103,
+    "name": "exeggutor",
+    "evolutions": []
+  },
+  "104": {
+    "id": 104,
+    "name": "cubone",
+    "evolutions": [
+      {
+        "targetId": 105,
+        "targetName": "Marowak",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {
+          "Sun / Moon": {
+            "method": "Reach Level 28 at Night (evolves into Fire/Ghost Alolan Marowak!)",
+            "item": null
+          },
+          "Ultra Sun / Ultra Moon": {
+            "method": "Reach Level 28 at Night (evolves into Alolan Marowak!)",
+            "item": null
+          }
+        }
+      }
+    ]
+  },
+  "105": {
+    "id": 105,
+    "name": "marowak",
+    "evolutions": []
+  },
+  "106": {
+    "id": 106,
+    "name": "hitmonlee",
+    "evolutions": []
+  },
+  "107": {
+    "id": 107,
+    "name": "hitmonchan",
+    "evolutions": []
+  },
+  "108": {
+    "id": 108,
+    "name": "lickitung",
+    "evolutions": [
+      {
+        "targetId": 463,
+        "targetName": "Lickilicky",
+        "defaultMethod": "Level up knowing Rollout",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "109": {
+    "id": 109,
+    "name": "koffing",
+    "evolutions": [
+      {
+        "targetId": 110,
+        "targetName": "Weezing",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {
+          "Sword / Shield": {
+            "method": "Reach Level 35 (evolves into Poison/Fairy Galarian Weezing!)",
+            "item": null
+          }
+        }
+      }
+    ]
+  },
+  "110": {
+    "id": 110,
+    "name": "weezing",
+    "evolutions": []
+  },
+  "111": {
+    "id": 111,
+    "name": "rhyhorn",
+    "evolutions": [
+      {
+        "targetId": 112,
+        "targetName": "Rhydon",
+        "defaultMethod": "Reach Level 42",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "112": {
+    "id": 112,
+    "name": "rhydon",
+    "evolutions": [
+      {
+        "targetId": 464,
+        "targetName": "Rhyperior",
+        "defaultMethod": "Trade holding Protector",
+        "defaultItem": "protector.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Protector directly (no trade required!)",
+            "item": "protector.png"
+          }
+        }
+      }
+    ]
+  },
+  "113": {
+    "id": 113,
+    "name": "chansey",
+    "evolutions": [
+      {
+        "targetId": 242,
+        "targetName": "Blissey",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "114": {
+    "id": 114,
+    "name": "tangela",
+    "evolutions": [
+      {
+        "targetId": 465,
+        "targetName": "Tangrowth",
+        "defaultMethod": "Level up knowing Ancient Power",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "115": {
+    "id": 115,
+    "name": "kangaskhan",
+    "evolutions": []
+  },
+  "116": {
+    "id": 116,
+    "name": "horsea",
+    "evolutions": [
+      {
+        "targetId": 117,
+        "targetName": "Seadra",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "117": {
+    "id": 117,
+    "name": "seadra",
+    "evolutions": [
+      {
+        "targetId": 230,
+        "targetName": "Kingdra",
+        "defaultMethod": "Trade holding Dragon Scale",
+        "defaultItem": "dragon-scale.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "118": {
+    "id": 118,
+    "name": "goldeen",
+    "evolutions": [
+      {
+        "targetId": 119,
+        "targetName": "Seaking",
+        "defaultMethod": "Reach Level 33",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "119": {
+    "id": 119,
+    "name": "seaking",
+    "evolutions": []
+  },
+  "120": {
+    "id": 120,
+    "name": "staryu",
+    "evolutions": [
+      {
+        "targetId": 121,
+        "targetName": "Starmie",
+        "defaultMethod": "Use Water Stone",
+        "defaultItem": "water-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "121": {
+    "id": 121,
+    "name": "starmie",
+    "evolutions": []
+  },
+  "122": {
+    "id": 122,
+    "name": "mr-mime",
+    "evolutions": [
+      {
+        "targetId": 866,
+        "targetName": "Mr Rime",
+        "defaultMethod": "Reach Level 42",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "123": {
+    "id": 123,
+    "name": "scyther",
+    "evolutions": [
+      {
+        "targetId": 212,
+        "targetName": "Scizor",
+        "defaultMethod": "Trade holding Metal Coat",
+        "defaultItem": "metal-coat.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Metal Coat directly as an evolution item (no trade required!)",
+            "item": "metal-coat.png"
+          }
+        }
+      },
+      {
+        "targetId": 900,
+        "targetName": "Kleavor",
+        "defaultMethod": "Use Black Augurite",
+        "defaultItem": "black-augurite.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Black Augurite item",
+            "item": "black-augurite.png",
+            "note": "Black Augurite is dropped by Graveler or dug up using Ride Ursaluna."
+          },
+          "Scarlet / Violet": {
+            "method": "Evolve in Legends: Arceus and transfer via Pokémon HOME (or catch in special Tera Raid)",
+            "item": null
+          }
+        }
+      }
+    ]
+  },
+  "124": {
+    "id": 124,
+    "name": "jynx",
+    "evolutions": []
+  },
+  "125": {
+    "id": 125,
+    "name": "electabuzz",
+    "evolutions": [
+      {
+        "targetId": 466,
+        "targetName": "Electivire",
+        "defaultMethod": "Trade holding Electirizer",
+        "defaultItem": "electirizer.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Electirizer directly (no trade required!)",
+            "item": "electirizer.png"
+          }
+        }
+      }
+    ]
+  },
+  "126": {
+    "id": 126,
+    "name": "magmar",
+    "evolutions": [
+      {
+        "targetId": 467,
+        "targetName": "Magmortar",
+        "defaultMethod": "Trade holding Magmarizer",
+        "defaultItem": "magmarizer.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Magmarizer directly (no trade required!)",
+            "item": "magmarizer.png"
+          }
+        }
+      }
+    ]
+  },
+  "127": {
+    "id": 127,
+    "name": "pinsir",
+    "evolutions": []
+  },
+  "128": {
+    "id": 128,
+    "name": "tauros",
+    "evolutions": []
+  },
+  "129": {
+    "id": 129,
+    "name": "magikarp",
+    "evolutions": [
+      {
+        "targetId": 130,
+        "targetName": "Gyarados",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "130": {
+    "id": 130,
+    "name": "gyarados",
+    "evolutions": []
+  },
+  "131": {
+    "id": 131,
+    "name": "lapras",
+    "evolutions": []
+  },
+  "132": {
+    "id": 132,
+    "name": "ditto",
+    "evolutions": []
+  },
+  "133": {
+    "id": 133,
+    "name": "eevee",
+    "evolutions": [
+      {
+        "targetId": 134,
+        "targetName": "Vaporeon",
+        "defaultMethod": "Use Water Stone",
+        "defaultItem": "water-stone.png",
+        "versionNotes": {}
+      },
+      {
+        "targetId": 135,
+        "targetName": "Jolteon",
+        "defaultMethod": "Use Thunder Stone",
+        "defaultItem": "thunder-stone.png",
+        "versionNotes": {}
+      },
+      {
+        "targetId": 136,
+        "targetName": "Flareon",
+        "defaultMethod": "Use Fire Stone",
+        "defaultItem": "fire-stone.png",
+        "versionNotes": {}
+      },
+      {
+        "targetId": 196,
+        "targetName": "Espeon",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160) during the daytime",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 197,
+        "targetName": "Umbreon",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160) during the nighttime",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 470,
+        "targetName": "Leafeon",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {
+          "Diamond / Pearl": {
+            "method": "Level up near Moss Rock in Eterna Forest",
+            "item": null
+          },
+          "Platinum": {
+            "method": "Level up near Moss Rock in Eterna Forest",
+            "item": null
+          },
+          "HeartGold / SoulSilver": {
+            "method": "Trade to Sinnoh to evolve near Moss Rock",
+            "item": null
+          },
+          "Black / White": {
+            "method": "Level up near Moss Rock in Pinwheel Forest",
+            "item": null
+          },
+          "Black 2 / White 2": {
+            "method": "Level up near Moss Rock in Pinwheel Forest",
+            "item": null
+          },
+          "X / Y": {
+            "method": "Level up near Moss Rock on Route 20",
+            "item": null
+          },
+          "Omega Ruby / Alpha Sapphire": {
+            "method": "Level up near Moss Rock in Petalburg Woods",
+            "item": null
+          },
+          "Sun / Moon": {
+            "method": "Level up near Moss Rock in Lush Jungle",
+            "item": null
+          },
+          "Ultra Sun / Ultra Moon": {
+            "method": "Level up near Moss Rock in Lush Jungle",
+            "item": null
+          },
+          "Sword / Shield": {
+            "method": "Use Leaf Stone",
+            "item": "leaf-stone.png"
+          },
+          "Legends: Arceus": {
+            "method": "Use Leaf Stone (or examine Moss Rock in Obsidian Fieldlands)",
+            "item": "leaf-stone.png"
+          },
+          "Scarlet / Violet": {
+            "method": "Use Leaf Stone",
+            "item": "leaf-stone.png"
+          }
+        }
+      },
+      {
+        "targetId": 471,
+        "targetName": "Glaceon",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {
+          "Diamond / Pearl": {
+            "method": "Level up near Ice Rock on Route 217",
+            "item": null
+          },
+          "Platinum": {
+            "method": "Level up near Ice Rock on Route 217",
+            "item": null
+          },
+          "HeartGold / SoulSilver": {
+            "method": "Trade to Sinnoh to evolve near Ice Rock",
+            "item": null
+          },
+          "Black / White": {
+            "method": "Level up near Ice Rock in Twist Mountain",
+            "item": null
+          },
+          "Black 2 / White 2": {
+            "method": "Level up near Ice Rock in Twist Mountain",
+            "item": null
+          },
+          "X / Y": {
+            "method": "Level up near Ice Rock in Frost Cavern",
+            "item": null
+          },
+          "Omega Ruby / Alpha Sapphire": {
+            "method": "Level up near Ice Rock in Shoal Cave",
+            "item": null
+          },
+          "Sun / Moon": {
+            "method": "Level up near Ice Rock at Mount Lanakila",
+            "item": null
+          },
+          "Ultra Sun / Ultra Moon": {
+            "method": "Level up near Ice Rock at Mount Lanakila",
+            "item": null
+          },
+          "Sword / Shield": {
+            "method": "Use Ice Stone",
+            "item": "ice-stone.png"
+          },
+          "Legends: Arceus": {
+            "method": "Use Ice Stone (or examine Ice Rock in Alabaster Icelands)",
+            "item": "ice-stone.png"
+          },
+          "Scarlet / Violet": {
+            "method": "Use Ice Stone",
+            "item": "ice-stone.png"
+          }
+        }
+      },
+      {
+        "targetId": 700,
+        "targetName": "Sylveon",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {
+          "X / Y": {
+            "method": "2 Affection hearts in Pokémon-Amie + know a Fairy move + level up",
+            "item": null
+          },
+          "Sun / Moon": {
+            "method": "2 Affection hearts in Pokémon Refresh + know a Fairy move + level up",
+            "item": null
+          },
+          "Sword / Shield": {
+            "method": "High Friendship + know a Fairy-type move + level up",
+            "item": null
+          },
+          "Legends: Arceus": {
+            "method": "High Friendship + know a Fairy-type move",
+            "item": null
+          },
+          "Scarlet / Violet": {
+            "method": "High Friendship (at least 3 hearts) + know a Fairy move (Baby-Doll Eyes) + level up",
+            "item": null
+          }
+        }
+      }
+    ]
+  },
+  "134": {
+    "id": 134,
+    "name": "vaporeon",
+    "evolutions": []
+  },
+  "135": {
+    "id": 135,
+    "name": "jolteon",
+    "evolutions": []
+  },
+  "136": {
+    "id": 136,
+    "name": "flareon",
+    "evolutions": []
+  },
+  "137": {
+    "id": 137,
+    "name": "porygon",
+    "evolutions": [
+      {
+        "targetId": 233,
+        "targetName": "Porygon2",
+        "defaultMethod": "Trade holding Up Grade",
+        "defaultItem": null,
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Upgrade directly (no trade required!)",
+            "item": "upgrade.png"
+          }
+        }
+      }
+    ]
+  },
+  "138": {
+    "id": 138,
+    "name": "omanyte",
+    "evolutions": [
+      {
+        "targetId": 139,
+        "targetName": "Omastar",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "139": {
+    "id": 139,
+    "name": "omastar",
+    "evolutions": []
+  },
+  "140": {
+    "id": 140,
+    "name": "kabuto",
+    "evolutions": [
+      {
+        "targetId": 141,
+        "targetName": "Kabutops",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "141": {
+    "id": 141,
+    "name": "kabutops",
+    "evolutions": []
+  },
+  "142": {
+    "id": 142,
+    "name": "aerodactyl",
+    "evolutions": []
+  },
+  "143": {
+    "id": 143,
+    "name": "snorlax",
+    "evolutions": []
+  },
+  "144": {
+    "id": 144,
+    "name": "articuno",
+    "evolutions": []
+  },
+  "145": {
+    "id": 145,
+    "name": "zapdos",
+    "evolutions": []
+  },
+  "146": {
+    "id": 146,
+    "name": "moltres",
+    "evolutions": []
+  },
+  "147": {
+    "id": 147,
+    "name": "dratini",
+    "evolutions": [
+      {
+        "targetId": 148,
+        "targetName": "Dragonair",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "148": {
+    "id": 148,
+    "name": "dragonair",
+    "evolutions": [
+      {
+        "targetId": 149,
+        "targetName": "Dragonite",
+        "defaultMethod": "Reach Level 55",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "149": {
+    "id": 149,
+    "name": "dragonite",
+    "evolutions": []
+  },
+  "150": {
+    "id": 150,
+    "name": "mewtwo",
+    "evolutions": [
+      {
+        "targetId": 10043,
+        "targetName": "Mega Mewtwo X",
+        "defaultMethod": "Mega Evolve using Mewtwonite X",
+        "defaultItem": "mewtwonite-x.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Mewtwonite X in Lumiose City",
+            "item": "mewtwonite-x.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Transforms into Psychic/Fighting!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Mewtwonite X (Pokemon X)",
+            "item": "mewtwonite-x.png",
+            "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
+          }
+        }
+      },
+      {
+        "targetId": 10044,
+        "targetName": "Mega Mewtwo Y",
+        "defaultMethod": "Mega Evolve using Mewtwonite Y",
+        "defaultItem": "mewtwonite-y.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Mewtwonite Y in Lumiose City",
+            "item": "mewtwonite-y.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Massive Special Attack boost with Insomnia!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Mewtwonite Y (Pokemon Y)",
+            "item": "mewtwonite-y.png",
+            "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
+          }
+        }
+      }
+    ]
+  },
+  "151": {
+    "id": 151,
+    "name": "mew",
+    "evolutions": []
+  },
+  "152": {
+    "id": 152,
+    "name": "chikorita",
+    "evolutions": [
+      {
+        "targetId": 153,
+        "targetName": "Bayleef",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "153": {
+    "id": 153,
+    "name": "bayleef",
+    "evolutions": [
+      {
+        "targetId": 154,
+        "targetName": "Meganium",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "154": {
+    "id": 154,
+    "name": "meganium",
+    "evolutions": []
+  },
+  "155": {
+    "id": 155,
+    "name": "cyndaquil",
+    "evolutions": [
+      {
+        "targetId": 156,
+        "targetName": "Quilava",
+        "defaultMethod": "Reach Level 14",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "156": {
+    "id": 156,
+    "name": "quilava",
+    "evolutions": [
+      {
+        "targetId": 157,
+        "targetName": "Typhlosion",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "157": {
+    "id": 157,
+    "name": "typhlosion",
+    "evolutions": []
+  },
+  "158": {
+    "id": 158,
+    "name": "totodile",
+    "evolutions": [
+      {
+        "targetId": 159,
+        "targetName": "Croconaw",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "159": {
+    "id": 159,
+    "name": "croconaw",
+    "evolutions": [
+      {
+        "targetId": 160,
+        "targetName": "Feraligatr",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "160": {
+    "id": 160,
+    "name": "feraligatr",
+    "evolutions": []
+  },
+  "161": {
+    "id": 161,
+    "name": "sentret",
+    "evolutions": [
+      {
+        "targetId": 162,
+        "targetName": "Furret",
+        "defaultMethod": "Reach Level 15",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "162": {
+    "id": 162,
+    "name": "furret",
+    "evolutions": []
+  },
+  "163": {
+    "id": 163,
+    "name": "hoothoot",
+    "evolutions": [
+      {
+        "targetId": 164,
+        "targetName": "Noctowl",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "164": {
+    "id": 164,
+    "name": "noctowl",
+    "evolutions": []
+  },
+  "165": {
+    "id": 165,
+    "name": "ledyba",
+    "evolutions": [
+      {
+        "targetId": 166,
+        "targetName": "Ledian",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "166": {
+    "id": 166,
+    "name": "ledian",
+    "evolutions": []
+  },
+  "167": {
+    "id": 167,
+    "name": "spinarak",
+    "evolutions": [
+      {
+        "targetId": 168,
+        "targetName": "Ariados",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "168": {
+    "id": 168,
+    "name": "ariados",
+    "evolutions": []
+  },
+  "169": {
+    "id": 169,
+    "name": "crobat",
+    "evolutions": []
+  },
+  "170": {
+    "id": 170,
+    "name": "chinchou",
+    "evolutions": [
+      {
+        "targetId": 171,
+        "targetName": "Lanturn",
+        "defaultMethod": "Reach Level 27",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "171": {
+    "id": 171,
+    "name": "lanturn",
+    "evolutions": []
+  },
+  "172": {
+    "id": 172,
+    "name": "pichu",
+    "evolutions": [
+      {
+        "targetId": 25,
+        "targetName": "Pikachu",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 220)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "173": {
+    "id": 173,
+    "name": "cleffa",
+    "evolutions": [
+      {
+        "targetId": 35,
+        "targetName": "Clefairy",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "174": {
+    "id": 174,
+    "name": "igglybuff",
+    "evolutions": [
+      {
+        "targetId": 39,
+        "targetName": "Jigglypuff",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "175": {
+    "id": 175,
+    "name": "togepi",
+    "evolutions": [
+      {
+        "targetId": 176,
+        "targetName": "Togetic",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "176": {
+    "id": 176,
+    "name": "togetic",
+    "evolutions": [
+      {
+        "targetId": 468,
+        "targetName": "Togekiss",
+        "defaultMethod": "Use Shiny Stone",
+        "defaultItem": "shiny-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "177": {
+    "id": 177,
+    "name": "natu",
+    "evolutions": [
+      {
+        "targetId": 178,
+        "targetName": "Xatu",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "178": {
+    "id": 178,
+    "name": "xatu",
+    "evolutions": []
+  },
+  "179": {
+    "id": 179,
+    "name": "mareep",
+    "evolutions": [
+      {
+        "targetId": 180,
+        "targetName": "Flaaffy",
+        "defaultMethod": "Reach Level 15",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "180": {
+    "id": 180,
+    "name": "flaaffy",
+    "evolutions": [
+      {
+        "targetId": 181,
+        "targetName": "Ampharos",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "181": {
+    "id": 181,
+    "name": "ampharos",
+    "evolutions": []
+  },
+  "182": {
+    "id": 182,
+    "name": "bellossom",
+    "evolutions": []
+  },
+  "183": {
+    "id": 183,
+    "name": "marill",
+    "evolutions": [
+      {
+        "targetId": 184,
+        "targetName": "Azumarill",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "184": {
+    "id": 184,
+    "name": "azumarill",
+    "evolutions": []
+  },
+  "185": {
+    "id": 185,
+    "name": "sudowoodo",
+    "evolutions": []
+  },
+  "186": {
+    "id": 186,
+    "name": "politoed",
+    "evolutions": []
+  },
+  "187": {
+    "id": 187,
+    "name": "hoppip",
+    "evolutions": [
+      {
+        "targetId": 188,
+        "targetName": "Skiploom",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "188": {
+    "id": 188,
+    "name": "skiploom",
+    "evolutions": [
+      {
+        "targetId": 189,
+        "targetName": "Jumpluff",
+        "defaultMethod": "Reach Level 27",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "189": {
+    "id": 189,
+    "name": "jumpluff",
+    "evolutions": []
+  },
+  "190": {
+    "id": 190,
+    "name": "aipom",
+    "evolutions": [
+      {
+        "targetId": 424,
+        "targetName": "Ambipom",
+        "defaultMethod": "Level up knowing Double Hit",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "191": {
+    "id": 191,
+    "name": "sunkern",
+    "evolutions": [
+      {
+        "targetId": 192,
+        "targetName": "Sunflora",
+        "defaultMethod": "Use Sun Stone",
+        "defaultItem": "sun-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "192": {
+    "id": 192,
+    "name": "sunflora",
+    "evolutions": []
+  },
+  "193": {
+    "id": 193,
+    "name": "yanma",
+    "evolutions": [
+      {
+        "targetId": 469,
+        "targetName": "Yanmega",
+        "defaultMethod": "Level up knowing Ancient Power",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "194": {
+    "id": 194,
+    "name": "wooper",
+    "evolutions": [
+      {
+        "targetId": 195,
+        "targetName": "Quagsire",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 980,
+        "targetName": "Clodsire",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "195": {
+    "id": 195,
+    "name": "quagsire",
+    "evolutions": []
+  },
+  "196": {
+    "id": 196,
+    "name": "espeon",
+    "evolutions": []
+  },
+  "197": {
+    "id": 197,
+    "name": "umbreon",
+    "evolutions": []
+  },
+  "198": {
+    "id": 198,
+    "name": "murkrow",
+    "evolutions": [
+      {
+        "targetId": 430,
+        "targetName": "Honchkrow",
+        "defaultMethod": "Use Dusk Stone",
+        "defaultItem": "dusk-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "199": {
+    "id": 199,
+    "name": "slowking",
+    "evolutions": []
+  },
+  "200": {
+    "id": 200,
+    "name": "misdreavus",
+    "evolutions": [
+      {
+        "targetId": 429,
+        "targetName": "Mismagius",
+        "defaultMethod": "Use Dusk Stone",
+        "defaultItem": "dusk-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "201": {
+    "id": 201,
+    "name": "unown",
+    "evolutions": []
+  },
+  "202": {
+    "id": 202,
+    "name": "wobbuffet",
+    "evolutions": []
+  },
+  "203": {
+    "id": 203,
+    "name": "girafarig",
+    "evolutions": [
+      {
+        "targetId": 981,
+        "targetName": "Farigiraf",
+        "defaultMethod": "Level up knowing Twin Beam",
+        "defaultItem": null,
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Level up knowing Twin Beam (learned at Lv 32)",
+            "item": null
+          }
+        }
+      }
+    ]
+  },
+  "204": {
+    "id": 204,
+    "name": "pineco",
+    "evolutions": [
+      {
+        "targetId": 205,
+        "targetName": "Forretress",
+        "defaultMethod": "Reach Level 31",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "205": {
+    "id": 205,
+    "name": "forretress",
+    "evolutions": []
+  },
+  "206": {
+    "id": 206,
+    "name": "dunsparce",
+    "evolutions": [
+      {
+        "targetId": 982,
+        "targetName": "Dudunsparce",
+        "defaultMethod": "Level up knowing Hyper Drill",
+        "defaultItem": null,
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Level up knowing Hyper Drill (learned at Lv 32)",
+            "item": null,
+            "note": "Has a 1/100 chance to evolve into Three-Segment Form!"
+          }
+        }
+      }
+    ]
+  },
+  "207": {
+    "id": 207,
+    "name": "gligar",
+    "evolutions": [
+      {
+        "targetId": 472,
+        "targetName": "Gliscor",
+        "defaultMethod": "Level up while holding Razor Fang during the nighttime",
+        "defaultItem": "razor-fang.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "208": {
+    "id": 208,
+    "name": "steelix",
+    "evolutions": []
+  },
+  "209": {
+    "id": 209,
+    "name": "snubbull",
+    "evolutions": [
+      {
+        "targetId": 210,
+        "targetName": "Granbull",
+        "defaultMethod": "Reach Level 23",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "210": {
+    "id": 210,
+    "name": "granbull",
+    "evolutions": []
+  },
+  "211": {
+    "id": 211,
+    "name": "qwilfish",
+    "evolutions": [
+      {
+        "targetId": 904,
+        "targetName": "Overqwil",
+        "defaultMethod": "Use Barb Barrage in Strong Style 20 times",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "212": {
+    "id": 212,
+    "name": "scizor",
+    "evolutions": []
+  },
+  "213": {
+    "id": 213,
+    "name": "shuckle",
+    "evolutions": []
+  },
+  "214": {
+    "id": 214,
+    "name": "heracross",
+    "evolutions": []
+  },
+  "215": {
+    "id": 215,
+    "name": "sneasel",
+    "evolutions": [
+      {
+        "targetId": 461,
+        "targetName": "Weavile",
+        "defaultMethod": "Level up while holding Razor Claw during the nighttime",
+        "defaultItem": "razor-claw.png",
+        "versionNotes": {}
+      },
+      {
+        "targetId": 903,
+        "targetName": "Sneasler",
+        "defaultMethod": "Level up while holding Razor Claw during the daytime",
+        "defaultItem": "razor-claw.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "216": {
+    "id": 216,
+    "name": "teddiursa",
+    "evolutions": [
+      {
+        "targetId": 217,
+        "targetName": "Ursaring",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "217": {
+    "id": 217,
+    "name": "ursaring",
+    "evolutions": [
+      {
+        "targetId": 901,
+        "targetName": "Ursaluna",
+        "defaultMethod": "Use Peat Block",
+        "defaultItem": "peat-block.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Peat Block during a Full Moon in Crimson Mirelands",
+            "item": "peat-block.png",
+            "note": "Rest at camp until night and check the moon. Ride Ursaluna digs up Peat Blocks."
+          },
+          "Scarlet / Violet": {
+            "method": "Evolve in Legends: Arceus and transfer via HOME (or complete Bloodmoon Beast quest in Kitakami)",
+            "item": null
+          }
+        }
+      }
+    ]
+  },
+  "218": {
+    "id": 218,
+    "name": "slugma",
+    "evolutions": [
+      {
+        "targetId": 219,
+        "targetName": "Magcargo",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "219": {
+    "id": 219,
+    "name": "magcargo",
+    "evolutions": []
+  },
+  "220": {
+    "id": 220,
+    "name": "swinub",
+    "evolutions": [
+      {
+        "targetId": 221,
+        "targetName": "Piloswine",
+        "defaultMethod": "Reach Level 33",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "221": {
+    "id": 221,
+    "name": "piloswine",
+    "evolutions": [
+      {
+        "targetId": 473,
+        "targetName": "Mamoswine",
+        "defaultMethod": "Level up knowing Ancient Power",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "222": {
+    "id": 222,
+    "name": "corsola",
+    "evolutions": [
+      {
+        "targetId": 864,
+        "targetName": "Cursola",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "223": {
+    "id": 223,
+    "name": "remoraid",
+    "evolutions": [
+      {
+        "targetId": 224,
+        "targetName": "Octillery",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "224": {
+    "id": 224,
+    "name": "octillery",
+    "evolutions": []
+  },
+  "225": {
+    "id": 225,
+    "name": "delibird",
+    "evolutions": []
+  },
+  "226": {
+    "id": 226,
+    "name": "mantine",
+    "evolutions": []
+  },
+  "227": {
+    "id": 227,
+    "name": "skarmory",
+    "evolutions": []
+  },
+  "228": {
+    "id": 228,
+    "name": "houndour",
+    "evolutions": [
+      {
+        "targetId": 229,
+        "targetName": "Houndoom",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "229": {
+    "id": 229,
+    "name": "houndoom",
+    "evolutions": []
+  },
+  "230": {
+    "id": 230,
+    "name": "kingdra",
+    "evolutions": []
+  },
+  "231": {
+    "id": 231,
+    "name": "phanpy",
+    "evolutions": [
+      {
+        "targetId": 232,
+        "targetName": "Donphan",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "232": {
+    "id": 232,
+    "name": "donphan",
+    "evolutions": []
+  },
+  "233": {
+    "id": 233,
+    "name": "porygon2",
+    "evolutions": [
+      {
+        "targetId": 474,
+        "targetName": "Porygon Z",
+        "defaultMethod": "Trade holding Dubious Disc",
+        "defaultItem": "dubious-disc.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Dubious Disc directly (no trade required!)",
+            "item": "dubious-disc.png"
+          }
+        }
+      }
+    ]
+  },
+  "234": {
+    "id": 234,
+    "name": "stantler",
+    "evolutions": [
+      {
+        "targetId": 899,
+        "targetName": "Wyrdeer",
+        "defaultMethod": "Use Psyshield Bash in Agile Style 20 times",
+        "defaultItem": null,
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Psyshield Bash in Agile Style 20 times",
+            "item": null,
+            "note": "Stantler learns Psyshield Bash at Lv 21 and masters it at Lv 31."
+          }
+        }
+      }
+    ]
+  },
+  "235": {
+    "id": 235,
+    "name": "smeargle",
+    "evolutions": []
+  },
+  "236": {
+    "id": 236,
+    "name": "tyrogue",
+    "evolutions": [
+      {
+        "targetId": 106,
+        "targetName": "Hitmonlee",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 107,
+        "targetName": "Hitmonchan",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 237,
+        "targetName": "Hitmontop",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "237": {
+    "id": 237,
+    "name": "hitmontop",
+    "evolutions": []
+  },
+  "238": {
+    "id": 238,
+    "name": "smoochum",
+    "evolutions": [
+      {
+        "targetId": 124,
+        "targetName": "Jynx",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "239": {
+    "id": 239,
+    "name": "elekid",
+    "evolutions": [
+      {
+        "targetId": 125,
+        "targetName": "Electabuzz",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "240": {
+    "id": 240,
+    "name": "magby",
+    "evolutions": [
+      {
+        "targetId": 126,
+        "targetName": "Magmar",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "241": {
+    "id": 241,
+    "name": "miltank",
+    "evolutions": []
+  },
+  "242": {
+    "id": 242,
+    "name": "blissey",
+    "evolutions": []
+  },
+  "243": {
+    "id": 243,
+    "name": "raikou",
+    "evolutions": []
+  },
+  "244": {
+    "id": 244,
+    "name": "entei",
+    "evolutions": []
+  },
+  "245": {
+    "id": 245,
+    "name": "suicune",
+    "evolutions": []
+  },
+  "246": {
+    "id": 246,
+    "name": "larvitar",
+    "evolutions": [
+      {
+        "targetId": 247,
+        "targetName": "Pupitar",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "247": {
+    "id": 247,
+    "name": "pupitar",
+    "evolutions": [
+      {
+        "targetId": 248,
+        "targetName": "Tyranitar",
+        "defaultMethod": "Reach Level 55",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "248": {
+    "id": 248,
+    "name": "tyranitar",
+    "evolutions": []
+  },
+  "249": {
+    "id": 249,
+    "name": "lugia",
+    "evolutions": []
+  },
+  "250": {
+    "id": 250,
+    "name": "ho-oh",
+    "evolutions": []
+  },
+  "251": {
+    "id": 251,
+    "name": "celebi",
+    "evolutions": []
+  },
+  "252": {
+    "id": 252,
+    "name": "treecko",
+    "evolutions": [
+      {
+        "targetId": 253,
+        "targetName": "Grovyle",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "253": {
+    "id": 253,
+    "name": "grovyle",
+    "evolutions": [
+      {
+        "targetId": 254,
+        "targetName": "Sceptile",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "254": {
+    "id": 254,
+    "name": "sceptile",
+    "evolutions": []
+  },
+  "255": {
+    "id": 255,
+    "name": "torchic",
+    "evolutions": [
+      {
+        "targetId": 256,
+        "targetName": "Combusken",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "256": {
+    "id": 256,
+    "name": "combusken",
+    "evolutions": [
+      {
+        "targetId": 257,
+        "targetName": "Blaziken",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "257": {
+    "id": 257,
+    "name": "blaziken",
+    "evolutions": []
+  },
+  "258": {
+    "id": 258,
+    "name": "mudkip",
+    "evolutions": [
+      {
+        "targetId": 259,
+        "targetName": "Marshtomp",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "259": {
+    "id": 259,
+    "name": "marshtomp",
+    "evolutions": [
+      {
+        "targetId": 260,
+        "targetName": "Swampert",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "260": {
+    "id": 260,
+    "name": "swampert",
+    "evolutions": []
+  },
+  "261": {
+    "id": 261,
+    "name": "poochyena",
+    "evolutions": [
+      {
+        "targetId": 262,
+        "targetName": "Mightyena",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "262": {
+    "id": 262,
+    "name": "mightyena",
+    "evolutions": []
+  },
+  "263": {
+    "id": 263,
+    "name": "zigzagoon",
+    "evolutions": [
+      {
+        "targetId": 264,
+        "targetName": "Linoone",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "264": {
+    "id": 264,
+    "name": "linoone",
+    "evolutions": [
+      {
+        "targetId": 862,
+        "targetName": "Obstagoon",
+        "defaultMethod": "Reach Level 35 during the nighttime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "265": {
+    "id": 265,
+    "name": "wurmple",
+    "evolutions": [
+      {
+        "targetId": 266,
+        "targetName": "Silcoon",
+        "defaultMethod": "Reach Level 7",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 268,
+        "targetName": "Cascoon",
+        "defaultMethod": "Reach Level 7",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "266": {
+    "id": 266,
+    "name": "silcoon",
+    "evolutions": [
+      {
+        "targetId": 267,
+        "targetName": "Beautifly",
+        "defaultMethod": "Reach Level 10",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "267": {
+    "id": 267,
+    "name": "beautifly",
+    "evolutions": []
+  },
+  "268": {
+    "id": 268,
+    "name": "cascoon",
+    "evolutions": [
+      {
+        "targetId": 269,
+        "targetName": "Dustox",
+        "defaultMethod": "Reach Level 10",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "269": {
+    "id": 269,
+    "name": "dustox",
+    "evolutions": []
+  },
+  "270": {
+    "id": 270,
+    "name": "lotad",
+    "evolutions": [
+      {
+        "targetId": 271,
+        "targetName": "Lombre",
+        "defaultMethod": "Reach Level 14",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "271": {
+    "id": 271,
+    "name": "lombre",
+    "evolutions": [
+      {
+        "targetId": 272,
+        "targetName": "Ludicolo",
+        "defaultMethod": "Use Water Stone",
+        "defaultItem": "water-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "272": {
+    "id": 272,
+    "name": "ludicolo",
+    "evolutions": []
+  },
+  "273": {
+    "id": 273,
+    "name": "seedot",
+    "evolutions": [
+      {
+        "targetId": 274,
+        "targetName": "Nuzleaf",
+        "defaultMethod": "Reach Level 14",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "274": {
+    "id": 274,
+    "name": "nuzleaf",
+    "evolutions": [
+      {
+        "targetId": 275,
+        "targetName": "Shiftry",
+        "defaultMethod": "Use Leaf Stone",
+        "defaultItem": "leaf-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "275": {
+    "id": 275,
+    "name": "shiftry",
+    "evolutions": []
+  },
+  "276": {
+    "id": 276,
+    "name": "taillow",
+    "evolutions": [
+      {
+        "targetId": 277,
+        "targetName": "Swellow",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "277": {
+    "id": 277,
+    "name": "swellow",
+    "evolutions": []
+  },
+  "278": {
+    "id": 278,
+    "name": "wingull",
+    "evolutions": [
+      {
+        "targetId": 279,
+        "targetName": "Pelipper",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "279": {
+    "id": 279,
+    "name": "pelipper",
+    "evolutions": []
+  },
+  "280": {
+    "id": 280,
+    "name": "ralts",
+    "evolutions": [
+      {
+        "targetId": 281,
+        "targetName": "Kirlia",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "281": {
+    "id": 281,
+    "name": "kirlia",
+    "evolutions": [
+      {
+        "targetId": 282,
+        "targetName": "Gardevoir",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 475,
+        "targetName": "Gallade",
+        "defaultMethod": "Use Dawn Stone",
+        "defaultItem": "dawn-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "282": {
+    "id": 282,
+    "name": "gardevoir",
+    "evolutions": [
+      {
+        "targetId": 10051,
+        "targetName": "Mega Gardevoir",
+        "defaultMethod": "Mega Evolve using Gardevoirite",
+        "defaultItem": "gardevoirite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Gardevoirite in Lumiose City battles",
+            "item": "gardevoirite.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Pixilate converts Normal moves to Fairy!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Gardevoirite",
+            "item": "gardevoirite.png",
+            "note": "Trade with Diantha at Café Soleil in Lumiose City post-game."
+          }
+        }
+      }
+    ]
+  },
+  "283": {
+    "id": 283,
+    "name": "surskit",
+    "evolutions": [
+      {
+        "targetId": 284,
+        "targetName": "Masquerain",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "284": {
+    "id": 284,
+    "name": "masquerain",
+    "evolutions": []
+  },
+  "285": {
+    "id": 285,
+    "name": "shroomish",
+    "evolutions": [
+      {
+        "targetId": 286,
+        "targetName": "Breloom",
+        "defaultMethod": "Reach Level 23",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "286": {
+    "id": 286,
+    "name": "breloom",
+    "evolutions": []
+  },
+  "287": {
+    "id": 287,
+    "name": "slakoth",
+    "evolutions": [
+      {
+        "targetId": 288,
+        "targetName": "Vigoroth",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "288": {
+    "id": 288,
+    "name": "vigoroth",
+    "evolutions": [
+      {
+        "targetId": 289,
+        "targetName": "Slaking",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "289": {
+    "id": 289,
+    "name": "slaking",
+    "evolutions": []
+  },
+  "290": {
+    "id": 290,
+    "name": "nincada",
+    "evolutions": [
+      {
+        "targetId": 291,
+        "targetName": "Ninjask",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 292,
+        "targetName": "Shedinja",
+        "defaultMethod": "Shed",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "291": {
+    "id": 291,
+    "name": "ninjask",
+    "evolutions": []
+  },
+  "292": {
+    "id": 292,
+    "name": "shedinja",
+    "evolutions": []
+  },
+  "293": {
+    "id": 293,
+    "name": "whismur",
+    "evolutions": [
+      {
+        "targetId": 294,
+        "targetName": "Loudred",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "294": {
+    "id": 294,
+    "name": "loudred",
+    "evolutions": [
+      {
+        "targetId": 295,
+        "targetName": "Exploud",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "295": {
+    "id": 295,
+    "name": "exploud",
+    "evolutions": []
+  },
+  "296": {
+    "id": 296,
+    "name": "makuhita",
+    "evolutions": [
+      {
+        "targetId": 297,
+        "targetName": "Hariyama",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "297": {
+    "id": 297,
+    "name": "hariyama",
+    "evolutions": []
+  },
+  "298": {
+    "id": 298,
+    "name": "azurill",
+    "evolutions": [
+      {
+        "targetId": 183,
+        "targetName": "Marill",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "299": {
+    "id": 299,
+    "name": "nosepass",
+    "evolutions": [
+      {
+        "targetId": 476,
+        "targetName": "Probopass",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {
+          "Diamond / Pearl": {
+            "method": "Level up in magnetic field at Mt. Coronet",
+            "item": null
+          },
+          "Black / White": {
+            "method": "Level up in magnetic field at Chargestone Cave",
+            "item": null
+          },
+          "X / Y": {
+            "method": "Level up in magnetic field on Route 13",
+            "item": null
+          },
+          "Sun / Moon": {
+            "method": "Level up in magnetic field at Blush Mountain",
+            "item": null
+          },
+          "Sword / Shield": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Legends: Arceus": {
+            "method": "Use Thunder Stone (or level up at Coronet Highlands)",
+            "item": "thunder-stone.png"
+          },
+          "Scarlet / Violet": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          }
+        }
+      }
+    ]
+  },
+  "300": {
+    "id": 300,
+    "name": "skitty",
+    "evolutions": [
+      {
+        "targetId": 301,
+        "targetName": "Delcatty",
+        "defaultMethod": "Use Moon Stone",
+        "defaultItem": "moon-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "301": {
+    "id": 301,
+    "name": "delcatty",
+    "evolutions": []
+  },
+  "302": {
+    "id": 302,
+    "name": "sableye",
+    "evolutions": []
+  },
+  "303": {
+    "id": 303,
+    "name": "mawile",
+    "evolutions": []
+  },
+  "304": {
+    "id": 304,
+    "name": "aron",
+    "evolutions": [
+      {
+        "targetId": 305,
+        "targetName": "Lairon",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "305": {
+    "id": 305,
+    "name": "lairon",
+    "evolutions": [
+      {
+        "targetId": 306,
+        "targetName": "Aggron",
+        "defaultMethod": "Reach Level 42",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "306": {
+    "id": 306,
+    "name": "aggron",
+    "evolutions": []
+  },
+  "307": {
+    "id": 307,
+    "name": "meditite",
+    "evolutions": [
+      {
+        "targetId": 308,
+        "targetName": "Medicham",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "308": {
+    "id": 308,
+    "name": "medicham",
+    "evolutions": []
+  },
+  "309": {
+    "id": 309,
+    "name": "electrike",
+    "evolutions": [
+      {
+        "targetId": 310,
+        "targetName": "Manectric",
+        "defaultMethod": "Reach Level 26",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "310": {
+    "id": 310,
+    "name": "manectric",
+    "evolutions": []
+  },
+  "311": {
+    "id": 311,
+    "name": "plusle",
+    "evolutions": []
+  },
+  "312": {
+    "id": 312,
+    "name": "minun",
+    "evolutions": []
+  },
+  "313": {
+    "id": 313,
+    "name": "volbeat",
+    "evolutions": []
+  },
+  "314": {
+    "id": 314,
+    "name": "illumise",
+    "evolutions": []
+  },
+  "315": {
+    "id": 315,
+    "name": "roselia",
+    "evolutions": [
+      {
+        "targetId": 407,
+        "targetName": "Roserade",
+        "defaultMethod": "Use Shiny Stone",
+        "defaultItem": "shiny-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "316": {
+    "id": 316,
+    "name": "gulpin",
+    "evolutions": [
+      {
+        "targetId": 317,
+        "targetName": "Swalot",
+        "defaultMethod": "Reach Level 26",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "317": {
+    "id": 317,
+    "name": "swalot",
+    "evolutions": []
+  },
+  "318": {
+    "id": 318,
+    "name": "carvanha",
+    "evolutions": [
+      {
+        "targetId": 319,
+        "targetName": "Sharpedo",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "319": {
+    "id": 319,
+    "name": "sharpedo",
+    "evolutions": []
+  },
+  "320": {
+    "id": 320,
+    "name": "wailmer",
+    "evolutions": [
+      {
+        "targetId": 321,
+        "targetName": "Wailord",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "321": {
+    "id": 321,
+    "name": "wailord",
+    "evolutions": []
+  },
+  "322": {
+    "id": 322,
+    "name": "numel",
+    "evolutions": [
+      {
+        "targetId": 323,
+        "targetName": "Camerupt",
+        "defaultMethod": "Reach Level 33",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "323": {
+    "id": 323,
+    "name": "camerupt",
+    "evolutions": []
+  },
+  "324": {
+    "id": 324,
+    "name": "torkoal",
+    "evolutions": []
+  },
+  "325": {
+    "id": 325,
+    "name": "spoink",
+    "evolutions": [
+      {
+        "targetId": 326,
+        "targetName": "Grumpig",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "326": {
+    "id": 326,
+    "name": "grumpig",
+    "evolutions": []
+  },
+  "327": {
+    "id": 327,
+    "name": "spinda",
+    "evolutions": []
+  },
+  "328": {
+    "id": 328,
+    "name": "trapinch",
+    "evolutions": [
+      {
+        "targetId": 329,
+        "targetName": "Vibrava",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "329": {
+    "id": 329,
+    "name": "vibrava",
+    "evolutions": [
+      {
+        "targetId": 330,
+        "targetName": "Flygon",
+        "defaultMethod": "Reach Level 45",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "330": {
+    "id": 330,
+    "name": "flygon",
+    "evolutions": []
+  },
+  "331": {
+    "id": 331,
+    "name": "cacnea",
+    "evolutions": [
+      {
+        "targetId": 332,
+        "targetName": "Cacturne",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "332": {
+    "id": 332,
+    "name": "cacturne",
+    "evolutions": []
+  },
+  "333": {
+    "id": 333,
+    "name": "swablu",
+    "evolutions": [
+      {
+        "targetId": 334,
+        "targetName": "Altaria",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "334": {
+    "id": 334,
+    "name": "altaria",
+    "evolutions": []
+  },
+  "335": {
+    "id": 335,
+    "name": "zangoose",
+    "evolutions": []
+  },
+  "336": {
+    "id": 336,
+    "name": "seviper",
+    "evolutions": []
+  },
+  "337": {
+    "id": 337,
+    "name": "lunatone",
+    "evolutions": []
+  },
+  "338": {
+    "id": 338,
+    "name": "solrock",
+    "evolutions": []
+  },
+  "339": {
+    "id": 339,
+    "name": "barboach",
+    "evolutions": [
+      {
+        "targetId": 340,
+        "targetName": "Whiscash",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "340": {
+    "id": 340,
+    "name": "whiscash",
+    "evolutions": []
+  },
+  "341": {
+    "id": 341,
+    "name": "corphish",
+    "evolutions": [
+      {
+        "targetId": 342,
+        "targetName": "Crawdaunt",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "342": {
+    "id": 342,
+    "name": "crawdaunt",
+    "evolutions": []
+  },
+  "343": {
+    "id": 343,
+    "name": "baltoy",
+    "evolutions": [
+      {
+        "targetId": 344,
+        "targetName": "Claydol",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "344": {
+    "id": 344,
+    "name": "claydol",
+    "evolutions": []
+  },
+  "345": {
+    "id": 345,
+    "name": "lileep",
+    "evolutions": [
+      {
+        "targetId": 346,
+        "targetName": "Cradily",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "346": {
+    "id": 346,
+    "name": "cradily",
+    "evolutions": []
+  },
+  "347": {
+    "id": 347,
+    "name": "anorith",
+    "evolutions": [
+      {
+        "targetId": 348,
+        "targetName": "Armaldo",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "348": {
+    "id": 348,
+    "name": "armaldo",
+    "evolutions": []
+  },
+  "349": {
+    "id": 349,
+    "name": "feebas",
+    "evolutions": [
+      {
+        "targetId": 350,
+        "targetName": "Milotic",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "350": {
+    "id": 350,
+    "name": "milotic",
+    "evolutions": []
+  },
+  "351": {
+    "id": 351,
+    "name": "castform",
+    "evolutions": []
+  },
+  "352": {
+    "id": 352,
+    "name": "kecleon",
+    "evolutions": []
+  },
+  "353": {
+    "id": 353,
+    "name": "shuppet",
+    "evolutions": [
+      {
+        "targetId": 354,
+        "targetName": "Banette",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "354": {
+    "id": 354,
+    "name": "banette",
+    "evolutions": []
+  },
+  "355": {
+    "id": 355,
+    "name": "duskull",
+    "evolutions": [
+      {
+        "targetId": 356,
+        "targetName": "Dusclops",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "356": {
+    "id": 356,
+    "name": "dusclops",
+    "evolutions": [
+      {
+        "targetId": 477,
+        "targetName": "Dusknoir",
+        "defaultMethod": "Trade holding Reaper Cloth",
+        "defaultItem": "reaper-cloth.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Reaper Cloth directly (no trade required!)",
+            "item": "reaper-cloth.png"
+          }
+        }
+      }
+    ]
+  },
+  "357": {
+    "id": 357,
+    "name": "tropius",
+    "evolutions": []
+  },
+  "358": {
+    "id": 358,
+    "name": "chimecho",
+    "evolutions": []
+  },
+  "359": {
+    "id": 359,
+    "name": "absol",
+    "evolutions": []
+  },
+  "360": {
+    "id": 360,
+    "name": "wynaut",
+    "evolutions": [
+      {
+        "targetId": 202,
+        "targetName": "Wobbuffet",
+        "defaultMethod": "Reach Level 15",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "361": {
+    "id": 361,
+    "name": "snorunt",
+    "evolutions": [
+      {
+        "targetId": 362,
+        "targetName": "Glalie",
+        "defaultMethod": "Reach Level 42",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 478,
+        "targetName": "Froslass",
+        "defaultMethod": "Use Dawn Stone",
+        "defaultItem": "dawn-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "362": {
+    "id": 362,
+    "name": "glalie",
+    "evolutions": []
+  },
+  "363": {
+    "id": 363,
+    "name": "spheal",
+    "evolutions": [
+      {
+        "targetId": 364,
+        "targetName": "Sealeo",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "364": {
+    "id": 364,
+    "name": "sealeo",
+    "evolutions": [
+      {
+        "targetId": 365,
+        "targetName": "Walrein",
+        "defaultMethod": "Reach Level 44",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "365": {
+    "id": 365,
+    "name": "walrein",
+    "evolutions": []
+  },
+  "366": {
+    "id": 366,
+    "name": "clamperl",
+    "evolutions": [
+      {
+        "targetId": 367,
+        "targetName": "Huntail",
+        "defaultMethod": "Trade holding Deep Sea Tooth",
+        "defaultItem": "deep-sea-tooth.png",
+        "versionNotes": {}
+      },
+      {
+        "targetId": 368,
+        "targetName": "Gorebyss",
+        "defaultMethod": "Trade holding Deep Sea Scale",
+        "defaultItem": "deep-sea-scale.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "367": {
+    "id": 367,
+    "name": "huntail",
+    "evolutions": []
+  },
+  "368": {
+    "id": 368,
+    "name": "gorebyss",
+    "evolutions": []
+  },
+  "369": {
+    "id": 369,
+    "name": "relicanth",
+    "evolutions": []
+  },
+  "370": {
+    "id": 370,
+    "name": "luvdisc",
+    "evolutions": []
+  },
+  "371": {
+    "id": 371,
+    "name": "bagon",
+    "evolutions": [
+      {
+        "targetId": 372,
+        "targetName": "Shelgon",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "372": {
+    "id": 372,
+    "name": "shelgon",
+    "evolutions": [
+      {
+        "targetId": 373,
+        "targetName": "Salamence",
+        "defaultMethod": "Reach Level 50",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "373": {
+    "id": 373,
+    "name": "salamence",
+    "evolutions": [
+      {
+        "targetId": 10089,
+        "targetName": "Mega Salamence",
+        "defaultMethod": "Mega Evolve using Salamencite",
+        "defaultItem": "salamencite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Salamencite in Lumiose City battles",
+            "item": "salamencite.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Aerilate grants immense flying power!"
+          },
+          "Omega Ruby / Alpha Sapphire": {
+            "method": "Mega Evolve in battle holding Salamencite",
+            "item": "salamencite.png",
+            "note": "Obtained at Meteor Falls after the Delta Episode."
+          }
+        }
+      }
+    ]
+  },
+  "374": {
+    "id": 374,
+    "name": "beldum",
+    "evolutions": [
+      {
+        "targetId": 375,
+        "targetName": "Metang",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "375": {
+    "id": 375,
+    "name": "metang",
+    "evolutions": [
+      {
+        "targetId": 376,
+        "targetName": "Metagross",
+        "defaultMethod": "Reach Level 45",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "376": {
+    "id": 376,
+    "name": "metagross",
+    "evolutions": [
+      {
+        "targetId": 10076,
+        "targetName": "Mega Metagross",
+        "defaultMethod": "Mega Evolve using Metagrossite",
+        "defaultItem": "metagrossite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Metagrossite in Lumiose City battles",
+            "item": "metagrossite.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Tough Claws boosts contact attacks!"
+          },
+          "Omega Ruby / Alpha Sapphire": {
+            "method": "Mega Evolve in battle holding Metagrossite",
+            "item": "metagrossite.png",
+            "note": "Obtained by defeating Champion Steven in the rematch."
+          }
+        }
+      }
+    ]
+  },
+  "377": {
+    "id": 377,
+    "name": "regirock",
+    "evolutions": []
+  },
+  "378": {
+    "id": 378,
+    "name": "regice",
+    "evolutions": []
+  },
+  "379": {
+    "id": 379,
+    "name": "registeel",
+    "evolutions": []
+  },
+  "380": {
+    "id": 380,
+    "name": "latias",
+    "evolutions": []
+  },
+  "381": {
+    "id": 381,
+    "name": "latios",
+    "evolutions": []
+  },
+  "382": {
+    "id": 382,
+    "name": "kyogre",
+    "evolutions": []
+  },
+  "383": {
+    "id": 383,
+    "name": "groudon",
+    "evolutions": []
+  },
+  "384": {
+    "id": 384,
+    "name": "rayquaza",
+    "evolutions": []
+  },
+  "385": {
+    "id": 385,
+    "name": "jirachi",
+    "evolutions": []
+  },
+  "386": {
+    "id": 386,
+    "name": "deoxys",
+    "evolutions": []
+  },
+  "387": {
+    "id": 387,
+    "name": "turtwig",
+    "evolutions": [
+      {
+        "targetId": 388,
+        "targetName": "Grotle",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "388": {
+    "id": 388,
+    "name": "grotle",
+    "evolutions": [
+      {
+        "targetId": 389,
+        "targetName": "Torterra",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "389": {
+    "id": 389,
+    "name": "torterra",
+    "evolutions": []
+  },
+  "390": {
+    "id": 390,
+    "name": "chimchar",
+    "evolutions": [
+      {
+        "targetId": 391,
+        "targetName": "Monferno",
+        "defaultMethod": "Reach Level 14",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "391": {
+    "id": 391,
+    "name": "monferno",
+    "evolutions": [
+      {
+        "targetId": 392,
+        "targetName": "Infernape",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "392": {
+    "id": 392,
+    "name": "infernape",
+    "evolutions": []
+  },
+  "393": {
+    "id": 393,
+    "name": "piplup",
+    "evolutions": [
+      {
+        "targetId": 394,
+        "targetName": "Prinplup",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "394": {
+    "id": 394,
+    "name": "prinplup",
+    "evolutions": [
+      {
+        "targetId": 395,
+        "targetName": "Empoleon",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "395": {
+    "id": 395,
+    "name": "empoleon",
+    "evolutions": []
+  },
+  "396": {
+    "id": 396,
+    "name": "starly",
+    "evolutions": [
+      {
+        "targetId": 397,
+        "targetName": "Staravia",
+        "defaultMethod": "Reach Level 14",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "397": {
+    "id": 397,
+    "name": "staravia",
+    "evolutions": [
+      {
+        "targetId": 398,
+        "targetName": "Staraptor",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "398": {
+    "id": 398,
+    "name": "staraptor",
+    "evolutions": []
+  },
+  "399": {
+    "id": 399,
+    "name": "bidoof",
+    "evolutions": [
+      {
+        "targetId": 400,
+        "targetName": "Bibarel",
+        "defaultMethod": "Reach Level 15",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "400": {
+    "id": 400,
+    "name": "bibarel",
+    "evolutions": []
+  },
+  "401": {
+    "id": 401,
+    "name": "kricketot",
+    "evolutions": [
+      {
+        "targetId": 402,
+        "targetName": "Kricketune",
+        "defaultMethod": "Reach Level 10",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "402": {
+    "id": 402,
+    "name": "kricketune",
+    "evolutions": []
+  },
+  "403": {
+    "id": 403,
+    "name": "shinx",
+    "evolutions": [
+      {
+        "targetId": 404,
+        "targetName": "Luxio",
+        "defaultMethod": "Reach Level 15",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "404": {
+    "id": 404,
+    "name": "luxio",
+    "evolutions": [
+      {
+        "targetId": 405,
+        "targetName": "Luxray",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "405": {
+    "id": 405,
+    "name": "luxray",
+    "evolutions": []
+  },
+  "406": {
+    "id": 406,
+    "name": "budew",
+    "evolutions": [
+      {
+        "targetId": 315,
+        "targetName": "Roselia",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160) during the daytime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "407": {
+    "id": 407,
+    "name": "roserade",
+    "evolutions": []
+  },
+  "408": {
+    "id": 408,
+    "name": "cranidos",
+    "evolutions": [
+      {
+        "targetId": 409,
+        "targetName": "Rampardos",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "409": {
+    "id": 409,
+    "name": "rampardos",
+    "evolutions": []
+  },
+  "410": {
+    "id": 410,
+    "name": "shieldon",
+    "evolutions": [
+      {
+        "targetId": 411,
+        "targetName": "Bastiodon",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "411": {
+    "id": 411,
+    "name": "bastiodon",
+    "evolutions": []
+  },
+  "412": {
+    "id": 412,
+    "name": "burmy",
+    "evolutions": [
+      {
+        "targetId": 413,
+        "targetName": "Wormadam",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 414,
+        "targetName": "Mothim",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "413": {
+    "id": 413,
+    "name": "wormadam",
+    "evolutions": []
+  },
+  "414": {
+    "id": 414,
+    "name": "mothim",
+    "evolutions": []
+  },
+  "415": {
+    "id": 415,
+    "name": "combee",
+    "evolutions": [
+      {
+        "targetId": 416,
+        "targetName": "Vespiquen",
+        "defaultMethod": "Reach Level 21",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "416": {
+    "id": 416,
+    "name": "vespiquen",
+    "evolutions": []
+  },
+  "417": {
+    "id": 417,
+    "name": "pachirisu",
+    "evolutions": []
+  },
+  "418": {
+    "id": 418,
+    "name": "buizel",
+    "evolutions": [
+      {
+        "targetId": 419,
+        "targetName": "Floatzel",
+        "defaultMethod": "Reach Level 26",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "419": {
+    "id": 419,
+    "name": "floatzel",
+    "evolutions": []
+  },
+  "420": {
+    "id": 420,
+    "name": "cherubi",
+    "evolutions": [
+      {
+        "targetId": 421,
+        "targetName": "Cherrim",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "421": {
+    "id": 421,
+    "name": "cherrim",
+    "evolutions": []
+  },
+  "422": {
+    "id": 422,
+    "name": "shellos",
+    "evolutions": [
+      {
+        "targetId": 423,
+        "targetName": "Gastrodon",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "423": {
+    "id": 423,
+    "name": "gastrodon",
+    "evolutions": []
+  },
+  "424": {
+    "id": 424,
+    "name": "ambipom",
+    "evolutions": []
+  },
+  "425": {
+    "id": 425,
+    "name": "drifloon",
+    "evolutions": [
+      {
+        "targetId": 426,
+        "targetName": "Drifblim",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "426": {
+    "id": 426,
+    "name": "drifblim",
+    "evolutions": []
+  },
+  "427": {
+    "id": 427,
+    "name": "buneary",
+    "evolutions": [
+      {
+        "targetId": 428,
+        "targetName": "Lopunny",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "428": {
+    "id": 428,
+    "name": "lopunny",
+    "evolutions": []
+  },
+  "429": {
+    "id": 429,
+    "name": "mismagius",
+    "evolutions": []
+  },
+  "430": {
+    "id": 430,
+    "name": "honchkrow",
+    "evolutions": []
+  },
+  "431": {
+    "id": 431,
+    "name": "glameow",
+    "evolutions": [
+      {
+        "targetId": 432,
+        "targetName": "Purugly",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "432": {
+    "id": 432,
+    "name": "purugly",
+    "evolutions": []
+  },
+  "433": {
+    "id": 433,
+    "name": "chingling",
+    "evolutions": [
+      {
+        "targetId": 358,
+        "targetName": "Chimecho",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 220) during the nighttime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "434": {
+    "id": 434,
+    "name": "stunky",
+    "evolutions": [
+      {
+        "targetId": 435,
+        "targetName": "Skuntank",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "435": {
+    "id": 435,
+    "name": "skuntank",
+    "evolutions": []
+  },
+  "436": {
+    "id": 436,
+    "name": "bronzor",
+    "evolutions": [
+      {
+        "targetId": 437,
+        "targetName": "Bronzong",
+        "defaultMethod": "Reach Level 33",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "437": {
+    "id": 437,
+    "name": "bronzong",
+    "evolutions": []
+  },
+  "438": {
+    "id": 438,
+    "name": "bonsly",
+    "evolutions": [
+      {
+        "targetId": 185,
+        "targetName": "Sudowoodo",
+        "defaultMethod": "Level up knowing Mimic",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "439": {
+    "id": 439,
+    "name": "mime-jr",
+    "evolutions": [
+      {
+        "targetId": 122,
+        "targetName": "Mr Mime",
+        "defaultMethod": "Level up knowing Mimic",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "440": {
+    "id": 440,
+    "name": "happiny",
+    "evolutions": [
+      {
+        "targetId": 113,
+        "targetName": "Chansey",
+        "defaultMethod": "Level up while holding Oval Stone during the daytime",
+        "defaultItem": "oval-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "441": {
+    "id": 441,
+    "name": "chatot",
+    "evolutions": []
+  },
+  "442": {
+    "id": 442,
+    "name": "spiritomb",
+    "evolutions": []
+  },
+  "443": {
+    "id": 443,
+    "name": "gible",
+    "evolutions": [
+      {
+        "targetId": 444,
+        "targetName": "Gabite",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "444": {
+    "id": 444,
+    "name": "gabite",
+    "evolutions": [
+      {
+        "targetId": 445,
+        "targetName": "Garchomp",
+        "defaultMethod": "Reach Level 48",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "445": {
+    "id": 445,
+    "name": "garchomp",
+    "evolutions": [
+      {
+        "targetId": 10058,
+        "targetName": "Mega Garchomp",
+        "defaultMethod": "Mega Evolve using Garchompite",
+        "defaultItem": "garchompite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Garchompite in Lumiose City battles",
+            "item": "garchompite.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Sand Force powers Ground/Rock/Steel attacks!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Garchompite",
+            "item": "garchompite.png",
+            "note": "Found in Victory Road tower post-game between 8PM and 9PM."
+          }
+        }
+      }
+    ]
+  },
+  "446": {
+    "id": 446,
+    "name": "munchlax",
+    "evolutions": [
+      {
+        "targetId": 143,
+        "targetName": "Snorlax",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "447": {
+    "id": 447,
+    "name": "riolu",
+    "evolutions": [
+      {
+        "targetId": 448,
+        "targetName": "Lucario",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160) during the daytime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "448": {
+    "id": 448,
+    "name": "lucario",
+    "evolutions": [
+      {
+        "targetId": 10059,
+        "targetName": "Mega Lucario",
+        "defaultMethod": "Mega Evolve using Lucarionite",
+        "defaultItem": "lucarionite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Lucarionite in Lumiose City battles",
+            "item": "lucarionite.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Adaptability doubles STAB moves!"
+          },
+          "X / Y": {
+            "method": "Mega Evolve in battle holding Lucarionite",
+            "item": "lucarionite.png",
+            "note": "Gifted by Korrina at Tower of Mastery in Shalour City alongside Lucario!"
+          }
+        }
+      }
+    ]
+  },
+  "449": {
+    "id": 449,
+    "name": "hippopotas",
+    "evolutions": [
+      {
+        "targetId": 450,
+        "targetName": "Hippowdon",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "450": {
+    "id": 450,
+    "name": "hippowdon",
+    "evolutions": []
+  },
+  "451": {
+    "id": 451,
+    "name": "skorupi",
+    "evolutions": [
+      {
+        "targetId": 452,
+        "targetName": "Drapion",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "452": {
+    "id": 452,
+    "name": "drapion",
+    "evolutions": []
+  },
+  "453": {
+    "id": 453,
+    "name": "croagunk",
+    "evolutions": [
+      {
+        "targetId": 454,
+        "targetName": "Toxicroak",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "454": {
+    "id": 454,
+    "name": "toxicroak",
+    "evolutions": []
+  },
+  "455": {
+    "id": 455,
+    "name": "carnivine",
+    "evolutions": []
+  },
+  "456": {
+    "id": 456,
+    "name": "finneon",
+    "evolutions": [
+      {
+        "targetId": 457,
+        "targetName": "Lumineon",
+        "defaultMethod": "Reach Level 31",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "457": {
+    "id": 457,
+    "name": "lumineon",
+    "evolutions": []
+  },
+  "458": {
+    "id": 458,
+    "name": "mantyke",
+    "evolutions": [
+      {
+        "targetId": 226,
+        "targetName": "Mantine",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "459": {
+    "id": 459,
+    "name": "snover",
+    "evolutions": [
+      {
+        "targetId": 460,
+        "targetName": "Abomasnow",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "460": {
+    "id": 460,
+    "name": "abomasnow",
+    "evolutions": []
+  },
+  "461": {
+    "id": 461,
+    "name": "weavile",
+    "evolutions": []
+  },
+  "462": {
+    "id": 462,
+    "name": "magnezone",
+    "evolutions": []
+  },
+  "463": {
+    "id": 463,
+    "name": "lickilicky",
+    "evolutions": []
+  },
+  "464": {
+    "id": 464,
+    "name": "rhyperior",
+    "evolutions": []
+  },
+  "465": {
+    "id": 465,
+    "name": "tangrowth",
+    "evolutions": []
+  },
+  "466": {
+    "id": 466,
+    "name": "electivire",
+    "evolutions": []
+  },
+  "467": {
+    "id": 467,
+    "name": "magmortar",
+    "evolutions": []
+  },
+  "468": {
+    "id": 468,
+    "name": "togekiss",
+    "evolutions": []
+  },
+  "469": {
+    "id": 469,
+    "name": "yanmega",
+    "evolutions": []
+  },
+  "470": {
+    "id": 470,
+    "name": "leafeon",
+    "evolutions": []
+  },
+  "471": {
+    "id": 471,
+    "name": "glaceon",
+    "evolutions": []
+  },
+  "472": {
+    "id": 472,
+    "name": "gliscor",
+    "evolutions": []
+  },
+  "473": {
+    "id": 473,
+    "name": "mamoswine",
+    "evolutions": []
+  },
+  "474": {
+    "id": 474,
+    "name": "porygon-z",
+    "evolutions": []
+  },
+  "475": {
+    "id": 475,
+    "name": "gallade",
+    "evolutions": [
+      {
+        "targetId": 10068,
+        "targetName": "Mega Gallade",
+        "defaultMethod": "Mega Evolve using Galladite",
+        "defaultItem": "galladite.png",
+        "versionNotes": {
+          "Legends: Z-A": {
+            "method": "Mega Evolve with Galladite in Lumiose City battles",
+            "item": "galladite.png",
+            "note": "Requires Mega Bracelet / Mega Ring. Inner Focus prevents flinching!"
+          },
+          "Omega Ruby / Alpha Sapphire": {
+            "method": "Mega Evolve in battle holding Galladite",
+            "item": "galladite.png",
+            "note": "Gifted by Professor Cosmo in Fallarbor Town after Delta Episode."
+          }
+        }
+      }
+    ]
+  },
+  "476": {
+    "id": 476,
+    "name": "probopass",
+    "evolutions": []
+  },
+  "477": {
+    "id": 477,
+    "name": "dusknoir",
+    "evolutions": []
+  },
+  "478": {
+    "id": 478,
+    "name": "froslass",
+    "evolutions": []
+  },
+  "479": {
+    "id": 479,
+    "name": "rotom",
+    "evolutions": []
+  },
+  "480": {
+    "id": 480,
+    "name": "uxie",
+    "evolutions": []
+  },
+  "481": {
+    "id": 481,
+    "name": "mesprit",
+    "evolutions": []
+  },
+  "482": {
+    "id": 482,
+    "name": "azelf",
+    "evolutions": []
+  },
+  "483": {
+    "id": 483,
+    "name": "dialga",
+    "evolutions": []
+  },
+  "484": {
+    "id": 484,
+    "name": "palkia",
+    "evolutions": []
+  },
+  "485": {
+    "id": 485,
+    "name": "heatran",
+    "evolutions": []
+  },
+  "486": {
+    "id": 486,
+    "name": "regigigas",
+    "evolutions": []
+  },
+  "487": {
+    "id": 487,
+    "name": "giratina",
+    "evolutions": []
+  },
+  "488": {
+    "id": 488,
+    "name": "cresselia",
+    "evolutions": []
+  },
+  "489": {
+    "id": 489,
+    "name": "phione",
+    "evolutions": []
+  },
+  "490": {
+    "id": 490,
+    "name": "manaphy",
+    "evolutions": []
+  },
+  "491": {
+    "id": 491,
+    "name": "darkrai",
+    "evolutions": []
+  },
+  "492": {
+    "id": 492,
+    "name": "shaymin",
+    "evolutions": []
+  },
+  "493": {
+    "id": 493,
+    "name": "arceus",
+    "evolutions": []
+  },
+  "494": {
+    "id": 494,
+    "name": "victini",
+    "evolutions": []
+  },
+  "495": {
+    "id": 495,
+    "name": "snivy",
+    "evolutions": [
+      {
+        "targetId": 496,
+        "targetName": "Servine",
+        "defaultMethod": "Reach Level 17",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "496": {
+    "id": 496,
+    "name": "servine",
+    "evolutions": [
+      {
+        "targetId": 497,
+        "targetName": "Serperior",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "497": {
+    "id": 497,
+    "name": "serperior",
+    "evolutions": []
+  },
+  "498": {
+    "id": 498,
+    "name": "tepig",
+    "evolutions": [
+      {
+        "targetId": 499,
+        "targetName": "Pignite",
+        "defaultMethod": "Reach Level 17",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "499": {
+    "id": 499,
+    "name": "pignite",
+    "evolutions": [
+      {
+        "targetId": 500,
+        "targetName": "Emboar",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "500": {
+    "id": 500,
+    "name": "emboar",
+    "evolutions": []
+  },
+  "501": {
+    "id": 501,
+    "name": "oshawott",
+    "evolutions": [
+      {
+        "targetId": 502,
+        "targetName": "Dewott",
+        "defaultMethod": "Reach Level 17",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "502": {
+    "id": 502,
+    "name": "dewott",
+    "evolutions": [
+      {
+        "targetId": 503,
+        "targetName": "Samurott",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "503": {
+    "id": 503,
+    "name": "samurott",
+    "evolutions": []
+  },
+  "504": {
+    "id": 504,
+    "name": "patrat",
+    "evolutions": [
+      {
+        "targetId": 505,
+        "targetName": "Watchog",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "505": {
+    "id": 505,
+    "name": "watchog",
+    "evolutions": []
+  },
+  "506": {
+    "id": 506,
+    "name": "lillipup",
+    "evolutions": [
+      {
+        "targetId": 507,
+        "targetName": "Herdier",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "507": {
+    "id": 507,
+    "name": "herdier",
+    "evolutions": [
+      {
+        "targetId": 508,
+        "targetName": "Stoutland",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "508": {
+    "id": 508,
+    "name": "stoutland",
+    "evolutions": []
+  },
+  "509": {
+    "id": 509,
+    "name": "purrloin",
+    "evolutions": [
+      {
+        "targetId": 510,
+        "targetName": "Liepard",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "510": {
+    "id": 510,
+    "name": "liepard",
+    "evolutions": []
+  },
+  "511": {
+    "id": 511,
+    "name": "pansage",
+    "evolutions": [
+      {
+        "targetId": 512,
+        "targetName": "Simisage",
+        "defaultMethod": "Use Leaf Stone",
+        "defaultItem": "leaf-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "512": {
+    "id": 512,
+    "name": "simisage",
+    "evolutions": []
+  },
+  "513": {
+    "id": 513,
+    "name": "pansear",
+    "evolutions": [
+      {
+        "targetId": 514,
+        "targetName": "Simisear",
+        "defaultMethod": "Use Fire Stone",
+        "defaultItem": "fire-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "514": {
+    "id": 514,
+    "name": "simisear",
+    "evolutions": []
+  },
+  "515": {
+    "id": 515,
+    "name": "panpour",
+    "evolutions": [
+      {
+        "targetId": 516,
+        "targetName": "Simipour",
+        "defaultMethod": "Use Water Stone",
+        "defaultItem": "water-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "516": {
+    "id": 516,
+    "name": "simipour",
+    "evolutions": []
+  },
+  "517": {
+    "id": 517,
+    "name": "munna",
+    "evolutions": [
+      {
+        "targetId": 518,
+        "targetName": "Musharna",
+        "defaultMethod": "Use Moon Stone",
+        "defaultItem": "moon-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "518": {
+    "id": 518,
+    "name": "musharna",
+    "evolutions": []
+  },
+  "519": {
+    "id": 519,
+    "name": "pidove",
+    "evolutions": [
+      {
+        "targetId": 520,
+        "targetName": "Tranquill",
+        "defaultMethod": "Reach Level 21",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "520": {
+    "id": 520,
+    "name": "tranquill",
+    "evolutions": [
+      {
+        "targetId": 521,
+        "targetName": "Unfezant",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "521": {
+    "id": 521,
+    "name": "unfezant",
+    "evolutions": []
+  },
+  "522": {
+    "id": 522,
+    "name": "blitzle",
+    "evolutions": [
+      {
+        "targetId": 523,
+        "targetName": "Zebstrika",
+        "defaultMethod": "Reach Level 27",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "523": {
+    "id": 523,
+    "name": "zebstrika",
+    "evolutions": []
+  },
+  "524": {
+    "id": 524,
+    "name": "roggenrola",
+    "evolutions": [
+      {
+        "targetId": 525,
+        "targetName": "Boldore",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "525": {
+    "id": 525,
+    "name": "boldore",
+    "evolutions": [
+      {
+        "targetId": 526,
+        "targetName": "Gigalith",
+        "defaultMethod": "Trade with another player",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "526": {
+    "id": 526,
+    "name": "gigalith",
+    "evolutions": []
+  },
+  "527": {
+    "id": 527,
+    "name": "woobat",
+    "evolutions": [
+      {
+        "targetId": 528,
+        "targetName": "Swoobat",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "528": {
+    "id": 528,
+    "name": "swoobat",
+    "evolutions": []
+  },
+  "529": {
+    "id": 529,
+    "name": "drilbur",
+    "evolutions": [
+      {
+        "targetId": 530,
+        "targetName": "Excadrill",
+        "defaultMethod": "Reach Level 31",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "530": {
+    "id": 530,
+    "name": "excadrill",
+    "evolutions": []
+  },
+  "531": {
+    "id": 531,
+    "name": "audino",
+    "evolutions": []
+  },
+  "532": {
+    "id": 532,
+    "name": "timburr",
+    "evolutions": [
+      {
+        "targetId": 533,
+        "targetName": "Gurdurr",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "533": {
+    "id": 533,
+    "name": "gurdurr",
+    "evolutions": [
+      {
+        "targetId": 534,
+        "targetName": "Conkeldurr",
+        "defaultMethod": "Trade with another player",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "534": {
+    "id": 534,
+    "name": "conkeldurr",
+    "evolutions": []
+  },
+  "535": {
+    "id": 535,
+    "name": "tympole",
+    "evolutions": [
+      {
+        "targetId": 536,
+        "targetName": "Palpitoad",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "536": {
+    "id": 536,
+    "name": "palpitoad",
+    "evolutions": [
+      {
+        "targetId": 537,
+        "targetName": "Seismitoad",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "537": {
+    "id": 537,
+    "name": "seismitoad",
+    "evolutions": []
+  },
+  "538": {
+    "id": 538,
+    "name": "throh",
+    "evolutions": []
+  },
+  "539": {
+    "id": 539,
+    "name": "sawk",
+    "evolutions": []
+  },
+  "540": {
+    "id": 540,
+    "name": "sewaddle",
+    "evolutions": [
+      {
+        "targetId": 541,
+        "targetName": "Swadloon",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "541": {
+    "id": 541,
+    "name": "swadloon",
+    "evolutions": [
+      {
+        "targetId": 542,
+        "targetName": "Leavanny",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 220)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "542": {
+    "id": 542,
+    "name": "leavanny",
+    "evolutions": []
+  },
+  "543": {
+    "id": 543,
+    "name": "venipede",
+    "evolutions": [
+      {
+        "targetId": 544,
+        "targetName": "Whirlipede",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "544": {
+    "id": 544,
+    "name": "whirlipede",
+    "evolutions": [
+      {
+        "targetId": 545,
+        "targetName": "Scolipede",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "545": {
+    "id": 545,
+    "name": "scolipede",
+    "evolutions": []
+  },
+  "546": {
+    "id": 546,
+    "name": "cottonee",
+    "evolutions": [
+      {
+        "targetId": 547,
+        "targetName": "Whimsicott",
+        "defaultMethod": "Use Sun Stone",
+        "defaultItem": "sun-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "547": {
+    "id": 547,
+    "name": "whimsicott",
+    "evolutions": []
+  },
+  "548": {
+    "id": 548,
+    "name": "petilil",
+    "evolutions": [
+      {
+        "targetId": 549,
+        "targetName": "Lilligant",
+        "defaultMethod": "Use Sun Stone",
+        "defaultItem": "sun-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "549": {
+    "id": 549,
+    "name": "lilligant",
+    "evolutions": []
+  },
+  "550": {
+    "id": 550,
+    "name": "basculin",
+    "evolutions": [
+      {
+        "targetId": 902,
+        "targetName": "Basculegion",
+        "defaultMethod": "Recoil Damage",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "551": {
+    "id": 551,
+    "name": "sandile",
+    "evolutions": [
+      {
+        "targetId": 552,
+        "targetName": "Krokorok",
+        "defaultMethod": "Reach Level 29",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "552": {
+    "id": 552,
+    "name": "krokorok",
+    "evolutions": [
+      {
+        "targetId": 553,
+        "targetName": "Krookodile",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "553": {
+    "id": 553,
+    "name": "krookodile",
+    "evolutions": []
+  },
+  "554": {
+    "id": 554,
+    "name": "darumaka",
+    "evolutions": [
+      {
+        "targetId": 555,
+        "targetName": "Darmanitan",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "555": {
+    "id": 555,
+    "name": "darmanitan",
+    "evolutions": []
+  },
+  "556": {
+    "id": 556,
+    "name": "maractus",
+    "evolutions": []
+  },
+  "557": {
+    "id": 557,
+    "name": "dwebble",
+    "evolutions": [
+      {
+        "targetId": 558,
+        "targetName": "Crustle",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "558": {
+    "id": 558,
+    "name": "crustle",
+    "evolutions": []
+  },
+  "559": {
+    "id": 559,
+    "name": "scraggy",
+    "evolutions": [
+      {
+        "targetId": 560,
+        "targetName": "Scrafty",
+        "defaultMethod": "Reach Level 39",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "560": {
+    "id": 560,
+    "name": "scrafty",
+    "evolutions": []
+  },
+  "561": {
+    "id": 561,
+    "name": "sigilyph",
+    "evolutions": []
+  },
+  "562": {
+    "id": 562,
+    "name": "yamask",
+    "evolutions": [
+      {
+        "targetId": 563,
+        "targetName": "Cofagrigus",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 867,
+        "targetName": "Runerigus",
+        "defaultMethod": "Take Damage",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "563": {
+    "id": 563,
+    "name": "cofagrigus",
+    "evolutions": []
+  },
+  "564": {
+    "id": 564,
+    "name": "tirtouga",
+    "evolutions": [
+      {
+        "targetId": 565,
+        "targetName": "Carracosta",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "565": {
+    "id": 565,
+    "name": "carracosta",
+    "evolutions": []
+  },
+  "566": {
+    "id": 566,
+    "name": "archen",
+    "evolutions": [
+      {
+        "targetId": 567,
+        "targetName": "Archeops",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "567": {
+    "id": 567,
+    "name": "archeops",
+    "evolutions": []
+  },
+  "568": {
+    "id": 568,
+    "name": "trubbish",
+    "evolutions": [
+      {
+        "targetId": 569,
+        "targetName": "Garbodor",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "569": {
+    "id": 569,
+    "name": "garbodor",
+    "evolutions": []
+  },
+  "570": {
+    "id": 570,
+    "name": "zorua",
+    "evolutions": [
+      {
+        "targetId": 571,
+        "targetName": "Zoroark",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "571": {
+    "id": 571,
+    "name": "zoroark",
+    "evolutions": []
+  },
+  "572": {
+    "id": 572,
+    "name": "minccino",
+    "evolutions": [
+      {
+        "targetId": 573,
+        "targetName": "Cinccino",
+        "defaultMethod": "Use Shiny Stone",
+        "defaultItem": "shiny-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "573": {
+    "id": 573,
+    "name": "cinccino",
+    "evolutions": []
+  },
+  "574": {
+    "id": 574,
+    "name": "gothita",
+    "evolutions": [
+      {
+        "targetId": 575,
+        "targetName": "Gothorita",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "575": {
+    "id": 575,
+    "name": "gothorita",
+    "evolutions": [
+      {
+        "targetId": 576,
+        "targetName": "Gothitelle",
+        "defaultMethod": "Reach Level 41",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "576": {
+    "id": 576,
+    "name": "gothitelle",
+    "evolutions": []
+  },
+  "577": {
+    "id": 577,
+    "name": "solosis",
+    "evolutions": [
+      {
+        "targetId": 578,
+        "targetName": "Duosion",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "578": {
+    "id": 578,
+    "name": "duosion",
+    "evolutions": [
+      {
+        "targetId": 579,
+        "targetName": "Reuniclus",
+        "defaultMethod": "Reach Level 41",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "579": {
+    "id": 579,
+    "name": "reuniclus",
+    "evolutions": []
+  },
+  "580": {
+    "id": 580,
+    "name": "ducklett",
+    "evolutions": [
+      {
+        "targetId": 581,
+        "targetName": "Swanna",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "581": {
+    "id": 581,
+    "name": "swanna",
+    "evolutions": []
+  },
+  "582": {
+    "id": 582,
+    "name": "vanillite",
+    "evolutions": [
+      {
+        "targetId": 583,
+        "targetName": "Vanillish",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "583": {
+    "id": 583,
+    "name": "vanillish",
+    "evolutions": [
+      {
+        "targetId": 584,
+        "targetName": "Vanilluxe",
+        "defaultMethod": "Reach Level 47",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "584": {
+    "id": 584,
+    "name": "vanilluxe",
+    "evolutions": []
+  },
+  "585": {
+    "id": 585,
+    "name": "deerling",
+    "evolutions": [
+      {
+        "targetId": 586,
+        "targetName": "Sawsbuck",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "586": {
+    "id": 586,
+    "name": "sawsbuck",
+    "evolutions": []
+  },
+  "587": {
+    "id": 587,
+    "name": "emolga",
+    "evolutions": []
+  },
+  "588": {
+    "id": 588,
+    "name": "karrablast",
+    "evolutions": [
+      {
+        "targetId": 589,
+        "targetName": "Escavalier",
+        "defaultMethod": "Trade specifically for Shelmet",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "589": {
+    "id": 589,
+    "name": "escavalier",
+    "evolutions": []
+  },
+  "590": {
+    "id": 590,
+    "name": "foongus",
+    "evolutions": [
+      {
+        "targetId": 591,
+        "targetName": "Amoonguss",
+        "defaultMethod": "Reach Level 39",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "591": {
+    "id": 591,
+    "name": "amoonguss",
+    "evolutions": []
+  },
+  "592": {
+    "id": 592,
+    "name": "frillish",
+    "evolutions": [
+      {
+        "targetId": 593,
+        "targetName": "Jellicent",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "593": {
+    "id": 593,
+    "name": "jellicent",
+    "evolutions": []
+  },
+  "594": {
+    "id": 594,
+    "name": "alomomola",
+    "evolutions": []
+  },
+  "595": {
+    "id": 595,
+    "name": "joltik",
+    "evolutions": [
+      {
+        "targetId": 596,
+        "targetName": "Galvantula",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "596": {
+    "id": 596,
+    "name": "galvantula",
+    "evolutions": []
+  },
+  "597": {
+    "id": 597,
+    "name": "ferroseed",
+    "evolutions": [
+      {
+        "targetId": 598,
+        "targetName": "Ferrothorn",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "598": {
+    "id": 598,
+    "name": "ferrothorn",
+    "evolutions": []
+  },
+  "599": {
+    "id": 599,
+    "name": "klink",
+    "evolutions": [
+      {
+        "targetId": 600,
+        "targetName": "Klang",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "600": {
+    "id": 600,
+    "name": "klang",
+    "evolutions": [
+      {
+        "targetId": 601,
+        "targetName": "Klinklang",
+        "defaultMethod": "Reach Level 49",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "601": {
+    "id": 601,
+    "name": "klinklang",
+    "evolutions": []
+  },
+  "602": {
+    "id": 602,
+    "name": "tynamo",
+    "evolutions": [
+      {
+        "targetId": 603,
+        "targetName": "Eelektrik",
+        "defaultMethod": "Reach Level 39",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "603": {
+    "id": 603,
+    "name": "eelektrik",
+    "evolutions": [
+      {
+        "targetId": 604,
+        "targetName": "Eelektross",
+        "defaultMethod": "Use Thunder Stone",
+        "defaultItem": "thunder-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "604": {
+    "id": 604,
+    "name": "eelektross",
+    "evolutions": []
+  },
+  "605": {
+    "id": 605,
+    "name": "elgyem",
+    "evolutions": [
+      {
+        "targetId": 606,
+        "targetName": "Beheeyem",
+        "defaultMethod": "Reach Level 42",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "606": {
+    "id": 606,
+    "name": "beheeyem",
+    "evolutions": []
+  },
+  "607": {
+    "id": 607,
+    "name": "litwick",
+    "evolutions": [
+      {
+        "targetId": 608,
+        "targetName": "Lampent",
+        "defaultMethod": "Reach Level 41",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "608": {
+    "id": 608,
+    "name": "lampent",
+    "evolutions": [
+      {
+        "targetId": 609,
+        "targetName": "Chandelure",
+        "defaultMethod": "Use Dusk Stone",
+        "defaultItem": "dusk-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "609": {
+    "id": 609,
+    "name": "chandelure",
+    "evolutions": []
+  },
+  "610": {
+    "id": 610,
+    "name": "axew",
+    "evolutions": [
+      {
+        "targetId": 611,
+        "targetName": "Fraxure",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "611": {
+    "id": 611,
+    "name": "fraxure",
+    "evolutions": [
+      {
+        "targetId": 612,
+        "targetName": "Haxorus",
+        "defaultMethod": "Reach Level 48",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "612": {
+    "id": 612,
+    "name": "haxorus",
+    "evolutions": []
+  },
+  "613": {
+    "id": 613,
+    "name": "cubchoo",
+    "evolutions": [
+      {
+        "targetId": 614,
+        "targetName": "Beartic",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "614": {
+    "id": 614,
+    "name": "beartic",
+    "evolutions": []
+  },
+  "615": {
+    "id": 615,
+    "name": "cryogonal",
+    "evolutions": []
+  },
+  "616": {
+    "id": 616,
+    "name": "shelmet",
+    "evolutions": [
+      {
+        "targetId": 617,
+        "targetName": "Accelgor",
+        "defaultMethod": "Trade specifically for Karrablast",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "617": {
+    "id": 617,
+    "name": "accelgor",
+    "evolutions": []
+  },
+  "618": {
+    "id": 618,
+    "name": "stunfisk",
+    "evolutions": []
+  },
+  "619": {
+    "id": 619,
+    "name": "mienfoo",
+    "evolutions": [
+      {
+        "targetId": 620,
+        "targetName": "Mienshao",
+        "defaultMethod": "Reach Level 50",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "620": {
+    "id": 620,
+    "name": "mienshao",
+    "evolutions": []
+  },
+  "621": {
+    "id": 621,
+    "name": "druddigon",
+    "evolutions": []
+  },
+  "622": {
+    "id": 622,
+    "name": "golett",
+    "evolutions": [
+      {
+        "targetId": 623,
+        "targetName": "Golurk",
+        "defaultMethod": "Reach Level 43",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "623": {
+    "id": 623,
+    "name": "golurk",
+    "evolutions": []
+  },
+  "624": {
+    "id": 624,
+    "name": "pawniard",
+    "evolutions": [
+      {
+        "targetId": 625,
+        "targetName": "Bisharp",
+        "defaultMethod": "Reach Level 52",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "625": {
+    "id": 625,
+    "name": "bisharp",
+    "evolutions": [
+      {
+        "targetId": 983,
+        "targetName": "Kingambit",
+        "defaultMethod": "Defeat 3 Bisharp holding Leader's Crest, then level up",
+        "defaultItem": null,
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Defeat 3 Bisharp holding Leader's Crest, then level up",
+            "item": "leaders-crest.png",
+            "note": "Defeat 3 Bisharp that spawn in the center of Pawniard packs (North Province Area 2)."
+          }
+        }
+      }
+    ]
+  },
+  "626": {
+    "id": 626,
+    "name": "bouffalant",
+    "evolutions": []
+  },
+  "627": {
+    "id": 627,
+    "name": "rufflet",
+    "evolutions": [
+      {
+        "targetId": 628,
+        "targetName": "Braviary",
+        "defaultMethod": "Reach Level 54",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "628": {
+    "id": 628,
+    "name": "braviary",
+    "evolutions": []
+  },
+  "629": {
+    "id": 629,
+    "name": "vullaby",
+    "evolutions": [
+      {
+        "targetId": 630,
+        "targetName": "Mandibuzz",
+        "defaultMethod": "Reach Level 54",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "630": {
+    "id": 630,
+    "name": "mandibuzz",
+    "evolutions": []
+  },
+  "631": {
+    "id": 631,
+    "name": "heatmor",
+    "evolutions": []
+  },
+  "632": {
+    "id": 632,
+    "name": "durant",
+    "evolutions": []
+  },
+  "633": {
+    "id": 633,
+    "name": "deino",
+    "evolutions": [
+      {
+        "targetId": 634,
+        "targetName": "Zweilous",
+        "defaultMethod": "Reach Level 50",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "634": {
+    "id": 634,
+    "name": "zweilous",
+    "evolutions": [
+      {
+        "targetId": 635,
+        "targetName": "Hydreigon",
+        "defaultMethod": "Reach Level 64",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "635": {
+    "id": 635,
+    "name": "hydreigon",
+    "evolutions": []
+  },
+  "636": {
+    "id": 636,
+    "name": "larvesta",
+    "evolutions": [
+      {
+        "targetId": 637,
+        "targetName": "Volcarona",
+        "defaultMethod": "Reach Level 59",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "637": {
+    "id": 637,
+    "name": "volcarona",
+    "evolutions": []
+  },
+  "638": {
+    "id": 638,
+    "name": "cobalion",
+    "evolutions": []
+  },
+  "639": {
+    "id": 639,
+    "name": "terrakion",
+    "evolutions": []
+  },
+  "640": {
+    "id": 640,
+    "name": "virizion",
+    "evolutions": []
+  },
+  "641": {
+    "id": 641,
+    "name": "tornadus",
+    "evolutions": []
+  },
+  "642": {
+    "id": 642,
+    "name": "thundurus",
+    "evolutions": []
+  },
+  "643": {
+    "id": 643,
+    "name": "reshiram",
+    "evolutions": []
+  },
+  "644": {
+    "id": 644,
+    "name": "zekrom",
+    "evolutions": []
+  },
+  "645": {
+    "id": 645,
+    "name": "landorus",
+    "evolutions": []
+  },
+  "646": {
+    "id": 646,
+    "name": "kyurem",
+    "evolutions": []
+  },
+  "647": {
+    "id": 647,
+    "name": "keldeo",
+    "evolutions": []
+  },
+  "648": {
+    "id": 648,
+    "name": "meloetta",
+    "evolutions": []
+  },
+  "649": {
+    "id": 649,
+    "name": "genesect",
+    "evolutions": []
+  },
+  "650": {
+    "id": 650,
+    "name": "chespin",
+    "evolutions": [
+      {
+        "targetId": 651,
+        "targetName": "Quilladin",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "651": {
+    "id": 651,
+    "name": "quilladin",
+    "evolutions": [
+      {
+        "targetId": 652,
+        "targetName": "Chesnaught",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "652": {
+    "id": 652,
+    "name": "chesnaught",
+    "evolutions": []
+  },
+  "653": {
+    "id": 653,
+    "name": "fennekin",
+    "evolutions": [
+      {
+        "targetId": 654,
+        "targetName": "Braixen",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "654": {
+    "id": 654,
+    "name": "braixen",
+    "evolutions": [
+      {
+        "targetId": 655,
+        "targetName": "Delphox",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "655": {
+    "id": 655,
+    "name": "delphox",
+    "evolutions": []
+  },
+  "656": {
+    "id": 656,
+    "name": "froakie",
+    "evolutions": [
+      {
+        "targetId": 657,
+        "targetName": "Frogadier",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "657": {
+    "id": 657,
+    "name": "frogadier",
+    "evolutions": [
+      {
+        "targetId": 658,
+        "targetName": "Greninja",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "658": {
+    "id": 658,
+    "name": "greninja",
+    "evolutions": []
+  },
+  "659": {
+    "id": 659,
+    "name": "bunnelby",
+    "evolutions": [
+      {
+        "targetId": 660,
+        "targetName": "Diggersby",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "660": {
+    "id": 660,
+    "name": "diggersby",
+    "evolutions": []
+  },
+  "661": {
+    "id": 661,
+    "name": "fletchling",
+    "evolutions": [
+      {
+        "targetId": 662,
+        "targetName": "Fletchinder",
+        "defaultMethod": "Reach Level 17",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "662": {
+    "id": 662,
+    "name": "fletchinder",
+    "evolutions": [
+      {
+        "targetId": 663,
+        "targetName": "Talonflame",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "663": {
+    "id": 663,
+    "name": "talonflame",
+    "evolutions": []
+  },
+  "664": {
+    "id": 664,
+    "name": "scatterbug",
+    "evolutions": [
+      {
+        "targetId": 665,
+        "targetName": "Spewpa",
+        "defaultMethod": "Reach Level 9",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "665": {
+    "id": 665,
+    "name": "spewpa",
+    "evolutions": [
+      {
+        "targetId": 666,
+        "targetName": "Vivillon",
+        "defaultMethod": "Reach Level 12",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "666": {
+    "id": 666,
+    "name": "vivillon",
+    "evolutions": []
+  },
+  "667": {
+    "id": 667,
+    "name": "litleo",
+    "evolutions": [
+      {
+        "targetId": 668,
+        "targetName": "Pyroar",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "668": {
+    "id": 668,
+    "name": "pyroar",
+    "evolutions": []
+  },
+  "669": {
+    "id": 669,
+    "name": "flabebe",
+    "evolutions": [
+      {
+        "targetId": 670,
+        "targetName": "Floette",
+        "defaultMethod": "Reach Level 19",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "670": {
+    "id": 670,
+    "name": "floette",
+    "evolutions": [
+      {
+        "targetId": 671,
+        "targetName": "Florges",
+        "defaultMethod": "Use Shiny Stone",
+        "defaultItem": "shiny-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "671": {
+    "id": 671,
+    "name": "florges",
+    "evolutions": []
+  },
+  "672": {
+    "id": 672,
+    "name": "skiddo",
+    "evolutions": [
+      {
+        "targetId": 673,
+        "targetName": "Gogoat",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "673": {
+    "id": 673,
+    "name": "gogoat",
+    "evolutions": []
+  },
+  "674": {
+    "id": 674,
+    "name": "pancham",
+    "evolutions": [
+      {
+        "targetId": 675,
+        "targetName": "Pangoro",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "675": {
+    "id": 675,
+    "name": "pangoro",
+    "evolutions": []
+  },
+  "676": {
+    "id": 676,
+    "name": "furfrou",
+    "evolutions": []
+  },
+  "677": {
+    "id": 677,
+    "name": "espurr",
+    "evolutions": [
+      {
+        "targetId": 678,
+        "targetName": "Meowstic",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "678": {
+    "id": 678,
+    "name": "meowstic",
+    "evolutions": []
+  },
+  "679": {
+    "id": 679,
+    "name": "honedge",
+    "evolutions": [
+      {
+        "targetId": 680,
+        "targetName": "Doublade",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "680": {
+    "id": 680,
+    "name": "doublade",
+    "evolutions": [
+      {
+        "targetId": 681,
+        "targetName": "Aegislash",
+        "defaultMethod": "Use Dusk Stone",
+        "defaultItem": "dusk-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "681": {
+    "id": 681,
+    "name": "aegislash",
+    "evolutions": []
+  },
+  "682": {
+    "id": 682,
+    "name": "spritzee",
+    "evolutions": [
+      {
+        "targetId": 683,
+        "targetName": "Aromatisse",
+        "defaultMethod": "Trade holding Sachet",
+        "defaultItem": "sachet.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "683": {
+    "id": 683,
+    "name": "aromatisse",
+    "evolutions": []
+  },
+  "684": {
+    "id": 684,
+    "name": "swirlix",
+    "evolutions": [
+      {
+        "targetId": 685,
+        "targetName": "Slurpuff",
+        "defaultMethod": "Trade holding Whipped Dream",
+        "defaultItem": "whipped-dream.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "685": {
+    "id": 685,
+    "name": "slurpuff",
+    "evolutions": []
+  },
+  "686": {
+    "id": 686,
+    "name": "inkay",
+    "evolutions": [
+      {
+        "targetId": 687,
+        "targetName": "Malamar",
+        "defaultMethod": "Reach Level 30 while holding system upside-down",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "687": {
+    "id": 687,
+    "name": "malamar",
+    "evolutions": []
+  },
+  "688": {
+    "id": 688,
+    "name": "binacle",
+    "evolutions": [
+      {
+        "targetId": 689,
+        "targetName": "Barbaracle",
+        "defaultMethod": "Reach Level 39",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "689": {
+    "id": 689,
+    "name": "barbaracle",
+    "evolutions": []
+  },
+  "690": {
+    "id": 690,
+    "name": "skrelp",
+    "evolutions": [
+      {
+        "targetId": 691,
+        "targetName": "Dragalge",
+        "defaultMethod": "Reach Level 48",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "691": {
+    "id": 691,
+    "name": "dragalge",
+    "evolutions": []
+  },
+  "692": {
+    "id": 692,
+    "name": "clauncher",
+    "evolutions": [
+      {
+        "targetId": 693,
+        "targetName": "Clawitzer",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "693": {
+    "id": 693,
+    "name": "clawitzer",
+    "evolutions": []
+  },
+  "694": {
+    "id": 694,
+    "name": "helioptile",
+    "evolutions": [
+      {
+        "targetId": 695,
+        "targetName": "Heliolisk",
+        "defaultMethod": "Use Sun Stone",
+        "defaultItem": "sun-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "695": {
+    "id": 695,
+    "name": "heliolisk",
+    "evolutions": []
+  },
+  "696": {
+    "id": 696,
+    "name": "tyrunt",
+    "evolutions": [
+      {
+        "targetId": 697,
+        "targetName": "Tyrantrum",
+        "defaultMethod": "Reach Level 39 during the daytime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "697": {
+    "id": 697,
+    "name": "tyrantrum",
+    "evolutions": []
+  },
+  "698": {
+    "id": 698,
+    "name": "amaura",
+    "evolutions": [
+      {
+        "targetId": 699,
+        "targetName": "Aurorus",
+        "defaultMethod": "Reach Level 39 during the nighttime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "699": {
+    "id": 699,
+    "name": "aurorus",
+    "evolutions": []
+  },
+  "700": {
+    "id": 700,
+    "name": "sylveon",
+    "evolutions": []
+  },
+  "701": {
+    "id": 701,
+    "name": "hawlucha",
+    "evolutions": []
+  },
+  "702": {
+    "id": 702,
+    "name": "dedenne",
+    "evolutions": []
+  },
+  "703": {
+    "id": 703,
+    "name": "carbink",
+    "evolutions": []
+  },
+  "704": {
+    "id": 704,
+    "name": "goomy",
+    "evolutions": [
+      {
+        "targetId": 705,
+        "targetName": "Sliggoo",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "705": {
+    "id": 705,
+    "name": "sliggoo",
+    "evolutions": [
+      {
+        "targetId": 706,
+        "targetName": "Goodra",
+        "defaultMethod": "Reach Level 50",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "706": {
+    "id": 706,
+    "name": "goodra",
+    "evolutions": []
+  },
+  "707": {
+    "id": 707,
+    "name": "klefki",
+    "evolutions": []
+  },
+  "708": {
+    "id": 708,
+    "name": "phantump",
+    "evolutions": [
+      {
+        "targetId": 709,
+        "targetName": "Trevenant",
+        "defaultMethod": "Trade with another player",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "709": {
+    "id": 709,
+    "name": "trevenant",
+    "evolutions": []
+  },
+  "710": {
+    "id": 710,
+    "name": "pumpkaboo",
+    "evolutions": [
+      {
+        "targetId": 711,
+        "targetName": "Gourgeist",
+        "defaultMethod": "Trade with another player",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "711": {
+    "id": 711,
+    "name": "gourgeist",
+    "evolutions": []
+  },
+  "712": {
+    "id": 712,
+    "name": "bergmite",
+    "evolutions": [
+      {
+        "targetId": 713,
+        "targetName": "Avalugg",
+        "defaultMethod": "Reach Level 37",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "713": {
+    "id": 713,
+    "name": "avalugg",
+    "evolutions": []
+  },
+  "714": {
+    "id": 714,
+    "name": "noibat",
+    "evolutions": [
+      {
+        "targetId": 715,
+        "targetName": "Noivern",
+        "defaultMethod": "Reach Level 48",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "715": {
+    "id": 715,
+    "name": "noivern",
+    "evolutions": []
+  },
+  "716": {
+    "id": 716,
+    "name": "xerneas",
+    "evolutions": []
+  },
+  "717": {
+    "id": 717,
+    "name": "yveltal",
+    "evolutions": []
+  },
+  "718": {
+    "id": 718,
+    "name": "zygarde",
+    "evolutions": []
+  },
+  "719": {
+    "id": 719,
+    "name": "diancie",
+    "evolutions": []
+  },
+  "720": {
+    "id": 720,
+    "name": "hoopa",
+    "evolutions": []
+  },
+  "721": {
+    "id": 721,
+    "name": "volcanion",
+    "evolutions": []
+  },
+  "722": {
+    "id": 722,
+    "name": "rowlet",
+    "evolutions": [
+      {
+        "targetId": 723,
+        "targetName": "Dartrix",
+        "defaultMethod": "Reach Level 17",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "723": {
+    "id": 723,
+    "name": "dartrix",
+    "evolutions": [
+      {
+        "targetId": 724,
+        "targetName": "Decidueye",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "724": {
+    "id": 724,
+    "name": "decidueye",
+    "evolutions": []
+  },
+  "725": {
+    "id": 725,
+    "name": "litten",
+    "evolutions": [
+      {
+        "targetId": 726,
+        "targetName": "Torracat",
+        "defaultMethod": "Reach Level 17",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "726": {
+    "id": 726,
+    "name": "torracat",
+    "evolutions": [
+      {
+        "targetId": 727,
+        "targetName": "Incineroar",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "727": {
+    "id": 727,
+    "name": "incineroar",
+    "evolutions": []
+  },
+  "728": {
+    "id": 728,
+    "name": "popplio",
+    "evolutions": [
+      {
+        "targetId": 729,
+        "targetName": "Brionne",
+        "defaultMethod": "Reach Level 17",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "729": {
+    "id": 729,
+    "name": "brionne",
+    "evolutions": [
+      {
+        "targetId": 730,
+        "targetName": "Primarina",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "730": {
+    "id": 730,
+    "name": "primarina",
+    "evolutions": []
+  },
+  "731": {
+    "id": 731,
+    "name": "pikipek",
+    "evolutions": [
+      {
+        "targetId": 732,
+        "targetName": "Trumbeak",
+        "defaultMethod": "Reach Level 14",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "732": {
+    "id": 732,
+    "name": "trumbeak",
+    "evolutions": [
+      {
+        "targetId": 733,
+        "targetName": "Toucannon",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "733": {
+    "id": 733,
+    "name": "toucannon",
+    "evolutions": []
+  },
+  "734": {
+    "id": 734,
+    "name": "yungoos",
+    "evolutions": [
+      {
+        "targetId": 735,
+        "targetName": "Gumshoos",
+        "defaultMethod": "Reach Level 20 during the daytime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "735": {
+    "id": 735,
+    "name": "gumshoos",
+    "evolutions": []
+  },
+  "736": {
+    "id": 736,
+    "name": "grubbin",
+    "evolutions": [
+      {
+        "targetId": 737,
+        "targetName": "Charjabug",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "737": {
+    "id": 737,
+    "name": "charjabug",
+    "evolutions": [
+      {
+        "targetId": 738,
+        "targetName": "Vikavolt",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "738": {
+    "id": 738,
+    "name": "vikavolt",
+    "evolutions": []
+  },
+  "739": {
+    "id": 739,
+    "name": "crabrawler",
+    "evolutions": [
+      {
+        "targetId": 740,
+        "targetName": "Crabominable",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "740": {
+    "id": 740,
+    "name": "crabominable",
+    "evolutions": []
+  },
+  "741": {
+    "id": 741,
+    "name": "oricorio",
+    "evolutions": []
+  },
+  "742": {
+    "id": 742,
+    "name": "cutiefly",
+    "evolutions": [
+      {
+        "targetId": 743,
+        "targetName": "Ribombee",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "743": {
+    "id": 743,
+    "name": "ribombee",
+    "evolutions": []
+  },
+  "744": {
+    "id": 744,
+    "name": "rockruff",
+    "evolutions": [
+      {
+        "targetId": 745,
+        "targetName": "Lycanroc",
+        "defaultMethod": "Reach Level 25 during the daytime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "745": {
+    "id": 745,
+    "name": "lycanroc",
+    "evolutions": []
+  },
+  "746": {
+    "id": 746,
+    "name": "wishiwashi",
+    "evolutions": []
+  },
+  "747": {
+    "id": 747,
+    "name": "mareanie",
+    "evolutions": [
+      {
+        "targetId": 748,
+        "targetName": "Toxapex",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "748": {
+    "id": 748,
+    "name": "toxapex",
+    "evolutions": []
+  },
+  "749": {
+    "id": 749,
+    "name": "mudbray",
+    "evolutions": [
+      {
+        "targetId": 750,
+        "targetName": "Mudsdale",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "750": {
+    "id": 750,
+    "name": "mudsdale",
+    "evolutions": []
+  },
+  "751": {
+    "id": 751,
+    "name": "dewpider",
+    "evolutions": [
+      {
+        "targetId": 752,
+        "targetName": "Araquanid",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "752": {
+    "id": 752,
+    "name": "araquanid",
+    "evolutions": []
+  },
+  "753": {
+    "id": 753,
+    "name": "fomantis",
+    "evolutions": [
+      {
+        "targetId": 754,
+        "targetName": "Lurantis",
+        "defaultMethod": "Reach Level 34 during the daytime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "754": {
+    "id": 754,
+    "name": "lurantis",
+    "evolutions": []
+  },
+  "755": {
+    "id": 755,
+    "name": "morelull",
+    "evolutions": [
+      {
+        "targetId": 756,
+        "targetName": "Shiinotic",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "756": {
+    "id": 756,
+    "name": "shiinotic",
+    "evolutions": []
+  },
+  "757": {
+    "id": 757,
+    "name": "salandit",
+    "evolutions": [
+      {
+        "targetId": 758,
+        "targetName": "Salazzle",
+        "defaultMethod": "Reach Level 33",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "758": {
+    "id": 758,
+    "name": "salazzle",
+    "evolutions": []
+  },
+  "759": {
+    "id": 759,
+    "name": "stufful",
+    "evolutions": [
+      {
+        "targetId": 760,
+        "targetName": "Bewear",
+        "defaultMethod": "Reach Level 27",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "760": {
+    "id": 760,
+    "name": "bewear",
+    "evolutions": []
+  },
+  "761": {
+    "id": 761,
+    "name": "bounsweet",
+    "evolutions": [
+      {
+        "targetId": 762,
+        "targetName": "Steenee",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "762": {
+    "id": 762,
+    "name": "steenee",
+    "evolutions": [
+      {
+        "targetId": 763,
+        "targetName": "Tsareena",
+        "defaultMethod": "Level up knowing Stomp",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "763": {
+    "id": 763,
+    "name": "tsareena",
+    "evolutions": []
+  },
+  "764": {
+    "id": 764,
+    "name": "comfey",
+    "evolutions": []
+  },
+  "765": {
+    "id": 765,
+    "name": "oranguru",
+    "evolutions": []
+  },
+  "766": {
+    "id": 766,
+    "name": "passimian",
+    "evolutions": []
+  },
+  "767": {
+    "id": 767,
+    "name": "wimpod",
+    "evolutions": [
+      {
+        "targetId": 768,
+        "targetName": "Golisopod",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "768": {
+    "id": 768,
+    "name": "golisopod",
+    "evolutions": []
+  },
+  "769": {
+    "id": 769,
+    "name": "sandygast",
+    "evolutions": [
+      {
+        "targetId": 770,
+        "targetName": "Palossand",
+        "defaultMethod": "Reach Level 42",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "770": {
+    "id": 770,
+    "name": "palossand",
+    "evolutions": []
+  },
+  "771": {
+    "id": 771,
+    "name": "pyukumuku",
+    "evolutions": []
+  },
+  "772": {
+    "id": 772,
+    "name": "type-null",
+    "evolutions": [
+      {
+        "targetId": 773,
+        "targetName": "Silvally",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160)",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "773": {
+    "id": 773,
+    "name": "silvally",
+    "evolutions": []
+  },
+  "774": {
+    "id": 774,
+    "name": "minior",
+    "evolutions": []
+  },
+  "775": {
+    "id": 775,
+    "name": "komala",
+    "evolutions": []
+  },
+  "776": {
+    "id": 776,
+    "name": "turtonator",
+    "evolutions": []
+  },
+  "777": {
+    "id": 777,
+    "name": "togedemaru",
+    "evolutions": []
+  },
+  "778": {
+    "id": 778,
+    "name": "mimikyu",
+    "evolutions": []
+  },
+  "779": {
+    "id": 779,
+    "name": "bruxish",
+    "evolutions": []
+  },
+  "780": {
+    "id": 780,
+    "name": "drampa",
+    "evolutions": []
+  },
+  "781": {
+    "id": 781,
+    "name": "dhelmise",
+    "evolutions": []
+  },
+  "782": {
+    "id": 782,
+    "name": "jangmo-o",
+    "evolutions": [
+      {
+        "targetId": 783,
+        "targetName": "Hakamo O",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "783": {
+    "id": 783,
+    "name": "hakamo-o",
+    "evolutions": [
+      {
+        "targetId": 784,
+        "targetName": "Kommo O",
+        "defaultMethod": "Reach Level 45",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "784": {
+    "id": 784,
+    "name": "kommo-o",
+    "evolutions": []
+  },
+  "785": {
+    "id": 785,
+    "name": "tapu-koko",
+    "evolutions": []
+  },
+  "786": {
+    "id": 786,
+    "name": "tapu-lele",
+    "evolutions": []
+  },
+  "787": {
+    "id": 787,
+    "name": "tapu-bulu",
+    "evolutions": []
+  },
+  "788": {
+    "id": 788,
+    "name": "tapu-fini",
+    "evolutions": []
+  },
+  "789": {
+    "id": 789,
+    "name": "cosmog",
+    "evolutions": [
+      {
+        "targetId": 790,
+        "targetName": "Cosmoem",
+        "defaultMethod": "Reach Level 43",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "790": {
+    "id": 790,
+    "name": "cosmoem",
+    "evolutions": [
+      {
+        "targetId": 791,
+        "targetName": "Solgaleo",
+        "defaultMethod": "Reach Level 53",
+        "defaultItem": null,
+        "versionNotes": {}
+      },
+      {
+        "targetId": 792,
+        "targetName": "Lunala",
+        "defaultMethod": "Reach Level 53",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "791": {
+    "id": 791,
+    "name": "solgaleo",
+    "evolutions": []
+  },
+  "792": {
+    "id": 792,
+    "name": "lunala",
+    "evolutions": []
+  },
+  "793": {
+    "id": 793,
+    "name": "nihilego",
+    "evolutions": []
+  },
+  "794": {
+    "id": 794,
+    "name": "buzzwole",
+    "evolutions": []
+  },
+  "795": {
+    "id": 795,
+    "name": "pheromosa",
+    "evolutions": []
+  },
+  "796": {
+    "id": 796,
+    "name": "xurkitree",
+    "evolutions": []
+  },
+  "797": {
+    "id": 797,
+    "name": "celesteela",
+    "evolutions": []
+  },
+  "798": {
+    "id": 798,
+    "name": "kartana",
+    "evolutions": []
+  },
+  "799": {
+    "id": 799,
+    "name": "guzzlord",
+    "evolutions": []
+  },
+  "800": {
+    "id": 800,
+    "name": "necrozma",
+    "evolutions": []
+  },
+  "801": {
+    "id": 801,
+    "name": "magearna",
+    "evolutions": []
+  },
+  "802": {
+    "id": 802,
+    "name": "marshadow",
+    "evolutions": []
+  },
+  "803": {
+    "id": 803,
+    "name": "poipole",
+    "evolutions": [
+      {
+        "targetId": 804,
+        "targetName": "Naganadel",
+        "defaultMethod": "Level up knowing Dragon Pulse",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "804": {
+    "id": 804,
+    "name": "naganadel",
+    "evolutions": []
+  },
+  "805": {
+    "id": 805,
+    "name": "stakataka",
+    "evolutions": []
+  },
+  "806": {
+    "id": 806,
+    "name": "blacephalon",
+    "evolutions": []
+  },
+  "807": {
+    "id": 807,
+    "name": "zeraora",
+    "evolutions": []
+  },
+  "808": {
+    "id": 808,
+    "name": "meltan",
+    "evolutions": [
+      {
+        "targetId": 809,
+        "targetName": "Melmetal",
+        "defaultMethod": "Meltan Candies",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "809": {
+    "id": 809,
+    "name": "melmetal",
+    "evolutions": []
+  },
+  "810": {
+    "id": 810,
+    "name": "grookey",
+    "evolutions": [
+      {
+        "targetId": 811,
+        "targetName": "Thwackey",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "811": {
+    "id": 811,
+    "name": "thwackey",
+    "evolutions": [
+      {
+        "targetId": 812,
+        "targetName": "Rillaboom",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "812": {
+    "id": 812,
+    "name": "rillaboom",
+    "evolutions": []
+  },
+  "813": {
+    "id": 813,
+    "name": "scorbunny",
+    "evolutions": [
+      {
+        "targetId": 814,
+        "targetName": "Raboot",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "814": {
+    "id": 814,
+    "name": "raboot",
+    "evolutions": [
+      {
+        "targetId": 815,
+        "targetName": "Cinderace",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "815": {
+    "id": 815,
+    "name": "cinderace",
+    "evolutions": []
+  },
+  "816": {
+    "id": 816,
+    "name": "sobble",
+    "evolutions": [
+      {
+        "targetId": 817,
+        "targetName": "Drizzile",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "817": {
+    "id": 817,
+    "name": "drizzile",
+    "evolutions": [
+      {
+        "targetId": 818,
+        "targetName": "Inteleon",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "818": {
+    "id": 818,
+    "name": "inteleon",
+    "evolutions": []
+  },
+  "819": {
+    "id": 819,
+    "name": "skwovet",
+    "evolutions": [
+      {
+        "targetId": 820,
+        "targetName": "Greedent",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "820": {
+    "id": 820,
+    "name": "greedent",
+    "evolutions": []
+  },
+  "821": {
+    "id": 821,
+    "name": "rookidee",
+    "evolutions": [
+      {
+        "targetId": 822,
+        "targetName": "Corvisquire",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "822": {
+    "id": 822,
+    "name": "corvisquire",
+    "evolutions": [
+      {
+        "targetId": 823,
+        "targetName": "Corviknight",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "823": {
+    "id": 823,
+    "name": "corviknight",
+    "evolutions": []
+  },
+  "824": {
+    "id": 824,
+    "name": "blipbug",
+    "evolutions": [
+      {
+        "targetId": 825,
+        "targetName": "Dottler",
+        "defaultMethod": "Reach Level 10",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "825": {
+    "id": 825,
+    "name": "dottler",
+    "evolutions": [
+      {
+        "targetId": 826,
+        "targetName": "Orbeetle",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "826": {
+    "id": 826,
+    "name": "orbeetle",
+    "evolutions": []
+  },
+  "827": {
+    "id": 827,
+    "name": "nickit",
+    "evolutions": [
+      {
+        "targetId": 828,
+        "targetName": "Thievul",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "828": {
+    "id": 828,
+    "name": "thievul",
+    "evolutions": []
+  },
+  "829": {
+    "id": 829,
+    "name": "gossifleur",
+    "evolutions": [
+      {
+        "targetId": 830,
+        "targetName": "Eldegoss",
+        "defaultMethod": "Reach Level 20",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "830": {
+    "id": 830,
+    "name": "eldegoss",
+    "evolutions": []
+  },
+  "831": {
+    "id": 831,
+    "name": "wooloo",
+    "evolutions": [
+      {
+        "targetId": 832,
+        "targetName": "Dubwool",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "832": {
+    "id": 832,
+    "name": "dubwool",
+    "evolutions": []
+  },
+  "833": {
+    "id": 833,
+    "name": "chewtle",
+    "evolutions": [
+      {
+        "targetId": 834,
+        "targetName": "Drednaw",
+        "defaultMethod": "Reach Level 22",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "834": {
+    "id": 834,
+    "name": "drednaw",
+    "evolutions": []
+  },
+  "835": {
+    "id": 835,
+    "name": "yamper",
+    "evolutions": [
+      {
+        "targetId": 836,
+        "targetName": "Boltund",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "836": {
+    "id": 836,
+    "name": "boltund",
+    "evolutions": []
+  },
+  "837": {
+    "id": 837,
+    "name": "rolycoly",
+    "evolutions": [
+      {
+        "targetId": 838,
+        "targetName": "Carkol",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "838": {
+    "id": 838,
+    "name": "carkol",
+    "evolutions": [
+      {
+        "targetId": 839,
+        "targetName": "Coalossal",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "839": {
+    "id": 839,
+    "name": "coalossal",
+    "evolutions": []
+  },
+  "840": {
+    "id": 840,
+    "name": "applin",
+    "evolutions": [
+      {
+        "targetId": 841,
+        "targetName": "Flapple",
+        "defaultMethod": "Use Tart Apple",
+        "defaultItem": "tart-apple.png",
+        "versionNotes": {
+          "Sword / Shield": {
+            "method": "Use Tart Apple (Sword exclusive item)",
+            "item": "tart-apple.png"
+          },
+          "Scarlet / Violet": {
+            "method": "Use Tart Apple (purchased at Delibird Presents)",
+            "item": "tart-apple.png"
+          }
+        }
+      },
+      {
+        "targetId": 842,
+        "targetName": "Appletun",
+        "defaultMethod": "Use Sweet Apple",
+        "defaultItem": "sweet-apple.png",
+        "versionNotes": {
+          "Sword / Shield": {
+            "method": "Use Sweet Apple (Shield exclusive item)",
+            "item": "sweet-apple.png"
+          },
+          "Scarlet / Violet": {
+            "method": "Use Sweet Apple (purchased at Delibird Presents)",
+            "item": "sweet-apple.png"
+          }
+        }
+      },
+      {
+        "targetId": 1011,
+        "targetName": "Dipplin",
+        "defaultMethod": "Use Syrupy Apple",
+        "defaultItem": "syrupy-apple.png",
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Use Syrupy Apple in Kitakami DLC",
+            "item": "syrupy-apple.png",
+            "note": "Purchase Syrupy Apple from the unattended stall in southeastern Kitakami."
+          }
+        }
+      }
+    ]
+  },
+  "841": {
+    "id": 841,
+    "name": "flapple",
+    "evolutions": []
+  },
+  "842": {
+    "id": 842,
+    "name": "appletun",
+    "evolutions": []
+  },
+  "843": {
+    "id": 843,
+    "name": "silicobra",
+    "evolutions": [
+      {
+        "targetId": 844,
+        "targetName": "Sandaconda",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "844": {
+    "id": 844,
+    "name": "sandaconda",
+    "evolutions": []
+  },
+  "845": {
+    "id": 845,
+    "name": "cramorant",
+    "evolutions": []
+  },
+  "846": {
+    "id": 846,
+    "name": "arrokuda",
+    "evolutions": [
+      {
+        "targetId": 847,
+        "targetName": "Barraskewda",
+        "defaultMethod": "Reach Level 26",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "847": {
+    "id": 847,
+    "name": "barraskewda",
+    "evolutions": []
+  },
+  "848": {
+    "id": 848,
+    "name": "toxel",
+    "evolutions": [
+      {
+        "targetId": 849,
+        "targetName": "Toxtricity",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "849": {
+    "id": 849,
+    "name": "toxtricity",
+    "evolutions": []
+  },
+  "850": {
+    "id": 850,
+    "name": "sizzlipede",
+    "evolutions": [
+      {
+        "targetId": 851,
+        "targetName": "Centiskorch",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "851": {
+    "id": 851,
+    "name": "centiskorch",
+    "evolutions": []
+  },
+  "852": {
+    "id": 852,
+    "name": "clobbopus",
+    "evolutions": [
+      {
+        "targetId": 853,
+        "targetName": "Grapploct",
+        "defaultMethod": "Level up knowing Taunt",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "853": {
+    "id": 853,
+    "name": "grapploct",
+    "evolutions": []
+  },
+  "854": {
+    "id": 854,
+    "name": "sinistea",
+    "evolutions": [
+      {
+        "targetId": 855,
+        "targetName": "Polteageist",
+        "defaultMethod": "Use Cracked Pot",
+        "defaultItem": "cracked-pot.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "855": {
+    "id": 855,
+    "name": "polteageist",
+    "evolutions": []
+  },
+  "856": {
+    "id": 856,
+    "name": "hatenna",
+    "evolutions": [
+      {
+        "targetId": 857,
+        "targetName": "Hattrem",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "857": {
+    "id": 857,
+    "name": "hattrem",
+    "evolutions": [
+      {
+        "targetId": 858,
+        "targetName": "Hatterene",
+        "defaultMethod": "Reach Level 42",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "858": {
+    "id": 858,
+    "name": "hatterene",
+    "evolutions": []
+  },
+  "859": {
+    "id": 859,
+    "name": "impidimp",
+    "evolutions": [
+      {
+        "targetId": 860,
+        "targetName": "Morgrem",
+        "defaultMethod": "Reach Level 32",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "860": {
+    "id": 860,
+    "name": "morgrem",
+    "evolutions": [
+      {
+        "targetId": 861,
+        "targetName": "Grimmsnarl",
+        "defaultMethod": "Reach Level 42",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "861": {
+    "id": 861,
+    "name": "grimmsnarl",
+    "evolutions": []
+  },
+  "862": {
+    "id": 862,
+    "name": "obstagoon",
+    "evolutions": []
+  },
+  "863": {
+    "id": 863,
+    "name": "perrserker",
+    "evolutions": []
+  },
+  "864": {
+    "id": 864,
+    "name": "cursola",
+    "evolutions": []
+  },
+  "865": {
+    "id": 865,
+    "name": "sirfetchd",
+    "evolutions": []
+  },
+  "866": {
+    "id": 866,
+    "name": "mr-rime",
+    "evolutions": []
+  },
+  "867": {
+    "id": 867,
+    "name": "runerigus",
+    "evolutions": []
+  },
+  "868": {
+    "id": 868,
+    "name": "milcery",
+    "evolutions": [
+      {
+        "targetId": 869,
+        "targetName": "Alcremie",
+        "defaultMethod": "Spin",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "869": {
+    "id": 869,
+    "name": "alcremie",
+    "evolutions": []
+  },
+  "870": {
+    "id": 870,
+    "name": "falinks",
+    "evolutions": []
+  },
+  "871": {
+    "id": 871,
+    "name": "pincurchin",
+    "evolutions": []
+  },
+  "872": {
+    "id": 872,
+    "name": "snom",
+    "evolutions": [
+      {
+        "targetId": 873,
+        "targetName": "Frosmoth",
+        "defaultMethod": "Level up with High Friendship (Happiness ≥ 160) during the nighttime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "873": {
+    "id": 873,
+    "name": "frosmoth",
+    "evolutions": []
+  },
+  "874": {
+    "id": 874,
+    "name": "stonjourner",
+    "evolutions": []
+  },
+  "875": {
+    "id": 875,
+    "name": "eiscue",
+    "evolutions": []
+  },
+  "876": {
+    "id": 876,
+    "name": "indeedee",
+    "evolutions": []
+  },
+  "877": {
+    "id": 877,
+    "name": "morpeko",
+    "evolutions": []
+  },
+  "878": {
+    "id": 878,
+    "name": "cufant",
+    "evolutions": [
+      {
+        "targetId": 879,
+        "targetName": "Copperajah",
+        "defaultMethod": "Reach Level 34",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "879": {
+    "id": 879,
+    "name": "copperajah",
+    "evolutions": []
+  },
+  "880": {
+    "id": 880,
+    "name": "dracozolt",
+    "evolutions": []
+  },
+  "881": {
+    "id": 881,
+    "name": "arctozolt",
+    "evolutions": []
+  },
+  "882": {
+    "id": 882,
+    "name": "dracovish",
+    "evolutions": []
+  },
+  "883": {
+    "id": 883,
+    "name": "arctovish",
+    "evolutions": []
+  },
+  "884": {
+    "id": 884,
+    "name": "duraludon",
+    "evolutions": [
+      {
+        "targetId": 1018,
+        "targetName": "Archaludon",
+        "defaultMethod": "Use Metal Alloy",
+        "defaultItem": "metal-alloy.png",
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Use Metal Alloy in Blueberry Academy DLC",
+            "item": "metal-alloy.png",
+            "note": "Purchase Metal Alloy at the School Store for 300 BP or find in Chargestone Cavern."
+          }
+        }
+      }
+    ]
+  },
+  "885": {
+    "id": 885,
+    "name": "dreepy",
+    "evolutions": [
+      {
+        "targetId": 886,
+        "targetName": "Drakloak",
+        "defaultMethod": "Reach Level 50",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "886": {
+    "id": 886,
+    "name": "drakloak",
+    "evolutions": [
+      {
+        "targetId": 887,
+        "targetName": "Dragapult",
+        "defaultMethod": "Reach Level 60",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "887": {
+    "id": 887,
+    "name": "dragapult",
+    "evolutions": []
+  },
+  "888": {
+    "id": 888,
+    "name": "zacian",
+    "evolutions": []
+  },
+  "889": {
+    "id": 889,
+    "name": "zamazenta",
+    "evolutions": []
+  },
+  "890": {
+    "id": 890,
+    "name": "eternatus",
+    "evolutions": []
+  },
+  "891": {
+    "id": 891,
+    "name": "kubfu",
+    "evolutions": [
+      {
+        "targetId": 892,
+        "targetName": "Urshifu",
+        "defaultMethod": "Tower Of Darkness",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "892": {
+    "id": 892,
+    "name": "urshifu",
+    "evolutions": []
+  },
+  "893": {
+    "id": 893,
+    "name": "zarude",
+    "evolutions": []
+  },
+  "894": {
+    "id": 894,
+    "name": "regieleki",
+    "evolutions": []
+  },
+  "895": {
+    "id": 895,
+    "name": "regidrago",
+    "evolutions": []
+  },
+  "896": {
+    "id": 896,
+    "name": "glastrier",
+    "evolutions": []
+  },
+  "897": {
+    "id": 897,
+    "name": "spectrier",
+    "evolutions": []
+  },
+  "898": {
+    "id": 898,
+    "name": "calyrex",
+    "evolutions": []
+  },
+  "899": {
+    "id": 899,
+    "name": "wyrdeer",
+    "evolutions": []
+  },
+  "900": {
+    "id": 900,
+    "name": "kleavor",
+    "evolutions": []
+  },
+  "901": {
+    "id": 901,
+    "name": "ursaluna",
+    "evolutions": []
+  },
+  "902": {
+    "id": 902,
+    "name": "basculegion",
+    "evolutions": []
+  },
+  "903": {
+    "id": 903,
+    "name": "sneasler",
+    "evolutions": []
+  },
+  "904": {
+    "id": 904,
+    "name": "overqwil",
+    "evolutions": []
+  },
+  "905": {
+    "id": 905,
+    "name": "enamorus",
+    "evolutions": []
+  },
+  "906": {
+    "id": 906,
+    "name": "sprigatito",
+    "evolutions": [
+      {
+        "targetId": 907,
+        "targetName": "Floragato",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "907": {
+    "id": 907,
+    "name": "floragato",
+    "evolutions": [
+      {
+        "targetId": 908,
+        "targetName": "Meowscarada",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "908": {
+    "id": 908,
+    "name": "meowscarada",
+    "evolutions": []
+  },
+  "909": {
+    "id": 909,
+    "name": "fuecoco",
+    "evolutions": [
+      {
+        "targetId": 910,
+        "targetName": "Crocalor",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "910": {
+    "id": 910,
+    "name": "crocalor",
+    "evolutions": [
+      {
+        "targetId": 911,
+        "targetName": "Skeledirge",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "911": {
+    "id": 911,
+    "name": "skeledirge",
+    "evolutions": []
+  },
+  "912": {
+    "id": 912,
+    "name": "quaxly",
+    "evolutions": [
+      {
+        "targetId": 913,
+        "targetName": "Quaxwell",
+        "defaultMethod": "Reach Level 16",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "913": {
+    "id": 913,
+    "name": "quaxwell",
+    "evolutions": [
+      {
+        "targetId": 914,
+        "targetName": "Quaquaval",
+        "defaultMethod": "Reach Level 36",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "914": {
+    "id": 914,
+    "name": "quaquaval",
+    "evolutions": []
+  },
+  "915": {
+    "id": 915,
+    "name": "lechonk",
+    "evolutions": [
+      {
+        "targetId": 916,
+        "targetName": "Oinkologne",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "916": {
+    "id": 916,
+    "name": "oinkologne",
+    "evolutions": []
+  },
+  "917": {
+    "id": 917,
+    "name": "tarountula",
+    "evolutions": [
+      {
+        "targetId": 918,
+        "targetName": "Spidops",
+        "defaultMethod": "Reach Level 15",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "918": {
+    "id": 918,
+    "name": "spidops",
+    "evolutions": []
+  },
+  "919": {
+    "id": 919,
+    "name": "nymble",
+    "evolutions": [
+      {
+        "targetId": 920,
+        "targetName": "Lokix",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "920": {
+    "id": 920,
+    "name": "lokix",
+    "evolutions": []
+  },
+  "921": {
+    "id": 921,
+    "name": "pawmi",
+    "evolutions": [
+      {
+        "targetId": 922,
+        "targetName": "Pawmo",
+        "defaultMethod": "Reach Level 18",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "922": {
+    "id": 922,
+    "name": "pawmo",
+    "evolutions": [
+      {
+        "targetId": 923,
+        "targetName": "Pawmot",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "923": {
+    "id": 923,
+    "name": "pawmot",
+    "evolutions": []
+  },
+  "924": {
+    "id": 924,
+    "name": "tandemaus",
+    "evolutions": [
+      {
+        "targetId": 925,
+        "targetName": "Maushold",
+        "defaultMethod": "In Battle Level Up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "925": {
+    "id": 925,
+    "name": "maushold",
+    "evolutions": []
+  },
+  "926": {
+    "id": 926,
+    "name": "fidough",
+    "evolutions": [
+      {
+        "targetId": 927,
+        "targetName": "Dachsbun",
+        "defaultMethod": "Reach Level 26",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "927": {
+    "id": 927,
+    "name": "dachsbun",
+    "evolutions": []
+  },
+  "928": {
+    "id": 928,
+    "name": "smoliv",
+    "evolutions": [
+      {
+        "targetId": 929,
+        "targetName": "Dolliv",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "929": {
+    "id": 929,
+    "name": "dolliv",
+    "evolutions": [
+      {
+        "targetId": 930,
+        "targetName": "Arboliva",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "930": {
+    "id": 930,
+    "name": "arboliva",
+    "evolutions": []
+  },
+  "931": {
+    "id": 931,
+    "name": "squawkabilly",
+    "evolutions": []
+  },
+  "932": {
+    "id": 932,
+    "name": "nacli",
+    "evolutions": [
+      {
+        "targetId": 933,
+        "targetName": "Naclstack",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "933": {
+    "id": 933,
+    "name": "naclstack",
+    "evolutions": [
+      {
+        "targetId": 934,
+        "targetName": "Garganacl",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "934": {
+    "id": 934,
+    "name": "garganacl",
+    "evolutions": []
+  },
+  "935": {
+    "id": 935,
+    "name": "charcadet",
+    "evolutions": [
+      {
+        "targetId": 936,
+        "targetName": "Armarouge",
+        "defaultMethod": "Use Auspicious Armor",
+        "defaultItem": "auspicious-armor.png",
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Scarlet: Use Auspicious Armor. Violet: Trade for item or join Scarlet Tera Raid!",
+            "item": "auspicious-armor.png",
+            "note": "Trade 10 Bronzor Fragments to an elder near the Zapapico fountain (Scarlet exclusive)."
+          }
+        }
+      },
+      {
+        "targetId": 937,
+        "targetName": "Ceruledge",
+        "defaultMethod": "Use Malicious Armor",
+        "defaultItem": "malicious-armor.png",
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Violet: Use Malicious Armor. Scarlet: Trade for item or join Violet Tera Raid!",
+            "item": "malicious-armor.png",
+            "note": "Trade 10 Sinistea Chips to an elder near the Zapapico fountain (Violet exclusive)."
+          }
+        }
+      }
+    ]
+  },
+  "936": {
+    "id": 936,
+    "name": "armarouge",
+    "evolutions": []
+  },
+  "937": {
+    "id": 937,
+    "name": "ceruledge",
+    "evolutions": []
+  },
+  "938": {
+    "id": 938,
+    "name": "tadbulb",
+    "evolutions": [
+      {
+        "targetId": 939,
+        "targetName": "Bellibolt",
+        "defaultMethod": "Use Thunder Stone",
+        "defaultItem": "thunder-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "939": {
+    "id": 939,
+    "name": "bellibolt",
+    "evolutions": []
+  },
+  "940": {
+    "id": 940,
+    "name": "wattrel",
+    "evolutions": [
+      {
+        "targetId": 941,
+        "targetName": "Kilowattrel",
+        "defaultMethod": "Reach Level 25",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "941": {
+    "id": 941,
+    "name": "kilowattrel",
+    "evolutions": []
+  },
+  "942": {
+    "id": 942,
+    "name": "maschiff",
+    "evolutions": [
+      {
+        "targetId": 943,
+        "targetName": "Mabosstiff",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "943": {
+    "id": 943,
+    "name": "mabosstiff",
+    "evolutions": []
+  },
+  "944": {
+    "id": 944,
+    "name": "shroodle",
+    "evolutions": [
+      {
+        "targetId": 945,
+        "targetName": "Grafaiai",
+        "defaultMethod": "Reach Level 28",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "945": {
+    "id": 945,
+    "name": "grafaiai",
+    "evolutions": []
+  },
+  "946": {
+    "id": 946,
+    "name": "bramblin",
+    "evolutions": [
+      {
+        "targetId": 947,
+        "targetName": "Brambleghast",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "947": {
+    "id": 947,
+    "name": "brambleghast",
+    "evolutions": []
+  },
+  "948": {
+    "id": 948,
+    "name": "toedscool",
+    "evolutions": [
+      {
+        "targetId": 949,
+        "targetName": "Toedscruel",
+        "defaultMethod": "Reach Level 30",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "949": {
+    "id": 949,
+    "name": "toedscruel",
+    "evolutions": []
+  },
+  "950": {
+    "id": 950,
+    "name": "klawf",
+    "evolutions": []
+  },
+  "951": {
+    "id": 951,
+    "name": "capsakid",
+    "evolutions": [
+      {
+        "targetId": 952,
+        "targetName": "Scovillain",
+        "defaultMethod": "Use Fire Stone",
+        "defaultItem": "fire-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "952": {
+    "id": 952,
+    "name": "scovillain",
+    "evolutions": []
+  },
+  "953": {
+    "id": 953,
+    "name": "rellor",
+    "evolutions": [
+      {
+        "targetId": 954,
+        "targetName": "Rabsca",
+        "defaultMethod": "Level up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "954": {
+    "id": 954,
+    "name": "rabsca",
+    "evolutions": []
+  },
+  "955": {
+    "id": 955,
+    "name": "flittle",
+    "evolutions": [
+      {
+        "targetId": 956,
+        "targetName": "Espathra",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "956": {
+    "id": 956,
+    "name": "espathra",
+    "evolutions": []
+  },
+  "957": {
+    "id": 957,
+    "name": "tinkatink",
+    "evolutions": [
+      {
+        "targetId": 958,
+        "targetName": "Tinkatuff",
+        "defaultMethod": "Reach Level 24",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "958": {
+    "id": 958,
+    "name": "tinkatuff",
+    "evolutions": [
+      {
+        "targetId": 959,
+        "targetName": "Tinkaton",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "959": {
+    "id": 959,
+    "name": "tinkaton",
+    "evolutions": []
+  },
+  "960": {
+    "id": 960,
+    "name": "wiglett",
+    "evolutions": [
+      {
+        "targetId": 961,
+        "targetName": "Wugtrio",
+        "defaultMethod": "Reach Level 26",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "961": {
+    "id": 961,
+    "name": "wugtrio",
+    "evolutions": []
+  },
+  "962": {
+    "id": 962,
+    "name": "bombirdier",
+    "evolutions": []
+  },
+  "963": {
+    "id": 963,
+    "name": "finizen",
+    "evolutions": [
+      {
+        "targetId": 964,
+        "targetName": "Palafin",
+        "defaultMethod": "Reach Level 38",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "964": {
+    "id": 964,
+    "name": "palafin",
+    "evolutions": []
+  },
+  "965": {
+    "id": 965,
+    "name": "varoom",
+    "evolutions": [
+      {
+        "targetId": 966,
+        "targetName": "Revavroom",
+        "defaultMethod": "Reach Level 40",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "966": {
+    "id": 966,
+    "name": "revavroom",
+    "evolutions": []
+  },
+  "967": {
+    "id": 967,
+    "name": "cyclizar",
+    "evolutions": []
+  },
+  "968": {
+    "id": 968,
+    "name": "orthworm",
+    "evolutions": []
+  },
+  "969": {
+    "id": 969,
+    "name": "glimmet",
+    "evolutions": [
+      {
+        "targetId": 970,
+        "targetName": "Glimmora",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "970": {
+    "id": 970,
+    "name": "glimmora",
+    "evolutions": []
+  },
+  "971": {
+    "id": 971,
+    "name": "greavard",
+    "evolutions": [
+      {
+        "targetId": 972,
+        "targetName": "Houndstone",
+        "defaultMethod": "Reach Level 30 during the nighttime",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "972": {
+    "id": 972,
+    "name": "houndstone",
+    "evolutions": []
+  },
+  "973": {
+    "id": 973,
+    "name": "flamigo",
+    "evolutions": []
+  },
+  "974": {
+    "id": 974,
+    "name": "cetoddle",
+    "evolutions": [
+      {
+        "targetId": 975,
+        "targetName": "Cetitan",
+        "defaultMethod": "Use Ice Stone",
+        "defaultItem": "ice-stone.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "975": {
+    "id": 975,
+    "name": "cetitan",
+    "evolutions": []
+  },
+  "976": {
+    "id": 976,
+    "name": "veluza",
+    "evolutions": []
+  },
+  "977": {
+    "id": 977,
+    "name": "dondozo",
+    "evolutions": []
+  },
+  "978": {
+    "id": 978,
+    "name": "tatsugiri",
+    "evolutions": []
+  },
+  "979": {
+    "id": 979,
+    "name": "annihilape",
+    "evolutions": []
+  },
+  "980": {
+    "id": 980,
+    "name": "clodsire",
+    "evolutions": []
+  },
+  "981": {
+    "id": 981,
+    "name": "farigiraf",
+    "evolutions": []
+  },
+  "982": {
+    "id": 982,
+    "name": "dudunsparce",
+    "evolutions": []
+  },
+  "983": {
+    "id": 983,
+    "name": "kingambit",
+    "evolutions": []
+  },
+  "984": {
+    "id": 984,
+    "name": "great-tusk",
+    "evolutions": []
+  },
+  "985": {
+    "id": 985,
+    "name": "scream-tail",
+    "evolutions": []
+  },
+  "986": {
+    "id": 986,
+    "name": "brute-bonnet",
+    "evolutions": []
+  },
+  "987": {
+    "id": 987,
+    "name": "flutter-mane",
+    "evolutions": []
+  },
+  "988": {
+    "id": 988,
+    "name": "slither-wing",
+    "evolutions": []
+  },
+  "989": {
+    "id": 989,
+    "name": "sandy-shocks",
+    "evolutions": []
+  },
+  "990": {
+    "id": 990,
+    "name": "iron-treads",
+    "evolutions": []
+  },
+  "991": {
+    "id": 991,
+    "name": "iron-bundle",
+    "evolutions": []
+  },
+  "992": {
+    "id": 992,
+    "name": "iron-hands",
+    "evolutions": []
+  },
+  "993": {
+    "id": 993,
+    "name": "iron-jugulis",
+    "evolutions": []
+  },
+  "994": {
+    "id": 994,
+    "name": "iron-moth",
+    "evolutions": []
+  },
+  "995": {
+    "id": 995,
+    "name": "iron-thorns",
+    "evolutions": []
+  },
+  "996": {
+    "id": 996,
+    "name": "frigibax",
+    "evolutions": [
+      {
+        "targetId": 997,
+        "targetName": "Arctibax",
+        "defaultMethod": "Reach Level 35",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "997": {
+    "id": 997,
+    "name": "arctibax",
+    "evolutions": [
+      {
+        "targetId": 998,
+        "targetName": "Baxcalibur",
+        "defaultMethod": "Reach Level 54",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "998": {
+    "id": 998,
+    "name": "baxcalibur",
+    "evolutions": []
+  },
+  "999": {
+    "id": 999,
+    "name": "gimmighoul",
+    "evolutions": [
+      {
+        "targetId": 1000,
+        "targetName": "Gholdengo",
+        "defaultMethod": "Collect 999 Gimmighoul Coins, then level up",
+        "defaultItem": null,
+        "versionNotes": {}
+      }
+    ]
+  },
+  "1000": {
+    "id": 1000,
+    "name": "gholdengo",
+    "evolutions": []
+  },
+  "1001": {
+    "id": 1001,
+    "name": "wo-chien",
+    "evolutions": []
+  },
+  "1002": {
+    "id": 1002,
+    "name": "chien-pao",
+    "evolutions": []
+  },
+  "1003": {
+    "id": 1003,
+    "name": "ting-lu",
+    "evolutions": []
+  },
+  "1004": {
+    "id": 1004,
+    "name": "chi-yu",
+    "evolutions": []
+  },
+  "1005": {
+    "id": 1005,
+    "name": "roaring-moon",
+    "evolutions": []
+  },
+  "1006": {
+    "id": 1006,
+    "name": "iron-valiant",
+    "evolutions": []
+  },
+  "1007": {
+    "id": 1007,
+    "name": "koraidon",
+    "evolutions": []
+  },
+  "1008": {
+    "id": 1008,
+    "name": "miraidon",
+    "evolutions": []
+  },
+  "1009": {
+    "id": 1009,
+    "name": "walking-wake",
+    "evolutions": []
+  },
+  "1010": {
+    "id": 1010,
+    "name": "iron-leaves",
+    "evolutions": []
+  },
+  "1011": {
+    "id": 1011,
+    "name": "dipplin",
+    "evolutions": [
+      {
+        "targetId": 1019,
+        "targetName": "Hydrapple",
+        "defaultMethod": "Level up knowing Dragon Cheer",
+        "defaultItem": null,
+        "versionNotes": {
+          "Scarlet / Violet": {
+            "method": "Level up knowing Dragon Cheer in Indigo Disk DLC",
+            "item": null,
+            "note": "Obtain TM226 (Dragon Cheer) by defeating Drayton of the BB League Elite Four."
+          }
+        }
+      }
+    ]
+  },
+  "1012": {
+    "id": 1012,
+    "name": "poltchageist",
+    "evolutions": [
+      {
+        "targetId": 1013,
+        "targetName": "Sinistcha",
+        "defaultMethod": "Use Unremarkable Teacup",
+        "defaultItem": "unremarkable-teacup.png",
+        "versionNotes": {}
+      }
+    ]
+  },
+  "1013": {
+    "id": 1013,
+    "name": "sinistcha",
+    "evolutions": []
+  },
+  "1014": {
+    "id": 1014,
+    "name": "okidogi",
+    "evolutions": []
+  },
+  "1015": {
+    "id": 1015,
+    "name": "munkidori",
+    "evolutions": []
+  },
+  "1016": {
+    "id": 1016,
+    "name": "fezandipiti",
+    "evolutions": []
+  },
+  "1017": {
+    "id": 1017,
+    "name": "ogerpon",
+    "evolutions": []
+  },
+  "1018": {
+    "id": 1018,
+    "name": "archaludon",
+    "evolutions": []
+  },
+  "1019": {
+    "id": 1019,
+    "name": "hydrapple",
+    "evolutions": []
+  },
+  "1020": {
+    "id": 1020,
+    "name": "gouging-fire",
+    "evolutions": []
+  },
+  "1021": {
+    "id": 1021,
+    "name": "raging-bolt",
+    "evolutions": []
+  },
+  "1022": {
+    "id": 1022,
+    "name": "iron-boulder",
+    "evolutions": []
+  },
+  "1023": {
+    "id": 1023,
+    "name": "iron-crown",
+    "evolutions": []
+  },
+  "1024": {
+    "id": 1024,
+    "name": "terapagos",
+    "evolutions": []
+  },
+  "1025": {
+    "id": 1025,
+    "name": "pecharunt",
+    "evolutions": []
+  }
+}

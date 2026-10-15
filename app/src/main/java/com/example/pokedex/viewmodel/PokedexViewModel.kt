@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.PokedexDatabase
 import com.example.pokedex.data.PokemonEntity
+import com.example.pokedex.data.getCanonicalId
 import com.example.pokedex.tts.OfflineTTS
 import com.example.pokedex.tts.VoiceProfile
 import com.example.pokedex.tts.VoiceItem
@@ -125,6 +126,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     preferred.split("/").map { it.trim() }
                 } else if (preferred.equals("Legends Arceus", ignoreCase = true) || preferred.equals("Legends: Arceus", ignoreCase = true)) {
                     listOf("Legends Arceus", "Legends: Arceus", "Hisui")
+                } else if (preferred.contains("Legends", ignoreCase = true) && preferred.contains("Z", ignoreCase = true)) {
+                    listOf("Legends: Z-A", "Legends Z-A", "Legends ZA", "ZA", "Lumiose")
                 } else {
                     listOf(preferred)
                 }
@@ -190,7 +193,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         _searchQuery,
         _selectedRegion
     ) { list, query, region ->
-        var result = list
+        var result = list.filter { it.id <= 1025 }
 
         // 1. Regional filter from Chip
         if (region != null) {
@@ -229,6 +232,13 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         }
 
         syncTtsSettings()
+
+        if (prefs.getInt("pokemon_data_asset_version", 0) < 8) {
+            viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                PokedexDatabase.syncAssetData(getApplication(), pokemonDao)
+                prefs.edit().putInt("pokemon_data_asset_version", 8).apply()
+            }
+        }
         
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             // SMOKE TEST
@@ -399,7 +409,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         val rawFlavor = getEffectiveFlavorText(pokemon)
         val cleanedFlavor = rawFlavor.replace("\n", " ").replace("\u000c", " ").replace("\\f", " ").replace(Regex("\\s+"), " ").trim()
         
-        if (_autoReadDexEntry.value && !isBackNavigation) {
+        if (_autoReadDexEntry.value) {
             tts.speak("${evoText}${typeText}${cleanedFlavor}")
         }
 
@@ -415,8 +425,24 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
             .split(" ")
             .joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
         val typeText = "It is a ${pokemon.type.replace("/", " and ")} type Pokemon. "
-        val cleaned = flavorText.replace("\n", " ").replace("\u000c", " ").replace("\\f", " ").replace(Regex("\\s+"), " ").trim()
+        val cleaned = flavorText
+            .replace("[", "")
+            .replace("]", ":")
+            .replace("\n", " ")
+            .replace("\u000c", " ")
+            .replace("\\f", " ")
+            .replace(Regex("\\s+"), " ")
+            .trim()
         tts.speak("${capitalizedName}. ${typeText}${cleaned}")
+    }
+
+    fun selectPokemonById(id: Int) {
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            val pokemon = pokemonDao.getPokemonById(id)
+            if (pokemon != null) {
+                selectPokemon(pokemon)
+            }
+        }
     }
 
     fun goBack() {
@@ -430,17 +456,19 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
     fun selectPreviousPokemon() {
         val current = (_uiState.value as? PokedexState.Result)?.pokemon ?: return
+        val canonicalId = current.getCanonicalId(_pokemonList.value)
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
-            val prev = pokemonDao.getPreviousPokemon(current.id) ?: pokemonDao.getLastPokemon()
-            if (prev != null) selectPokemon(prev, isBackNavigation = true)
+            val prev = pokemonDao.getPreviousPokemon(canonicalId) ?: pokemonDao.getLastPokemon()
+            if (prev != null) selectPokemon(prev, isBackNavigation = false)
         }
     }
 
     fun selectNextPokemon() {
         val current = (_uiState.value as? PokedexState.Result)?.pokemon ?: return
+        val canonicalId = current.getCanonicalId(_pokemonList.value)
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
-            val next = pokemonDao.getNextPokemon(current.id) ?: pokemonDao.getFirstPokemon()
-            if (next != null) selectPokemon(next, isBackNavigation = true)
+            val next = pokemonDao.getNextPokemon(canonicalId) ?: pokemonDao.getFirstPokemon()
+            if (next != null) selectPokemon(next, isBackNavigation = false)
         }
     }
 

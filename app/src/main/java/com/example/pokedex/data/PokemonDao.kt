@@ -16,16 +16,16 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon WHERE id = :id LIMIT 1")
     fun getPokemonById(id: Int): PokemonEntity?
 
-    @Query("SELECT * FROM pokemon WHERE id < :currentId ORDER BY id DESC LIMIT 1")
+    @Query("SELECT * FROM pokemon WHERE id < :currentId AND id <= 1025 ORDER BY id DESC LIMIT 1")
     fun getPreviousPokemon(currentId: Int): PokemonEntity?
 
-    @Query("SELECT * FROM pokemon WHERE id > :currentId ORDER BY id ASC LIMIT 1")
+    @Query("SELECT * FROM pokemon WHERE id > :currentId AND id <= 1025 ORDER BY id ASC LIMIT 1")
     fun getNextPokemon(currentId: Int): PokemonEntity?
 
-    @Query("SELECT * FROM pokemon ORDER BY id DESC LIMIT 1")
+    @Query("SELECT * FROM pokemon WHERE id <= 1025 ORDER BY id DESC LIMIT 1")
     fun getLastPokemon(): PokemonEntity?
 
-    @Query("SELECT * FROM pokemon ORDER BY id ASC LIMIT 1")
+    @Query("SELECT * FROM pokemon WHERE id <= 1025 ORDER BY id ASC LIMIT 1")
     fun getFirstPokemon(): PokemonEntity?
 
     @Query("SELECT * FROM pokemon WHERE evolvesTo LIKE '%' || :name || '%' LIMIT 1")

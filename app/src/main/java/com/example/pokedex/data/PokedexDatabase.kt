@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.io.InputStreamReader
 
-@Database(entities = [PokemonEntity::class], version = 7, exportSchema = false)
+@Database(entities = [PokemonEntity::class], version = 8, exportSchema = false)
 abstract class PokedexDatabase : RoomDatabase() {
 
     abstract fun pokemonDao(): PokemonDao
@@ -36,30 +36,10 @@ abstract class PokedexDatabase : RoomDatabase() {
                 instance
             }
         }
-    }
 
-    private class PokedexDatabaseCallback : RoomDatabase.Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-            INSTANCE?.let { database ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    populateDatabase(database.pokemonDao())
-                }
-            }
-        }
-
-        override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
-            super.onDestructiveMigration(db)
-            INSTANCE?.let { database ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    populateDatabase(database.pokemonDao())
-                }
-            }
-        }
-
-        suspend fun populateDatabase(dao: PokemonDao) {
+        fun syncAssetData(context: Context, dao: PokemonDao) {
             try {
-                val inputStream = appContext.assets.open("pokemon_data.json")
+                val inputStream = context.applicationContext.assets.open("pokemon_data.json")
                 val reader = InputStreamReader(inputStream)
                 val jsonString = reader.readText()
                 reader.close()
@@ -99,9 +79,29 @@ abstract class PokedexDatabase : RoomDatabase() {
                     )
                 }
                 dao.insertAll(pokemonList)
-                android.util.Log.d("PokedexDatabase", "Successfully populated database with ${pokemonList.size} Pokemon entries.")
+                android.util.Log.d("PokedexDatabase", "Successfully synced ${pokemonList.size} Pokemon entries to database.")
             } catch (e: Exception) {
-                android.util.Log.e("PokedexDatabase", "Error populating database", e)
+                android.util.Log.e("PokedexDatabase", "Error syncing asset data to database", e)
+            }
+        }
+    }
+
+    private class PokedexDatabaseCallback : RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            INSTANCE?.let { database ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    syncAssetData(appContext, database.pokemonDao())
+                }
+            }
+        }
+
+        override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
+            super.onDestructiveMigration(db)
+            INSTANCE?.let { database ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    syncAssetData(appContext, database.pokemonDao())
+                }
             }
         }
     }
