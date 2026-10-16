@@ -400,7 +400,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
             ?.joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
 
         val evoText = if (capitalizedEvo != null) {
-            "${capitalizedEvo} evolves into ${capitalizedName}. "
+            "${capitalizedName}, the evolved form of ${capitalizedEvo}. "
         } else {
             "${capitalizedName}. "
         }

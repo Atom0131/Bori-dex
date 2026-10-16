@@ -323,10 +323,15 @@ fun GameEditionModal(
 fun EvolutionAndFormsModal(
     pokemon: PokemonEntity,
     activeEditionKey: String,
+    availableCartridges: List<GameCartridge> = emptyList(),
     evolutionChain: List<PokemonEntity>,
     viewModel: PokedexViewModel,
+    onCartridgeSelected: ((String) -> Unit)? = null,
     onDismiss: () -> Unit
 ) {
+    var currentEditionKey by remember(activeEditionKey) { mutableStateOf(activeEditionKey) }
+    var showCartridgeModal by remember { mutableStateOf(false) }
+
     val context = LocalContext.current
     val evolutions = remember(pokemon.id) {
         EvolutionGuideRepository.getEvolutionsForPokemon(context, pokemon.id)
@@ -486,12 +491,35 @@ fun EvolutionAndFormsModal(
                                                             .padding(end = 8.dp)
                                                     )
                                                 }
-                                                Text(
-                                                    text = label,
-                                                    color = if (isCurrent) Color(0xFF00FFCC) else Color.White,
-                                                    fontWeight = FontWeight.Bold,
-                                                    fontSize = 12.sp
-                                                )
+                                                Column {
+                                                    Text(
+                                                        text = label,
+                                                        color = if (isCurrent) Color(0xFF00FFCC) else Color.White,
+                                                        fontWeight = FontWeight.Bold,
+                                                        fontSize = 12.sp
+                                                    )
+                                                    val formEntity = allList.firstOrNull { it.name.equals(formName, ignoreCase = true) }
+                                                    if (formEntity != null && formEntity.type.isNotBlank()) {
+                                                        Spacer(modifier = Modifier.height(2.dp))
+                                                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                                            formEntity.type.split("/").forEach { typeName ->
+                                                                val trimmed = typeName.trim()
+                                                                Box(
+                                                                    modifier = Modifier
+                                                                        .background(getColorForType(trimmed), RoundedCornerShape(3.dp))
+                                                                        .padding(horizontal = 4.dp, vertical = 1.dp)
+                                                                ) {
+                                                                    Text(
+                                                                        text = trimmed.uppercase(),
+                                                                        color = Color.White,
+                                                                        fontWeight = FontWeight.Bold,
+                                                                        fontSize = 8.sp
+                                                                    )
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
 
                                             Button(
@@ -607,12 +635,29 @@ fun EvolutionAndFormsModal(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 12.sp
                             )
-                            Text(
-                                text = "VER: ${activeEditionKey.uppercase()}",
-                                color = Color(0xFF00FFCC).copy(alpha = 0.8f),
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Bold
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .background(Color(0xFF00FFCC).copy(alpha = 0.15f), RoundedCornerShape(6.dp))
+                                    .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                                    .clickable { showCartridgeModal = true }
+                                    .padding(horizontal = 8.dp, vertical = 3.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                val activeCart = ALL_GAME_CARTRIDGES.firstOrNull { it.id.equals(currentEditionKey, ignoreCase = true) }
+                                if (activeCart != null && activeCart.mascotAsset.isNotEmpty()) {
+                                    PixelCartridgeIcon(
+                                        assetName = activeCart.mascotAsset,
+                                        modifier = Modifier.size(14.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                }
+                                Text(
+                                    text = "VER: ${currentEditionKey.uppercase()} ▾",
+                                    color = Color(0xFF00FFCC),
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Black
+                                )
+                            }
                         }
 
                         Spacer(modifier = Modifier.height(8.dp))
@@ -635,11 +680,26 @@ fun EvolutionAndFormsModal(
                         } else {
                             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                 evolutions.forEach { evo ->
-                                    val versionOverride = evo.versionNotes.entries.firstOrNull { (k, _) ->
-                                        k.equals(activeEditionKey, ignoreCase = true) ||
-                                        (activeEditionKey.contains("/") && k.replace(" ", "").equals(activeEditionKey.replace(" ", ""), ignoreCase = true)) ||
-                                        (activeEditionKey.contains("Legends", ignoreCase = true) && k.contains("Legends", ignoreCase = true) && (activeEditionKey.contains("Z", ignoreCase = true) == k.contains("Z", ignoreCase = true)))
-                                    }?.value
+                                    val candidateList = ALL_GAME_CARTRIDGES.firstOrNull { it.id.equals(currentEditionKey, ignoreCase = true) }?.candidateKeys
+                                        ?: listOf(currentEditionKey)
+
+                                    val versionOverride = if (currentEditionKey.equals("Default", ignoreCase = true)) {
+                                        null
+                                    } else {
+                                        evo.versionNotes.entries.firstOrNull { (k, _) ->
+                                            val cleanK = k.lowercase().trim()
+                                            candidateList.any { cand ->
+                                                val cleanCand = cand.lowercase().trim()
+                                                cleanK == cleanCand ||
+                                                cleanK.split("/").any { it.trim() == cleanCand } ||
+                                                cleanCand.split("/").any { it.trim() == cleanK } ||
+                                                cleanK.replace(" ", "") == cleanCand.replace(" ", "") ||
+                                                cleanK.replace(":", "").replace("-", " ") == cleanCand.replace(":", "").replace("-", " ") ||
+                                                (cleanCand.length > 3 && cleanK.contains(cleanCand)) ||
+                                                (cleanK.length > 3 && cleanCand.contains(cleanK))
+                                            }
+                                        }?.value
+                                    }
 
                                     val methodText = versionOverride?.method ?: evo.defaultMethod
                                     val itemSprite = versionOverride?.item ?: evo.defaultItem
@@ -688,6 +748,28 @@ fun EvolutionAndFormsModal(
                                                     fontWeight = FontWeight.Bold,
                                                     fontSize = 10.sp
                                                 )
+
+                                                val targetEntity = allList.firstOrNull { it.id == evo.targetId }
+                                                if (targetEntity != null && targetEntity.type.isNotBlank()) {
+                                                    Spacer(modifier = Modifier.width(6.dp))
+                                                    Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                                        targetEntity.type.split("/").forEach { typeName ->
+                                                            val trimmed = typeName.trim()
+                                                            Box(
+                                                                modifier = Modifier
+                                                                    .background(getColorForType(trimmed), RoundedCornerShape(4.dp))
+                                                                    .padding(horizontal = 5.dp, vertical = 1.dp)
+                                                                ) {
+                                                                    Text(
+                                                                        text = trimmed.uppercase(),
+                                                                        color = Color.White,
+                                                                        fontWeight = FontWeight.Bold,
+                                                                        fontSize = 8.5.sp
+                                                                    )
+                                                                }
+                                                        }
+                                                    }
+                                                }
                                             }
 
                                             Spacer(modifier = Modifier.height(4.dp))
@@ -728,6 +810,21 @@ fun EvolutionAndFormsModal(
                     }
                 }
             }
+        }
+
+        if (showCartridgeModal) {
+            GameEditionModal(
+                title = "SELECT GAME VERSION",
+                subtitle = "Switch game cartridge to view version-specific evolution rules:",
+                cartridges = if (availableCartridges.isNotEmpty()) availableCartridges else ALL_GAME_CARTRIDGES,
+                selectedCartridgeId = currentEditionKey,
+                onSelectCartridge = { cartridge ->
+                    currentEditionKey = cartridge.id
+                    showCartridgeModal = false
+                    onCartridgeSelected?.invoke(cartridge.id)
+                },
+                onDismiss = { showCartridgeModal = false }
+            )
         }
     }
 }
@@ -1551,8 +1648,12 @@ fun PokedexDisplay(
                                 EvolutionAndFormsModal(
                                     pokemon = state.pokemon,
                                     activeEditionKey = activeCartridge.id,
+                                    availableCartridges = availableCartridges,
                                     evolutionChain = evolutionChain,
                                     viewModel = viewModel,
+                                    onCartridgeSelected = { newCartridgeId ->
+                                        selectedCartridgeId = newCartridgeId
+                                    },
                                     onDismiss = { showEvolutionModal = false }
                                 )
                             }

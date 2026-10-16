@@ -2,13 +2,14 @@
 
 [![Platform](https://img.shields.io/badge/Platform-Android_14_--_16-3DDC84.svg?style=flat&logo=android)](https://www.android.com/)
 [![Download APK](https://img.shields.io/badge/Download-Bori--dex%20APK-00FFCC?logo=android)](https://github.com/Atom0131/Bori-dex/releases)
+[![Kaggle Dataset](https://img.shields.io/badge/Dataset-Kaggle_494k_Images-20BEFF?logo=kaggle)](https://www.kaggle.com/datasets/atom0131/boridex-pokemon-master-dataset-494k)
 [![Language](https://img.shields.io/badge/Language-Kotlin-7F52FF.svg?style=flat&logo=kotlin)](https://kotlinlang.org/)
 [![UI](https://img.shields.io/badge/UI-Jetpack_Compose_Material_3-4285F4.svg?style=flat&logo=jetpackcompose)](https://developer.android.com/jetpack/compose)
 [![ML](https://img.shields.io/badge/ML-TensorFlow_Lite-FF6F00.svg?style=flat&logo=tensorflow)](https://www.tensorflow.org/lite)
 [![Audio](https://img.shields.io/badge/Audio-Custom_DSP_Echo_%2B_TTS-00FFCC.svg?style=flat)]()
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-> **Bori-dex** is an authentic, offline-first AI Pokédex application for Android. It combines on-device TensorFlow Lite computer vision, 1997 anime Dexter robotic voice calibration with hardware DSP echo, the iconic *"Who's That Pokémon?!"* commercial transition, and an edge-to-edge adaptive interface.
+> **Bori-dex** is an authentic, offline-first AI Pokédex application for Android. It combines on-device TensorFlow Lite computer vision fine-tuned on a 494k image master dataset, 1997 anime Dexter robotic voice calibration with hardware DSP echo, tactile retro game cartridges, canonical multi-generation evolution tracking, the iconic *"Who's That Pokémon?!"* commercial transition, and an edge-to-edge adaptive interface.
 
 ---
 
@@ -33,14 +34,23 @@ Ready-to-install Android package available on GitHub Releases:
 
 ## ✨ Features
 
-### 📷 Real-Time On-Device Camera Scanner
-- Point your phone camera at Pokémon plushies, cards, figures, or screens.
-- **100% Offline AI Classification**: Powered by a custom-trained **TensorFlow Lite** computer vision model running entirely locally with CameraX.
-- Zero latency, no external cloud dependencies, and complete privacy.
+### 📷 Real-Time On-Device Camera Scanner (494k Master Dataset)
+- Point your phone camera at Pokémon plushies, cards, 3D prints, figures, or screens.
+- **Stage 3 Deep Fine-Tuned Model**: Trained on a **494,768-image master dataset** across all 1,025 Pokémon classes, incorporating unpainted resin/filament 3D prints, sleep series figures, TCG holos, and room lighting variations.
+- **Full Precision Float32 JNI Engine**: Zero quantization collapse (14.1 MB model) executing directly through native `ByteBuffer` bindings with sub-25ms latency.
+- **22-Frame Temporal Consensus Voter**: Averages rolling probability distributions across ~3 seconds to filter out hand shake and room glare, delivering **~91% real-world scan success**.
+- **Complete Open-Source Transparency**: Training data is publicly hosted on [Kaggle Datasets](https://www.kaggle.com/datasets/atom0131/boridex-pokemon-master-dataset-494k). Read the full technical breakdown in [`docs/TRAINING_PIPELINE.md`](docs/TRAINING_PIPELINE.md).
 
-### 🎙️ Authentic 1997 Anime "Dexter" Voice
-- **Calibrated Robotic Tenor**: Precisely tuned pitch (`1.15X`) and speed (`1.12X`) to recreate the original energetic 1997 animated series Pokédex voice.
-- **Hardware DSP Filter**: Real-time dual-tap metallic comb echo (12ms / 26ms delays with feedback) paired with a 2kHz horn mid-frequency resonance filter to emulate vintage 90s handheld hardware.
+### 🕹️ Tactile Retro Cartridges & Dynamic Game Evolutions
+- **37 Tactile Retro Game Cartridges**: Authentic molded plastic shells, grip ridges, foil stickers, and mascot pixel art from Red & Blue through Scarlet & Violet.
+- **Canonical Game Evolution Engine**: Pokémon evolutions dynamically adjust to the active game edition (e.g. Feebas requires Beauty $\ge 170$ via Pokéblocks in Sapphire, Poffins in Diamond, and Prism Scale trading in Scarlet/Violet).
+- **In-Modal Quick Switcher**: Tap the `VER: [EDITION] ▾` chip directly inside the evolution card to switch games live on screen.
+- **Trade Evolutions & Pixel Items**: Includes pixel art for `link-cable.png`, `linking-cord.png`, `upgrade.png`, `poffin.png`, `pokeblock.png`, `prism-scale.png`, and destination elemental type badges (`[WATER]`, etc.).
+
+### 🎙️ Authentic 1997 Anime "Dexter" Voice & DSP Filter
+- **Calibrated Robotic Tenor**: Precisely tuned pitch (`1.15X`) and speed (`1.12X`) recreating the original 1997 animated series Pokédex.
+- **Smooth Hyperbolic Tangent Limiter**: Custom $C^\infty$ saturation `tanh(x * 1.15)` prevents clipping and harsh popping on 'S' sounds.
+- **Hardware DSP Filter**: Real-time dual-tap metallic comb echo (12ms / 26ms delays with feedback damping) paired with downstream low-pass filtering to emulate vintage 90s handheld audio.
 - **Multi-Profile Selector**:
   - **Retro 90's Anime**: Male (*Original 90s Dexter*) & Female (*Retro 90s Anime*).
   - **Modern High-End (HD)**: Male (*Modern HD Male*) & Female (*Modern HD Female*).
@@ -53,11 +63,10 @@ Ready-to-install Android package available on GitHub Releases:
 ### 📖 Comprehensive Pokédex Index
 - **Gen 1 through Gen 9 Support**: Browse hundreds of Pokémon across Kanto, Johto, Hoenn, Sinnoh, Unova, Kalos, Alola, Galar, and Paldea.
 - **Shiny Sprites & Alternate Forms**: Toggle between normal and shiny pixel sprites, Mega evolutions, and regional forms.
-- **Multi-Game Flavor Text**: Select game versions (Red, Blue, Gold, Silver, Ruby, etc.) to read and listen to era-specific entries.
-- **Scroll Memory**: Retains list scroll position so viewing details (e.g. #154 Meganium) never resets your place back to #001 Bulbasaur.
+- **Full-Height Lore Expansion**: Expanded text display with smooth internal vertical scrolling and scroll position persistence.
 
 ### 🗣️ Phonetic Pronunciation Engine
-- Built-in phonetic dictionary resolving notoriously mispronounced Pokémon names (e.g., *Venusaur*, *Rayquaza*, *Arceus*, *Suicune*, *Kyogre*).
+- Built-in phonetic dictionary resolving notoriously mispronounced Pokémon names (e.g., *Venusaur*, *Rayquaza*, *Arceus*, *Suicune*, *Feebas*).
 
 ### 📱 Adaptive Edge-to-Edge Layout
 - Safe insets handling `.statusBarsPadding()` and `.navigationBarsPadding()` ensuring the camera punch-hole and clock never clip UI controls.

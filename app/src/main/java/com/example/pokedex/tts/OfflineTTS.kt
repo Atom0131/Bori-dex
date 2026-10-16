@@ -64,22 +64,28 @@ class OfflineTTS(private val context: Context) : TextToSpeech.OnInitListener {
                 if (utteranceId != null && utteranceId.startsWith("DEXTER_FILE_")) {
                     if (utteranceId != activeUtteranceId) return
 
+                    val currentRawFile = File(context.cacheDir, "${utteranceId}_raw.wav")
+                    val currentProcessedFile = File(context.cacheDir, "${utteranceId}_proc.wav")
+
                     dspExecutor.execute {
-                        val dspSuccess = if (dspEnabled) {
-                            DexterAudioDsp.processWav(rawWavFile, processedWavFile)
+                        val dspSuccess = if (dspEnabled && currentRawFile.exists()) {
+                            DexterAudioDsp.processWav(currentRawFile, currentProcessedFile)
                         } else {
                             false
                         }
 
-                        val fileToPlay = if (dspSuccess && processedWavFile.exists() && processedWavFile.length() > 44) {
-                            processedWavFile
+                        val fileToPlay = if (dspSuccess && currentProcessedFile.exists() && currentProcessedFile.length() > 44) {
+                            currentProcessedFile
                         } else {
-                            rawWavFile
+                            currentRawFile
                         }
 
                         mainHandler.post {
-                            if (utteranceId == activeUtteranceId) {
+                            if (utteranceId == activeUtteranceId && fileToPlay.exists()) {
                                 playWavFile(fileToPlay)
+                            } else {
+                                currentRawFile.delete()
+                                currentProcessedFile.delete()
                             }
                         }
                     }
@@ -249,7 +255,8 @@ class OfflineTTS(private val context: Context) : TextToSpeech.OnInitListener {
             val params = Bundle().apply {
                 putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId)
             }
-            val synthResult = tts?.synthesizeToFile(formattedText, params, rawWavFile, utteranceId)
+            val utteranceRawFile = File(context.cacheDir, "${utteranceId}_raw.wav")
+            val synthResult = tts?.synthesizeToFile(formattedText, params, utteranceRawFile, utteranceId)
             if (synthResult != TextToSpeech.SUCCESS) {
                 android.util.Log.w("OfflineTTS", "synthesizeToFile returned $synthResult, falling back to direct tts.speak")
                 val fallbackId = "DEXTER_FALLBACK_${System.currentTimeMillis()}"
@@ -275,9 +282,11 @@ class OfflineTTS(private val context: Context) : TextToSpeech.OnInitListener {
                 }
                 setOnCompletionListener {
                     onSpeakingStateChanged?.invoke(false)
+                    try { file.delete() } catch (_: Exception) {}
                 }
                 setOnErrorListener { _, _, _ ->
                     onSpeakingStateChanged?.invoke(false)
+                    try { file.delete() } catch (_: Exception) {}
                     true
                 }
                 prepareAsync()

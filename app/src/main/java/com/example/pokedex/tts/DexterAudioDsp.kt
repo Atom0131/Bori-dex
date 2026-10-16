@@ -87,28 +87,20 @@ object DexterAudioDsp {
             // 1. High-pass filter at 260 Hz
             applyHighpassFilter(floatSamples, sampleRate, 260.0)
 
-            // 2. Peaking Parametric Mid-EQ at 2000 Hz (+5 dB gain, Q=1.2)
-            applyPeakingEqFilter(floatSamples, sampleRate, centerFreq = 2000.0, gainDb = 5.0, q = 1.2)
+            // 2. Peaking Parametric Mid-EQ at 1800 Hz (+3.5 dB gain, Q=1.2) - authentic 90s transistor presence without ear fatigue
+            applyPeakingEqFilter(floatSamples, sampleRate, centerFreq = 1800.0, gainDb = 3.5, q = 1.2)
 
-            // 3. Low-pass filter at 4200 Hz
-            applyLowpassFilter(floatSamples, sampleRate, 4200.0)
-
-            // 4. Dual-tap comb filter echo:
-            // Tap 1: 12 ms delay, inGain = 0.82, outGain = 0.38, decay = 0.30
-            // Tap 2: 24 ms delay, inGain = 0.82, outGain = 0.20, decay = 0.18
+            // 3. Dual-tap comb filter echo with damped sibilance feedback
             applyDualTapEchoFilter(floatSamples, sampleRate)
 
-            // 5. Volume boost (1.25x) and soft limiter
-            val volumeBoost = 1.25f
+            // 4. Low-pass filter at 4000 Hz after comb filter to cut harsh high-frequency sibilant ringing
+            applyLowpassFilter(floatSamples, sampleRate, 4000.0)
+
+            // 5. Volume boost (1.15x) with smooth analog hyperbolic saturation limiter (eliminates 1.0f step discontinuity clicks)
+            val volumeBoost = 1.15f
             val outBuffer = ByteBuffer.allocate(wavInfo.dataSize).order(ByteOrder.LITTLE_ENDIAN)
             for (i in 0 until numSamples) {
-                var amplified = floatSamples[i] * volumeBoost
-                // Soft limiter curve
-                amplified = when {
-                    amplified > 1.0f -> 1.0f - (1.0f / (amplified + 1.0f))
-                    amplified < -1.0f -> -1.0f + (1.0f / (-amplified + 1.0f))
-                    else -> amplified
-                }
+                val amplified = kotlin.math.tanh((floatSamples[i] * volumeBoost).toDouble()).toFloat()
                 val clamped = (amplified * 32767.0f).coerceIn(-32768.0f, 32767.0f).toInt()
                 outBuffer.putShort(clamped.toShort())
             }
@@ -226,18 +218,25 @@ object DexterAudioDsp {
         val buffer2 = FloatArray(delay2Samples)
         var idx1 = 0
         var idx2 = 0
+        var prevEcho1 = 0f
+        var prevEcho2 = 0f
 
         for (i in samples.indices) {
             val x = samples[i]
             val echo1 = buffer1[idx1]
             val echo2 = buffer2[idx2]
 
-            // Combine dry signal with dual comb resonances
-            val y = (0.80f * x) + (0.35f * echo1) + (0.18f * echo2)
+            // Combine dry signal with dual comb resonances (dry 0.85, tap1 0.28, tap2 0.14)
+            val y = (0.85f * x) + (0.28f * echo1) + (0.14f * echo2)
 
-            // Feedback loops
-            buffer1[idx1] = x + (echo1 * 0.30f)
-            buffer2[idx2] = x + (echo2 * 0.16f)
+            // Damped feedback to eliminate metallic sibilance flutter on 'S' sounds
+            val damped1 = (echo1 + prevEcho1) * 0.5f
+            prevEcho1 = echo1
+            val damped2 = (echo2 + prevEcho2) * 0.5f
+            prevEcho2 = echo2
+
+            buffer1[idx1] = x + (damped1 * 0.22f)
+            buffer2[idx2] = x + (damped2 * 0.12f)
 
             idx1 = (idx1 + 1) % delay1Samples
             idx2 = (idx2 + 1) % delay2Samples

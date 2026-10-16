@@ -70,16 +70,27 @@ object PokemonPronunciation {
         text = text.replace("(?i)\\bPOKéMON\\b".toRegex(), "Pokemon")
         text = text.replace("(?i)\\bPOKEMON\\b".toRegex(), "Pokemon")
 
-        // 4. Fast phonetic replacement using matcher buffer
+        // 4. Fast phonetic replacement using matcher buffer (with possessive resolution)
         if (pronunciationMap.isNotEmpty()) {
             val matcher = wordPattern.matcher(text)
             val sb = StringBuffer()
             while (matcher.find()) {
                 val word = matcher.group()
                 val lower = word.lowercase()
+                val isPossessive = lower.endsWith("'s")
+                val isTrailingApos = lower.endsWith("s'")
+                val base = when {
+                    isPossessive -> lower.substring(0, lower.length - 2)
+                    isTrailingApos -> lower.substring(0, lower.length - 1)
+                    else -> lower
+                }
+
                 val phonetic = pronunciationMap[lower]
                     ?: pronunciationMap[lower.replace(" ", "-")]
                     ?: pronunciationMap[lower.replace("'", "")]
+                    ?: pronunciationMap[base]?.let { if (isPossessive) "$it's" else "$it'" }
+                    ?: pronunciationMap[base.replace(" ", "-")]?.let { if (isPossessive) "$it's" else "$it'" }
+
                 if (phonetic != null) {
                     matcher.appendReplacement(sb, MatcherQuote(phonetic))
                 } else {

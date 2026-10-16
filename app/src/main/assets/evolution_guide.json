@@ -44,6 +44,16 @@
             "method": "Mega Evolve in battle holding Venusaurite",
             "item": "venusaurite.png",
             "note": "Gifted by Professor Sycamore in Lumiose City."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Venusaurite",
+            "item": "venusaurite.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City."
+          },
+          "Y": {
+            "method": "Mega Evolve in battle holding Venusaurite",
+            "item": "venusaurite.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City."
           }
         }
       }
@@ -94,6 +104,16 @@
             "method": "Mega Evolve in battle holding Charizardite X (Pokemon X)",
             "item": "charizardite-x.png",
             "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon X."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Charizardite X (Pokemon X)",
+            "item": "charizardite-x.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon X."
+          },
+          "Y": {
+            "method": "Mega Evolve in battle holding Charizardite X (Pokemon X)",
+            "item": "charizardite-x.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon X."
           }
         }
       },
@@ -109,6 +129,16 @@
             "note": "Requires Mega Bracelet / Mega Ring. Summons harsh sunlight with Drought!"
           },
           "X / Y": {
+            "method": "Mega Evolve in battle holding Charizardite Y (Pokemon Y)",
+            "item": "charizardite-y.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon Y."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Charizardite Y (Pokemon Y)",
+            "item": "charizardite-y.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon Y."
+          },
+          "Y": {
             "method": "Mega Evolve in battle holding Charizardite Y (Pokemon Y)",
             "item": "charizardite-y.png",
             "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon Y."
@@ -159,6 +189,16 @@
             "note": "Requires Mega Bracelet / Mega Ring. Mega Launcher powers up pulse moves!"
           },
           "X / Y": {
+            "method": "Mega Evolve in battle holding Blastoisinite",
+            "item": "blastoisinite.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Blastoisinite",
+            "item": "blastoisinite.png",
+            "note": "Gifted by Professor Sycamore in Lumiose City."
+          },
+          "Y": {
             "method": "Mega Evolve in battle holding Blastoisinite",
             "item": "blastoisinite.png",
             "note": "Gifted by Professor Sycamore in Lumiose City."
@@ -329,6 +369,22 @@
             "item": "thunder-stone.png"
           },
           "Ultra Sun / Ultra Moon": {
+            "method": "Use Thunder Stone (evolves into Alolan Raichu in Alola, or Kantonian Raichu in Ultra Space!)",
+            "item": "thunder-stone.png"
+          },
+          "Sun": {
+            "method": "Use Thunder Stone (evolves into Psychic/Electric Alolan Raichu!)",
+            "item": "thunder-stone.png"
+          },
+          "Moon": {
+            "method": "Use Thunder Stone (evolves into Psychic/Electric Alolan Raichu!)",
+            "item": "thunder-stone.png"
+          },
+          "Ultra Sun": {
+            "method": "Use Thunder Stone (evolves into Alolan Raichu in Alola, or Kantonian Raichu in Ultra Space!)",
+            "item": "thunder-stone.png"
+          },
+          "Ultra Moon": {
             "method": "Use Thunder Stone (evolves into Alolan Raichu in Alola, or Kantonian Raichu in Ultra Space!)",
             "item": "thunder-stone.png"
           }
@@ -663,6 +719,16 @@
             "method": "Use Rage Fist 20 times in battle, then level up",
             "item": null,
             "note": "Primeape learns Rage Fist at Level 35. Moves count even against Normal types or protected hits."
+          },
+          "Scarlet": {
+            "method": "Use Rage Fist 20 times in battle, then level up",
+            "item": null,
+            "note": "Primeape learns Rage Fist at Level 35. Moves count even against Normal types or protected hits."
+          },
+          "Violet": {
+            "method": "Use Rage Fist 20 times in battle, then level up",
+            "item": null,
+            "note": "Primeape learns Rage Fist at Level 35. Moves count even against Normal types or protected hits."
           }
         }
       }
@@ -744,8 +810,8 @@
       {
         "targetId": 65,
         "targetName": "Alakazam",
-        "defaultMethod": "Trade with another player",
-        "defaultItem": null,
+        "defaultMethod": "Trade with another player, or use Linking Cord / Link Cable",
+        "defaultItem": "linking-cord.png",
         "versionNotes": {
           "Legends: Arceus": {
             "method": "Use Linking Cord item (no trade needed!)",
@@ -781,8 +847,8 @@
       {
         "targetId": 68,
         "targetName": "Machamp",
-        "defaultMethod": "Trade with another player",
-        "defaultItem": null,
+        "defaultMethod": "Trade with another player, or use Linking Cord / Link Cable",
+        "defaultItem": "linking-cord.png",
         "versionNotes": {
           "Legends: Arceus": {
             "method": "Use Linking Cord item (no trade needed!)",
@@ -867,8 +933,8 @@
       {
         "targetId": 76,
         "targetName": "Golem",
-        "defaultMethod": "Trade with another player",
-        "defaultItem": null,
+        "defaultMethod": "Trade with another player, or use Linking Cord / Link Cable",
+        "defaultItem": "linking-cord.png",
         "versionNotes": {
           "Legends: Arceus": {
             "method": "Use Linking Cord item (no trade needed!)",
@@ -947,8 +1013,8 @@
       {
         "targetId": 462,
         "targetName": "Magnezone",
-        "defaultMethod": "Level up",
-        "defaultItem": null,
+        "defaultMethod": "Use Thunder Stone, or level up in magnetic field (Mt. Coronet/Chargestone)",
+        "defaultItem": "thunder-stone.png",
         "versionNotes": {
           "Diamond / Pearl": {
             "method": "Level up in magnetic field at Mt. Coronet",
@@ -975,6 +1041,54 @@
             "item": "thunder-stone.png"
           },
           "Scarlet / Violet": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Diamond": {
+            "method": "Level up in magnetic field at Mt. Coronet",
+            "item": null
+          },
+          "Pearl": {
+            "method": "Level up in magnetic field at Mt. Coronet",
+            "item": null
+          },
+          "Black": {
+            "method": "Level up in magnetic field at Chargestone Cave",
+            "item": null
+          },
+          "White": {
+            "method": "Level up in magnetic field at Chargestone Cave",
+            "item": null
+          },
+          "X": {
+            "method": "Level up in magnetic field on Route 13",
+            "item": null
+          },
+          "Y": {
+            "method": "Level up in magnetic field on Route 13",
+            "item": null
+          },
+          "Sun": {
+            "method": "Level up in magnetic field at Blush Mountain",
+            "item": null
+          },
+          "Moon": {
+            "method": "Level up in magnetic field at Blush Mountain",
+            "item": null
+          },
+          "Sword": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Shield": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Scarlet": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Violet": {
             "method": "Use Thunder Stone",
             "item": "thunder-stone.png"
           }
@@ -1087,8 +1201,8 @@
       {
         "targetId": 94,
         "targetName": "Gengar",
-        "defaultMethod": "Trade with another player",
-        "defaultItem": null,
+        "defaultMethod": "Trade with another player, or use Linking Cord / Link Cable",
+        "defaultItem": "linking-cord.png",
         "versionNotes": {
           "Legends: Arceus": {
             "method": "Use Linking Cord item (no trade needed!)",
@@ -1101,6 +1215,26 @@
             "note": "Trade a Pincurchin to Blossom in Levincia for Haunter ('Hauntikins'), which evolves into Gengar immediately upon receipt!"
           },
           "Let's Go Pikachu / Eevee": {
+            "method": "Trade with another player, or transfer Gengar from Pokémon GO",
+            "item": null,
+            "note": "Can be transferred directly into GO Park in Fuchsia City."
+          },
+          "Scarlet": {
+            "method": "Trade with another player, OR in-game trade in Levincia",
+            "item": null,
+            "note": "Trade a Pincurchin to Blossom in Levincia for Haunter ('Hauntikins'), which evolves into Gengar immediately upon receipt!"
+          },
+          "Violet": {
+            "method": "Trade with another player, OR in-game trade in Levincia",
+            "item": null,
+            "note": "Trade a Pincurchin to Blossom in Levincia for Haunter ('Hauntikins'), which evolves into Gengar immediately upon receipt!"
+          },
+          "Let's Go Pikachu": {
+            "method": "Trade with another player, or transfer Gengar from Pokémon GO",
+            "item": null,
+            "note": "Can be transferred directly into GO Park in Fuchsia City."
+          },
+          "Eevee": {
             "method": "Trade with another player, or transfer Gengar from Pokémon GO",
             "item": null,
             "note": "Can be transferred directly into GO Park in Fuchsia City."
@@ -1125,6 +1259,16 @@
             "note": "Requires Mega Bracelet / Mega Ring. Shadow Tag prevents foes from fleeing!"
           },
           "X / Y": {
+            "method": "Mega Evolve in battle holding Gengarite",
+            "item": "gengarite.png",
+            "note": "Found in Laverre City from an occultist."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Gengarite",
+            "item": "gengarite.png",
+            "note": "Found in Laverre City from an occultist."
+          },
+          "Y": {
             "method": "Mega Evolve in battle holding Gengarite",
             "item": "gengarite.png",
             "note": "Found in Laverre City from an occultist."
@@ -1222,6 +1366,22 @@
           "Ultra Sun / Ultra Moon": {
             "method": "Use Leaf Stone (evolves into Alolan Exeggutor in Alola, Kantonian in Ultra Space!)",
             "item": "leaf-stone.png"
+          },
+          "Sun": {
+            "method": "Use Leaf Stone (evolves into Grass/Dragon Alolan Exeggutor!)",
+            "item": "leaf-stone.png"
+          },
+          "Moon": {
+            "method": "Use Leaf Stone (evolves into Grass/Dragon Alolan Exeggutor!)",
+            "item": "leaf-stone.png"
+          },
+          "Ultra Sun": {
+            "method": "Use Leaf Stone (evolves into Alolan Exeggutor in Alola, Kantonian in Ultra Space!)",
+            "item": "leaf-stone.png"
+          },
+          "Ultra Moon": {
+            "method": "Use Leaf Stone (evolves into Alolan Exeggutor in Alola, Kantonian in Ultra Space!)",
+            "item": "leaf-stone.png"
           }
         }
       }
@@ -1247,6 +1407,22 @@
             "item": null
           },
           "Ultra Sun / Ultra Moon": {
+            "method": "Reach Level 28 at Night (evolves into Alolan Marowak!)",
+            "item": null
+          },
+          "Sun": {
+            "method": "Reach Level 28 at Night (evolves into Fire/Ghost Alolan Marowak!)",
+            "item": null
+          },
+          "Moon": {
+            "method": "Reach Level 28 at Night (evolves into Fire/Ghost Alolan Marowak!)",
+            "item": null
+          },
+          "Ultra Sun": {
+            "method": "Reach Level 28 at Night (evolves into Alolan Marowak!)",
+            "item": null
+          },
+          "Ultra Moon": {
             "method": "Reach Level 28 at Night (evolves into Alolan Marowak!)",
             "item": null
           }
@@ -1293,6 +1469,14 @@
         "defaultItem": null,
         "versionNotes": {
           "Sword / Shield": {
+            "method": "Reach Level 35 (evolves into Poison/Fairy Galarian Weezing!)",
+            "item": null
+          },
+          "Sword": {
+            "method": "Reach Level 35 (evolves into Poison/Fairy Galarian Weezing!)",
+            "item": null
+          },
+          "Shield": {
             "method": "Reach Level 35 (evolves into Poison/Fairy Galarian Weezing!)",
             "item": null
           }
@@ -1472,6 +1656,14 @@
           "Scarlet / Violet": {
             "method": "Evolve in Legends: Arceus and transfer via Pokémon HOME (or catch in special Tera Raid)",
             "item": null
+          },
+          "Scarlet": {
+            "method": "Evolve in Legends: Arceus and transfer via Pokémon HOME (or catch in special Tera Raid)",
+            "item": null
+          },
+          "Violet": {
+            "method": "Evolve in Legends: Arceus and transfer via Pokémon HOME (or catch in special Tera Raid)",
+            "item": null
           }
         }
       }
@@ -1598,8 +1790,8 @@
       {
         "targetId": 470,
         "targetName": "Leafeon",
-        "defaultMethod": "Level up",
-        "defaultItem": null,
+        "defaultMethod": "Use Leaf Stone, or level up near Moss Rock",
+        "defaultItem": "leaf-stone.png",
         "versionNotes": {
           "Diamond / Pearl": {
             "method": "Level up near Moss Rock in Eterna Forest",
@@ -1648,14 +1840,94 @@
           "Scarlet / Violet": {
             "method": "Use Leaf Stone",
             "item": "leaf-stone.png"
+          },
+          "Diamond": {
+            "method": "Level up near Moss Rock in Eterna Forest",
+            "item": null
+          },
+          "Pearl": {
+            "method": "Level up near Moss Rock in Eterna Forest",
+            "item": null
+          },
+          "HeartGold": {
+            "method": "Trade to Sinnoh to evolve near Moss Rock",
+            "item": null
+          },
+          "SoulSilver": {
+            "method": "Trade to Sinnoh to evolve near Moss Rock",
+            "item": null
+          },
+          "Black": {
+            "method": "Level up near Moss Rock in Pinwheel Forest",
+            "item": null
+          },
+          "White": {
+            "method": "Level up near Moss Rock in Pinwheel Forest",
+            "item": null
+          },
+          "Black 2": {
+            "method": "Level up near Moss Rock in Pinwheel Forest",
+            "item": null
+          },
+          "White 2": {
+            "method": "Level up near Moss Rock in Pinwheel Forest",
+            "item": null
+          },
+          "X": {
+            "method": "Level up near Moss Rock on Route 20",
+            "item": null
+          },
+          "Y": {
+            "method": "Level up near Moss Rock on Route 20",
+            "item": null
+          },
+          "Omega Ruby": {
+            "method": "Level up near Moss Rock in Petalburg Woods",
+            "item": null
+          },
+          "Alpha Sapphire": {
+            "method": "Level up near Moss Rock in Petalburg Woods",
+            "item": null
+          },
+          "Sun": {
+            "method": "Level up near Moss Rock in Lush Jungle",
+            "item": null
+          },
+          "Moon": {
+            "method": "Level up near Moss Rock in Lush Jungle",
+            "item": null
+          },
+          "Ultra Sun": {
+            "method": "Level up near Moss Rock in Lush Jungle",
+            "item": null
+          },
+          "Ultra Moon": {
+            "method": "Level up near Moss Rock in Lush Jungle",
+            "item": null
+          },
+          "Sword": {
+            "method": "Use Leaf Stone",
+            "item": "leaf-stone.png"
+          },
+          "Shield": {
+            "method": "Use Leaf Stone",
+            "item": "leaf-stone.png"
+          },
+          "Scarlet": {
+            "method": "Use Leaf Stone",
+            "item": "leaf-stone.png"
+          },
+          "Violet": {
+            "method": "Use Leaf Stone",
+            "item": "leaf-stone.png"
           }
         }
       },
       {
         "targetId": 471,
         "targetName": "Glaceon",
-        "defaultMethod": "Level up",
-        "defaultItem": null,
+        "defaultMethod": "Use Ice Stone, or level up near Ice Rock",
+        "defaultItem": "ice-stone.png",
         "versionNotes": {
           "Diamond / Pearl": {
             "method": "Level up near Ice Rock on Route 217",
@@ -1704,13 +1976,93 @@
           "Scarlet / Violet": {
             "method": "Use Ice Stone",
             "item": "ice-stone.png"
+          },
+          "Diamond": {
+            "method": "Level up near Ice Rock on Route 217",
+            "item": null
+          },
+          "Pearl": {
+            "method": "Level up near Ice Rock on Route 217",
+            "item": null
+          },
+          "HeartGold": {
+            "method": "Trade to Sinnoh to evolve near Ice Rock",
+            "item": null
+          },
+          "SoulSilver": {
+            "method": "Trade to Sinnoh to evolve near Ice Rock",
+            "item": null
+          },
+          "Black": {
+            "method": "Level up near Ice Rock in Twist Mountain",
+            "item": null
+          },
+          "White": {
+            "method": "Level up near Ice Rock in Twist Mountain",
+            "item": null
+          },
+          "Black 2": {
+            "method": "Level up near Ice Rock in Twist Mountain",
+            "item": null
+          },
+          "White 2": {
+            "method": "Level up near Ice Rock in Twist Mountain",
+            "item": null
+          },
+          "X": {
+            "method": "Level up near Ice Rock in Frost Cavern",
+            "item": null
+          },
+          "Y": {
+            "method": "Level up near Ice Rock in Frost Cavern",
+            "item": null
+          },
+          "Omega Ruby": {
+            "method": "Level up near Ice Rock in Shoal Cave",
+            "item": null
+          },
+          "Alpha Sapphire": {
+            "method": "Level up near Ice Rock in Shoal Cave",
+            "item": null
+          },
+          "Sun": {
+            "method": "Level up near Ice Rock at Mount Lanakila",
+            "item": null
+          },
+          "Moon": {
+            "method": "Level up near Ice Rock at Mount Lanakila",
+            "item": null
+          },
+          "Ultra Sun": {
+            "method": "Level up near Ice Rock at Mount Lanakila",
+            "item": null
+          },
+          "Ultra Moon": {
+            "method": "Level up near Ice Rock at Mount Lanakila",
+            "item": null
+          },
+          "Sword": {
+            "method": "Use Ice Stone",
+            "item": "ice-stone.png"
+          },
+          "Shield": {
+            "method": "Use Ice Stone",
+            "item": "ice-stone.png"
+          },
+          "Scarlet": {
+            "method": "Use Ice Stone",
+            "item": "ice-stone.png"
+          },
+          "Violet": {
+            "method": "Use Ice Stone",
+            "item": "ice-stone.png"
           }
         }
       },
       {
         "targetId": 700,
         "targetName": "Sylveon",
-        "defaultMethod": "Level up",
+        "defaultMethod": "Level up with high friendship & Fairy-type move (2 Affection hearts)",
         "defaultItem": null,
         "versionNotes": {
           "X / Y": {
@@ -1730,6 +2082,38 @@
             "item": null
           },
           "Scarlet / Violet": {
+            "method": "High Friendship (at least 3 hearts) + know a Fairy move (Baby-Doll Eyes) + level up",
+            "item": null
+          },
+          "X": {
+            "method": "2 Affection hearts in Pokémon-Amie + know a Fairy move + level up",
+            "item": null
+          },
+          "Y": {
+            "method": "2 Affection hearts in Pokémon-Amie + know a Fairy move + level up",
+            "item": null
+          },
+          "Sun": {
+            "method": "2 Affection hearts in Pokémon Refresh + know a Fairy move + level up",
+            "item": null
+          },
+          "Moon": {
+            "method": "2 Affection hearts in Pokémon Refresh + know a Fairy move + level up",
+            "item": null
+          },
+          "Sword": {
+            "method": "High Friendship + know a Fairy-type move + level up",
+            "item": null
+          },
+          "Shield": {
+            "method": "High Friendship + know a Fairy-type move + level up",
+            "item": null
+          },
+          "Scarlet": {
+            "method": "High Friendship (at least 3 hearts) + know a Fairy move (Baby-Doll Eyes) + level up",
+            "item": null
+          },
+          "Violet": {
             "method": "High Friendship (at least 3 hearts) + know a Fairy move (Baby-Doll Eyes) + level up",
             "item": null
           }
@@ -1759,8 +2143,8 @@
       {
         "targetId": 233,
         "targetName": "Porygon2",
-        "defaultMethod": "Trade holding Up Grade",
-        "defaultItem": null,
+        "defaultMethod": "Trade holding Up-Grade (or use Up-Grade in Legends: Arceus)",
+        "defaultItem": "upgrade.png",
         "versionNotes": {
           "Legends: Arceus": {
             "method": "Use Upgrade directly (no trade required!)",
@@ -1881,6 +2265,16 @@
             "method": "Mega Evolve in battle holding Mewtwonite X (Pokemon X)",
             "item": "mewtwonite-x.png",
             "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Mewtwonite X (Pokemon X)",
+            "item": "mewtwonite-x.png",
+            "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
+          },
+          "Y": {
+            "method": "Mega Evolve in battle holding Mewtwonite X (Pokemon X)",
+            "item": "mewtwonite-x.png",
+            "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
           }
         }
       },
@@ -1896,6 +2290,16 @@
             "note": "Requires Mega Bracelet / Mega Ring. Massive Special Attack boost with Insomnia!"
           },
           "X / Y": {
+            "method": "Mega Evolve in battle holding Mewtwonite Y (Pokemon Y)",
+            "item": "mewtwonite-y.png",
+            "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Mewtwonite Y (Pokemon Y)",
+            "item": "mewtwonite-y.png",
+            "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
+          },
+          "Y": {
             "method": "Mega Evolve in battle holding Mewtwonite Y (Pokemon Y)",
             "item": "mewtwonite-y.png",
             "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
@@ -2408,6 +2812,14 @@
           "Scarlet / Violet": {
             "method": "Level up knowing Twin Beam (learned at Lv 32)",
             "item": null
+          },
+          "Scarlet": {
+            "method": "Level up knowing Twin Beam (learned at Lv 32)",
+            "item": null
+          },
+          "Violet": {
+            "method": "Level up knowing Twin Beam (learned at Lv 32)",
+            "item": null
           }
         }
       }
@@ -2442,6 +2854,16 @@
         "defaultItem": null,
         "versionNotes": {
           "Scarlet / Violet": {
+            "method": "Level up knowing Hyper Drill (learned at Lv 32)",
+            "item": null,
+            "note": "Has a 1/100 chance to evolve into Three-Segment Form!"
+          },
+          "Scarlet": {
+            "method": "Level up knowing Hyper Drill (learned at Lv 32)",
+            "item": null,
+            "note": "Has a 1/100 chance to evolve into Three-Segment Form!"
+          },
+          "Violet": {
             "method": "Level up knowing Hyper Drill (learned at Lv 32)",
             "item": null,
             "note": "Has a 1/100 chance to evolve into Three-Segment Form!"
@@ -2563,6 +2985,14 @@
             "note": "Rest at camp until night and check the moon. Ride Ursaluna digs up Peat Blocks."
           },
           "Scarlet / Violet": {
+            "method": "Evolve in Legends: Arceus and transfer via HOME (or complete Bloodmoon Beast quest in Kitakami)",
+            "item": null
+          },
+          "Scarlet": {
+            "method": "Evolve in Legends: Arceus and transfer via HOME (or complete Bloodmoon Beast quest in Kitakami)",
+            "item": null
+          },
+          "Violet": {
             "method": "Evolve in Legends: Arceus and transfer via HOME (or complete Bloodmoon Beast quest in Kitakami)",
             "item": null
           }
@@ -3228,6 +3658,16 @@
             "method": "Mega Evolve in battle holding Gardevoirite",
             "item": "gardevoirite.png",
             "note": "Trade with Diantha at Café Soleil in Lumiose City post-game."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Gardevoirite",
+            "item": "gardevoirite.png",
+            "note": "Trade with Diantha at Café Soleil in Lumiose City post-game."
+          },
+          "Y": {
+            "method": "Mega Evolve in battle holding Gardevoirite",
+            "item": "gardevoirite.png",
+            "note": "Trade with Diantha at Café Soleil in Lumiose City post-game."
           }
         }
       }
@@ -3399,8 +3839,8 @@
       {
         "targetId": 476,
         "targetName": "Probopass",
-        "defaultMethod": "Level up",
-        "defaultItem": null,
+        "defaultMethod": "Use Thunder Stone, or level up in magnetic field (Mt. Coronet/Chargestone)",
+        "defaultItem": "thunder-stone.png",
         "versionNotes": {
           "Diamond / Pearl": {
             "method": "Level up in magnetic field at Mt. Coronet",
@@ -3427,6 +3867,54 @@
             "item": "thunder-stone.png"
           },
           "Scarlet / Violet": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Diamond": {
+            "method": "Level up in magnetic field at Mt. Coronet",
+            "item": null
+          },
+          "Pearl": {
+            "method": "Level up in magnetic field at Mt. Coronet",
+            "item": null
+          },
+          "Black": {
+            "method": "Level up in magnetic field at Chargestone Cave",
+            "item": null
+          },
+          "White": {
+            "method": "Level up in magnetic field at Chargestone Cave",
+            "item": null
+          },
+          "X": {
+            "method": "Level up in magnetic field on Route 13",
+            "item": null
+          },
+          "Y": {
+            "method": "Level up in magnetic field on Route 13",
+            "item": null
+          },
+          "Sun": {
+            "method": "Level up in magnetic field at Blush Mountain",
+            "item": null
+          },
+          "Moon": {
+            "method": "Level up in magnetic field at Blush Mountain",
+            "item": null
+          },
+          "Sword": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Shield": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Scarlet": {
+            "method": "Use Thunder Stone",
+            "item": "thunder-stone.png"
+          },
+          "Violet": {
             "method": "Use Thunder Stone",
             "item": "thunder-stone.png"
           }
@@ -3846,9 +4334,215 @@
       {
         "targetId": 350,
         "targetName": "Milotic",
-        "defaultMethod": "Level up",
-        "defaultItem": null,
-        "versionNotes": {}
+        "defaultMethod": "Trade holding Prism Scale (or Level up with Beauty >= 170)",
+        "defaultItem": "prism-scale.png",
+        "versionNotes": {
+          "Ruby": {
+            "method": "Level up with Beauty >= 170",
+            "item": "pokeblock.png",
+            "note": "Blend Blue/Indigo PokeBlocks in Contest Halls to max Beauty."
+          },
+          "Sapphire": {
+            "method": "Level up with Beauty >= 170",
+            "item": "pokeblock.png",
+            "note": "Blend Blue/Indigo PokeBlocks in Contest Halls to max Beauty."
+          },
+          "Ruby / Sapphire": {
+            "method": "Level up with Beauty >= 170",
+            "item": "pokeblock.png",
+            "note": "Blend Blue/Indigo PokeBlocks in Contest Halls to max Beauty."
+          },
+          "Emerald": {
+            "method": "Level up with Beauty >= 170",
+            "item": "pokeblock.png",
+            "note": "Blend Blue/Indigo PokeBlocks in Lilycove Contest Hall to max Beauty."
+          },
+          "FireRed": {
+            "method": "Trade to RSE to max Beauty, then level up",
+            "item": "pokeblock.png",
+            "note": "Beauty cannot be raised in Kanto; must trade to RSE to feed PokeBlocks."
+          },
+          "LeafGreen": {
+            "method": "Trade to RSE to max Beauty, then level up",
+            "item": "pokeblock.png",
+            "note": "Beauty cannot be raised in Kanto; must trade to RSE to feed PokeBlocks."
+          },
+          "FireRed / LeafGreen": {
+            "method": "Trade to RSE to max Beauty, then level up",
+            "item": "pokeblock.png",
+            "note": "Beauty cannot be raised in Kanto; must trade to RSE to feed PokeBlocks."
+          },
+          "Diamond": {
+            "method": "Level up with Beauty >= 170",
+            "item": "poffin.png",
+            "note": "Bake Dry/Beauty Poffins at Hearthome City Poffin House."
+          },
+          "Pearl": {
+            "method": "Level up with Beauty >= 170",
+            "item": "poffin.png",
+            "note": "Bake Dry/Beauty Poffins at Hearthome City Poffin House."
+          },
+          "Diamond / Pearl": {
+            "method": "Level up with Beauty >= 170",
+            "item": "poffin.png",
+            "note": "Bake Dry/Beauty Poffins at Hearthome City Poffin House."
+          },
+          "Platinum": {
+            "method": "Level up with Beauty >= 170",
+            "item": "poffin.png",
+            "note": "Bake Dry/Beauty Poffins at Hearthome City Poffin House."
+          },
+          "HeartGold": {
+            "method": "Level up with Beauty >= 170",
+            "item": "poffin.png",
+            "note": "Raise Beauty via Daisy Oak hair grooming in Pallet Town or Goldenrod Salon."
+          },
+          "SoulSilver": {
+            "method": "Level up with Beauty >= 170",
+            "item": "poffin.png",
+            "note": "Raise Beauty via Daisy Oak hair grooming in Pallet Town or Goldenrod Salon."
+          },
+          "HeartGold / SoulSilver": {
+            "method": "Level up with Beauty >= 170",
+            "item": "poffin.png",
+            "note": "Raise Beauty via Daisy Oak hair grooming in Pallet Town or Goldenrod Salon."
+          },
+          "Black": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade with another player while holding a Prism Scale (found on Undella Bay)."
+          },
+          "White": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade with another player while holding a Prism Scale (found on Undella Bay)."
+          },
+          "Black / White": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade with another player while holding a Prism Scale (found on Undella Bay)."
+          },
+          "Black 2": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Undella Bay / Join Avenue)."
+          },
+          "White 2": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Undella Bay / Join Avenue)."
+          },
+          "Black 2 / White 2": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Undella Bay / Join Avenue)."
+          },
+          "X": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Couriway Town)."
+          },
+          "Y": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Couriway Town)."
+          },
+          "X / Y": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Couriway Town)."
+          },
+          "Omega Ruby": {
+            "method": "Level up with Beauty >= 170, or Trade holding Prism Scale",
+            "item": "pokeblock.png",
+            "note": "Blend Blue PokeBlocks with Pokeblock Kit, or trade holding Prism Scale."
+          },
+          "Alpha Sapphire": {
+            "method": "Level up with Beauty >= 170, or Trade holding Prism Scale",
+            "item": "pokeblock.png",
+            "note": "Blend Blue PokeBlocks with Pokeblock Kit, or trade holding Prism Scale."
+          },
+          "Omega Ruby / Alpha Sapphire": {
+            "method": "Level up with Beauty >= 170, or Trade holding Prism Scale",
+            "item": "pokeblock.png",
+            "note": "Blend Blue PokeBlocks with Pokeblock Kit, or trade holding Prism Scale."
+          },
+          "Sun": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found on Exeggutor Island)."
+          },
+          "Moon": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found on Exeggutor Island)."
+          },
+          "Sun / Moon": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found on Exeggutor Island)."
+          },
+          "Ultra Sun": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale."
+          },
+          "Ultra Moon": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale."
+          },
+          "Ultra Sun / Ultra Moon": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale."
+          },
+          "Sword": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found on Route 2 lake)."
+          },
+          "Shield": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found on Route 2 lake)."
+          },
+          "Sword / Shield": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found on Route 2 lake)."
+          },
+          "Brilliant Diamond": {
+            "method": "Level up with Beauty >= 170, or Trade holding Prism Scale",
+            "item": "poffin.png",
+            "note": "Bake Dry Poffins with Chesto/Oran berries in Hearthome City, or trade holding Prism Scale."
+          },
+          "Shining Pearl": {
+            "method": "Level up with Beauty >= 170, or Trade holding Prism Scale",
+            "item": "poffin.png",
+            "note": "Bake Dry Poffins with Chesto/Oran berries in Hearthome City, or trade holding Prism Scale."
+          },
+          "Brilliant Diamond / Shining Pearl": {
+            "method": "Level up with Beauty >= 170, or Trade holding Prism Scale",
+            "item": "poffin.png",
+            "note": "Bake Dry Poffins with Chesto/Oran berries in Hearthome City, or trade holding Prism Scale."
+          },
+          "Scarlet": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Kitakami / Oni Mountain / Crystal Pool)."
+          },
+          "Violet": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Kitakami / Oni Mountain / Crystal Pool)."
+          },
+          "Scarlet / Violet": {
+            "method": "Trade holding Prism Scale",
+            "item": "prism-scale.png",
+            "note": "Trade while holding Prism Scale (found in Kitakami / Oni Mountain / Crystal Pool)."
+          }
+        }
       }
     ]
   },
@@ -4085,6 +4779,16 @@
             "method": "Mega Evolve in battle holding Salamencite",
             "item": "salamencite.png",
             "note": "Obtained at Meteor Falls after the Delta Episode."
+          },
+          "Omega Ruby": {
+            "method": "Mega Evolve in battle holding Salamencite",
+            "item": "salamencite.png",
+            "note": "Obtained at Meteor Falls after the Delta Episode."
+          },
+          "Alpha Sapphire": {
+            "method": "Mega Evolve in battle holding Salamencite",
+            "item": "salamencite.png",
+            "note": "Obtained at Meteor Falls after the Delta Episode."
           }
         }
       }
@@ -4132,6 +4836,16 @@
             "note": "Requires Mega Bracelet / Mega Ring. Tough Claws boosts contact attacks!"
           },
           "Omega Ruby / Alpha Sapphire": {
+            "method": "Mega Evolve in battle holding Metagrossite",
+            "item": "metagrossite.png",
+            "note": "Obtained by defeating Champion Steven in the rematch."
+          },
+          "Omega Ruby": {
+            "method": "Mega Evolve in battle holding Metagrossite",
+            "item": "metagrossite.png",
+            "note": "Obtained by defeating Champion Steven in the rematch."
+          },
+          "Alpha Sapphire": {
             "method": "Mega Evolve in battle holding Metagrossite",
             "item": "metagrossite.png",
             "note": "Obtained by defeating Champion Steven in the rematch."
@@ -4754,6 +5468,16 @@
             "method": "Mega Evolve in battle holding Garchompite",
             "item": "garchompite.png",
             "note": "Found in Victory Road tower post-game between 8PM and 9PM."
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Garchompite",
+            "item": "garchompite.png",
+            "note": "Found in Victory Road tower post-game between 8PM and 9PM."
+          },
+          "Y": {
+            "method": "Mega Evolve in battle holding Garchompite",
+            "item": "garchompite.png",
+            "note": "Found in Victory Road tower post-game between 8PM and 9PM."
           }
         }
       }
@@ -4801,6 +5525,16 @@
             "note": "Requires Mega Bracelet / Mega Ring. Adaptability doubles STAB moves!"
           },
           "X / Y": {
+            "method": "Mega Evolve in battle holding Lucarionite",
+            "item": "lucarionite.png",
+            "note": "Gifted by Korrina at Tower of Mastery in Shalour City alongside Lucario!"
+          },
+          "X": {
+            "method": "Mega Evolve in battle holding Lucarionite",
+            "item": "lucarionite.png",
+            "note": "Gifted by Korrina at Tower of Mastery in Shalour City alongside Lucario!"
+          },
+          "Y": {
             "method": "Mega Evolve in battle holding Lucarionite",
             "item": "lucarionite.png",
             "note": "Gifted by Korrina at Tower of Mastery in Shalour City alongside Lucario!"
@@ -4893,7 +5627,7 @@
       {
         "targetId": 226,
         "targetName": "Mantine",
-        "defaultMethod": "Level up",
+        "defaultMethod": "Level up with Remoraid in the party",
         "defaultItem": null,
         "versionNotes": {}
       }
@@ -5003,6 +5737,16 @@
             "note": "Requires Mega Bracelet / Mega Ring. Inner Focus prevents flinching!"
           },
           "Omega Ruby / Alpha Sapphire": {
+            "method": "Mega Evolve in battle holding Galladite",
+            "item": "galladite.png",
+            "note": "Gifted by Professor Cosmo in Fallarbor Town after Delta Episode."
+          },
+          "Omega Ruby": {
+            "method": "Mega Evolve in battle holding Galladite",
+            "item": "galladite.png",
+            "note": "Gifted by Professor Cosmo in Fallarbor Town after Delta Episode."
+          },
+          "Alpha Sapphire": {
             "method": "Mega Evolve in battle holding Galladite",
             "item": "galladite.png",
             "note": "Gifted by Professor Cosmo in Fallarbor Town after Delta Episode."
@@ -5407,9 +6151,15 @@
       {
         "targetId": 526,
         "targetName": "Gigalith",
-        "defaultMethod": "Trade with another player",
-        "defaultItem": null,
-        "versionNotes": {}
+        "defaultMethod": "Trade with another player, or use Linking Cord / Link Cable",
+        "defaultItem": "linking-cord.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Linking Cord item (no trade needed!)",
+            "item": "linking-cord.png",
+            "note": "Purchase Linking Cord at Simona's shop in Jubilife Village for 1,000 Merit Points."
+          }
+        }
       }
     ]
   },
@@ -5479,9 +6229,15 @@
       {
         "targetId": 534,
         "targetName": "Conkeldurr",
-        "defaultMethod": "Trade with another player",
-        "defaultItem": null,
-        "versionNotes": {}
+        "defaultMethod": "Trade with another player, or use Linking Cord / Link Cable",
+        "defaultItem": "linking-cord.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Linking Cord item (no trade needed!)",
+            "item": "linking-cord.png",
+            "note": "Purchase Linking Cord at Simona's shop in Jubilife Village for 1,000 Merit Points."
+          }
+        }
       }
     ]
   },
@@ -5993,8 +6749,8 @@
       {
         "targetId": 589,
         "targetName": "Escavalier",
-        "defaultMethod": "Trade specifically for Shelmet",
-        "defaultItem": null,
+        "defaultMethod": "Trade specifically for Shelmet (or use Linking Cord)",
+        "defaultItem": "linking-cord.png",
         "versionNotes": {}
       }
     ]
@@ -6253,8 +7009,8 @@
       {
         "targetId": 617,
         "targetName": "Accelgor",
-        "defaultMethod": "Trade specifically for Karrablast",
-        "defaultItem": null,
+        "defaultMethod": "Trade specifically for Karrablast (or use Linking Cord)",
+        "defaultItem": "linking-cord.png",
         "versionNotes": {}
       }
     ]
@@ -6334,6 +7090,16 @@
         "defaultItem": null,
         "versionNotes": {
           "Scarlet / Violet": {
+            "method": "Defeat 3 Bisharp holding Leader's Crest, then level up",
+            "item": "leaders-crest.png",
+            "note": "Defeat 3 Bisharp that spawn in the center of Pawniard packs (North Province Area 2)."
+          },
+          "Scarlet": {
+            "method": "Defeat 3 Bisharp holding Leader's Crest, then level up",
+            "item": "leaders-crest.png",
+            "note": "Defeat 3 Bisharp that spawn in the center of Pawniard packs (North Province Area 2)."
+          },
+          "Violet": {
             "method": "Defeat 3 Bisharp holding Leader's Crest, then level up",
             "item": "leaders-crest.png",
             "note": "Defeat 3 Bisharp that spawn in the center of Pawniard packs (North Province Area 2)."
@@ -7039,9 +7805,15 @@
       {
         "targetId": 709,
         "targetName": "Trevenant",
-        "defaultMethod": "Trade with another player",
-        "defaultItem": null,
-        "versionNotes": {}
+        "defaultMethod": "Trade with another player, or use Linking Cord / Link Cable",
+        "defaultItem": "linking-cord.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Linking Cord item (no trade needed!)",
+            "item": "linking-cord.png",
+            "note": "Purchase Linking Cord at Simona's shop in Jubilife Village for 1,000 Merit Points."
+          }
+        }
       }
     ]
   },
@@ -7057,9 +7829,15 @@
       {
         "targetId": 711,
         "targetName": "Gourgeist",
-        "defaultMethod": "Trade with another player",
-        "defaultItem": null,
-        "versionNotes": {}
+        "defaultMethod": "Trade with another player, or use Linking Cord / Link Cable",
+        "defaultItem": "linking-cord.png",
+        "versionNotes": {
+          "Legends: Arceus": {
+            "method": "Use Linking Cord item (no trade needed!)",
+            "item": "linking-cord.png",
+            "note": "Purchase Linking Cord at Simona's shop in Jubilife Village for 1,000 Merit Points."
+          }
+        }
       }
     ]
   },
@@ -7296,8 +8074,8 @@
       {
         "targetId": 738,
         "targetName": "Vikavolt",
-        "defaultMethod": "Level up",
-        "defaultItem": null,
+        "defaultMethod": "Use Thunder Stone, or level up in magnetic field (Vast Poni Canyon/Blush Mtn)",
+        "defaultItem": "thunder-stone.png",
         "versionNotes": {}
       }
     ]
@@ -7314,8 +8092,8 @@
       {
         "targetId": 740,
         "targetName": "Crabominable",
-        "defaultMethod": "Level up",
-        "defaultItem": null,
+        "defaultMethod": "Use Ice Stone, or level up at Mount Lanakila",
+        "defaultItem": "ice-stone.png",
         "versionNotes": {}
       }
     ]
@@ -8148,6 +8926,22 @@
           "Scarlet / Violet": {
             "method": "Use Tart Apple (purchased at Delibird Presents)",
             "item": "tart-apple.png"
+          },
+          "Sword": {
+            "method": "Use Tart Apple (Sword exclusive item)",
+            "item": "tart-apple.png"
+          },
+          "Shield": {
+            "method": "Use Tart Apple (Sword exclusive item)",
+            "item": "tart-apple.png"
+          },
+          "Scarlet": {
+            "method": "Use Tart Apple (purchased at Delibird Presents)",
+            "item": "tart-apple.png"
+          },
+          "Violet": {
+            "method": "Use Tart Apple (purchased at Delibird Presents)",
+            "item": "tart-apple.png"
           }
         }
       },
@@ -8164,6 +8958,22 @@
           "Scarlet / Violet": {
             "method": "Use Sweet Apple (purchased at Delibird Presents)",
             "item": "sweet-apple.png"
+          },
+          "Sword": {
+            "method": "Use Sweet Apple (Shield exclusive item)",
+            "item": "sweet-apple.png"
+          },
+          "Shield": {
+            "method": "Use Sweet Apple (Shield exclusive item)",
+            "item": "sweet-apple.png"
+          },
+          "Scarlet": {
+            "method": "Use Sweet Apple (purchased at Delibird Presents)",
+            "item": "sweet-apple.png"
+          },
+          "Violet": {
+            "method": "Use Sweet Apple (purchased at Delibird Presents)",
+            "item": "sweet-apple.png"
           }
         }
       },
@@ -8174,6 +8984,16 @@
         "defaultItem": "syrupy-apple.png",
         "versionNotes": {
           "Scarlet / Violet": {
+            "method": "Use Syrupy Apple in Kitakami DLC",
+            "item": "syrupy-apple.png",
+            "note": "Purchase Syrupy Apple from the unattended stall in southeastern Kitakami."
+          },
+          "Scarlet": {
+            "method": "Use Syrupy Apple in Kitakami DLC",
+            "item": "syrupy-apple.png",
+            "note": "Purchase Syrupy Apple from the unattended stall in southeastern Kitakami."
+          },
+          "Violet": {
             "method": "Use Syrupy Apple in Kitakami DLC",
             "item": "syrupy-apple.png",
             "note": "Purchase Syrupy Apple from the unattended stall in southeastern Kitakami."
@@ -8515,6 +9335,16 @@
             "method": "Use Metal Alloy in Blueberry Academy DLC",
             "item": "metal-alloy.png",
             "note": "Purchase Metal Alloy at the School Store for 300 BP or find in Chargestone Cavern."
+          },
+          "Scarlet": {
+            "method": "Use Metal Alloy in Blueberry Academy DLC",
+            "item": "metal-alloy.png",
+            "note": "Purchase Metal Alloy at the School Store for 300 BP or find in Chargestone Cavern."
+          },
+          "Violet": {
+            "method": "Use Metal Alloy in Blueberry Academy DLC",
+            "item": "metal-alloy.png",
+            "note": "Purchase Metal Alloy at the School Store for 300 BP or find in Chargestone Cavern."
           }
         }
       }
@@ -8816,7 +9646,7 @@
       {
         "targetId": 923,
         "targetName": "Pawmot",
-        "defaultMethod": "Level up",
+        "defaultMethod": "Walk 1,000 steps in Let's Go mode, then level up",
         "defaultItem": null,
         "versionNotes": {}
       }
@@ -8944,6 +9774,16 @@
             "method": "Scarlet: Use Auspicious Armor. Violet: Trade for item or join Scarlet Tera Raid!",
             "item": "auspicious-armor.png",
             "note": "Trade 10 Bronzor Fragments to an elder near the Zapapico fountain (Scarlet exclusive)."
+          },
+          "Scarlet": {
+            "method": "Scarlet: Use Auspicious Armor. Violet: Trade for item or join Scarlet Tera Raid!",
+            "item": "auspicious-armor.png",
+            "note": "Trade 10 Bronzor Fragments to an elder near the Zapapico fountain (Scarlet exclusive)."
+          },
+          "Violet": {
+            "method": "Scarlet: Use Auspicious Armor. Violet: Trade for item or join Scarlet Tera Raid!",
+            "item": "auspicious-armor.png",
+            "note": "Trade 10 Bronzor Fragments to an elder near the Zapapico fountain (Scarlet exclusive)."
           }
         }
       },
@@ -8954,6 +9794,16 @@
         "defaultItem": "malicious-armor.png",
         "versionNotes": {
           "Scarlet / Violet": {
+            "method": "Violet: Use Malicious Armor. Scarlet: Trade for item or join Violet Tera Raid!",
+            "item": "malicious-armor.png",
+            "note": "Trade 10 Sinistea Chips to an elder near the Zapapico fountain (Violet exclusive)."
+          },
+          "Scarlet": {
+            "method": "Violet: Use Malicious Armor. Scarlet: Trade for item or join Violet Tera Raid!",
+            "item": "malicious-armor.png",
+            "note": "Trade 10 Sinistea Chips to an elder near the Zapapico fountain (Violet exclusive)."
+          },
+          "Violet": {
             "method": "Violet: Use Malicious Armor. Scarlet: Trade for item or join Violet Tera Raid!",
             "item": "malicious-armor.png",
             "note": "Trade 10 Sinistea Chips to an elder near the Zapapico fountain (Violet exclusive)."
@@ -9051,7 +9901,7 @@
       {
         "targetId": 947,
         "targetName": "Brambleghast",
-        "defaultMethod": "Level up",
+        "defaultMethod": "Walk 1,000 steps in Let's Go mode, then level up",
         "defaultItem": null,
         "versionNotes": {}
       }
@@ -9110,7 +9960,7 @@
       {
         "targetId": 954,
         "targetName": "Rabsca",
-        "defaultMethod": "Level up",
+        "defaultMethod": "Walk 1,000 steps in Let's Go mode, then level up",
         "defaultItem": null,
         "versionNotes": {}
       }
@@ -9508,6 +10358,16 @@
         "defaultItem": null,
         "versionNotes": {
           "Scarlet / Violet": {
+            "method": "Level up knowing Dragon Cheer in Indigo Disk DLC",
+            "item": null,
+            "note": "Obtain TM226 (Dragon Cheer) by defeating Drayton of the BB League Elite Four."
+          },
+          "Scarlet": {
+            "method": "Level up knowing Dragon Cheer in Indigo Disk DLC",
+            "item": null,
+            "note": "Obtain TM226 (Dragon Cheer) by defeating Drayton of the BB League Elite Four."
+          },
+          "Violet": {
             "method": "Level up knowing Dragon Cheer in Indigo Disk DLC",
             "item": null,
             "note": "Obtain TM226 (Dragon Cheer) by defeating Drayton of the BB League Elite Four."

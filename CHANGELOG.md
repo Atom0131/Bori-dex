@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-10-16
+
+### Added
+- **Stage 3 Machine Learning Master Model**: 494,768 images master dataset across all 1,025 classes incorporating 3D prints, sleep series figures, TCG card art, and varied room lighting.
+- **Kaggle Dataset Transparency**: Public dataset published to Kaggle Datasets (`atom0131/boridex-pokemon-master-dataset-494k`) with preparation scripts in `tools/ml/`.
+- **Dynamic Version-Specific Evolution System**: Canonical game-dependent evolution requirements (e.g. Feebas with Pokéblocks in Sapphire vs. Poffins in Diamond vs. Prism Scale trade in Scarlet/Violet).
+- **In-Modal Cartridge Quick-Switcher**: Interactive `VER: [EDITION] ▾` chip allowing real-time edition switching inside the evolution modal.
+- **Trade Evolutions & Pixel Art**: Pixel items (`link-cable.png`, `linking-cord.png`, `upgrade.png`, `poffin.png`, `pokeblock.png`, `prism-scale.png`) and target elemental type badges (`[WATER]`, etc.).
+- **Reproducible ML Pipeline**: Scrapers, merge scripts, training pipeline, and Float32 inference exporter committed under `tools/ml/`.
+
+### Fixed
+- **Dexter Voice Sibilance & Glitch Fix**: Replaced discontinuous limiter with smooth hyperbolic tangent saturation (`tanh(x * 1.15)`), eliminating harsh 50% amplitude drops and audio popping on 'S' sounds.
+- **Echo Resonance**: Added high-frequency damping on comb echo feedback and downstream 4,000 Hz low-pass filter.
+- **Pronunciation & Buffer Safety**: Added possessive `'s` resolution, `"FEE-bus"` phonetic spelling, and isolated utterance WAV files.
+
+## [1.2.0] - 2026-10-15
+
+### Added
+- **Tactile Retro Game Cartridges**: 37 authentic retro game cartridges with molded plastic shells, grip ridges, foil stickers, and mascot pixel art.
+- **Pokédex Lore Full-Height Expansion**: Vertical expansion of lore text box with internal vertical scrolling.
+- **Refined Shiny Toggle**: Subtle `✨` shiny glyph badge in sprite viewport with `NORMAL` / `★ SHINY` button states.
+- **Centered Evolution Modal**: Dynamic, content-fitted dialog centered on the display.
+- **Canonical Range**: Strictly bounds index to canonical species (#001–#1025).
+
 ## [1.1.0] - 2026-10-13
 
 ### Added
