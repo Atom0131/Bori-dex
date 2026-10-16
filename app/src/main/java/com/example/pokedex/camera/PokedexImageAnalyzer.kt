@@ -20,11 +20,11 @@ class PokedexImageAnalyzer(
         // use{} closes the frame immediately so CameraX is never stalled waiting on inference.
         image.use {
             frameCount++
-            // Wait ~15 frames for auto-focus/exposure to settle initially
-            if (frameCount < 15) return
+            // Wait ~8 frames for auto-focus/exposure to settle initially
+            if (frameCount < 8) return
             
-            // Only emit 1 out of every 4 frames (so we don't overwhelm the classifier)
-            if (frameCount % 4 != 0) return
+            // Emit every 2nd frame (15 FPS) for responsive multi-frame fusion
+            if (frameCount % 2 != 0) return
 
             val raw = it.toBitmap()
             val rotation = it.imageInfo.rotationDegrees
@@ -34,10 +34,14 @@ class PokedexImageAnalyzer(
             } else raw
             
             // Center-crop to 1:1 square matching the camera targeting reticle
+            // Reticle on screen is 280dp on a ~412dp screen (~70% of minDim).
+            // Cropping to 70% bounds focuses directly on what the user centers in the HUD reticle,
+            // filtering out peripheral room clutter, keyboards, hands, and desks.
             val minDim = minOf(upright.width, upright.height)
-            val cropX = (upright.width - minDim) / 2
-            val cropY = (upright.height - minDim) / 2
-            val centeredSquare = Bitmap.createBitmap(upright, cropX, cropY, minDim, minDim)
+            val cropDim = (minDim * 0.70f).toInt()
+            val cropX = (upright.width - cropDim) / 2
+            val cropY = (upright.height - cropDim) / 2
+            val centeredSquare = Bitmap.createBitmap(upright, cropX, cropY, cropDim, cropDim)
             onFrame(centeredSquare)
         }
     }

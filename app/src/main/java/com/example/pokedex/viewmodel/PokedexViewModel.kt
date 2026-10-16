@@ -472,23 +472,39 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    private data class FrameResult(
+        val topIndex: Int,
+        val topVal: Float,
+        val secondIndex: Int,
+        val secondVal: Float,
+        val probabilities: FloatArray,
+        val bitmap: Bitmap
+    )
+
+    private val rollingFrames = ArrayDeque<FrameResult>()
+    private val MAX_ROLLING_FRAMES = 8
     private var scanningJob: Job? = null
     private var scanSettlingUntil = 0L
     private var isAnalyzing = false
-    private var accumulatedProbabilities = FloatArray(1025)
-    private var framesAnalyzed = 0
-    private var bestBitmap: Bitmap? = null
+    private var lockStreakCandidate = -1
+    private var lockStreakFrames = 0
+    private var sharpestBitmap: Bitmap? = null
+    private var highestStreakConfidence = 0f
 
     fun startScanning() {
         tts.stop()
         _isSpeaking.value = false
         _uiState.value = PokedexState.Scanning
         _scanStatusText.value = "FOCUSING..."
-        framesAnalyzed = 0
-        accumulatedProbabilities.fill(0f)
-        bestBitmap = null
-        // 1.2-second settling pause before frame collection starts
-        scanSettlingUntil = System.currentTimeMillis() + 1200L
+        synchronized(rollingFrames) {
+            rollingFrames.clear()
+        }
+        lockStreakCandidate = -1
+        lockStreakFrames = 0
+        sharpestBitmap = null
+        highestStreakConfidence = 0f
+        // Quick 400ms settle for camera auto-focus/exposure
+        scanSettlingUntil = System.currentTimeMillis() + 400L
 
         scanningJob?.cancel()
         scanningJob = viewModelScope.launch {
@@ -506,11 +522,13 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
     fun onImageAnalyzed(bitmap: Bitmap) {
         if (_uiState.value !is PokedexState.Scanning) {
-            framesAnalyzed = 0
+            synchronized(rollingFrames) { rollingFrames.clear() }
+            lockStreakCandidate = -1
+            lockStreakFrames = 0
             return
         }
         
-        // Skip frames during the initial settling period
+        // Skip frames during the quick initial settling period
         if (System.currentTimeMillis() < scanSettlingUntil) {
             _scanStatusText.value = "FOCUSING..."
             return
@@ -522,111 +540,171 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             try {
                 val labels = classifier.getLabels()
-                if (accumulatedProbabilities.size != labels.size) {
-                    accumulatedProbabilities = FloatArray(labels.size)
-                }
-
-                if (framesAnalyzed == 0) {
-                    accumulatedProbabilities.fill(0f)
-                    bestBitmap = bitmap
-                }
-
                 val probs = classifier.getProbabilities(bitmap)
+
+                // Find top 2 indices for this frame
+                var top1Idx = 0
+                var top1Val = -1f
+                var top2Idx = 0
+                var top2Val = -1f
+
                 for (i in probs.indices) {
-                    accumulatedProbabilities[i] += probs[i]
-                }
-                framesAnalyzed++
-
-                // Active live 3-2-1 countdown feedback
-                when (framesAnalyzed) {
-                    in 1..7 -> _scanStatusText.value = "LOCKING IN 3..."
-                    in 8..14 -> _scanStatusText.value = "LOCKING IN 2..."
-                    in 15..21 -> _scanStatusText.value = "LOCKING IN 1..."
-                    else -> _scanStatusText.value = "IDENTIFYING..."
-                }
-
-                // Save mid-window frame (~1.5s in, when phone is steadiest) for reveal UI
-                if (framesAnalyzed == 11) {
-                    bestBitmap = bitmap
-                }
-
-                if (framesAnalyzed % 5 == 0 || framesAnalyzed == 22) {
-                    android.util.Log.d("PokedexViewModel", "Accumulating: frame $framesAnalyzed/22 (~3.0s window)")
-                }
-
-                // 22 frames = ~3.0 seconds at ~7.5 FPS
-                if (framesAnalyzed >= 22) {
-                    val count = framesAnalyzed.toFloat()
-                    val averages = accumulatedProbabilities.mapIndexed { idx, sum ->
-                        idx to (sum / count)
-                    }.sortedByDescending { it.second }
-
-                    val top1 = averages.getOrNull(0)
-                    val top2 = averages.getOrNull(1)
-
-                    val top1Val = top1?.second ?: 0f
-                    val top2Val = top2?.second ?: 0f
-                    val top1Label = top1?.let { labels.getOrNull(it.first) } ?: "UNKNOWN"
-                    val top2Label = top2?.let { labels.getOrNull(it.first) } ?: "UNKNOWN"
-
-                    android.util.Log.d(
-                        "PokedexViewModel",
-                        "3S Consensus Evaluation -> #1: $top1Label (${"%.4f".format(top1Val)}) | #2: $top2Label (${"%.4f".format(top2Val)})"
-                    )
-
-                    // Robust Consensus Criteria:
-                    // 1. Top average probability >= 0.15 (15% - 150x above random baseline of 0.097%)
-                    // 2. Clear margin >= 1.25x over runner-up (eliminates ambiguous ties)
-                    val meetsThreshold = top1Val >= 0.15f
-                    val meetsMargin = top2Val == 0f || (top1Val >= top2Val * 1.25f)
-
-                    if (meetsThreshold && meetsMargin) {
-                        val pokemonName = nameMatcher.extractName(top1Label)
-                        val pokemon = pokemonName?.let { pokemonDao.getPokemonByName(it) }
-
-                        if (pokemon != null) {
-                            android.util.Log.d("PokedexViewModel", "Consensus LOCKED: ${pokemon.name}!")
-                            _scanStatusText.value = "LOCKED: ${pokemon.name.uppercase()}!"
-                            scanningJob?.cancel()
-                            val finalBitmap = bestBitmap ?: bitmap
-
-                            tts.stop()
-                            _isSpeaking.value = false
-
-                            if (_playFanfare.value) {
-                                _uiState.value = PokedexState.WhosThat(finalBitmap)
-                                // Authentic 1997 anime fanfare & kids callout SFX
-                                PokemonSoundPlayer.playWhosThatPokemon(getApplication())
-                                delay(3400)
-                            }
-
-                            if (_playCryOnReveal.value) {
-                                PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
-                            }
-
-                            if (_playVoiceReveal.value) {
-                                _uiState.value = PokedexState.Reveal(pokemon, finalBitmap)
-                                tts.speak("It's ${pokemon.name}!")
-                                delay(2400)
-                            }
-
-                            selectPokemon(pokemon)
-                            framesAnalyzed = 0
-                            accumulatedProbabilities.fill(0f)
-                            return@launch
-                        }
+                    val p = probs[i]
+                    if (p > top1Val) {
+                        top2Val = top1Val
+                        top2Idx = top1Idx
+                        top1Val = p
+                        top1Idx = i
+                    } else if (p > top2Val) {
+                        top2Val = p
+                        top2Idx = i
                     }
+                }
 
-                    // Consensus not reached; reset accumulator silently and continue scanning next 3s window
-                    android.util.Log.d("PokedexViewModel", "No consensus lock; resetting accumulator silently.")
-                    _scanStatusText.value = "HOLD STEADY: 3..."
-                    framesAnalyzed = 0
-                    accumulatedProbabilities.fill(0f)
+                val frameResult = FrameResult(
+                    topIndex = top1Idx,
+                    topVal = top1Val,
+                    secondIndex = top2Idx,
+                    secondVal = top2Val,
+                    probabilities = probs,
+                    bitmap = bitmap
+                )
+
+                val framesSnapshot: List<FrameResult>
+                synchronized(rollingFrames) {
+                    rollingFrames.addLast(frameResult)
+                    if (rollingFrames.size > MAX_ROLLING_FRAMES) {
+                        rollingFrames.removeFirst()
+                    }
+                    framesSnapshot = rollingFrames.toList()
+                }
+
+                if (framesSnapshot.isEmpty()) return@launch
+
+                // 1. Confidence-Weighted Multi-Frame Softmax Fusion
+                val fusedProbs = FloatArray(labels.size)
+                var totalWeight = 0f
+
+                for (f in framesSnapshot) {
+                    val weight = (f.topVal * f.topVal).coerceAtLeast(0.0001f)
+                    totalWeight += weight
+                    for (i in f.probabilities.indices) {
+                        fusedProbs[i] += f.probabilities[i] * weight
+                    }
+                }
+
+                if (totalWeight > 0f) {
+                    for (i in fusedProbs.indices) {
+                        fusedProbs[i] /= totalWeight
+                    }
+                }
+
+                // Get top 2 fused candidates across the multi-frame window
+                var fusedTop1Idx = 0
+                var fusedTop1Val = -1f
+                var fusedTop2Idx = 0
+                var fusedTop2Val = -1f
+                for (i in fusedProbs.indices) {
+                    val p = fusedProbs[i]
+                    if (p > fusedTop1Val) {
+                        fusedTop2Val = fusedTop1Val
+                        fusedTop2Idx = fusedTop1Idx
+                        fusedTop1Val = p
+                        fusedTop1Idx = i
+                    } else if (p > fusedTop2Val) {
+                        fusedTop2Val = p
+                        fusedTop2Idx = i
+                    }
+                }
+
+                val fusedTop1Label = labels.getOrNull(fusedTop1Idx) ?: "UNKNOWN"
+                val fusedTop2Label = labels.getOrNull(fusedTop2Idx) ?: "UNKNOWN"
+
+                // Mathematical Calibrated Thresholds for 1,025 Classes:
+                // Random chance = 1/1025 = 0.000975 (0.0975%).
+                // A fused score of 0.020 (2.0%) is over 20x random chance.
+                // In real camera rooms, Pikachu averages ~0.038 (38x random chance).
+                val hasClearLead = fusedTop2Val == 0f || (fusedTop1Val >= fusedTop2Val * 1.30f) || (fusedTop1Val - fusedTop2Val >= 0.010f)
+                val isCandidateConfident = fusedTop1Val >= 0.020f && hasClearLead
+
+                if (isCandidateConfident) {
+                    if (fusedTop1Idx == lockStreakCandidate) {
+                        lockStreakFrames++
+                        if (fusedTop1Val > highestStreakConfidence) {
+                            highestStreakConfidence = fusedTop1Val
+                            sharpestBitmap = bitmap
+                        }
+                    } else {
+                        // New candidate detected; begin acquisition
+                        lockStreakCandidate = fusedTop1Idx
+                        lockStreakFrames = 1
+                        highestStreakConfidence = fusedTop1Val
+                        sharpestBitmap = bitmap
+                    }
+                } else {
+                    // Gradual decay so minor single-frame noise does not jarringly reset progress
+                    lockStreakFrames = maxOf(0, lockStreakFrames - 2)
+                    if (lockStreakFrames == 0) {
+                        lockStreakCandidate = -1
+                    }
+                }
+
+                android.util.Log.d(
+                    "PokedexViewModel",
+                    "Targeting: #1=$fusedTop1Label (${"%.4f".format(fusedTop1Val)}) vs #2=$fusedTop2Label (${"%.4f".format(fusedTop2Val)}) | Streak=$lockStreakFrames/18"
+                )
+
+                // 2. Clear, Satisfying ~2.5s Countdown Progression (at 15 FPS: 18-20 frames = ~2.5 seconds)
+                val candName = nameMatcher.extractName(fusedTop1Label)?.uppercase() ?: "POKEMON"
+                when {
+                    lockStreakFrames == 0 -> _scanStatusText.value = "SEARCHING..."
+                    lockStreakFrames in 1..4 -> _scanStatusText.value = "ACQUIRING: $candName..."
+                    lockStreakFrames in 5..9 -> _scanStatusText.value = "LOCKING IN 3..."
+                    lockStreakFrames in 10..14 -> _scanStatusText.value = "LOCKING IN 2..."
+                    lockStreakFrames in 15..17 -> _scanStatusText.value = "LOCKING IN 1..."
+                    else -> _scanStatusText.value = "LOCKED: $candName!"
+                }
+
+                // 3. Consensus Locked (~2.5s steady hold achieved)
+                if (lockStreakFrames >= 18) {
+                    val pokemonName = nameMatcher.extractName(fusedTop1Label)
+                    val pokemon = pokemonName?.let { pokemonDao.getPokemonByName(it) }
+
+                    if (pokemon != null) {
+                        android.util.Log.d("PokedexViewModel", "Consensus LOCKED on multi-frame countdown: ${pokemon.name}!")
+                        _scanStatusText.value = "LOCKED: ${pokemon.name.uppercase()}!"
+                        scanningJob?.cancel()
+                        val finalBitmap = sharpestBitmap ?: bitmap
+
+                        synchronized(rollingFrames) { rollingFrames.clear() }
+                        lockStreakCandidate = -1
+                        lockStreakFrames = 0
+                        tts.stop()
+                        _isSpeaking.value = false
+
+                        if (_playFanfare.value) {
+                            _uiState.value = PokedexState.WhosThat(finalBitmap)
+                            // Authentic 1997 anime fanfare & kids callout SFX
+                            PokemonSoundPlayer.playWhosThatPokemon(getApplication())
+                            delay(3400)
+                        }
+
+                        if (_playCryOnReveal.value) {
+                            PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
+                        }
+
+                        if (_playVoiceReveal.value) {
+                            _uiState.value = PokedexState.Reveal(pokemon, finalBitmap)
+                            tts.speak("It's ${pokemon.name}!")
+                            delay(2400)
+                        }
+
+                        selectPokemon(pokemon)
+                        return@launch
+                    }
                 }
             } catch (e: Exception) {
                 android.util.Log.e("PokedexViewModel", "Error in onImageAnalyzed", e)
-                framesAnalyzed = 0
-                accumulatedProbabilities.fill(0f)
             } finally {
                 isAnalyzing = false
             }
@@ -715,8 +793,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     fun resetState() {
         scanningJob?.cancel()
         historyStack.clear()
-        framesAnalyzed = 0
-        accumulatedProbabilities.fill(0f)
+        synchronized(rollingFrames) { rollingFrames.clear() }
         _scanStatusText.value = "SCANNING..."
         _uiState.value = PokedexState.Idle
         tts.stop()
