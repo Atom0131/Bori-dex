@@ -37,8 +37,30 @@ print(f" Target TFLite: {EXPORT_TFLITE}")
 print(f" App Destination: {APP_ASSETS}\\model.tflite")
 print(f"========================================================\n")
 
+def load_checkpoint_safely(path):
+    try:
+        return keras.models.load_model(path)
+    except Exception as e:
+        print(f"[*] Standard load_model failed ({e}), attempting json/weights fallback...")
+        import h5py
+        import json
+        with h5py.File(path, 'r') as f:
+            cfg = json.loads(f.attrs['model_config'])
+        def clean_dict(d):
+            if isinstance(d, dict):
+                d.pop('optional', None)
+                for v in d.values():
+                    clean_dict(v)
+            elif isinstance(d, list):
+                for item in d:
+                    clean_dict(item)
+        clean_dict(cfg)
+        m = keras.models.model_from_json(json.dumps(cfg))
+        m.load_weights(path)
+        return m
+
 print(f"[+] Loading model from: {CHECKPOINT_PATH}")
-model = keras.models.load_model(CHECKPOINT_PATH)
+model = load_checkpoint_safely(CHECKPOINT_PATH)
 print("[+] Checkpoint loaded successfully!")
 
 print("[+] Constructing clean inference architecture without training augmentation layers...")

@@ -209,12 +209,40 @@ checkpoint_stage3_h5 = os.path.join(EXPORT_DIR, "checkpoint.h5")
 checkpoint_stage4_keras = os.path.join(EXPORT_DIR, "checkpoint_stage4.keras")
 checkpoint_stage4_h5 = os.path.join(EXPORT_DIR, "checkpoint_stage4.h5")
 
-if os.path.exists(checkpoint_stage3_h5):
+def load_checkpoint_safely(path):
+    try:
+        return keras.models.load_model(path)
+    except Exception as e:
+        print(f"[*] Standard load_model failed ({e}), attempting json/weights fallback...")
+        import h5py
+        import json
+        with h5py.File(path, 'r') as f:
+            cfg = json.loads(f.attrs['model_config'])
+        def clean_dict(d):
+            if isinstance(d, dict):
+                d.pop('optional', None)
+                for v in d.values():
+                    clean_dict(v)
+            elif isinstance(d, list):
+                for item in d:
+                    clean_dict(item)
+        clean_dict(cfg)
+        m = keras.models.model_from_json(json.dumps(cfg))
+        m.load_weights(path)
+        return m
+
+if os.path.exists(checkpoint_stage4_h5):
+    print(f"[+] Resuming from previous Stage 4 checkpoint: {checkpoint_stage4_h5}")
+    model = load_checkpoint_safely(checkpoint_stage4_h5)
+elif os.path.exists(checkpoint_stage4_keras):
+    print(f"[+] Resuming from previous Stage 4 checkpoint: {checkpoint_stage4_keras}")
+    model = load_checkpoint_safely(checkpoint_stage4_keras)
+elif os.path.exists(checkpoint_stage3_h5):
     print(f"[+] Resuming from previous checkpoint: {checkpoint_stage3_h5}")
-    model = keras.models.load_model(checkpoint_stage3_h5)
+    model = load_checkpoint_safely(checkpoint_stage3_h5)
 elif os.path.exists(checkpoint_stage3_keras):
     print(f"[+] Resuming from previous checkpoint: {checkpoint_stage3_keras}")
-    model = keras.models.load_model(checkpoint_stage3_keras)
+    model = load_checkpoint_safely(checkpoint_stage3_keras)
 else:
     raise FileNotFoundError("Could not find previous stage checkpoint in exported_model/ to resume from!")
 
