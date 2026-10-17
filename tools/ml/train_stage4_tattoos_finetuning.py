@@ -129,13 +129,66 @@ def apply_perspective_keystoning(images):
 
 
 @tf.function
+def apply_dark_dim_lighting(images):
+    """
+    Simulates dim indoor night environments (20-100 lux), bedside lighting,
+    underexposure, non-linear shadow gamma falloff, and high-ISO sensor grain.
+    """
+    # 45% chance per batch
+    if tf.random.uniform([]) > 0.45:
+        return images
+
+    # 1. Photometric Dimming (scale down by 0.45 - 0.85)
+    dim_factor = tf.random.uniform([], 0.45, 0.85)
+    dimmed = images * dim_factor
+
+    # 2. Non-linear Shadow Gamma Falloff (gamma 1.15 to 1.70 crushes deep room shadows)
+    gamma = tf.random.uniform([], 1.15, 1.70)
+    norm = dimmed / 255.0
+    gamma_adjusted = tf.pow(tf.maximum(norm, 1e-4), gamma) * 255.0
+
+    # 3. High-ISO Low-Light Sensor Grain / Noise
+    noise_sigma = tf.random.uniform([], 1.5, 6.0)
+    noise = tf.random.normal(shape=tf.shape(images), mean=0.0, stddev=noise_sigma)
+
+    return tf.clip_by_value(gamma_adjusted + noise, 0.0, 255.0)
+
+
+@tf.function
+def apply_warm_yellow_lighting(images):
+    """
+    Simulates 2400K-3200K warm indoor incandescent, bedside lamp, and warm-white LED lighting.
+    Amplifies Red and Green channels while attenuating Blue, shifting chroma towards yellow/amber.
+    """
+    # 45% chance per batch
+    if tf.random.uniform([]) > 0.45:
+        return images
+
+    r_scale = tf.random.uniform([], 1.10, 1.35)
+    g_scale = tf.random.uniform([], 1.02, 1.18)
+    b_scale = tf.random.uniform([], 0.60, 0.85)
+
+    scales = tf.stack([r_scale, g_scale, b_scale])
+    scales = tf.reshape(scales, [1, 1, 1, 3])
+
+    # Subtle ambient warm incandescent glow tint
+    tint_bias = tf.random.uniform([], 0.0, 12.0)
+    tint = tf.constant([1.2, 1.0, 0.4]) * tint_bias
+    tint = tf.reshape(tint, [1, 1, 1, 3])
+
+    return tf.clip_by_value(images * scales + tint, 0.0, 255.0)
+
+
+@tf.function
 def augment_batch(images, labels):
-    """Combined pipeline: Glare, Perspective, Flip, and Contrast."""
+    """Combined pipeline: Perspective, Glare, Dim/Low-Light, Warm Yellow Cast, Flip, and Contrast."""
     images = tf.image.random_flip_left_right(images)
     images = apply_perspective_keystoning(images)
     images = apply_specular_glare(images)
+    images = apply_dark_dim_lighting(images)
+    images = apply_warm_yellow_lighting(images)
     images = tf.image.random_contrast(images, lower=0.85, upper=1.20)
-    images = tf.image.random_brightness(images, max_delta=25.0)
+    images = tf.image.random_brightness(images, max_delta=20.0)
     images = tf.clip_by_value(images, 0.0, 255.0)
     return images, labels
 
