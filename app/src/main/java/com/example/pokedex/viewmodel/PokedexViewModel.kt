@@ -707,10 +707,40 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 val fusedTop2Label = labels.getOrNull(fusedTop2Idx) ?: "UNKNOWN"
                 val top1DisplayName = nameMatcher.extractName(fusedTop1Label)?.uppercase() ?: "POKEMON"
                 val top2DisplayName = nameMatcher.extractName(fusedTop2Label)?.uppercase() ?: "--"
-                val telemetryStr = "#1: $top1DisplayName (${(fusedTop1Val * 100).toInt()}%) | #2: $top2DisplayName (${(fusedTop2Val * 100).toInt()}%)"
-                _scannerTelemetry.value = telemetryStr
+                // 2. Multi-Tier Background & Ambient Clutter Rejection
+                // With 1,025 classes, random ambient clutter (cables, floor, carpet, walls) produces 5%-18% diffuse predictions.
+                // A genuine target exhibits high confidence and a distinct separation margin over runner-up candidates.
+                val MIN_ACQUISITION_CONFIDENCE = 0.30f  // Minimum 30% to begin acquiring / accumulating streak
+                val MIN_LOCK_CONFIDENCE = 0.40f         // Minimum 40% to allow consensus auto-lock
+                val MIN_PEAK_MARGIN = 0.08f             // Leader must beat #2 by at least 8% absolute separation
+                val MIN_PEAK_RATIO = 1.50f              // Leader must be at least 1.5x runner-up
 
-                // 2. Candidate Stickiness & Hysteresis: Protect active candidate against transient jumping
+                val leadMargin = fusedTop1Val - fusedTop2Val
+                val leadRatio = if (fusedTop2Val > 0f) fusedTop1Val / fusedTop2Val else 10f
+                val isRecognizedTarget = (fusedTop1Val >= MIN_ACQUISITION_CONFIDENCE) &&
+                        (leadMargin >= MIN_PEAK_MARGIN || leadRatio >= MIN_PEAK_RATIO)
+
+                if (!isRecognizedTarget) {
+                    // Non-Pokémon object (cords, table, empty room): decay streak and remain in SEARCHING state
+                    lockStreakFrames = maxOf(0, lockStreakFrames - 2)
+                    if (lockStreakFrames == 0) {
+                        lockStreakCandidate = -1
+                        highestStreakConfidence = 0f
+                        _candidatePokemon.value = null
+                        _scanProgress.value = 0f
+                        _scanStreak.value = 0
+                        _scanStatusText.value = "SEARCHING FOR POKÉMON..."
+                    }
+                    val rejectionTelemetry = if (fusedTop1Val >= 0.05f) {
+                        "#1: $top1DisplayName (${(fusedTop1Val * 100).toInt()}%) | #2: $top2DisplayName (${(fusedTop2Val * 100).toInt()}%) [REJECTED]"
+                    } else {
+                        "SEARCHING... (NO TARGET DETECTED)"
+                    }
+                    _scannerTelemetry.value = rejectionTelemetry
+                    return@launch
+                }
+
+                // 3. Candidate Stickiness & Hysteresis: Protect active candidate against transient jumping
                 val activeCand = lockStreakCandidate
                 val effectiveLeaderIdx: Int
                 val effectiveLeaderVal: Float
@@ -718,8 +748,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 if (activeCand != -1 && lockStreakFrames >= 3) {
                     val activeVal = fusedProbs.getOrElse(activeCand) { 0f }
                     // A new candidate can ONLY usurp the active candidate if it dominates by >= 1.8x
-                    // AND the active candidate has genuinely collapsed (< 12%)
-                    if (fusedTop1Idx != activeCand && fusedTop1Val >= activeVal * 1.80f && activeVal < 0.12f) {
+                    // AND the active candidate has genuinely collapsed (< 15%)
+                    if (fusedTop1Idx != activeCand && fusedTop1Val >= activeVal * 1.80f && activeVal < 0.15f) {
                         effectiveLeaderIdx = fusedTop1Idx
                         effectiveLeaderVal = fusedTop1Val
                     } else {
@@ -732,45 +762,35 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 }
 
                 val effectiveLabel = labels.getOrNull(effectiveLeaderIdx) ?: "UNKNOWN"
-                val hasClearLead = (fusedTop2Val == 0f) || (effectiveLeaderVal >= 0.020f && (effectiveLeaderVal >= fusedTop2Val * 1.25f || effectiveLeaderVal - fusedTop2Val >= 0.008f))
+                val rawCandName = nameMatcher.extractName(effectiveLabel)
+                val candName = rawCandName?.uppercase() ?: "POKEMON"
 
-                if (hasClearLead) {
-                    if (effectiveLeaderIdx == lockStreakCandidate) {
-                        lockStreakFrames++
-                        if (effectiveLeaderVal > highestStreakConfidence) {
-                            highestStreakConfidence = effectiveLeaderVal
-                            sharpestBitmap = bitmap
-                        }
-                    } else {
-                        // Begin acquisition of new candidate
-                        lockStreakCandidate = effectiveLeaderIdx
-                        lockStreakFrames = 1
+                if (effectiveLeaderIdx == lockStreakCandidate) {
+                    lockStreakFrames++
+                    if (effectiveLeaderVal > highestStreakConfidence) {
                         highestStreakConfidence = effectiveLeaderVal
                         sharpestBitmap = bitmap
                     }
                 } else {
-                    // Soft decay: only decrement by 1 instead of resetting progress
-                    lockStreakFrames = maxOf(0, lockStreakFrames - 1)
-                    if (lockStreakFrames == 0) {
-                        lockStreakCandidate = -1
-                        highestStreakConfidence = 0f
-                    }
+                    // Begin acquisition of new candidate
+                    lockStreakCandidate = effectiveLeaderIdx
+                    lockStreakFrames = 1
+                    highestStreakConfidence = effectiveLeaderVal
+                    sharpestBitmap = bitmap
                 }
 
-                // 3. Adaptive Required Streak: Fast exit on high confidence
+                // 4. Adaptive Required Streak: Fast exit on high confidence
                 val requiredStreak = when {
-                    highestStreakConfidence >= 0.50f -> 4   // Overwhelming confidence: lock in ~0.25s!
-                    highestStreakConfidence >= 0.25f -> 6   // High confidence: lock in ~0.40s!
-                    highestStreakConfidence >= 0.10f -> 8   // Medium confidence: lock in ~0.55s!
-                    else -> 10                              // Standard confidence: lock in ~0.70s!
+                    highestStreakConfidence >= 0.65f -> 4   // Overwhelming confidence (~0.25s fast lock for Rayquaza/Psyduck!)
+                    highestStreakConfidence >= 0.50f -> 6   // High confidence (~0.40s)
+                    highestStreakConfidence >= 0.40f -> 8   // Medium confidence (~0.55s)
+                    else -> 12                              // Below 40%: hold steady
                 }
 
                 val progressPct = (lockStreakFrames.toFloat() / requiredStreak).coerceIn(0f, 1f)
                 _scanProgress.value = progressPct
                 _scanStreak.value = lockStreakFrames
 
-                val rawCandName = nameMatcher.extractName(effectiveLabel)
-                val candName = rawCandName?.uppercase() ?: "POKEMON"
                 if (lockStreakFrames > 0 && rawCandName != null) {
                     if (_candidatePokemon.value?.name?.equals(rawCandName, ignoreCase = true) != true) {
                         val entity = pokemonDao.getPokemonByName(rawCandName)
@@ -783,7 +803,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 }
 
                 when {
-                    lockStreakFrames == 0 -> _scanStatusText.value = "SEARCHING..."
+                    lockStreakFrames == 0 -> _scanStatusText.value = "SEARCHING FOR POKÉMON..."
                     progressPct < 0.35f -> _scanStatusText.value = "ACQUIRING: $candName..."
                     progressPct < 0.60f -> _scanStatusText.value = "LOCKING IN 3..."
                     progressPct < 0.85f -> _scanStatusText.value = "LOCKING IN 2..."
@@ -791,12 +811,15 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     else -> _scanStatusText.value = "LOCKED: $candName!"
                 }
 
+                val telemetryStr = "#1: $top1DisplayName (${(fusedTop1Val * 100).toInt()}%) | #2: $top2DisplayName (${(fusedTop2Val * 100).toInt()}%)"
+                _scannerTelemetry.value = telemetryStr
+
                 val logLine = "Frame: lead=$candName(${"%.4f".format(effectiveLeaderVal)}), top1=$fusedTop1Label(${"%.4f".format(fusedTop1Val)}), top2=$fusedTop2Label(${"%.4f".format(fusedTop2Val)}), streak=$lockStreakFrames/$requiredStreak"
                 android.util.Log.d("PokedexViewModel", logLine)
                 logScannerTelemetry(logLine)
 
-                // 4. Consensus Locked
-                if (lockStreakFrames >= requiredStreak) {
+                // 5. Consensus Locked (Must reach required streak AND minimum lock confidence)
+                if (lockStreakFrames >= requiredStreak && highestStreakConfidence >= MIN_LOCK_CONFIDENCE) {
                     val pokemon = rawCandName?.let { pokemonDao.getPokemonByName(it) }
                     if (pokemon != null) {
                         lockConsensus(pokemon, sharpestBitmap ?: bitmap)
@@ -846,8 +869,17 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 }
                 android.util.Log.d("PokedexViewModel", logStr)
 
-                // Baseline confidence for static gallery image (15%)
-                if (maxVal >= 0.15f) {
+                // Baseline confidence for static gallery image (30% + margin check)
+                var galTop2Val = -1f
+                for (i in probs.indices) {
+                    if (i != maxIdx && probs[i] > galTop2Val) {
+                        galTop2Val = probs[i]
+                    }
+                }
+                val galMargin = maxVal - galTop2Val
+                val galRatio = if (galTop2Val > 0f) maxVal / galTop2Val else 10f
+
+                if (maxVal >= 0.30f && (galMargin >= 0.08f || galRatio >= 1.50f)) {
                     val pokemonName = nameMatcher.extractName(topLabel)
                     val pokemon = pokemonName?.let { pokemonDao.getPokemonByName(it) }
                     if (pokemon != null) {
