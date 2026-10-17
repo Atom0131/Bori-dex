@@ -134,6 +134,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     listOf("Legends Arceus", "Legends: Arceus", "Hisui")
                 } else if (preferred.contains("Legends", ignoreCase = true) && preferred.contains("Z", ignoreCase = true)) {
                     listOf("Legends: Z-A", "Legends Z-A", "Legends ZA", "ZA", "Lumiose")
+                } else if (preferred.equals("GO", ignoreCase = true) || preferred.contains("Pokemon GO", ignoreCase = true) || preferred.contains("PokemonGo", ignoreCase = true)) {
+                    listOf("GO", "Pokemon GO", "PokemonGo")
                 } else {
                     listOf(preferred)
                 }

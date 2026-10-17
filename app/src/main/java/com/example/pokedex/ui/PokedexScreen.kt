@@ -49,6 +49,8 @@ import com.example.pokedex.data.EvolutionGuideRepository
 import com.example.pokedex.data.EvolutionTarget
 import com.example.pokedex.data.PokemonEntity
 import com.example.pokedex.data.getCanonicalId
+import com.example.pokedex.data.PokemonCostume
+import com.example.pokedex.data.PokemonGoCostumeRepository
 import com.example.pokedex.data.PokemonRegion
 import com.example.pokedex.tts.VoiceProfile
 import com.example.pokedex.viewmodel.PokedexState
@@ -149,7 +151,10 @@ val ALL_GAME_CARTRIDGES = listOf(
     // Gen 9 Paldea & Lumiose
     GameCartridge("Scarlet", "SCARLET", listOf("Scarlet"), Color(0xFFD32F2F), Color.White, "Gen 9", "scarlet.png"),
     GameCartridge("Violet", "VIOLET", listOf("Violet"), Color(0xFF6A1B9A), Color.White, "Gen 9", "violet.png"),
-    GameCartridge("Legends: Z-A", "LEGENDS: Z-A", listOf("Legends: Z-A", "Legends Z-A", "Legends ZA", "ZA", "Lumiose"), Color(0xFF00E676), Color.Black, "Gen 9", "legendsza.png")
+    GameCartridge("Legends: Z-A", "LEGENDS: Z-A", listOf("Legends: Z-A", "Legends Z-A", "Legends ZA", "ZA", "Lumiose"), Color(0xFF00E676), Color.Black, "Gen 9", "legendsza.png"),
+
+    // Mobile / Pokémon GO
+    GameCartridge("GO", "POKÉMON GO", listOf("GO", "Pokemon GO", "PokemonGo"), Color(0xFF0075BE), Color.White, "Mobile / GO", "pokemongo.png")
 )
 
 @Composable
@@ -168,6 +173,32 @@ fun PixelCartridgeIcon(assetName: String, modifier: Modifier = Modifier) {
         Image(
             bitmap = bitmap.asImageBitmap(),
             contentDescription = assetName,
+            filterQuality = FilterQuality.None,
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+fun PixelCostumeIcon(
+    assetPath: String,
+    modifier: Modifier = Modifier,
+    contentDescription: String? = null
+) {
+    val context = LocalContext.current
+    val bitmap = remember(assetPath) {
+        try {
+            context.assets.open("costumes/$assetPath").use { inputStream ->
+                android.graphics.BitmapFactory.decodeStream(inputStream)
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+    if (bitmap != null) {
+        Image(
+            bitmap = bitmap.asImageBitmap(),
+            contentDescription = contentDescription,
             filterQuality = FilterQuality.None,
             modifier = modifier
         )
@@ -326,6 +357,8 @@ fun EvolutionAndFormsModal(
     availableCartridges: List<GameCartridge> = emptyList(),
     evolutionChain: List<PokemonEntity>,
     viewModel: PokedexViewModel,
+    selectedCostume: PokemonCostume? = null,
+    onSelectCostume: ((PokemonCostume?) -> Unit)? = null,
     onCartridgeSelected: ((String) -> Unit)? = null,
     onDismiss: () -> Unit
 ) {
@@ -340,6 +373,9 @@ fun EvolutionAndFormsModal(
     Dialog(onDismissRequest = onDismiss) {
         val allList by viewModel.pokemonList.collectAsState()
         val canonicalId = pokemon.getCanonicalId(allList)
+        val costumes = remember(canonicalId) {
+            PokemonGoCostumeRepository.getCostumesForPokemon(canonicalId)
+        }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -543,6 +579,143 @@ fun EvolutionAndFormsModal(
                                                     fontSize = 10.sp
                                                 )
                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // SECTION: POKÉMON GO EVENT COSTUMES
+                    if (costumes.isNotEmpty()) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(10.dp))
+                                .padding(12.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    PixelCartridgeIcon(
+                                        assetName = "pokemongo.png",
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = "POKÉMON GO EVENT COSTUMES",
+                                        color = Color(0xFF00FFCC),
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Text(
+                                    text = "${costumes.size} AVAILABLE",
+                                    color = Color.LightGray,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                costumes.forEach { costume ->
+                                    val isEquipped = selectedCostume?.id == costume.id
+
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(
+                                                if (isEquipped) Color(0xFF0075BE).copy(alpha = 0.35f) else Color.Black.copy(alpha = 0.25f),
+                                                RoundedCornerShape(8.dp)
+                                            )
+                                            .border(
+                                                width = if (isEquipped) 1.5.dp else 1.dp,
+                                                color = if (isEquipped) Color(0xFF00FFCC) else Color.White.copy(alpha = 0.15f),
+                                                shape = RoundedCornerShape(8.dp)
+                                            )
+                                            .padding(8.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            modifier = Modifier.weight(1f)
+                                        ) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(48.dp)
+                                                    .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(6.dp))
+                                                    .border(1.dp, Color.White.copy(alpha = 0.2f), RoundedCornerShape(6.dp)),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                PixelCostumeIcon(
+                                                    assetPath = costume.assetPath,
+                                                    contentDescription = costume.name,
+                                                    modifier = Modifier.size(44.dp)
+                                                )
+                                            }
+
+                                            Spacer(modifier = Modifier.width(10.dp))
+
+                                            Column(modifier = Modifier.weight(1f)) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .background(Color(costume.category.badgeColor), RoundedCornerShape(3.dp))
+                                                        .padding(horizontal = 4.dp, vertical = 1.dp)
+                                                ) {
+                                                    Text(
+                                                        text = costume.category.label,
+                                                        color = Color.Black,
+                                                        fontWeight = FontWeight.Black,
+                                                        fontSize = 7.5.sp
+                                                    )
+                                                }
+                                                Spacer(modifier = Modifier.height(2.dp))
+                                                Text(
+                                                    text = costume.name.uppercase(),
+                                                    color = if (isEquipped) Color(0xFF00FFCC) else Color.White,
+                                                    fontWeight = FontWeight.Bold,
+                                                    fontSize = 11.sp,
+                                                    maxLines = 1
+                                                )
+                                                Text(
+                                                    text = costume.description,
+                                                    color = Color.White.copy(alpha = 0.7f),
+                                                    fontSize = 9.sp,
+                                                    lineHeight = 12.sp,
+                                                    maxLines = 2
+                                                )
+                                            }
+                                        }
+
+                                        Spacer(modifier = Modifier.width(8.dp))
+
+                                        Button(
+                                            onClick = {
+                                                if (isEquipped) {
+                                                    onSelectCostume?.invoke(null)
+                                                } else {
+                                                    onSelectCostume?.invoke(costume)
+                                                }
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = if (isEquipped) Color(0xFF00FFCC) else Color(0xFF0075BE)
+                                            ),
+                                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                            shape = RoundedCornerShape(6.dp),
+                                            modifier = Modifier.height(28.dp)
+                                        ) {
+                                            Text(
+                                                text = if (isEquipped) "EQUIPPED" else "EQUIP",
+                                                color = if (isEquipped) Color.Black else Color.White,
+                                                fontWeight = FontWeight.Black,
+                                                fontSize = 10.sp
+                                            )
                                         }
                                     }
                                 }
@@ -1236,9 +1409,16 @@ fun PokedexDisplay(
                                 .padding(horizontal = 10.dp, vertical = 8.dp)
                         ) {
                             var showShiny by remember(state.pokemon.id) { mutableStateOf(false) }
+                            var selectedCostume by remember(state.pokemon.id) { mutableStateOf<PokemonCostume?>(null) }
                             var showEvolutionModal by remember { mutableStateOf(false) }
                             var showEditionModal by remember { mutableStateOf(false) }
-                            val currentSprite = if (showShiny && !state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
+                            val currentSprite = if (selectedCostume != null) {
+                                if (showShiny && !selectedCostume?.shinyAssetPath.isNullOrEmpty()) {
+                                    selectedCostume!!.fullShinyAssetUrl
+                                } else {
+                                    selectedCostume!!.fullAssetUrl
+                                }
+                            } else if (showShiny && !state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
                                 state.pokemon.shinySpriteUrl
                             } else {
                                 state.pokemon.spriteUrl
@@ -1310,14 +1490,44 @@ fun PokedexDisplay(
                                         .border(2.dp, Color.Black.copy(alpha = 0.4f), RoundedCornerShape(12.dp)),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    AsyncImage(
-                                        model = currentSprite,
-                                        contentDescription = state.pokemon.name,
-                                        modifier = Modifier.size(115.dp),
-                                        contentScale = androidx.compose.ui.layout.ContentScale.Fit
-                                    )
+                                    if (selectedCostume != null) {
+                                        val costumeFile = if (showShiny && selectedCostume?.shinyAssetPath != null) {
+                                            selectedCostume!!.shinyAssetPath!!
+                                        } else {
+                                            selectedCostume!!.assetPath
+                                        }
+                                        PixelCostumeIcon(
+                                            assetPath = costumeFile,
+                                            contentDescription = state.pokemon.name,
+                                            modifier = Modifier.size(115.dp)
+                                        )
 
-                                    if (!state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
+                                        Box(
+                                            modifier = Modifier
+                                                .align(Alignment.TopStart)
+                                                .padding(4.dp)
+                                                .background(Color(0xFF0075BE).copy(alpha = 0.9f), RoundedCornerShape(4.dp))
+                                                .border(1.dp, Color(0xFF00FFCC), RoundedCornerShape(4.dp))
+                                                .clickable { selectedCostume = null }
+                                                .padding(horizontal = 4.dp, vertical = 2.dp)
+                                        ) {
+                                            Text(
+                                                text = "GO EVENT ✖",
+                                                color = Color.White,
+                                                fontSize = 8.sp,
+                                                fontWeight = FontWeight.Black
+                                            )
+                                        }
+                                    } else {
+                                        AsyncImage(
+                                            model = currentSprite,
+                                            contentDescription = state.pokemon.name,
+                                            modifier = Modifier.size(115.dp),
+                                            contentScale = androidx.compose.ui.layout.ContentScale.Fit
+                                        )
+                                    }
+
+                                    if (!state.pokemon.shinySpriteUrl.isNullOrEmpty() || selectedCostume?.shinyAssetPath != null) {
                                         Box(
                                             modifier = Modifier
                                                 .align(Alignment.BottomEnd)
@@ -1351,6 +1561,32 @@ fun PokedexDisplay(
                                         .border(2.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), CircleShape)
                                 ) {
                                     Text("▶", color = Color(0xFF00FFCC), fontSize = 26.sp, fontWeight = FontWeight.Black)
+                                }
+                            }
+
+                            if (selectedCostume != null) {
+                                Spacer(modifier = Modifier.height(2.dp))
+                                Row(
+                                    modifier = Modifier
+                                        .background(Color(0xFF0075BE).copy(alpha = 0.45f), RoundedCornerShape(6.dp))
+                                        .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
+                                        .clickable { selectedCostume = null }
+                                        .padding(horizontal = 8.dp, vertical = 3.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "EQUIPPED: ${selectedCostume?.name?.uppercase()}",
+                                        color = Color(0xFF00FFCC),
+                                        fontSize = 9.5.sp,
+                                        fontWeight = FontWeight.Black
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(
+                                        text = "✖",
+                                        color = Color.White,
+                                        fontSize = 10.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                 }
                             }
 
@@ -1393,7 +1629,7 @@ fun PokedexDisplay(
                                     Text("🗣 SPEAK", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 11.sp)
                                 }
 
-                                if (!state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
+                                if (!state.pokemon.shinySpriteUrl.isNullOrEmpty() || selectedCostume?.shinyAssetPath != null) {
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Button(
                                         onClick = { showShiny = !showShiny },
@@ -1579,6 +1815,10 @@ fun PokedexDisplay(
                                     }
 
                                     Row(verticalAlignment = Alignment.CenterVertically) {
+                                        val hasCostumes = remember(canonicalId) {
+                                            PokemonGoCostumeRepository.getCostumesForPokemon(canonicalId).isNotEmpty()
+                                        }
+
                                         Button(
                                             onClick = { showEvolutionModal = true },
                                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
@@ -1586,7 +1826,7 @@ fun PokedexDisplay(
                                             shape = RoundedCornerShape(6.dp),
                                             modifier = Modifier.heightIn(min = 30.dp)
                                         ) {
-                                            Text("⚡ FORMS & EVOS", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 10.sp)
+                                            Text(if (hasCostumes) "⚡ FORMS & COSTUMES" else "⚡ FORMS & EVOS", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 10.sp)
                                         }
 
                                         Spacer(modifier = Modifier.width(6.dp))
@@ -1638,6 +1878,10 @@ fun PokedexDisplay(
                                     availableCartridges = availableCartridges,
                                     evolutionChain = evolutionChain,
                                     viewModel = viewModel,
+                                    selectedCostume = selectedCostume,
+                                    onSelectCostume = { newCostume ->
+                                        selectedCostume = newCostume
+                                    },
                                     onCartridgeSelected = { newCartridgeId ->
                                         selectedCartridgeId = newCartridgeId
                                     },
