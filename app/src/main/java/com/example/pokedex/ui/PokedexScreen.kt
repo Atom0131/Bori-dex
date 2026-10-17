@@ -1064,6 +1064,8 @@ fun PokedexDisplay(
 ) {
     val context = LocalContext.current
     val scanStatusText by viewModel.scanStatusText.collectAsState()
+    val scanStreak by viewModel.scanStreak.collectAsState()
+    val candidatePokemon by viewModel.candidatePokemon.collectAsState()
 
     val isResultState = !isListOnly && uiState is PokedexState.Result
 
@@ -1103,53 +1105,13 @@ fun PokedexDisplay(
                             onFrame = { bitmap -> viewModel.onImageAnalyzed(bitmap) },
                             modifier = Modifier.fillMaxSize()
                         )
-                        val reticleColor = when {
-                            scanStatusText.contains("LOCKED", ignoreCase = true) -> Color(0xFF00FF66)
-                            scanStatusText.contains("LOCKING", ignoreCase = true) -> Color(0xFFFF9900)
-                            scanStatusText.contains("ACQUIRING", ignoreCase = true) -> Color(0xFFFFCC00)
-                            else -> Color(0xFF00FFCC)
-                        }
-
-                        // High-tech Reticle HUD with Center Crosshair
-                        Box(
-                            modifier = Modifier
-                                .size(280.dp)
-                                .align(Alignment.Center)
-                                .background(reticleColor.copy(alpha = 0.12f), shape = RoundedCornerShape(16.dp))
-                                .border(3.5.dp, reticleColor, RoundedCornerShape(16.dp))
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(20.dp)
-                                    .align(Alignment.Center)
-                                    .border(2.dp, reticleColor.copy(alpha = 0.75f), RoundedCornerShape(3.dp))
-                            )
-                        }
-
-                        // High-contrast Pill Status Badge
-                        Surface(
-                            color = Color.Black.copy(alpha = 0.85f),
-                            shape = RoundedCornerShape(24.dp),
-                            border = androidx.compose.foundation.BorderStroke(2.dp, reticleColor),
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(bottom = 32.dp)
-                        ) {
-                            Text(
-                                text = scanStatusText,
-                                color = reticleColor,
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Black,
-                                modifier = Modifier.padding(horizontal = 24.dp, vertical = 10.dp)
-                            )
-                        }
-                        FloatingActionButton(
-                            onClick = onGalleryClick,
-                            containerColor = Color(0xFF00FFCC),
-                            modifier = Modifier.align(Alignment.BottomStart).padding(16.dp)
-                        ) {
-                            Text("GALLERY", color = Color.Black, fontWeight = FontWeight.Bold, modifier = Modifier.padding(8.dp))
-                        }
+                        ActiveScannerHud(
+                            scanStatusText = scanStatusText,
+                            scanStreak = scanStreak,
+                            candidatePokemon = candidatePokemon,
+                            onGalleryClick = onGalleryClick,
+                            modifier = Modifier.fillMaxSize()
+                        )
                     }
                 }
 

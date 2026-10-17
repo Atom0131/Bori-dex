@@ -82,6 +82,12 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     private val _scanStatusText = MutableStateFlow("SCANNING...")
     val scanStatusText: StateFlow<String> = _scanStatusText.asStateFlow()
 
+    private val _scanStreak = MutableStateFlow(0)
+    val scanStreak: StateFlow<Int> = _scanStreak.asStateFlow()
+
+    private val _candidatePokemon = MutableStateFlow<PokemonEntity?>(null)
+    val candidatePokemon: StateFlow<PokemonEntity?> = _candidatePokemon.asStateFlow()
+
     private val _selectedRegion = MutableStateFlow<PokemonRegion?>(null)
     val selectedRegion: StateFlow<PokemonRegion?> = _selectedRegion.asStateFlow()
 
@@ -655,7 +661,20 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 )
 
                 // 2. Clear, Satisfying ~2.5s Countdown Progression (at 15 FPS: 18-20 frames = ~2.5 seconds)
-                val candName = nameMatcher.extractName(fusedTop1Label)?.uppercase() ?: "POKEMON"
+                _scanStreak.value = lockStreakFrames
+                val rawCandName = nameMatcher.extractName(fusedTop1Label)
+                val candName = rawCandName?.uppercase() ?: "POKEMON"
+                if (lockStreakFrames > 0 && rawCandName != null) {
+                    if (_candidatePokemon.value?.name?.equals(rawCandName, ignoreCase = true) != true) {
+                        val entity = pokemonDao.getPokemonByName(rawCandName)
+                        if (entity != null) {
+                            _candidatePokemon.value = entity
+                        }
+                    }
+                } else if (lockStreakFrames == 0) {
+                    _candidatePokemon.value = null
+                }
+
                 when {
                     lockStreakFrames == 0 -> _scanStatusText.value = "SEARCHING..."
                     lockStreakFrames in 1..4 -> _scanStatusText.value = "ACQUIRING: $candName..."
@@ -679,6 +698,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                         synchronized(rollingFrames) { rollingFrames.clear() }
                         lockStreakCandidate = -1
                         lockStreakFrames = 0
+                        _scanStreak.value = 0
+                        _candidatePokemon.value = null
                         tts.stop()
                         _isSpeaking.value = false
 
@@ -795,6 +816,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         historyStack.clear()
         synchronized(rollingFrames) { rollingFrames.clear() }
         _scanStatusText.value = "SCANNING..."
+        _scanStreak.value = 0
+        _candidatePokemon.value = null
         _uiState.value = PokedexState.Idle
         tts.stop()
         PokemonSoundPlayer.stop()
