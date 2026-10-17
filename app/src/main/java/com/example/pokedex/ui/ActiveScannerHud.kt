@@ -55,7 +55,7 @@ fun ActiveScannerHud(
     }
 
     val isLockingOn = scanStreak > 0
-    val isLocked = scanProgress >= 1.0f || scanStreak >= 10 || scanStatusText.contains("LOCKED", ignoreCase = true)
+    val isLocked = scanProgress >= 1.0f || scanStatusText.contains("LOCKED", ignoreCase = true)
 
     // 2. Animated Transitions
     val infiniteTransition = rememberInfiniteTransition(label = "scanner_animations")
@@ -434,9 +434,9 @@ fun ActiveScannerHud(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(bottom = 8.dp)
                 ) {
-                    val pip1 = scanProgress >= 0.33f
-                    val pip2 = scanProgress >= 0.66f
-                    val pip3 = scanProgress >= 0.95f
+                    val pip1 = scanProgress >= 0.25f
+                    val pip2 = scanProgress >= 0.50f
+                    val pip3 = scanProgress >= 0.75f
 
                     LockPip(isActive = pip1, color = reticleColor)
                     LockPip(isActive = pip2, color = reticleColor)
