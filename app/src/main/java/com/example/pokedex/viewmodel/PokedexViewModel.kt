@@ -741,7 +741,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 // Desk cords/ambient floor: Top-1 ~8%-12%, lead margin < 2%.
                 // Physical Pokemon (cards, figures, tattoos): Top-1 ~15%-85%, lead margin >= 3%.
                 val MIN_ACQUISITION_CONFIDENCE = 0.15f  // Minimum 15% to begin accumulating streak (blocks cords at 11%)
-                val MIN_LOCK_CONFIDENCE = 0.20f         // Minimum 20% to auto-lock
+                val MIN_LOCK_CONFIDENCE = 0.25f         // Minimum 25% to auto-lock (blocks borderline guesses like Slurpuff at 20%)
+                val TARGET_LOCK_FRAMES = 25             // ~1.67s at 15 FPS: Deliberate 3-2-1 Invizimals hold
                 val MIN_PEAK_MARGIN = 0.025f            // Leader must beat #2 by at least 2.5% margin
                 val MIN_PEAK_RATIO = 1.25f              // Leader must be at least 1.25x runner-up
 
@@ -762,7 +763,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                         _scanStatusText.value = "SEARCHING FOR POKÉMON..."
                     } else {
                         _scanStreak.value = lockStreakFrames
-                        _scanProgress.value = (lockStreakFrames.toFloat() / 20f).coerceIn(0f, 1f)
+                        _scanProgress.value = (lockStreakFrames.toFloat() / TARGET_LOCK_FRAMES.toFloat()).coerceIn(0f, 1f)
                     }
                     val rejectionTelemetry = if (fusedTop1Val >= 0.05f) {
                         "#1: $top1DisplayName (${(fusedTop1Val * 100).toInt()}%) | #2: $top2DisplayName (${(fusedTop2Val * 100).toInt()}%) [REJECTED]"
@@ -829,8 +830,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     sharpestBitmap = bitmap
                 }
 
-                // 4. Deliberate 3-2-1 Countdown: Requires holding steady for ~1.35s (20 frames @ 15 FPS)
-                val TARGET_LOCK_FRAMES = 20
+                // 4. Deliberate 3-2-1 Countdown: Requires holding steady for ~1.67s (25 frames @ 15 FPS)
                 val progressPct = (lockStreakFrames.toFloat() / TARGET_LOCK_FRAMES).coerceIn(0f, 1f)
                 _scanProgress.value = progressPct
                 _scanStreak.value = lockStreakFrames
@@ -862,7 +862,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 android.util.Log.d("PokedexViewModel", logLine)
                 logScannerTelemetry(logLine)
 
-                // 5. Consensus Locked: Reached 20 steady frames AND meets minimum lock confidence
+                // 5. Consensus Locked: Reached 25 steady frames AND meets minimum lock confidence (25%)
                 if (lockStreakFrames >= TARGET_LOCK_FRAMES && highestStreakConfidence >= MIN_LOCK_CONFIDENCE) {
                     val pokemon = rawCandName?.let { pokemonDao.getPokemonByName(it) }
                     if (pokemon != null && _uiState.value is PokedexState.Scanning) {
