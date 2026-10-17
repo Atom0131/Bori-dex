@@ -762,7 +762,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                         _scanStatusText.value = "SEARCHING FOR POKÉMON..."
                     } else {
                         _scanStreak.value = lockStreakFrames
-                        _scanProgress.value = (lockStreakFrames.toFloat() / 32f).coerceIn(0f, 1f)
+                        _scanProgress.value = (lockStreakFrames.toFloat() / 20f).coerceIn(0f, 1f)
                     }
                     val rejectionTelemetry = if (fusedTop1Val >= 0.05f) {
                         "#1: $top1DisplayName (${(fusedTop1Val * 100).toInt()}%) | #2: $top2DisplayName (${(fusedTop2Val * 100).toInt()}%) [REJECTED]"
@@ -773,7 +773,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     return@launch
                 }
 
-                // 3. Responsive Candidate Selection & Hysteresis (Fixes "Corner Trap")
+                // 3. Responsive Candidate Selection & Hysteresis (Fixes "Corner Trap" & Noise Usurpation)
                 val activeCand = lockStreakCandidate
                 val effectiveLeaderIdx: Int
                 val effectiveLeaderVal: Float
@@ -783,8 +783,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     if (fusedTop1Idx == activeCand) {
                         effectiveLeaderIdx = activeCand
                         effectiveLeaderVal = fusedTop1Val
-                    } else if (lockStreakFrames < 10) {
-                        // Early acquisition (< 0.7s): If a newly centered target dominates or is higher,
+                    } else if (lockStreakFrames < 8) {
+                        // Early acquisition (< 0.5s): If a newly centered target dominates or is higher,
                         // immediately switch candidate so glancing at a corner doesn't lock out the true target!
                         if (fusedTop1Val > activeVal * 1.15f || activeVal < MIN_ACQUISITION_CONFIDENCE) {
                             effectiveLeaderIdx = fusedTop1Idx
@@ -794,10 +794,11 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                             effectiveLeaderVal = activeVal
                         }
                     } else {
-                        // Active countdown (streak >= 10, during 3... 2... 1...):
+                        // Active countdown (streak >= 8, during 3... 2... 1...):
+                        // Protect candidate against normal camera noise / fabric shadows!
                         // Require challenger to decisively beat active candidate (>= 1.35x and >= 5% lead)
-                        // OR active candidate dropped below acquisition floor (< 15%)
-                        if ((fusedTop1Val >= activeVal * 1.35f && fusedTop1Val - activeVal >= 0.05f) || activeVal < MIN_ACQUISITION_CONFIDENCE) {
+                        // OR active candidate truly collapsed (< 8%, 0.08f)
+                        if ((fusedTop1Val >= activeVal * 1.35f && fusedTop1Val - activeVal >= 0.05f) || activeVal < 0.08f) {
                             effectiveLeaderIdx = fusedTop1Idx
                             effectiveLeaderVal = fusedTop1Val
                         } else {
@@ -828,8 +829,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     sharpestBitmap = bitmap
                 }
 
-                // 4. Deliberate 3-2-1 Countdown: Requires holding steady for ~2.2s (32 frames @ 15 FPS)
-                val TARGET_LOCK_FRAMES = 32
+                // 4. Deliberate 3-2-1 Countdown: Requires holding steady for ~1.35s (20 frames @ 15 FPS)
+                val TARGET_LOCK_FRAMES = 20
                 val progressPct = (lockStreakFrames.toFloat() / TARGET_LOCK_FRAMES).coerceIn(0f, 1f)
                 _scanProgress.value = progressPct
                 _scanStreak.value = lockStreakFrames
@@ -861,7 +862,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 android.util.Log.d("PokedexViewModel", logLine)
                 logScannerTelemetry(logLine)
 
-                // 5. Consensus Locked: Reached 32 steady frames AND meets minimum lock confidence
+                // 5. Consensus Locked: Reached 20 steady frames AND meets minimum lock confidence
                 if (lockStreakFrames >= TARGET_LOCK_FRAMES && highestStreakConfidence >= MIN_LOCK_CONFIDENCE) {
                     val pokemon = rawCandName?.let { pokemonDao.getPokemonByName(it) }
                     if (pokemon != null && _uiState.value is PokedexState.Scanning) {
