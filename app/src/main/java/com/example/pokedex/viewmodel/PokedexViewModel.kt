@@ -85,6 +85,12 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     private val _scanStreak = MutableStateFlow(0)
     val scanStreak: StateFlow<Int> = _scanStreak.asStateFlow()
 
+    private val _scanProgress = MutableStateFlow(0f)
+    val scanProgress: StateFlow<Float> = _scanProgress.asStateFlow()
+
+    private val _scannerTelemetry = MutableStateFlow("")
+    val scannerTelemetry: StateFlow<String> = _scannerTelemetry.asStateFlow()
+
     private val _candidatePokemon = MutableStateFlow<PokemonEntity?>(null)
     val candidatePokemon: StateFlow<PokemonEntity?> = _candidatePokemon.asStateFlow()
 
@@ -493,7 +499,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     )
 
     private val rollingFrames = ArrayDeque<FrameResult>()
-    private val MAX_ROLLING_FRAMES = 8
+    private val MAX_ROLLING_FRAMES = 16
     private var scanningJob: Job? = null
     private var scanSettlingUntil = 0L
     private var isAnalyzing = false
@@ -512,6 +518,9 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         }
         lockStreakCandidate = -1
         lockStreakFrames = 0
+        _scanStreak.value = 0
+        _scanProgress.value = 0f
+        _scannerTelemetry.value = ""
         sharpestBitmap = null
         highestStreakConfidence = 0f
         // Quick 400ms settle for camera auto-focus/exposure
@@ -531,11 +540,77 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    private fun logScannerTelemetry(msg: String) {
+        try {
+            val app = getApplication<android.app.Application>()
+            val logFile = java.io.File(app.filesDir, "scanner_telemetry.log")
+            if (logFile.length() > 2_000_000) {
+                val backup = java.io.File(app.filesDir, "scanner_telemetry.old.log")
+                logFile.renameTo(backup)
+            }
+            val ts = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", java.util.Locale.US).format(java.util.Date())
+            logFile.appendText("$ts $msg\n")
+        } catch (_: Exception) {}
+    }
+
+    private suspend fun lockConsensus(pokemon: PokemonEntity, bitmap: Bitmap?) {
+        android.util.Log.d("PokedexViewModel", "Consensus LOCKED on: ${pokemon.name}!")
+        logScannerTelemetry("Consensus LOCKED: ${pokemon.name} (#${pokemon.id})")
+        _scanStatusText.value = "LOCKED: ${pokemon.name.uppercase()}!"
+        scanningJob?.cancel()
+        val finalBitmap = bitmap ?: sharpestBitmap
+
+        synchronized(rollingFrames) { rollingFrames.clear() }
+        lockStreakCandidate = -1
+        lockStreakFrames = 0
+        _scanStreak.value = 0
+        _scanProgress.value = 0f
+        _candidatePokemon.value = null
+        tts.stop()
+        _isSpeaking.value = false
+
+        if (_playFanfare.value && finalBitmap != null) {
+            _uiState.value = PokedexState.WhosThat(finalBitmap)
+            PokemonSoundPlayer.playWhosThatPokemon(getApplication())
+            delay(3400)
+        }
+
+        if (_playCryOnReveal.value) {
+            PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
+        }
+
+        if (_playVoiceReveal.value && finalBitmap != null) {
+            _uiState.value = PokedexState.Reveal(pokemon, finalBitmap)
+            tts.speak("It's ${pokemon.name}!")
+            delay(2400)
+        }
+
+        selectPokemon(pokemon)
+    }
+
+    fun triggerManualLock() {
+        val candidateId = lockStreakCandidate
+        val labels = classifier.getLabels()
+        val candidateLabel = if (candidateId != -1) labels.getOrNull(candidateId) else null
+        val rawCandName = candidateLabel?.let { nameMatcher.extractName(it) }
+        val pokemon = rawCandName?.let { pokemonDao.getPokemonByName(it) }
+            ?: _candidatePokemon.value
+
+        if (pokemon != null && _uiState.value is PokedexState.Scanning) {
+            logScannerTelemetry("Manual tap-to-lock triggered on: ${pokemon.name}")
+            viewModelScope.launch(kotlinx.coroutines.Dispatchers.Main) {
+                lockConsensus(pokemon, sharpestBitmap)
+            }
+        }
+    }
+
     fun onImageAnalyzed(bitmap: Bitmap) {
         if (_uiState.value !is PokedexState.Scanning) {
             synchronized(rollingFrames) { rollingFrames.clear() }
             lockStreakCandidate = -1
             lockStreakFrames = 0
+            _scanProgress.value = 0f
+            _scannerTelemetry.value = ""
             return
         }
         
@@ -592,12 +667,12 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
                 if (framesSnapshot.isEmpty()) return@launch
 
-                // 1. Confidence-Weighted Multi-Frame Softmax Fusion
+                // 1. Confidence-Weighted Multi-Frame Softmax Fusion (linear weighting)
                 val fusedProbs = FloatArray(labels.size)
                 var totalWeight = 0f
 
                 for (f in framesSnapshot) {
-                    val weight = (f.topVal * f.topVal).coerceAtLeast(0.0001f)
+                    val weight = f.topVal.coerceAtLeast(0.001f)
                     totalWeight += weight
                     for (i in f.probabilities.indices) {
                         fusedProbs[i] += f.probabilities[i] * weight
@@ -630,44 +705,71 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
                 val fusedTop1Label = labels.getOrNull(fusedTop1Idx) ?: "UNKNOWN"
                 val fusedTop2Label = labels.getOrNull(fusedTop2Idx) ?: "UNKNOWN"
+                val top1DisplayName = nameMatcher.extractName(fusedTop1Label)?.uppercase() ?: "POKEMON"
+                val top2DisplayName = nameMatcher.extractName(fusedTop2Label)?.uppercase() ?: "--"
+                val telemetryStr = "#1: $top1DisplayName (${(fusedTop1Val * 100).toInt()}%) | #2: $top2DisplayName (${(fusedTop2Val * 100).toInt()}%)"
+                _scannerTelemetry.value = telemetryStr
 
-                // Mathematical Calibrated Thresholds for 1,025 Classes:
-                // Random chance = 1/1025 = 0.000975 (0.0975%).
-                // A fused score of 0.020 (2.0%) is over 20x random chance.
-                // In real camera rooms, Pikachu averages ~0.038 (38x random chance).
-                val hasClearLead = fusedTop2Val == 0f || (fusedTop1Val >= fusedTop2Val * 1.30f) || (fusedTop1Val - fusedTop2Val >= 0.010f)
-                val isCandidateConfident = fusedTop1Val >= 0.020f && hasClearLead
+                // 2. Candidate Stickiness & Hysteresis: Protect active candidate against transient jumping
+                val activeCand = lockStreakCandidate
+                val effectiveLeaderIdx: Int
+                val effectiveLeaderVal: Float
 
-                if (isCandidateConfident) {
-                    if (fusedTop1Idx == lockStreakCandidate) {
+                if (activeCand != -1 && lockStreakFrames >= 3) {
+                    val activeVal = fusedProbs.getOrElse(activeCand) { 0f }
+                    // A new candidate can ONLY usurp the active candidate if it dominates by >= 1.8x
+                    // AND the active candidate has genuinely collapsed (< 12%)
+                    if (fusedTop1Idx != activeCand && fusedTop1Val >= activeVal * 1.80f && activeVal < 0.12f) {
+                        effectiveLeaderIdx = fusedTop1Idx
+                        effectiveLeaderVal = fusedTop1Val
+                    } else {
+                        effectiveLeaderIdx = activeCand
+                        effectiveLeaderVal = activeVal
+                    }
+                } else {
+                    effectiveLeaderIdx = fusedTop1Idx
+                    effectiveLeaderVal = fusedTop1Val
+                }
+
+                val effectiveLabel = labels.getOrNull(effectiveLeaderIdx) ?: "UNKNOWN"
+                val hasClearLead = (fusedTop2Val == 0f) || (effectiveLeaderVal >= 0.020f && (effectiveLeaderVal >= fusedTop2Val * 1.25f || effectiveLeaderVal - fusedTop2Val >= 0.008f))
+
+                if (hasClearLead) {
+                    if (effectiveLeaderIdx == lockStreakCandidate) {
                         lockStreakFrames++
-                        if (fusedTop1Val > highestStreakConfidence) {
-                            highestStreakConfidence = fusedTop1Val
+                        if (effectiveLeaderVal > highestStreakConfidence) {
+                            highestStreakConfidence = effectiveLeaderVal
                             sharpestBitmap = bitmap
                         }
                     } else {
-                        // New candidate detected; begin acquisition
-                        lockStreakCandidate = fusedTop1Idx
+                        // Begin acquisition of new candidate
+                        lockStreakCandidate = effectiveLeaderIdx
                         lockStreakFrames = 1
-                        highestStreakConfidence = fusedTop1Val
+                        highestStreakConfidence = effectiveLeaderVal
                         sharpestBitmap = bitmap
                     }
                 } else {
-                    // Gradual decay so minor single-frame noise does not jarringly reset progress
-                    lockStreakFrames = maxOf(0, lockStreakFrames - 2)
+                    // Soft decay: only decrement by 1 instead of resetting progress
+                    lockStreakFrames = maxOf(0, lockStreakFrames - 1)
                     if (lockStreakFrames == 0) {
                         lockStreakCandidate = -1
+                        highestStreakConfidence = 0f
                     }
                 }
 
-                android.util.Log.d(
-                    "PokedexViewModel",
-                    "Targeting: #1=$fusedTop1Label (${"%.4f".format(fusedTop1Val)}) vs #2=$fusedTop2Label (${"%.4f".format(fusedTop2Val)}) | Streak=$lockStreakFrames/18"
-                )
+                // 3. Adaptive Required Streak: Fast exit on high confidence
+                val requiredStreak = when {
+                    highestStreakConfidence >= 0.50f -> 4   // Overwhelming confidence: lock in ~0.25s!
+                    highestStreakConfidence >= 0.25f -> 6   // High confidence: lock in ~0.40s!
+                    highestStreakConfidence >= 0.10f -> 8   // Medium confidence: lock in ~0.55s!
+                    else -> 10                              // Standard confidence: lock in ~0.70s!
+                }
 
-                // 2. Clear, Satisfying ~2.5s Countdown Progression (at 15 FPS: 18-20 frames = ~2.5 seconds)
+                val progressPct = (lockStreakFrames.toFloat() / requiredStreak).coerceIn(0f, 1f)
+                _scanProgress.value = progressPct
                 _scanStreak.value = lockStreakFrames
-                val rawCandName = nameMatcher.extractName(fusedTop1Label)
+
+                val rawCandName = nameMatcher.extractName(effectiveLabel)
                 val candName = rawCandName?.uppercase() ?: "POKEMON"
                 if (lockStreakFrames > 0 && rawCandName != null) {
                     if (_candidatePokemon.value?.name?.equals(rawCandName, ignoreCase = true) != true) {
@@ -682,50 +784,22 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
                 when {
                     lockStreakFrames == 0 -> _scanStatusText.value = "SEARCHING..."
-                    lockStreakFrames in 1..4 -> _scanStatusText.value = "ACQUIRING: $candName..."
-                    lockStreakFrames in 5..9 -> _scanStatusText.value = "LOCKING IN 3..."
-                    lockStreakFrames in 10..14 -> _scanStatusText.value = "LOCKING IN 2..."
-                    lockStreakFrames in 15..17 -> _scanStatusText.value = "LOCKING IN 1..."
+                    progressPct < 0.35f -> _scanStatusText.value = "ACQUIRING: $candName..."
+                    progressPct < 0.60f -> _scanStatusText.value = "LOCKING IN 3..."
+                    progressPct < 0.85f -> _scanStatusText.value = "LOCKING IN 2..."
+                    progressPct < 1.0f -> _scanStatusText.value = "LOCKING IN 1..."
                     else -> _scanStatusText.value = "LOCKED: $candName!"
                 }
 
-                // 3. Consensus Locked (~2.5s steady hold achieved)
-                if (lockStreakFrames >= 18) {
-                    val pokemonName = nameMatcher.extractName(fusedTop1Label)
-                    val pokemon = pokemonName?.let { pokemonDao.getPokemonByName(it) }
+                val logLine = "Frame: lead=$candName(${"%.4f".format(effectiveLeaderVal)}), top1=$fusedTop1Label(${"%.4f".format(fusedTop1Val)}), top2=$fusedTop2Label(${"%.4f".format(fusedTop2Val)}), streak=$lockStreakFrames/$requiredStreak"
+                android.util.Log.d("PokedexViewModel", logLine)
+                logScannerTelemetry(logLine)
 
+                // 4. Consensus Locked
+                if (lockStreakFrames >= requiredStreak) {
+                    val pokemon = rawCandName?.let { pokemonDao.getPokemonByName(it) }
                     if (pokemon != null) {
-                        android.util.Log.d("PokedexViewModel", "Consensus LOCKED on multi-frame countdown: ${pokemon.name}!")
-                        _scanStatusText.value = "LOCKED: ${pokemon.name.uppercase()}!"
-                        scanningJob?.cancel()
-                        val finalBitmap = sharpestBitmap ?: bitmap
-
-                        synchronized(rollingFrames) { rollingFrames.clear() }
-                        lockStreakCandidate = -1
-                        lockStreakFrames = 0
-                        _scanStreak.value = 0
-                        _candidatePokemon.value = null
-                        tts.stop()
-                        _isSpeaking.value = false
-
-                        if (_playFanfare.value) {
-                            _uiState.value = PokedexState.WhosThat(finalBitmap)
-                            // Authentic 1997 anime fanfare & kids callout SFX
-                            PokemonSoundPlayer.playWhosThatPokemon(getApplication())
-                            delay(3400)
-                        }
-
-                        if (_playCryOnReveal.value) {
-                            PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
-                        }
-
-                        if (_playVoiceReveal.value) {
-                            _uiState.value = PokedexState.Reveal(pokemon, finalBitmap)
-                            tts.speak("It's ${pokemon.name}!")
-                            delay(2400)
-                        }
-
-                        selectPokemon(pokemon)
+                        lockConsensus(pokemon, sharpestBitmap ?: bitmap)
                         return@launch
                     }
                 }

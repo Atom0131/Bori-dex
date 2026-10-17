@@ -36,6 +36,7 @@ class TFLiteClassifier(context: Context) {
 
     fun getLabels(): List<String> = labels
 
+    @Synchronized
     fun getProbabilities(bitmap: Bitmap): FloatArray {
         val scaledBitmap = if (bitmap.width == 224 && bitmap.height == 224) {
             bitmap

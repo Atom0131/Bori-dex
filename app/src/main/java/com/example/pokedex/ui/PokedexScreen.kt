@@ -1261,6 +1261,8 @@ fun PokedexDisplay(
     val context = LocalContext.current
     val scanStatusText by viewModel.scanStatusText.collectAsState()
     val scanStreak by viewModel.scanStreak.collectAsState()
+    val scanProgress by viewModel.scanProgress.collectAsState()
+    val scannerTelemetry by viewModel.scannerTelemetry.collectAsState()
     val candidatePokemon by viewModel.candidatePokemon.collectAsState()
 
     val isResultState = !isListOnly && uiState is PokedexState.Result
@@ -1304,8 +1306,11 @@ fun PokedexDisplay(
                         ActiveScannerHud(
                             scanStatusText = scanStatusText,
                             scanStreak = scanStreak,
+                            scanProgress = scanProgress,
+                            scannerTelemetry = scannerTelemetry,
                             candidatePokemon = candidatePokemon,
                             onGalleryClick = onGalleryClick,
+                            onManualLock = { viewModel.triggerManualLock() },
                             modifier = Modifier.fillMaxSize()
                         )
                     }

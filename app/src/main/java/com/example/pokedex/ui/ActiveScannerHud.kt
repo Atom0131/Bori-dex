@@ -1,6 +1,7 @@
 package com.example.pokedex.ui
 
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -38,8 +39,11 @@ import kotlin.math.sin
 fun ActiveScannerHud(
     scanStatusText: String,
     scanStreak: Int,
+    scanProgress: Float = 0f,
+    scannerTelemetry: String = "",
     candidatePokemon: PokemonEntity?,
     onGalleryClick: () -> Unit,
+    onManualLock: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     // 1. Dynamic Status Colors
@@ -51,7 +55,7 @@ fun ActiveScannerHud(
     }
 
     val isLockingOn = scanStreak > 0
-    val isLocked = scanStreak >= 18 || scanStatusText.contains("LOCKED", ignoreCase = true)
+    val isLocked = scanProgress >= 1.0f || scanStreak >= 10 || scanStatusText.contains("LOCKED", ignoreCase = true)
 
     // 2. Animated Transitions
     val infiniteTransition = rememberInfiniteTransition(label = "scanner_animations")
@@ -134,6 +138,7 @@ fun ActiveScannerHud(
             modifier = Modifier
                 .size(280.dp)
                 .align(Alignment.Center)
+                .clickable { onManualLock() }
         ) {
             // A. Canvas Layer: Corner Brackets, Poké Ball Reticle, Radar Rings, and Laser Scanline
             Canvas(modifier = Modifier.fillMaxSize()) {
@@ -429,9 +434,9 @@ fun ActiveScannerHud(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(bottom = 8.dp)
                 ) {
-                    val pip1 = scanStreak >= 5
-                    val pip2 = scanStreak >= 10
-                    val pip3 = scanStreak >= 15
+                    val pip1 = scanProgress >= 0.33f
+                    val pip2 = scanProgress >= 0.66f
+                    val pip3 = scanProgress >= 0.95f
 
                     LockPip(isActive = pip1, color = reticleColor)
                     LockPip(isActive = pip2, color = reticleColor)
@@ -439,12 +444,13 @@ fun ActiveScannerHud(
                 }
             }
 
-            // High-Contrast Pill Status Badge
+            // High-Contrast Pill Status Badge (Tap to lock immediately)
             Surface(
                 color = Color.Black.copy(alpha = 0.88f),
                 shape = RoundedCornerShape(24.dp),
                 border = androidx.compose.foundation.BorderStroke(2.dp, reticleColor),
-                shadowElevation = 8.dp
+                shadowElevation = 8.dp,
+                modifier = Modifier.clickable { onManualLock() }
             ) {
                 Text(
                     text = scanStatusText,
@@ -452,6 +458,18 @@ fun ActiveScannerHud(
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Black,
                     modifier = Modifier.padding(horizontal = 24.dp, vertical = 10.dp)
+                )
+            }
+
+            // Live Telemetry Readout
+            if (scannerTelemetry.isNotBlank()) {
+                Text(
+                    text = scannerTelemetry,
+                    color = reticleColor.copy(alpha = 0.85f),
+                    fontSize = 11.sp,
+                    fontFamily = FontFamily.Monospace,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 6.dp)
                 )
             }
         }
@@ -469,6 +487,22 @@ fun ActiveScannerHud(
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+            )
+        }
+
+        // --- 1-TAP MANUAL LOCK FAB ---
+        FloatingActionButton(
+            onClick = onManualLock,
+            containerColor = Color(0xFFFFCC00),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        ) {
+            Text(
+                "LOCK",
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
             )
         }
     }
