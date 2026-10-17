@@ -23,6 +23,7 @@ import com.example.pokedex.data.PokemonNameMatcher
 import com.example.pokedex.data.PokemonRegion
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
 
 sealed class PokedexState {
     object Idle : PokedexState()
@@ -395,6 +396,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun selectPokemon(pokemon: PokemonEntity, evolvedFrom: String? = null, isBackNavigation: Boolean = false) {
+        consensusJob?.cancel()
+        consensusJob = null
         scanningJob?.cancel()
         if (!isBackNavigation) {
             val currentState = _uiState.value
@@ -501,6 +504,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     private val rollingFrames = ArrayDeque<FrameResult>()
     private val MAX_ROLLING_FRAMES = 16
     private var scanningJob: Job? = null
+    private var consensusJob: Job? = null
     private var scanSettlingUntil = 0L
     private var isAnalyzing = false
     private var lockStreakCandidate = -1
@@ -509,7 +513,11 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     private var highestStreakConfidence = 0f
 
     fun startScanning() {
+        consensusJob?.cancel()
+        consensusJob = null
+        scanningJob?.cancel()
         tts.stop()
+        PokemonSoundPlayer.stop()
         _isSpeaking.value = false
         _uiState.value = PokedexState.Scanning
         _scanStatusText.value = "FOCUSING..."
@@ -526,7 +534,6 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         // Quick 400ms settle for camera auto-focus/exposure
         scanSettlingUntil = System.currentTimeMillis() + 400L
 
-        scanningJob?.cancel()
         scanningJob = viewModelScope.launch {
             delay(60_000) // 60-second inactivity timeout
             if (_uiState.value is PokedexState.Scanning) {
@@ -553,39 +560,48 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         } catch (_: Exception) {}
     }
 
-    private suspend fun lockConsensus(pokemon: PokemonEntity, bitmap: Bitmap?) {
-        android.util.Log.d("PokedexViewModel", "Consensus LOCKED on: ${pokemon.name}!")
-        logScannerTelemetry("Consensus LOCKED: ${pokemon.name} (#${pokemon.id})")
-        _scanStatusText.value = "LOCKED: ${pokemon.name.uppercase()}!"
-        scanningJob?.cancel()
-        val finalBitmap = bitmap ?: sharpestBitmap
+    private fun lockConsensus(pokemon: PokemonEntity, bitmap: Bitmap?) {
+        consensusJob?.cancel()
+        consensusJob = viewModelScope.launch(kotlinx.coroutines.Dispatchers.Main) {
+            if (_uiState.value !is PokedexState.Scanning) return@launch
 
-        synchronized(rollingFrames) { rollingFrames.clear() }
-        lockStreakCandidate = -1
-        lockStreakFrames = 0
-        _scanStreak.value = 0
-        _scanProgress.value = 0f
-        _candidatePokemon.value = null
-        tts.stop()
-        _isSpeaking.value = false
+            android.util.Log.d("PokedexViewModel", "Consensus LOCKED on: ${pokemon.name}!")
+            logScannerTelemetry("Consensus LOCKED: ${pokemon.name} (#${pokemon.id})")
+            _scanStatusText.value = "LOCKED: ${pokemon.name.uppercase()}!"
+            scanningJob?.cancel()
+            val finalBitmap = bitmap ?: sharpestBitmap
 
-        if (_playFanfare.value && finalBitmap != null) {
-            _uiState.value = PokedexState.WhosThat(finalBitmap)
-            PokemonSoundPlayer.playWhosThatPokemon(getApplication())
-            delay(3400)
+            synchronized(rollingFrames) { rollingFrames.clear() }
+            lockStreakCandidate = -1
+            lockStreakFrames = 0
+            _scanStreak.value = 0
+            _scanProgress.value = 0f
+            _candidatePokemon.value = null
+            tts.stop()
+            _isSpeaking.value = false
+
+            if (_playFanfare.value && finalBitmap != null) {
+                _uiState.value = PokedexState.WhosThat(finalBitmap)
+                PokemonSoundPlayer.playWhosThatPokemon(getApplication())
+                delay(3400)
+            }
+
+            if (!isActive) return@launch
+
+            if (_playCryOnReveal.value) {
+                PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
+            }
+
+            if (_playVoiceReveal.value && finalBitmap != null) {
+                _uiState.value = PokedexState.Reveal(pokemon, finalBitmap)
+                tts.speak("It's ${pokemon.name}!")
+                delay(2400)
+            }
+
+            if (!isActive) return@launch
+
+            selectPokemon(pokemon)
         }
-
-        if (_playCryOnReveal.value) {
-            PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
-        }
-
-        if (_playVoiceReveal.value && finalBitmap != null) {
-            _uiState.value = PokedexState.Reveal(pokemon, finalBitmap)
-            tts.speak("It's ${pokemon.name}!")
-            delay(2400)
-        }
-
-        selectPokemon(pokemon)
     }
 
     fun triggerManualLock() {
@@ -848,7 +864,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 // 5. Consensus Locked: Reached 32 steady frames AND meets minimum lock confidence
                 if (lockStreakFrames >= TARGET_LOCK_FRAMES && highestStreakConfidence >= MIN_LOCK_CONFIDENCE) {
                     val pokemon = rawCandName?.let { pokemonDao.getPokemonByName(it) }
-                    if (pokemon != null) {
+                    if (pokemon != null && _uiState.value is PokedexState.Scanning) {
                         lockConsensus(pokemon, sharpestBitmap ?: bitmap)
                         return@launch
                     }
@@ -874,7 +890,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
         _uiState.value = PokedexState.WhosThat(bitmap)
 
-        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+        consensusJob?.cancel()
+        consensusJob = viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             try {
                 val probs = classifier.getProbabilities(bitmap)
                 val labels = classifier.getLabels()
@@ -920,6 +937,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                             delay(3400)
                         }
 
+                        if (!isActive) return@launch
+
                         if (_playCryOnReveal.value) {
                             PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
                         }
@@ -930,6 +949,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                             delay(2400)
                         }
 
+                        if (!isActive) return@launch
+
                         selectPokemon(pokemon)
                         return@launch
                     }
@@ -939,31 +960,52 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 tts.speak("Could not identify Pokemon from photo.")
                 _uiState.value = PokedexState.Error("NO POKEMON IDENTIFIED")
                 delay(2500)
-                _uiState.value = PokedexState.Idle
+                if (isActive) {
+                    _uiState.value = PokedexState.Idle
+                }
             } catch (e: Exception) {
                 android.util.Log.e("PokedexViewModel", "Error analyzing gallery image", e)
                 _uiState.value = PokedexState.Error("ANALYSIS ERROR")
                 delay(2500)
-                _uiState.value = PokedexState.Idle
+                if (isActive) {
+                    _uiState.value = PokedexState.Idle
+                }
             }
         }
     }
 
     fun resetState() {
+        consensusJob?.cancel()
+        consensusJob = null
         scanningJob?.cancel()
-        historyStack.clear()
-        synchronized(rollingFrames) { rollingFrames.clear() }
-        _scanStatusText.value = "SCANNING..."
-        _scanStreak.value = 0
-        _candidatePokemon.value = null
-        _uiState.value = PokedexState.Idle
+        scanningJob = null
+
         tts.stop()
         PokemonSoundPlayer.stop()
         _isSpeaking.value = false
+
+        historyStack.clear()
+        synchronized(rollingFrames) { rollingFrames.clear() }
+
+        lockStreakCandidate = -1
+        lockStreakFrames = 0
+        highestStreakConfidence = 0f
+        sharpestBitmap = null
+        isAnalyzing = false
+
+        _scanStreak.value = 0
+        _scanProgress.value = 0f
+        _candidatePokemon.value = null
+        _scanStatusText.value = "SEARCHING FOR POKÉMON..."
+        _scannerTelemetry.value = ""
+
+        _uiState.value = PokedexState.Idle
     }
 
     override fun onCleared() {
         super.onCleared()
+        consensusJob?.cancel()
+        scanningJob?.cancel()
         tts.shutdown()
         PokemonSoundPlayer.stop()
         _isSpeaking.value = false
