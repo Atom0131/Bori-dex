@@ -241,10 +241,13 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
         syncTtsSettings()
 
-        if (prefs.getInt("pokemon_data_asset_version", 0) < 8) {
-            viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+        val assetVersion = prefs.getInt("pokemon_data_asset_version", 0)
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            val sampleBulbasaur = pokemonDao.getPokemonById(1)
+            val hasGoLore = sampleBulbasaur?.pokedexEntries?.contains("\"GO\"") == true
+            if (assetVersion < 9 || !hasGoLore) {
                 PokedexDatabase.syncAssetData(getApplication(), pokemonDao)
-                prefs.edit().putInt("pokemon_data_asset_version", 8).apply()
+                prefs.edit().putInt("pokemon_data_asset_version", 9).apply()
             }
         }
         

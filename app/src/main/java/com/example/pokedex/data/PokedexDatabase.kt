@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.io.InputStreamReader
 
-@Database(entities = [PokemonEntity::class], version = 8, exportSchema = false)
+@Database(entities = [PokemonEntity::class], version = 9, exportSchema = false)
 abstract class PokedexDatabase : RoomDatabase() {
 
     abstract fun pokemonDao(): PokemonDao

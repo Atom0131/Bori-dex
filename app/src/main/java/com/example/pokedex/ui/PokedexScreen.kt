@@ -1160,17 +1160,40 @@ fun PokedexList(
 
             PokemonRegion.entries.forEach { region ->
                 val isSelected = selectedRegion == region
+                val isPogo = region == PokemonRegion.POKEMON_GO
+                val isCostumes = region == PokemonRegion.COSTUMES
+                val chipLabel = when {
+                    isPogo -> "🔵 POKÉMON GO"
+                    isCostumes -> "👒 EVENT COSTUMES"
+                    else -> region.displayName
+                }
+                val selectedBg = when {
+                    isPogo -> Color(0xFF0075BE)
+                    isCostumes -> Color(0xFFFFD700)
+                    else -> Color(0xFF00FFCC)
+                }
+                val unselectedBg = when {
+                    isPogo -> Color(0xFF002F4F)
+                    isCostumes -> Color(0xFF4A3800)
+                    else -> Color.DarkGray
+                }
+                val selectedTextColor = when {
+                    isPogo -> Color.White
+                    isCostumes -> Color.Black
+                    else -> Color.Black
+                }
+
                 FilterChip(
                     selected = isSelected,
                     onClick = {
                         if (isSelected) viewModel.selectRegion(null)
                         else viewModel.selectRegion(region)
                     },
-                    label = { Text(region.displayName, fontWeight = FontWeight.Bold, fontSize = 11.sp) },
+                    label = { Text(chipLabel, fontWeight = FontWeight.Bold, fontSize = 11.sp) },
                     colors = FilterChipDefaults.filterChipColors(
-                        selectedContainerColor = Color(0xFF00FFCC),
-                        selectedLabelColor = Color.Black,
-                        containerColor = Color.DarkGray,
+                        selectedContainerColor = selectedBg,
+                        selectedLabelColor = selectedTextColor,
+                        containerColor = unselectedBg,
                         labelColor = Color.White
                     )
                 )
@@ -1739,7 +1762,7 @@ fun PokedexDisplay(
 
                             val availableCartridges = remember(entriesMap) {
                                 ALL_GAME_CARTRIDGES.filter { cartridge ->
-                                    cartridge.id == "Default" || entriesMap.keys.any { key ->
+                                    cartridge.id == "Default" || cartridge.id == "GO" || entriesMap.keys.any { key ->
                                         cartridge.candidateKeys.any { it.equals(key, ignoreCase = true) }
                                     }
                                 }
@@ -1815,26 +1838,71 @@ fun PokedexDisplay(
                                     }
 
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        val hasCostumes = remember(canonicalId) {
-                                            PokemonGoCostumeRepository.getCostumesForPokemon(canonicalId).isNotEmpty()
+                                        val availableCostumes = remember(canonicalId) {
+                                            PokemonGoCostumeRepository.getCostumesForPokemon(canonicalId)
                                         }
+                                        val hasCostumes = availableCostumes.isNotEmpty()
 
                                         Button(
                                             onClick = { showEvolutionModal = true },
-                                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
-                                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = if (hasCostumes) Color(0xFF00FFCC) else Color(0xFF00FFCC).copy(alpha = 0.85f)
+                                            ),
+                                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
                                             shape = RoundedCornerShape(6.dp),
                                             modifier = Modifier.heightIn(min = 30.dp)
                                         ) {
-                                            Text(if (hasCostumes) "⚡ FORMS & COSTUMES" else "⚡ FORMS & EVOS", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 10.sp)
+                                            Text(
+                                                text = if (hasCostumes) "⚡ FORMS & COSTUMES (${availableCostumes.size})" else "⚡ FORMS & EVOS",
+                                                color = Color.Black,
+                                                fontWeight = FontWeight.Black,
+                                                fontSize = 9.5.sp
+                                            )
                                         }
 
-                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Spacer(modifier = Modifier.width(5.dp))
+
+                                        // 1-Tap Quick-Toggle for POKÉMON GO
+                                        val isGoActive = activeCartridge.id.equals("GO", ignoreCase = true)
+                                        Box(
+                                            modifier = Modifier
+                                                .height(30.dp)
+                                                .background(
+                                                    if (isGoActive) Color(0xFF0075BE) else Color.Black.copy(alpha = 0.5f),
+                                                    RoundedCornerShape(6.dp)
+                                                )
+                                                .border(
+                                                    1.dp,
+                                                    if (isGoActive) Color(0xFF00FFCC) else Color(0xFF0075BE).copy(alpha = 0.7f),
+                                                    RoundedCornerShape(6.dp)
+                                                )
+                                                .clickable {
+                                                    selectedCartridgeId = if (isGoActive) "Default" else "GO"
+                                                }
+                                                .padding(horizontal = 6.dp),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                PixelCartridgeIcon(
+                                                    assetName = "pokemongo.png",
+                                                    modifier = Modifier.size(14.dp)
+                                                )
+                                                Spacer(modifier = Modifier.width(3.dp))
+                                                Text(
+                                                    text = "GO",
+                                                    color = if (isGoActive) Color.White else Color(0xFF00FFCC),
+                                                    fontWeight = FontWeight.Black,
+                                                    fontSize = 9.sp
+                                                )
+                                            }
+                                        }
+
+                                        Spacer(modifier = Modifier.width(5.dp))
 
                                         Button(
                                             onClick = { showEditionModal = true },
                                             colors = ButtonDefaults.buttonColors(containerColor = activeCartridge.cartridgeColor),
-                                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
                                             shape = RoundedCornerShape(6.dp),
                                             modifier = Modifier
                                                 .heightIn(min = 30.dp)
@@ -1844,7 +1912,7 @@ fun PokedexDisplay(
                                                 text = "VER: ${activeCartridge.displayName} ▼",
                                                 color = activeCartridge.textColor,
                                                 fontWeight = FontWeight.Bold,
-                                                fontSize = 10.sp
+                                                fontSize = 9.5.sp
                                             )
                                         }
                                     }

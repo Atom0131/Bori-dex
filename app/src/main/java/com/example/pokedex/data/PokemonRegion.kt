@@ -15,9 +15,18 @@ enum class PokemonRegion(
     ALOLA("Alola", 722, 809, listOf("alola", "gen 7", "gen7")),
     GALAR("Galar", 810, 898, listOf("galar", "gen 8", "gen8")),
     HISUI("Hisui", 899, 905, listOf("hisui", "hiusi", "hisuian", "legends arceus")),
-    PALDEA("Paldea", 906, 1025, listOf("paldea", "gen 9", "gen9"));
+    PALDEA("Paldea", 906, 1025, listOf("paldea", "gen 9", "gen9")),
+    POKEMON_GO("Pokémon GO", 1, 1025, listOf("go", "pogo", "pokemon go", "pokemongo")),
+    COSTUMES("Costumes", 1, 1025, listOf("costume", "costumes", "event", "hat", "glasses", "shades"));
 
     fun matches(pokemon: PokemonEntity): Boolean {
+        if (this == POKEMON_GO) {
+            return pokemon.pokedexEntries.contains("\"GO\"", ignoreCase = true) ||
+                   PokemonGoCostumeRepository.getCostumesForPokemon(pokemon.id).isNotEmpty()
+        }
+        if (this == COSTUMES) {
+            return PokemonGoCostumeRepository.getCostumesForPokemon(pokemon.id).isNotEmpty()
+        }
         if (this == HISUI) {
             return (pokemon.id in startId..endId) ||
                     pokemon.name.contains("hisui", ignoreCase = true) ||
