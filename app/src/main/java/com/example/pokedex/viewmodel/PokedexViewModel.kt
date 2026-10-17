@@ -589,17 +589,30 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun triggerManualLock() {
-        val candidateId = lockStreakCandidate
-        val labels = classifier.getLabels()
-        val candidateLabel = if (candidateId != -1) labels.getOrNull(candidateId) else null
-        val rawCandName = candidateLabel?.let { nameMatcher.extractName(it) }
-        val pokemon = rawCandName?.let { pokemonDao.getPokemonByName(it) }
-            ?: _candidatePokemon.value
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            val labels = classifier.getLabels()
+            val candidateId = lockStreakCandidate
+            val candidateLabel = if (candidateId != -1) labels.getOrNull(candidateId) else null
+            val rawCandName = candidateLabel?.let { nameMatcher.extractName(it) }
+            var pokemon = rawCandName?.let { pokemonDao.getPokemonByName(it) }
+                ?: _candidatePokemon.value
 
-        if (pokemon != null && _uiState.value is PokedexState.Scanning) {
-            logScannerTelemetry("Manual tap-to-lock triggered on: ${pokemon.name}")
-            viewModelScope.launch(kotlinx.coroutines.Dispatchers.Main) {
+            // Fallback: If lockStreakCandidate was -1, get the highest candidate from rolling frames
+            if (pokemon == null) {
+                val snapshot = synchronized(rollingFrames) { rollingFrames.toList() }
+                if (snapshot.isNotEmpty()) {
+                    val lastFrame = snapshot.last()
+                    val fallbackLabel = labels.getOrNull(lastFrame.topIndex)
+                    val fallbackName = fallbackLabel?.let { nameMatcher.extractName(it) }
+                    pokemon = fallbackName?.let { pokemonDao.getPokemonByName(it) }
+                }
+            }
+
+            if (pokemon != null && _uiState.value is PokedexState.Scanning) {
+                logScannerTelemetry("Manual tap-to-lock triggered on: ${pokemon.name}")
                 lockConsensus(pokemon, sharpestBitmap)
+            } else {
+                logScannerTelemetry("Manual tap-to-lock: No candidate available")
             }
         }
     }
@@ -708,12 +721,13 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 val top1DisplayName = nameMatcher.extractName(fusedTop1Label)?.uppercase() ?: "POKEMON"
                 val top2DisplayName = nameMatcher.extractName(fusedTop2Label)?.uppercase() ?: "--"
                 // 2. Multi-Tier Background & Ambient Clutter Rejection
-                // With 1,025 classes, random ambient clutter (cables, floor, carpet, walls) produces 5%-18% diffuse predictions.
-                // A genuine target exhibits high confidence and a distinct separation margin over runner-up candidates.
-                val MIN_ACQUISITION_CONFIDENCE = 0.30f  // Minimum 30% to begin acquiring / accumulating streak
-                val MIN_LOCK_CONFIDENCE = 0.40f         // Minimum 40% to allow consensus auto-lock
-                val MIN_PEAK_MARGIN = 0.08f             // Leader must beat #2 by at least 8% absolute separation
-                val MIN_PEAK_RATIO = 1.50f              // Leader must be at least 1.5x runner-up
+                // Real-world phone logs:
+                // Desk cords/ambient floor: Top-1 ~8%-12%, lead margin < 2%.
+                // Physical Pokemon (cards, figures, tattoos): Top-1 ~15%-85%, lead margin >= 3%.
+                val MIN_ACQUISITION_CONFIDENCE = 0.15f  // Minimum 15% to begin accumulating streak (blocks cords at 11%)
+                val MIN_LOCK_CONFIDENCE = 0.20f         // Minimum 20% to auto-lock
+                val MIN_PEAK_MARGIN = 0.025f            // Leader must beat #2 by at least 2.5% margin
+                val MIN_PEAK_RATIO = 1.25f              // Leader must be at least 1.25x runner-up
 
                 val leadMargin = fusedTop1Val - fusedTop2Val
                 val leadRatio = if (fusedTop2Val > 0f) fusedTop1Val / fusedTop2Val else 10f
@@ -722,7 +736,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
                 if (!isRecognizedTarget) {
                     // Non-Pokémon object (cords, table, empty room): decay streak and remain in SEARCHING state
-                    lockStreakFrames = maxOf(0, lockStreakFrames - 2)
+                    lockStreakFrames = maxOf(0, lockStreakFrames - 1)
                     if (lockStreakFrames == 0) {
                         lockStreakCandidate = -1
                         highestStreakConfidence = 0f
@@ -745,11 +759,11 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 val effectiveLeaderIdx: Int
                 val effectiveLeaderVal: Float
 
-                if (activeCand != -1 && lockStreakFrames >= 3) {
+                if (activeCand != -1 && lockStreakFrames >= 2) {
                     val activeVal = fusedProbs.getOrElse(activeCand) { 0f }
-                    // A new candidate can ONLY usurp the active candidate if it dominates by >= 1.8x
-                    // AND the active candidate has genuinely collapsed (< 15%)
-                    if (fusedTop1Idx != activeCand && fusedTop1Val >= activeVal * 1.80f && activeVal < 0.15f) {
+                    // A new candidate can ONLY usurp the active candidate if it dominates by >= 1.6x
+                    // AND the active candidate has genuinely collapsed (< 10%)
+                    if (fusedTop1Idx != activeCand && fusedTop1Val >= activeVal * 1.60f && activeVal < 0.10f) {
                         effectiveLeaderIdx = fusedTop1Idx
                         effectiveLeaderVal = fusedTop1Val
                     } else {
@@ -781,10 +795,10 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
                 // 4. Adaptive Required Streak: Fast exit on high confidence
                 val requiredStreak = when {
-                    highestStreakConfidence >= 0.65f -> 4   // Overwhelming confidence (~0.25s fast lock for Rayquaza/Psyduck!)
-                    highestStreakConfidence >= 0.50f -> 6   // High confidence (~0.40s)
-                    highestStreakConfidence >= 0.40f -> 8   // Medium confidence (~0.55s)
-                    else -> 12                              // Below 40%: hold steady
+                    highestStreakConfidence >= 0.60f -> 4   // Overwhelming confidence (~0.25s fast lock)
+                    highestStreakConfidence >= 0.40f -> 5   // High confidence (~0.35s)
+                    highestStreakConfidence >= 0.25f -> 6   // Good confidence (~0.40s)
+                    else -> 8                               // Medium confidence (~0.55s for targets around 18-24%)
                 }
 
                 val progressPct = (lockStreakFrames.toFloat() / requiredStreak).coerceIn(0f, 1f)
