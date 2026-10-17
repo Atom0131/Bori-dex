@@ -218,15 +218,16 @@ elif os.path.exists(checkpoint_stage3_keras):
 else:
     raise FileNotFoundError("Could not find previous stage checkpoint in exported_model/ to resume from!")
 
-# Ensure base layers beyond index 100 are unfrozen for fine-tuning
+# Ensure base layers beyond index 80 are unfrozen for deep fine-tuning
 base_model = model.layers[2]
 base_model.trainable = True
-fine_tune_at = 100
+fine_tune_at = 80
 for layer in base_model.layers[:fine_tune_at]:
     layer.trainable = False
 
 STAGE4_LR = 1.5e-5
 print(f"[+] Configured Stage 4 Fine-Tuning Learning Rate: {STAGE4_LR}")
+print(f"[+] Unfrozen layers from index {fine_tune_at} to {len(base_model.layers)} ({len(base_model.layers) - fine_tune_at} layers active)")
 
 model.compile(
     optimizer=keras.optimizers.Adam(learning_rate=STAGE4_LR),
@@ -251,30 +252,34 @@ callbacks = [
     keras.callbacks.ReduceLROnPlateau(
         monitor='val_accuracy',
         factor=0.5,
-        patience=2,
+        patience=3,
         min_lr=1e-7,
         verbose=1
     ),
     keras.callbacks.EarlyStopping(
         monitor='val_accuracy',
-        patience=5,
+        patience=7,
         restore_best_weights=True,
         verbose=1
     )
 ]
 
-# Optimal training cadence: 2,500 steps/epoch = 80,000 images/epoch
-STEPS_PER_EPOCH = 2500
-VALIDATION_STEPS = 150
-TOTAL_EPOCHS = 20
+# High-Quality Training Cadence: 4,000 steps/epoch = 128,000 images per epoch
+STEPS_PER_EPOCH = 4000
+VALIDATION_STEPS = 250
+TOTAL_EPOCHS = 30
 
 print(f"\n========================================================")
-print(f" STARTING STAGE 4 FINE-TUNING")
-print(f" - Steps per Epoch: {STEPS_PER_EPOCH} (80,000 samples/epoch)")
-print(f" - Validation Steps: {VALIDATION_STEPS} (4,800 validation samples/epoch)")
+print(f" STARTING HIGH-QUALITY STAGE 4 FINE-TUNING")
+print(f" - Steps per Epoch: {STEPS_PER_EPOCH} (128,000 samples/epoch)")
+print(f" - Validation Steps: {VALIDATION_STEPS} (8,000 validation samples/epoch)")
 print(f" - Total Epochs: {TOTAL_EPOCHS}")
+print(f" - Early Stopping Patience: 7 epochs")
+print(f" - Unfrozen Base Layers: {len(base_model.layers) - fine_tune_at}")
 print(f" - Specular Glare Augmentation: ACTIVE")
 print(f" - Downward Perspective Keystoning: ACTIVE")
+print(f" - Dark / Low-Light Shadow Gamma: ACTIVE")
+print(f" - Warm Yellow Tungsten Cast: ACTIVE")
 print(f"========================================================\n")
 
 model.fit(
