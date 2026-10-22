@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.io.InputStreamReader
 
-@Database(entities = [PokemonEntity::class], version = 9, exportSchema = false)
+@Database(entities = [PokemonEntity::class], version = 10, exportSchema = false)
 abstract class PokedexDatabase : RoomDatabase() {
 
     abstract fun pokemonDao(): PokemonDao
@@ -34,6 +34,14 @@ abstract class PokedexDatabase : RoomDatabase() {
                 .build()
                 INSTANCE = instance
                 instance
+            }
+        }
+
+        fun syncAssetDataIfNeeded(context: Context, dao: PokemonDao) {
+            val prefs = context.getSharedPreferences("pokedex_prefs", Context.MODE_PRIVATE)
+            val currentSyncVersion = prefs.getInt("pokemon_data_asset_version", 0)
+            if (currentSyncVersion < 10) {
+                syncAssetData(context, dao)
             }
         }
 
@@ -79,6 +87,7 @@ abstract class PokedexDatabase : RoomDatabase() {
                     )
                 }
                 dao.insertAll(pokemonList)
+                context.getSharedPreferences("pokedex_prefs", Context.MODE_PRIVATE).edit().putInt("pokemon_data_asset_version", 10).apply()
                 android.util.Log.d("PokedexDatabase", "Successfully synced ${pokemonList.size} Pokemon entries to database.")
             } catch (e: Exception) {
                 android.util.Log.e("PokedexDatabase", "Error syncing asset data to database", e)

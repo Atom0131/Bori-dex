@@ -54,14 +54,33 @@ $headers = @{
     "Accept"        = "application/vnd.github+json"
 }
 
-# 3. Fetch Release details
+# 3. Fetch or Create Release
 Write-Host "[*] Querying GitHub release for tag '$Tag'..." -ForegroundColor Yellow
 $releaseUrl = "https://api.github.com/repos/$Repo/releases/tags/$Tag"
+$release = $null
 try {
     $release = Invoke-RestMethod -Uri $releaseUrl -Headers $headers -Method Get
 } catch {
-    Write-Error "Failed to fetch release '$Tag' from $Repo. Error: $_"
-    exit 1
+    Write-Host "[*] Release '$Tag' not found. Creating release '$Tag' on GitHub..." -ForegroundColor Yellow
+    
+    $releaseNotesPath = "$PSScriptRoot\..\RELEASE_NOTES.md"
+    $bodyText = "Bori-dex $Tag release."
+    if (Test-Path $releaseNotesPath) {
+        $content = Get-Content $releaseNotesPath -Raw
+        $bodyText = $content.Substring(0, [math]::Min(3500, $content.Length))
+    }
+    
+    $createBody = @{
+        tag_name = $Tag
+        name = "Bori-dex $Tag"
+        body = $bodyText
+        draft = $false
+        prerelease = $false
+    } | ConvertTo-Json -Depth 5
+
+    $createUrl = "https://api.github.com/repos/$Repo/releases"
+    $release = Invoke-RestMethod -Uri $createUrl -Headers $headers -Method Post -Body $createBody
+    Write-Host ("[+] Created new Release: '" + $release.name + "' (ID: " + $release.id + ")") -ForegroundColor Green
 }
 
 Write-Host ("[+] Found Release: '" + $release.name + "' (ID: " + $release.id + ")") -ForegroundColor Green

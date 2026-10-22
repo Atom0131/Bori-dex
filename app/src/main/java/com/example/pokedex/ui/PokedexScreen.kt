@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.foundation.border
+import androidx.compose.ui.draw.clip
 
 
 import androidx.compose.foundation.Image
@@ -52,6 +53,8 @@ import com.example.pokedex.data.getCanonicalId
 import com.example.pokedex.data.PokemonCostume
 import com.example.pokedex.data.PokemonGoCostumeRepository
 import com.example.pokedex.data.PokemonRegion
+import com.example.pokedex.camera.CameraXController
+import com.example.pokedex.camera.PokemonFormDetector
 import com.example.pokedex.tts.VoiceProfile
 import com.example.pokedex.viewmodel.PokedexState
 import com.example.pokedex.viewmodel.PokedexViewModel
@@ -967,13 +970,20 @@ fun EvolutionAndFormsModal(
 
                                             if (!noteText.isNullOrBlank()) {
                                                 Spacer(modifier = Modifier.height(4.dp))
-                                                Text(
-                                                    text = "★ $noteText",
-                                                    color = Color(0xFFFFDD00),
-                                                    fontWeight = FontWeight.Medium,
-                                                    fontSize = 10.sp,
-                                                    lineHeight = 14.sp
-                                                )
+                                                Box(
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(4.dp))
+                                                        .padding(horizontal = 6.dp, vertical = 3.dp)
+                                                ) {
+                                                    Text(
+                                                        text = "★ $noteText",
+                                                        color = Color(0xFFFFDD00),
+                                                        fontWeight = FontWeight.Medium,
+                                                        fontSize = 9.5.sp,
+                                                        lineHeight = 13.5.sp
+                                                    )
+                                                }
                                             }
                                         }
                                     }
@@ -1264,14 +1274,16 @@ fun PokedexDisplay(
     val scanProgress by viewModel.scanProgress.collectAsState()
     val scannerTelemetry by viewModel.scannerTelemetry.collectAsState()
     val candidatePokemon by viewModel.candidatePokemon.collectAsState()
+    val candidateForms by viewModel.candidateForms.collectAsState()
+    val isCandidateShiny by viewModel.isCandidateShiny.collectAsState()
 
-    val isResultState = !isListOnly && uiState is PokedexState.Result
+    val isCompactBezel = !isListOnly && (uiState is PokedexState.Result || uiState is PokedexState.Scanning)
 
     Box(
         modifier = modifier
             .fillMaxWidth()
             .background(Color.Black, shape = RoundedCornerShape(8.dp))
-            .padding(if (isResultState) 6.dp else 16.dp),
+            .padding(if (isCompactBezel) 6.dp else 16.dp),
         contentAlignment = Alignment.Center
     ) {
         if (isListOnly) {
@@ -1298,10 +1310,24 @@ fun PokedexDisplay(
                     }
                 }
                 is PokedexState.Scanning -> {
-                    Box(modifier = Modifier.fillMaxSize()) {
+                    val cameraController = remember { CameraXController() }
+                    DisposableEffect(Unit) {
+                        onDispose {
+                            cameraController.setTorch(false)
+                        }
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(8.dp))
+                    ) {
                         com.example.pokedex.camera.CameraPreview(
                             onFrame = { bitmap -> viewModel.onImageAnalyzed(bitmap) },
-                            modifier = Modifier.fillMaxSize()
+                            controller = cameraController,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(8.dp))
                         )
                         ActiveScannerHud(
                             scanStatusText = scanStatusText,
@@ -1309,8 +1335,16 @@ fun PokedexDisplay(
                             scanProgress = scanProgress,
                             scannerTelemetry = scannerTelemetry,
                             candidatePokemon = candidatePokemon,
+                            candidateForms = candidateForms,
+                            isCandidateShiny = isCandidateShiny,
+                            onSelectForm = { form -> viewModel.selectCandidateForm(form) },
+                            onToggleShiny = { viewModel.toggleCandidateShiny() },
                             onGalleryClick = onGalleryClick,
-                            onManualLock = { viewModel.triggerManualLock() },
+                            onManualLock = {
+                                cameraController.setTorch(false)
+                                viewModel.triggerManualLock()
+                            },
+                            controller = cameraController,
                             modifier = Modifier.fillMaxSize()
                         )
                     }
@@ -1383,13 +1417,20 @@ fun PokedexDisplay(
                     }
                 }
                 is PokedexState.Reveal -> {
+                    val formTitle = PokemonFormDetector.formatFormDisplayName(state.pokemon.name)
+                    val revealTitle = if (state.isShiny) "IT'S A SHINY ${formTitle.uppercase()}!" else "IT'S ${formTitle.uppercase()}!"
+                    val revealSprite = if (state.isShiny && !state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
+                        state.pokemon.shinySpriteUrl
+                    } else {
+                        state.pokemon.spriteUrl
+                    }
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
                         modifier = Modifier.fillMaxSize()
                     ) {
                         Text(
-                            text = "IT'S ${state.pokemon.name.uppercase()}!",
+                            text = revealTitle,
                             color = Color(0xFFFFCC00),
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Black,
@@ -1410,7 +1451,7 @@ fun PokedexDisplay(
                             )
                             Spacer(modifier = Modifier.width(16.dp))
                             AsyncImage(
-                                model = state.pokemon.spriteUrl,
+                                model = revealSprite,
                                 contentDescription = state.pokemon.name,
                                 modifier = Modifier.size(150.dp)
                             )
@@ -1436,10 +1477,11 @@ fun PokedexDisplay(
                                 .fillMaxSize()
                                 .padding(horizontal = 10.dp, vertical = 8.dp)
                         ) {
-                            var showShiny by remember(state.pokemon.id) { mutableStateOf(false) }
+                            var showShiny by remember(state.pokemon.id, state.isShiny) { mutableStateOf(state.isShiny) }
                             var selectedCostume by remember(state.pokemon.id) { mutableStateOf<PokemonCostume?>(null) }
                             var showEvolutionModal by remember { mutableStateOf(false) }
                             var showEditionModal by remember { mutableStateOf(false) }
+                            val preferredEdition by viewModel.preferredGameEdition.collectAsState()
                             val currentSprite = if (selectedCostume != null) {
                                 if (showShiny && !selectedCostume?.shinyAssetPath.isNullOrEmpty()) {
                                     selectedCostume!!.fullShinyAssetUrl
@@ -1454,9 +1496,7 @@ fun PokedexDisplay(
 
                             // 1. Top Header: Number, Name, Type Badge
                             val canonicalId = state.pokemon.getCanonicalId(pokemonList)
-                            val displayName = state.pokemon.name.replace("-", " ")
-                                .split(" ")
-                                .joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
+                            val displayName = PokemonFormDetector.formatFormDisplayName(state.pokemon.name)
 
                             Row(
                                 modifier = Modifier
@@ -1639,7 +1679,9 @@ fun PokedexDisplay(
 
                                 Spacer(modifier = Modifier.width(6.dp))
 
-                                val rawFlavor = viewModel.getEffectiveFlavorText(state.pokemon)
+                                val rawFlavor = remember(state.pokemon, preferredEdition) {
+                                    viewModel.getEffectiveFlavorText(state.pokemon)
+                                }
                                 val currentCleanedFlavor = rawFlavor
                                     .replace("\n", " ")
                                     .replace("\u000c", " ")
@@ -1763,8 +1805,6 @@ fun PokedexDisplay(
                                 }
                             }
 
-                            val preferredEdition by viewModel.preferredGameEdition.collectAsState()
-
                             val availableCartridges = remember(entriesMap) {
                                 ALL_GAME_CARTRIDGES.filter { cartridge ->
                                     cartridge.id == "Default" || cartridge.id == "GO" || entriesMap.keys.any { key ->
@@ -1882,7 +1922,9 @@ fun PokedexDisplay(
                                                     RoundedCornerShape(6.dp)
                                                 )
                                                 .clickable {
-                                                    selectedCartridgeId = if (isGoActive) "Default" else "GO"
+                                                    val nextId = if (isGoActive) "Default" else "GO"
+                                                    selectedCartridgeId = nextId
+                                                    viewModel.setPreferredGameEdition(nextId)
                                                 }
                                                 .padding(horizontal = 6.dp),
                                             contentAlignment = Alignment.Center
@@ -1957,6 +1999,7 @@ fun PokedexDisplay(
                                     },
                                     onCartridgeSelected = { newCartridgeId ->
                                         selectedCartridgeId = newCartridgeId
+                                        viewModel.setPreferredGameEdition(newCartridgeId)
                                     },
                                     onDismiss = { showEvolutionModal = false }
                                 )
@@ -1970,6 +2013,7 @@ fun PokedexDisplay(
                                     selectedCartridgeId = activeCartridge.id,
                                     onSelectCartridge = { cartridge ->
                                         selectedCartridgeId = cartridge.id
+                                        viewModel.setPreferredGameEdition(cartridge.id)
                                         showEditionModal = false
                                         val newText = if (cartridge.id == "Default") {
                                             state.pokemon.flavorText

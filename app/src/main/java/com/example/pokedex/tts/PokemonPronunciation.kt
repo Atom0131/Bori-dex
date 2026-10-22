@@ -8,6 +8,7 @@ import java.util.regex.Pattern
 object PokemonPronunciation {
 
     private val pronunciationMap = mutableMapOf<String, String>()
+    private val multiWordPhrases = mutableListOf<Pair<Pattern, String>>()
     private var isLoaded = false
 
     // Precompiled regex for rapid word boundary matching
@@ -26,16 +27,56 @@ object PokemonPronunciation {
 
             val jsonObject = JSONObject(jsonString)
             val keys = jsonObject.keys()
+            val multiWordTemp = mutableListOf<Pair<String, String>>()
+
             while (keys.hasNext()) {
                 val key = keys.next().lowercase().trim()
                 val value = jsonObject.getString(key).trim()
                 pronunciationMap[key] = value
+
+                if (key.contains(" ")) {
+                    multiWordTemp.add(Pair(key, value))
+                }
             }
+
+            // Sort multi-word phrases by length descending to match longest phrases first
+            multiWordPhrases.clear()
+            multiWordTemp.sortByDescending { it.first.length }
+            for ((phrase, phonetic) in multiWordTemp) {
+                val pattern = Pattern.compile("(?i)\\b" + Pattern.quote(phrase) + "\\b")
+                multiWordPhrases.add(Pair(pattern, phonetic))
+            }
+
             isLoaded = true
-            android.util.Log.d("PokemonPronunciation", "Loaded ${pronunciationMap.size} Pokemon pronunciations successfully.")
+            android.util.Log.d("PokemonPronunciation", "Loaded ${pronunciationMap.size} Pokemon pronunciations (${multiWordPhrases.size} multi-word phrases) successfully.")
         } catch (e: Exception) {
             android.util.Log.e("PokemonPronunciation", "Error loading pokemon_pronunciations.json", e)
         }
+    }
+
+    /**
+     * Test initialization method for JVM unit tests
+     */
+    fun initForTesting(testMap: Map<String, String>) {
+        pronunciationMap.clear()
+        multiWordPhrases.clear()
+
+        val multiWordTemp = mutableListOf<Pair<String, String>>()
+        for ((k, v) in testMap) {
+            val key = k.lowercase().trim()
+            val value = v.trim()
+            pronunciationMap[key] = value
+            if (key.contains(" ")) {
+                multiWordTemp.add(Pair(key, value))
+            }
+        }
+
+        multiWordTemp.sortByDescending { it.first.length }
+        for ((phrase, phonetic) in multiWordTemp) {
+            val pattern = Pattern.compile("(?i)\\b" + Pattern.quote(phrase) + "\\b")
+            multiWordPhrases.add(Pair(pattern, phonetic))
+        }
+        isLoaded = true
     }
 
     /**
@@ -69,6 +110,13 @@ object PokemonPronunciation {
         // 3. Clean Pokédex terms
         text = text.replace("(?i)\\bPOKéMON\\b".toRegex(), "Pokemon")
         text = text.replace("(?i)\\bPOKEMON\\b".toRegex(), "Pokemon")
+
+        // 3.5. Multi-word phrase replacement (e.g. "Tapu Koko", "Iron Treads", "Mr. Mime")
+        if (multiWordPhrases.isNotEmpty()) {
+            for ((pattern, phonetic) in multiWordPhrases) {
+                text = pattern.matcher(text).replaceAll(MatcherQuote(phonetic))
+            }
+        }
 
         // 4. Fast phonetic replacement using matcher buffer (with possessive resolution)
         if (pronunciationMap.isNotEmpty()) {

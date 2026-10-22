@@ -1,6 +1,5 @@
 package com.example.pokedex.camera
 
-import android.util.Size
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
@@ -8,6 +7,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,6 +20,7 @@ import java.util.concurrent.Executors
 @Composable
 fun CameraPreview(
     onFrame: (android.graphics.Bitmap) -> Unit,
+    controller: CameraXController? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -31,6 +32,13 @@ fun CameraPreview(
         } 
     }
     val cameraExecutor = remember { Executors.newSingleThreadExecutor() }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            controller?.setTorch(false)
+            cameraExecutor.shutdown()
+        }
+    }
 
     LaunchedEffect(Unit) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
@@ -62,16 +70,30 @@ fun CameraPreview(
                     imageAnalyzer
                 )
                 
-                // Tap-to-focus on preview touch
+                // Attach camera & metering to controller
+                controller?.attachCamera(camera, previewView.meteringPointFactory)
+                
+                // Observe live zoom state from CameraX
+                camera.cameraInfo.zoomState.observe(lifecycleOwner) { zoomState ->
+                    controller?.updateZoomState(
+                        zoomState.zoomRatio,
+                        zoomState.minZoomRatio,
+                        zoomState.maxZoomRatio
+                    )
+                }
+                
+                // Observe live torch state from CameraX
+                camera.cameraInfo.torchState.observe(lifecycleOwner) { torchState ->
+                    controller?.updateTorchState(torchState)
+                }
+
+                // Fallback direct touch listener on PreviewView
                 previewView.setOnTouchListener { view, event ->
                     if (event.action == android.view.MotionEvent.ACTION_UP) {
-                        val factory = previewView.meteringPointFactory
-                        val point = factory.createPoint(event.x, event.y)
-                        val action = androidx.camera.core.FocusMeteringAction.Builder(
-                            point, 
-                            androidx.camera.core.FocusMeteringAction.FLAG_AF or androidx.camera.core.FocusMeteringAction.FLAG_AE
-                        ).setAutoCancelDuration(3, java.util.concurrent.TimeUnit.SECONDS).build()
-                        camera.cameraControl.startFocusAndMetering(action)
+                        controller?.startFocusAndMetering(
+                            androidx.compose.ui.geometry.Offset(event.x, event.y),
+                            context
+                        )
                         view.performClick()
                     }
                     true
@@ -87,4 +109,3 @@ fun CameraPreview(
         modifier = modifier.fillMaxSize()
     )
 }
-

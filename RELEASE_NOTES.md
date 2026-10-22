@@ -1,3 +1,38 @@
+# 🚀 Release Notes - Bori-dex v1.6.4
+
+**Release Date:** October 22, 2026  
+**Platform:** Android (API 24 to API 36)  
+**Binary:** `Bori-dex-v1.6.4.apk` / `app-debug.apk`  
+**Master Dataset:** [Bori-dex 1,025 Pokemon Master Vision Dataset (679k Images)](https://www.kaggle.com/datasets/atom0131/boridex-pokemon-master-dataset-494k)
+
+---
+
+## What's New in v1.6.4
+
+### 🎯 1. Scanner HUD Overhaul & 240dp Viewport
+- **Enlarged 240.dp Viewport**: Enlarged target viewfinder box from 125.dp to **`240.dp` × `240.dp`** with `RoundedCornerShape(14.dp)`, providing natural, comfortable physical framing for plushies, toys, 3D prints, and cards.
+- **Balanced Vertical Centering**: Positioned at `Alignment.Center` with `offset(y = (-32).dp)`, perfectly calibrated between the top display bezel (~120.dp clearance) and quick-zoom dock (~75.dp clearance).
+- **Concentric Rounded Corner Brackets**: Replaced sharp 90° right angles with smooth 9.dp circular arcs matching the outer 14.dp curvature (`14.dp - 5.dp = 9.dp`). Rendered with `StrokeCap.Round` and `StrokeJoin.Round` for soft, organic cyber curves with zero sharp edges.
+- **Zero-Overlap Telemetry & Reticle Rescale**:
+  - Rescaled Pokéball reticle: `pokeRadius = 84.dp`, `outerRadius = 98.4.dp`, central core = `16.dp`.
+  - Holographic creature preview enlarged to `140.dp` container with `125.dp` sprite.
+  - Telemetry readouts (`SYS: SCAN 894MHz`, `RADAR: ACTIVE`, `TARGET: --`, `FOV: 70% CROP`) sit cleanly with zero overlap.
+
+### 📐 2. Pixel-Perfect 0px Flush Bezel Fit
+- **Unified Screen Padding**: Applied `isCompactBezel` so that `PokedexState.Scanning` uses the exact same `6.dp` bezel padding as the Pokémon Entry screen (`PokedexState.Result`).
+- **Viewfinder Bezel Clipping**: Added `.clip(RoundedCornerShape(8.dp))` to both the camera container `Box` and `CameraPreview`, eliminating the 55px bleed into the red chassis and unclipped corners. Native camera feed now aligns with 0 px deviation ($y = 383\text{ px}$, $x = 30\text{ px}$).
+
+### 🦖 3. Stage 6 Fossil Museum Pikachu Model Calibration
+- **Real-World Multi-Crop Ingestion**: Ingested 18 high-resolution real-world photos of the authentic Japanese Pokémon Fossil Museum (ポケモン化石博物館) Excavator Pikachu plush across multiple lighting conditions and angles.
+- **DirectML Targeted Calibration**: Fine-tuned Stage 6 backbone layers on NVIDIA GTX 1660 Ti with balanced dual-stream batches, eliminating misclassification with Volbeat (#313).
+- **Full-Precision Float32 TFLite Engine**: Preserves Float32 weights (`14.1 MB`) in `assets/model.tflite` to prevent post-training quantization collapse on 1,025 classes.
+
+### 🌐 4. Pokemon GO Evolution Items & Anime Natural Speech
+- **Comprehensive Evolution Guide**: Dynamic evolution guide supporting Pokemon GO items (XL Candy, Mega Energy, Sinnoh/Unova Stones, Solar/Lunar Fusion Energy).
+- **Phonetic Pronunciation Engine**: Expanded dictionary to 1,071 title-cased entries across all 1,025 species, eliminating screaming all-caps in favor of authentic anime sentence casing.
+
+---
+
 # 🚀 Release Notes - Bori-dex v1.3.0
 
 **Release Date:** October 16, 2026  

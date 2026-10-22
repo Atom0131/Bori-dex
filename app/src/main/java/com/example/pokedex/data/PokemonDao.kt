@@ -31,6 +31,12 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon WHERE evolvesTo LIKE '%' || :name || '%' LIMIT 1")
     fun getPreEvolution(name: String): PokemonEntity?
 
+    @Query("SELECT * FROM pokemon WHERE name IN (:names)")
+    fun getPokemonByNames(names: List<String>): List<PokemonEntity>
+
+    @Query("SELECT * FROM pokemon WHERE forms LIKE '%' || :name || '%' OR name LIKE :name || '-%'")
+    fun getFormsForPokemon(name: String): List<PokemonEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(pokemon: List<PokemonEntity>)
 }

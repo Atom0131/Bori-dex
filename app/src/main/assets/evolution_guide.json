@@ -11,8 +11,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -30,8 +30,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -68,9 +68,9 @@
             "note": "Gifted by Professor Sycamore in Lumiose City."
           },
           "GO": {
-            "method": "50 Candy + Venusaurite",
-            "item": "venusaurite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (3 km / candy)."
           }
         }
       }
@@ -88,8 +88,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -107,8 +107,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -145,9 +145,9 @@
             "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon X."
           },
           "GO": {
-            "method": "50 Candy + Charizardite X",
-            "item": "charizardite-x.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (3 km / candy)."
           }
         }
       },
@@ -178,9 +178,9 @@
             "note": "Gifted by Professor Sycamore in Lumiose City in Pokemon Y."
           },
           "GO": {
-            "method": "50 Candy + Charizardite Y",
-            "item": "charizardite-y.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (3 km / candy)."
           }
         }
       }
@@ -198,8 +198,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -217,8 +217,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -255,9 +255,9 @@
             "note": "Gifted by Professor Sycamore in Lumiose City."
           },
           "GO": {
-            "method": "50 Candy + Blastoisinite",
-            "item": "blastoisinite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (3 km / candy)."
           }
         }
       }
@@ -274,9 +274,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "12 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 10 Candy"
           }
         }
       }
@@ -293,9 +293,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -317,9 +317,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "12 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 10 Candy"
           }
         }
       }
@@ -336,9 +336,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -360,9 +360,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "12 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 10 Candy"
           }
         }
       }
@@ -379,9 +379,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -404,8 +404,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -427,9 +427,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -451,9 +451,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -499,9 +499,9 @@
             "item": "thunder-stone.png"
           },
           "GO": {
-            "method": "50 Candy + Thunder Stone",
-            "item": "thunder-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -523,9 +523,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -548,8 +548,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -566,9 +566,9 @@
         "defaultItem": "moon-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Moon Stone",
-            "item": "moon-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -591,8 +591,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -609,9 +609,9 @@
         "defaultItem": "moon-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Moon Stone",
-            "item": "moon-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -633,9 +633,9 @@
         "defaultItem": "moon-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Moon Stone",
-            "item": "moon-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -657,9 +657,9 @@
         "defaultItem": "fire-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Fire Stone",
-            "item": "fire-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -681,9 +681,9 @@
         "defaultItem": "moon-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Moon Stone",
-            "item": "moon-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -706,8 +706,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -724,9 +724,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -744,8 +744,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -762,9 +762,9 @@
         "defaultItem": "leaf-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Leaf Stone",
-            "item": "leaf-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       },
@@ -775,9 +775,9 @@
         "defaultItem": "sun-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Sun Stone",
+            "method": "100 Candy + Sun Stone",
             "item": "sun-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -799,9 +799,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -823,9 +823,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -847,9 +847,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -871,9 +871,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       },
@@ -884,9 +884,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -908,9 +908,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -932,9 +932,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -966,9 +966,9 @@
             "note": "Primeape learns Rage Fist at Level 35. Moves count even against Normal types or protected hits."
           },
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Defeat 30 Ghost or Psychic-type Pokémon in battles as Buddy + 100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -985,9 +985,9 @@
         "defaultItem": "fire-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Fire Stone",
-            "item": "fire-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1010,8 +1010,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -1028,9 +1028,9 @@
         "defaultItem": "water-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Water Stone",
-            "item": "water-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       },
@@ -1041,9 +1041,9 @@
         "defaultItem": "kings-rock.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Kings Rock",
+            "method": "100 Candy + King's Rock",
             "item": "kings-rock.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -1066,8 +1066,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -1089,9 +1089,9 @@
             "note": "Can also be caught as Alpha in Sandgem Flats."
           },
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "100 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Waive all Candy cost by trading with a friend • Purified: 90 Candy"
           }
         }
       }
@@ -1114,8 +1114,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -1137,9 +1137,9 @@
             "note": "Can also be caught as Alpha in Arena's Approach."
           },
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "100 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Waive all Candy cost by trading with a friend • Purified: 90 Candy"
           }
         }
       }
@@ -1162,8 +1162,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -1180,9 +1180,9 @@
         "defaultItem": "leaf-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Leaf Stone",
-            "item": "leaf-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -1204,9 +1204,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1229,8 +1229,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -1252,9 +1252,9 @@
             "note": "Can also be caught as Alpha in Bolderoll Ravine."
           },
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "100 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Waive all Candy cost by trading with a friend • Purified: 90 Candy"
           }
         }
       }
@@ -1276,9 +1276,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1300,9 +1300,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       },
@@ -1313,9 +1313,9 @@
         "defaultItem": "kings-rock.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Kings Rock",
+            "method": "50 Candy + King's Rock",
             "item": "kings-rock.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1337,9 +1337,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -1432,9 +1432,9 @@
             "item": "thunder-stone.png"
           },
           "GO": {
-            "method": "50 Candy + Thunder Stone",
-            "item": "thunder-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy near Magnetic Lure Module",
+            "item": "magnetic-lure.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -1451,9 +1451,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Make 10 Excellent Throws as Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -1470,9 +1470,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -1494,9 +1494,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1518,9 +1518,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1542,9 +1542,9 @@
         "defaultItem": "water-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Water Stone",
-            "item": "water-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1567,8 +1567,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -1620,9 +1620,9 @@
             "note": "Can be transferred directly into GO Park in Fuchsia City."
           },
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "100 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Waive all Candy cost by trading with a friend • Purified: 90 Candy"
           }
         }
       }
@@ -1659,9 +1659,9 @@
             "note": "Found in Laverre City from an occultist."
           },
           "GO": {
-            "method": "50 Candy + Gengarite",
-            "item": "gengarite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (3 km / candy)."
           }
         }
       }
@@ -1684,7 +1684,7 @@
           "GO": {
             "method": "50 Candy + Metal Coat",
             "item": "metal-coat.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1701,9 +1701,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1725,9 +1725,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1749,9 +1749,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1797,9 +1797,9 @@
             "item": "leaf-stone.png"
           },
           "GO": {
-            "method": "50 Candy + Leaf Stone",
-            "item": "leaf-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1845,9 +1845,9 @@
             "item": null
           },
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1881,7 +1881,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -1910,9 +1910,9 @@
             "item": null
           },
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -1934,9 +1934,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -1959,7 +1959,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -1977,8 +1977,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -1997,7 +1997,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -2019,9 +2019,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -2038,9 +2038,9 @@
         "defaultItem": "dragon-scale.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Dragon Scale",
+            "method": "100 Candy + Dragon Scale",
             "item": "dragon-scale.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -2057,9 +2057,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -2081,9 +2081,9 @@
         "defaultItem": "water-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Water Stone",
-            "item": "water-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -2105,9 +2105,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -2130,7 +2130,7 @@
           "GO": {
             "method": "50 Candy + Metal Coat",
             "item": "metal-coat.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       },
@@ -2158,9 +2158,9 @@
             "item": null
           },
           "GO": {
-            "method": "50 Candy + Black Augurite",
-            "item": "black-augurite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -2188,7 +2188,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -2211,7 +2211,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -2238,9 +2238,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "400 Magikarp Candy",
-            "item": "pokemongo.png",
-            "note": "Catch and walk Magikarp to accumulate 400 Candy."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 360 Candy"
           }
         }
       }
@@ -2272,9 +2272,9 @@
         "defaultItem": "water-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "25 Candy + Buddy / Lure Tasks",
-            "item": "pokemongo.png",
-            "note": "Use name tricks or 10km buddy walks (day/night), Lures, or 70 Buddy Hearts."
+            "method": "25 Eevee Candy (Random or Nickname 'Rainer')",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • 1-time nickname trick available"
           }
         }
       },
@@ -2285,9 +2285,9 @@
         "defaultItem": "thunder-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "25 Candy + Buddy / Lure Tasks",
-            "item": "pokemongo.png",
-            "note": "Use name tricks or 10km buddy walks (day/night), Lures, or 70 Buddy Hearts."
+            "method": "25 Eevee Candy (Random or Nickname 'Sparky')",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • 1-time nickname trick available"
           }
         }
       },
@@ -2298,9 +2298,9 @@
         "defaultItem": "fire-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "25 Candy + Buddy / Lure Tasks",
-            "item": "pokemongo.png",
-            "note": "Use name tricks or 10km buddy walks (day/night), Lures, or 70 Buddy Hearts."
+            "method": "25 Eevee Candy (Random or Nickname 'Pyro')",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • 1-time nickname trick available"
           }
         }
       },
@@ -2311,9 +2311,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy + Buddy / Lure Tasks",
-            "item": "pokemongo.png",
-            "note": "Use name tricks or 10km buddy walks (day/night), Lures, or 70 Buddy Hearts."
+            "method": "Walk 10 km as Buddy + Evolve during Day (or Nickname 'Sakura')",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • 1-time nickname trick available"
           }
         }
       },
@@ -2324,9 +2324,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy + Buddy / Lure Tasks",
-            "item": "pokemongo.png",
-            "note": "Use name tricks or 10km buddy walks (day/night), Lures, or 70 Buddy Hearts."
+            "method": "Walk 10 km as Buddy + Evolve during Night (or Nickname 'Tamao')",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • 1-time nickname trick available"
           }
         }
       },
@@ -2465,9 +2465,9 @@
             "item": "leaf-stone.png"
           },
           "GO": {
-            "method": "25 Candy + Buddy / Lure Tasks",
-            "item": "pokemongo.png",
-            "note": "Use name tricks or 10km buddy walks (day/night), Lures, or 70 Buddy Hearts."
+            "method": "25 Candy near Mossy Lure (or Nickname 'Linnea')",
+            "item": "mossy-lure.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • 1-time nickname trick available"
           }
         }
       },
@@ -2606,9 +2606,9 @@
             "item": "ice-stone.png"
           },
           "GO": {
-            "method": "25 Candy + Buddy / Lure Tasks",
-            "item": "pokemongo.png",
-            "note": "Use name tricks or 10km buddy walks (day/night), Lures, or 70 Buddy Hearts."
+            "method": "25 Candy near Glacial Lure (or Nickname 'Rea')",
+            "item": "glacial-lure.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • 1-time nickname trick available"
           }
         }
       },
@@ -2671,9 +2671,9 @@
             "item": null
           },
           "GO": {
-            "method": "25 Candy + Buddy / Lure Tasks",
-            "item": "pokemongo.png",
-            "note": "Use name tricks or 10km buddy walks (day/night), Lures, or 70 Buddy Hearts."
+            "method": "Earn 70 Buddy Hearts + 25 Candy (or Nickname 'Kira')",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • 1-time nickname trick available"
           }
         }
       }
@@ -2709,9 +2709,9 @@
             "item": "upgrade.png"
           },
           "GO": {
-            "method": "100 Candy + Sinnoh Stone",
-            "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "method": "25 Candy + Up-Grade",
+            "item": "upgrade.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -2728,9 +2728,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -2752,9 +2752,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -2801,9 +2801,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -2821,8 +2821,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -2864,9 +2864,9 @@
             "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
           },
           "GO": {
-            "method": "50 Candy + Mewtwonite X",
-            "item": "mewtwonite-x.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (20 km / candy)."
           }
         }
       },
@@ -2897,9 +2897,9 @@
             "note": "Obtained after capturing Mewtwo in Unknown Dungeon."
           },
           "GO": {
-            "method": "50 Candy + Mewtwonite Y",
-            "item": "mewtwonite-y.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (20 km / candy)."
           }
         }
       }
@@ -2922,8 +2922,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -2940,9 +2940,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (3 km / candy)."
           }
         }
       }
@@ -2965,8 +2965,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -2984,8 +2984,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3008,8 +3008,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -3027,8 +3027,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3051,8 +3051,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -3074,9 +3074,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -3099,8 +3099,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -3122,9 +3122,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -3151,9 +3151,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3175,9 +3175,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -3194,9 +3194,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -3213,9 +3213,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -3232,9 +3232,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3253,7 +3253,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3270,9 +3270,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -3295,8 +3295,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -3314,8 +3314,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3343,8 +3343,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3377,8 +3377,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -3395,9 +3395,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3421,7 +3421,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3440,7 +3440,7 @@
           "GO": {
             "method": "50 Candy + Sun Stone",
             "item": "sun-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3462,9 +3462,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy + Sinnoh Stone",
-            "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (3 km / candy)."
           }
         }
       }
@@ -3481,9 +3481,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       },
@@ -3494,9 +3494,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -3530,7 +3530,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3554,7 +3554,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3594,8 +3594,8 @@
           },
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3612,9 +3612,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -3652,8 +3652,8 @@
           },
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3672,7 +3672,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3694,9 +3694,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -3719,8 +3719,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -3754,7 +3754,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       },
@@ -3765,9 +3765,9 @@
         "defaultItem": "razor-claw.png",
         "versionNotes": {
           "GO": {
-            "method": "100 Candy + Sinnoh Stone",
-            "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "method": "100 Candy (Daytime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3784,9 +3784,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -3820,9 +3820,9 @@
             "item": null
           },
           "GO": {
-            "method": "50 Candy + Peat Block",
-            "item": "peat-block.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy during Full Moon in Pokémon GO",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3839,9 +3839,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -3863,9 +3863,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -3882,9 +3882,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy + Sinnoh Stone",
+            "item": "sinnoh-stone.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -3901,9 +3901,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -3920,9 +3920,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -3959,9 +3959,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -3988,9 +3988,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -4016,9 +4016,9 @@
             "item": "dubious-disc.png"
           },
           "GO": {
-            "method": "50 Candy + Dubious Disc",
-            "item": "dubious-disc.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy + Sinnoh Stone",
+            "item": "sinnoh-stone.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4041,8 +4041,8 @@
           },
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -4065,8 +4065,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       },
@@ -4078,8 +4078,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       },
@@ -4091,8 +4091,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -4114,9 +4114,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -4133,9 +4133,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -4152,9 +4152,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -4196,9 +4196,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -4216,8 +4216,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4255,8 +4255,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -4274,8 +4274,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4298,8 +4298,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -4317,8 +4317,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4341,8 +4341,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -4360,8 +4360,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4383,9 +4383,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -4407,9 +4407,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -4427,8 +4427,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4445,9 +4445,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "12 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       },
@@ -4458,9 +4458,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "12 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -4477,9 +4477,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -4501,9 +4501,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -4526,8 +4526,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -4544,9 +4544,9 @@
         "defaultItem": "water-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Water Stone",
-            "item": "water-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -4569,8 +4569,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -4587,9 +4587,9 @@
         "defaultItem": "leaf-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Leaf Stone",
-            "item": "leaf-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4611,9 +4611,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -4635,9 +4635,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -4660,8 +4660,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -4679,8 +4679,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       },
@@ -4691,9 +4691,9 @@
         "defaultItem": "dawn-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Dawn Stone",
-            "item": "dawn-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy + Sinnoh Stone",
+            "item": "sinnoh-stone.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4730,9 +4730,9 @@
             "note": "Trade with Diantha at Café Soleil in Lumiose City post-game."
           },
           "GO": {
-            "method": "50 Candy + Gardevoirite",
-            "item": "gardevoirite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (5 km / candy)."
           }
         }
       }
@@ -4749,9 +4749,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -4773,9 +4773,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -4798,8 +4798,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -4817,8 +4817,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -4840,9 +4840,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       },
@@ -4854,8 +4854,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -4882,9 +4882,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "12 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 10 Candy"
           }
         }
       }
@@ -4901,9 +4901,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -4925,9 +4925,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -4949,9 +4949,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -5044,9 +5044,9 @@
             "item": "thunder-stone.png"
           },
           "GO": {
-            "method": "50 Candy + Thunder Stone",
-            "item": "thunder-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy near Magnetic Lure Module",
+            "item": "magnetic-lure.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5063,9 +5063,9 @@
         "defaultItem": "moon-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Moon Stone",
-            "item": "moon-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -5097,9 +5097,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -5117,8 +5117,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -5140,9 +5140,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -5164,9 +5164,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5210,7 +5210,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -5227,9 +5227,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -5251,9 +5251,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5275,9 +5275,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 360 Candy"
           }
         }
       }
@@ -5299,9 +5299,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5328,9 +5328,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5357,9 +5357,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -5377,8 +5377,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -5400,9 +5400,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5424,9 +5424,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 360 Candy"
           }
         }
       }
@@ -5468,9 +5468,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5492,9 +5492,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5516,9 +5516,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5540,9 +5540,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5564,9 +5564,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5793,9 +5793,9 @@
             "note": "Trade while holding Prism Scale (found in Kitakami / Oni Mountain / Crystal Pool)."
           },
           "GO": {
-            "method": "Walk 20km as buddy + 100 Candy",
-            "item": "pokemongo.png",
-            "note": "Set Feebas as active buddy and walk 20km."
+            "method": "Walk 20 km as your Buddy + 100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -5827,9 +5827,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -5851,9 +5851,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -5876,7 +5876,7 @@
           "GO": {
             "method": "100 Candy + Sinnoh Stone",
             "item": "sinnoh-stone.png",
-            "note": "Earn Sinnoh Stones from Team Leader training or PvP battles."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -5909,8 +5909,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -5928,8 +5928,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       },
@@ -5940,9 +5940,9 @@
         "defaultItem": "dawn-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Dawn Stone",
-            "item": "dawn-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy + Sinnoh Stone",
+            "item": "sinnoh-stone.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -5964,9 +5964,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -5984,8 +5984,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -6007,9 +6007,9 @@
         "defaultItem": "deep-sea-tooth.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Deep Sea Tooth",
-            "item": "deep-sea-tooth.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       },
@@ -6020,9 +6020,9 @@
         "defaultItem": "deep-sea-scale.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Deep Sea Scale",
-            "item": "deep-sea-scale.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -6059,9 +6059,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -6079,8 +6079,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -6117,9 +6117,9 @@
             "note": "Obtained at Meteor Falls after the Delta Episode."
           },
           "GO": {
-            "method": "50 Candy + Salamencite",
-            "item": "salamencite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (5 km / candy)."
           }
         }
       }
@@ -6137,8 +6137,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -6156,8 +6156,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -6194,9 +6194,9 @@
             "note": "Obtained by defeating Champion Steven in the rematch."
           },
           "GO": {
-            "method": "50 Candy + Metagrossite",
-            "item": "metagrossite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (5 km / candy)."
           }
         }
       }
@@ -6264,8 +6264,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -6283,8 +6283,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -6307,8 +6307,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -6326,8 +6326,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -6350,8 +6350,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -6369,8 +6369,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -6393,8 +6393,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -6412,8 +6412,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -6435,9 +6435,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -6459,9 +6459,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -6484,8 +6484,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -6503,8 +6503,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -6526,9 +6526,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -6550,9 +6550,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -6574,9 +6574,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -6598,9 +6598,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       },
@@ -6611,9 +6611,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -6640,9 +6640,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -6669,9 +6669,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -6693,9 +6693,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -6717,9 +6717,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -6746,9 +6746,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -6771,8 +6771,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -6804,9 +6804,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -6829,8 +6829,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -6847,9 +6847,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -6871,9 +6871,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -6895,9 +6895,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy + Walk 15 km as Buddy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -6914,9 +6914,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy + Walk 15 km as Buddy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -6933,9 +6933,9 @@
         "defaultItem": "oval-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Oval Stone",
-            "item": "oval-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy + Walk 15 km as Buddy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -6963,8 +6963,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -6982,8 +6982,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -7020,9 +7020,9 @@
             "note": "Found in Victory Road tower post-game between 8PM and 9PM."
           },
           "GO": {
-            "method": "50 Candy + Garchompite",
-            "item": "garchompite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (5 km / candy)."
           }
         }
       }
@@ -7040,8 +7040,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -7059,8 +7059,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -7097,9 +7097,9 @@
             "note": "Gifted by Korrina at Tower of Mastery in Shalour City alongside Lucario!"
           },
           "GO": {
-            "method": "50 Candy + Lucarionite",
-            "item": "lucarionite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (5 km / candy)."
           }
         }
       }
@@ -7116,9 +7116,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7140,9 +7140,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7164,9 +7164,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7193,9 +7193,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -7218,8 +7218,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -7236,9 +7236,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7350,9 +7350,9 @@
             "note": "Gifted by Professor Cosmo in Fallarbor Town after Delta Episode."
           },
           "GO": {
-            "method": "50 Candy + Galladite",
-            "item": "galladite.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Mega Evolve using Mega Energy (200 / 100 on subsequent)",
+            "item": "mega-energy.png",
+            "note": "Earn Mega Energy in Mega Raids or walking as Buddy (5 km / candy)."
           }
         }
       }
@@ -7465,8 +7465,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -7484,8 +7484,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -7508,8 +7508,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -7527,8 +7527,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -7551,8 +7551,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -7570,8 +7570,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -7593,9 +7593,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7618,8 +7618,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -7637,8 +7637,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -7660,9 +7660,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7684,9 +7684,9 @@
         "defaultItem": "leaf-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "100 Candy + Unova Stone",
+            "method": "50 Candy + Unova Stone",
             "item": "unova-stone.png",
-            "note": "Earn Unova Stones from defeating Team GO Rocket Leaders."
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -7708,9 +7708,9 @@
         "defaultItem": "fire-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "100 Candy + Unova Stone",
+            "method": "50 Candy + Unova Stone",
             "item": "unova-stone.png",
-            "note": "Earn Unova Stones from defeating Team GO Rocket Leaders."
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -7732,9 +7732,9 @@
         "defaultItem": "water-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "100 Candy + Unova Stone",
+            "method": "50 Candy + Unova Stone",
             "item": "unova-stone.png",
-            "note": "Earn Unova Stones from defeating Team GO Rocket Leaders."
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -7756,9 +7756,9 @@
         "defaultItem": "moon-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Moon Stone",
-            "item": "moon-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy + Unova Stone",
+            "item": "unova-stone.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -7780,9 +7780,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "12 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 9 Candy"
           }
         }
       }
@@ -7799,9 +7799,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7823,9 +7823,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7847,9 +7847,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7871,9 +7871,9 @@
             "note": "Purchase Linking Cord at Simona's shop in Jubilife Village for 1,000 Merit Points."
           },
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "200 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Waive all Candy cost by trading with a friend • Purified: 180 Candy"
           }
         }
       }
@@ -7895,9 +7895,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy + Walk 1 km as Buddy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -7919,9 +7919,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -7948,9 +7948,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -7972,9 +7972,9 @@
             "note": "Purchase Linking Cord at Simona's shop in Jubilife Village for 1,000 Merit Points."
           },
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "200 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Waive all Candy cost by trading with a friend • Purified: 180 Candy"
           }
         }
       }
@@ -7997,8 +7997,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8016,8 +8016,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8050,8 +8050,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -8068,9 +8068,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -8093,8 +8093,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -8112,8 +8112,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -8137,7 +8137,7 @@
           "GO": {
             "method": "50 Candy + Sun Stone",
             "item": "sun-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -8161,7 +8161,7 @@
           "GO": {
             "method": "50 Candy + Sun Stone",
             "item": "sun-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -8184,8 +8184,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -8203,8 +8203,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -8222,8 +8222,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -8245,9 +8245,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8274,9 +8274,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8298,9 +8298,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8327,9 +8327,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       },
@@ -8340,9 +8340,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Win 10 Raids as Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8364,9 +8364,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8388,9 +8388,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8412,9 +8412,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8436,9 +8436,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -8460,9 +8460,9 @@
         "defaultItem": "shiny-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "100 Candy + Unova Stone",
+            "method": "50 Candy + Unova Stone",
             "item": "unova-stone.png",
-            "note": "Earn Unova Stones from defeating Team GO Rocket Leaders."
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8484,9 +8484,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -8504,8 +8504,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -8527,9 +8527,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -8547,8 +8547,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -8570,9 +8570,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8594,9 +8594,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8614,8 +8614,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8637,9 +8637,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8666,9 +8666,9 @@
         "defaultItem": "linking-cord.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Linking Cord",
-            "item": "linking-cord.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "200 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Waive all Candy cost by trading with a friend • Purified: 180 Candy"
           }
         }
       }
@@ -8690,9 +8690,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8714,9 +8714,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8743,9 +8743,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8767,9 +8767,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -8791,9 +8791,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -8811,8 +8811,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -8834,9 +8834,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -8855,7 +8855,7 @@
           "GO": {
             "method": "100 Candy + Unova Stone",
             "item": "unova-stone.png",
-            "note": "Earn Unova Stones from defeating Team GO Rocket Leaders."
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -8877,9 +8877,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -8901,9 +8901,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -8922,7 +8922,7 @@
           "GO": {
             "method": "100 Candy + Unova Stone",
             "item": "unova-stone.png",
-            "note": "Earn Unova Stones from defeating Team GO Rocket Leaders."
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -8944,9 +8944,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -8964,8 +8964,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -8987,9 +8987,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9016,9 +9016,9 @@
         "defaultItem": "linking-cord.png",
         "versionNotes": {
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "200 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Waive all Candy cost by trading with a friend • Purified: 180 Candy"
           }
         }
       }
@@ -9045,9 +9045,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9074,9 +9074,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -9098,9 +9098,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -9132,9 +9132,9 @@
             "note": "Defeat 3 Bisharp that spawn in the center of Pawniard packs (North Province Area 2)."
           },
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -9156,9 +9156,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -9180,9 +9180,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -9214,9 +9214,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -9234,8 +9234,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -9257,9 +9257,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -9342,8 +9342,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -9361,8 +9361,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -9385,8 +9385,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -9404,8 +9404,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -9428,8 +9428,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -9447,8 +9447,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -9470,9 +9470,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -9495,8 +9495,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -9514,8 +9514,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -9537,9 +9537,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -9556,9 +9556,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -9580,9 +9580,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9605,8 +9605,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9623,9 +9623,9 @@
         "defaultItem": "shiny-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Shiny Stone",
-            "item": "shiny-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Earn 20 Buddy Hearts + 100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9647,9 +9647,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9671,9 +9671,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Catch 32 Dark-type Pokémon as Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9700,9 +9700,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9724,9 +9724,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -9743,9 +9743,9 @@
         "defaultItem": "dusk-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Dusk Stone",
-            "item": "dusk-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -9767,9 +9767,9 @@
         "defaultItem": "sachet.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Sachet",
-            "item": "sachet.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Use 1 Incense while Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9791,9 +9791,9 @@
         "defaultItem": "whipped-dream.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Whipped Dream",
-            "item": "whipped-dream.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Feed 25 Treats to Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9815,9 +9815,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Invert Phone",
-            "item": "pokemongo.png",
-            "note": "Physically rotate your phone upside down to evolve Inkay."
+            "method": "Turn Device Upside Down + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9839,9 +9839,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9863,9 +9863,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9887,9 +9887,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -9913,7 +9913,7 @@
           "GO": {
             "method": "50 Candy + Sun Stone",
             "item": "sun-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -9935,9 +9935,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy (Daytime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -9959,9 +9959,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy (Nighttime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -10003,9 +10003,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -10022,9 +10022,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy during Rain or near Rainy Lure",
+            "item": "rainy-lure.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -10056,9 +10056,9 @@
             "note": "Purchase Linking Cord at Simona's shop in Jubilife Village for 1,000 Merit Points."
           },
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "200 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Waive all Candy cost by trading with a friend • Purified: 180 Candy"
           }
         }
       }
@@ -10085,9 +10085,9 @@
             "note": "Purchase Linking Cord at Simona's shop in Jubilife Village for 1,000 Merit Points."
           },
           "GO": {
-            "method": "100 Candy (or 0 Candy via Trade)",
-            "item": "pokemongo.png",
-            "note": "Trading this Pokémon waives the 100 Candy requirement."
+            "method": "200 Candy (0 Candy if Traded)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Waive all Candy cost by trading with a friend"
           }
         }
       }
@@ -10109,9 +10109,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10133,9 +10133,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy • Purified: 360 Candy"
           }
         }
       }
@@ -10188,8 +10188,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10207,8 +10207,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10231,8 +10231,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10250,8 +10250,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10274,8 +10274,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10293,8 +10293,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10317,8 +10317,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -10335,9 +10335,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -10359,9 +10359,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy (Daytime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -10384,8 +10384,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -10402,9 +10402,9 @@
         "defaultItem": "thunder-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Thunder Stone",
-            "item": "thunder-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy near Magnetic Lure Module",
+            "item": "magnetic-lure.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -10426,9 +10426,9 @@
         "defaultItem": "ice-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Ice Stone",
-            "item": "ice-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy near Glacial Lure Module",
+            "item": "glacial-lure.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10455,9 +10455,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -10479,9 +10479,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy (Daytime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -10508,9 +10508,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10532,9 +10532,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10556,9 +10556,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -10580,9 +10580,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy (Daytime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10604,9 +10604,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy • Purified: 45 Candy"
           }
         }
       }
@@ -10628,9 +10628,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10652,9 +10652,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 360 Candy"
           }
         }
       }
@@ -10677,8 +10677,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10695,9 +10695,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10734,9 +10734,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -10758,9 +10758,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -10787,9 +10787,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "200 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 20 km per candy"
           }
         }
       }
@@ -10851,9 +10851,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -10871,8 +10871,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -10914,9 +10914,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 20 km per candy"
           }
         }
       }
@@ -10933,9 +10933,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy (Daytime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 20 km per candy"
           }
         }
       },
@@ -10946,9 +10946,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "100 Candy (Nighttime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 20 km per candy"
           }
         }
       }
@@ -11025,9 +11025,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "200 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 20 km per candy"
           }
         }
       }
@@ -11064,9 +11064,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 20 km per candy"
           }
         }
       }
@@ -11089,8 +11089,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11108,8 +11108,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11132,8 +11132,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11151,8 +11151,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11175,8 +11175,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11194,8 +11194,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11217,9 +11217,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -11242,8 +11242,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 22 Candy"
           }
         }
       }
@@ -11261,8 +11261,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy • Purified: 90 Candy"
           }
         }
       }
@@ -11285,8 +11285,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -11304,8 +11304,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -11327,9 +11327,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -11351,9 +11351,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11375,9 +11375,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11399,9 +11399,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11423,9 +11423,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -11448,8 +11448,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11467,8 +11467,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11514,9 +11514,9 @@
             "item": "tart-apple.png"
           },
           "GO": {
-            "method": "50 Candy + Tart Apple",
-            "item": "tart-apple.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "200 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       },
@@ -11551,9 +11551,9 @@
             "item": "sweet-apple.png"
           },
           "GO": {
-            "method": "50 Candy + Sweet Apple",
-            "item": "sweet-apple.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "200 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       },
@@ -11579,9 +11579,9 @@
             "note": "Purchase Syrupy Apple from the unattended stall in southeastern Kitakami."
           },
           "GO": {
-            "method": "50 Candy + Syrupy Apple",
-            "item": "syrupy-apple.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "200 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -11608,9 +11608,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11637,9 +11637,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11661,9 +11661,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -11685,9 +11685,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -11710,8 +11710,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11733,9 +11733,9 @@
         "defaultItem": "cracked-pot.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Cracked Pot",
-            "item": "cracked-pot.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11757,9 +11757,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -11777,8 +11777,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -11800,9 +11800,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -11820,8 +11820,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -11874,8 +11874,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -11907,9 +11907,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy (Nighttime)",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -11951,9 +11951,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12010,9 +12010,9 @@
             "note": "Purchase Metal Alloy at the School Store for 300 BP or find in Chargestone Cavern."
           },
           "GO": {
-            "method": "50 Candy + Metal Alloy",
-            "item": "metal-alloy.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12029,9 +12029,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12049,8 +12049,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12087,9 +12087,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "200 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 20 km per candy"
           }
         }
       }
@@ -12177,8 +12177,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12196,8 +12196,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12220,8 +12220,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12239,8 +12239,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12263,8 +12263,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12282,8 +12282,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12305,9 +12305,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -12329,9 +12329,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -12353,9 +12353,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -12378,8 +12378,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12396,9 +12396,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Walk 25 km as Buddy + 100 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12421,8 +12421,8 @@
         "versionNotes": {
           "GO": {
             "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -12444,9 +12444,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12469,8 +12469,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12488,8 +12488,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12517,8 +12517,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12536,8 +12536,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12574,9 +12574,9 @@
             "note": "Trade 10 Bronzor Fragments to an elder near the Zapapico fountain (Scarlet exclusive)."
           },
           "GO": {
-            "method": "50 Candy + Auspicious Armor",
-            "item": "auspicious-armor.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Defeat 30 Psychic-type Pokémon in battles as Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       },
@@ -12602,9 +12602,9 @@
             "note": "Trade 10 Sinistea Chips to an elder near the Zapapico fountain (Violet exclusive)."
           },
           "GO": {
-            "method": "50 Candy + Malicious Armor",
-            "item": "malicious-armor.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Defeat 30 Ghost-type Pokémon in battles as Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12631,9 +12631,9 @@
         "defaultItem": "thunder-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Thunder Stone",
-            "item": "thunder-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -12655,9 +12655,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 1 km per candy"
           }
         }
       }
@@ -12679,9 +12679,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12703,9 +12703,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12727,9 +12727,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Walk 20 km as Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12751,9 +12751,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12780,9 +12780,9 @@
         "defaultItem": "fire-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Fire Stone",
-            "item": "fire-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12804,9 +12804,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Walk 25 km as Buddy + 50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12828,9 +12828,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12853,8 +12853,8 @@
         "versionNotes": {
           "GO": {
             "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12872,8 +12872,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12895,9 +12895,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "25 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12924,9 +12924,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -12948,9 +12948,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -12982,9 +12982,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -13006,9 +13006,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -13035,9 +13035,9 @@
         "defaultItem": "ice-stone.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Ice Stone",
-            "item": "ice-stone.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
@@ -13159,9 +13159,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "25 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -13179,8 +13179,8 @@
         "versionNotes": {
           "GO": {
             "method": "100 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -13202,9 +13202,9 @@
         "defaultItem": null,
         "versionNotes": {
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "Collect 999 Gimmighoul Coins + 0 Candy",
+            "item": "gimmighoul-coin.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -13291,9 +13291,9 @@
             "note": "Obtain TM226 (Dragon Cheer) by defeating Drayton of the BB League Elite Four."
           },
           "GO": {
-            "method": "50 Candy",
-            "item": "pokemongo.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "400 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 5 km per candy"
           }
         }
       }
@@ -13310,9 +13310,9 @@
         "defaultItem": "unremarkable-teacup.png",
         "versionNotes": {
           "GO": {
-            "method": "50 Candy + Unremarkable Teacup",
-            "item": "unremarkable-teacup.png",
-            "note": "Standard Pokémon GO species Candy evolution."
+            "method": "50 Candy",
+            "item": "go-candy.png",
+            "note": "🚶 Buddy Walk: 3 km per candy"
           }
         }
       }
