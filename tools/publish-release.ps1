@@ -79,7 +79,8 @@ try {
     } | ConvertTo-Json -Depth 5
 
     $createUrl = "https://api.github.com/repos/$Repo/releases"
-    $release = Invoke-RestMethod -Uri $createUrl -Headers $headers -Method Post -Body $createBody
+    $bodyBytes = [System.Text.Encoding]::UTF8.GetBytes($createBody)
+    $release = Invoke-RestMethod -Uri $createUrl -Headers $headers -Method Post -Body $bodyBytes -ContentType "application/json; charset=utf-8"
     Write-Host ("[+] Created new Release: '" + $release.name + "' (ID: " + $release.id + ")") -ForegroundColor Green
 }
 
