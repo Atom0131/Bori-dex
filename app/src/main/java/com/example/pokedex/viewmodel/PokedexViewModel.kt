@@ -22,6 +22,7 @@ import com.example.pokedex.camera.PokemonFormDetector
 import com.example.pokedex.camera.TFLiteClassifier
 import com.example.pokedex.data.PokemonNameMatcher
 import com.example.pokedex.data.PokemonRegion
+import com.example.pokedex.data.RegionMapEntry
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
@@ -117,8 +118,22 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     private val _selectedRegion = MutableStateFlow<PokemonRegion?>(null)
     val selectedRegion: StateFlow<PokemonRegion?> = _selectedRegion.asStateFlow()
 
+    private val _selectedMapEntryId = MutableStateFlow<String>("all")
+    val selectedMapEntryId: StateFlow<String> = _selectedMapEntryId.asStateFlow()
+
     fun selectRegion(region: PokemonRegion?) {
         _selectedRegion.value = region
+        if (region == null) {
+            _selectedMapEntryId.value = "all"
+        }
+    }
+
+    fun selectMapEntry(entry: RegionMapEntry) {
+        _selectedMapEntryId.value = entry.id
+        _selectedRegion.value = entry.region
+        if (!entry.preferredEditionId.isNullOrBlank()) {
+            setPreferredGameEdition(entry.preferredEditionId)
+        }
     }
 
     private val _scanFlowPreset = MutableStateFlow(
