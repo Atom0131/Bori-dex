@@ -186,7 +186,7 @@ fun ActiveScannerHud(
         // --- CENTER HUD VIEWPORT (240.dp enlarged target centered in open camera viewport) ---
         Box(
             modifier = Modifier
-                .size(240.dp)
+                .size(250.dp)
                 .align(Alignment.Center)
                 .offset(y = (-32).dp)
                 .background(Color.Black.copy(alpha = 0.25f), RoundedCornerShape(14.dp))
@@ -463,7 +463,7 @@ fun ActiveScannerHud(
 
                     // Translucent Holographic Sprite
                     AsyncImage(
-                        model = candidatePokemon.spriteUrl,
+                        model = if (candidatePokemon.id in 1..151 && !isCandidateShiny) "file:///android_asset/sprites/${candidatePokemon.id}.png" else if (isCandidateShiny && !candidatePokemon.shinySpriteUrl.isNullOrEmpty()) candidatePokemon.shinySpriteUrl else candidatePokemon.spriteUrl,
                         contentDescription = candidatePokemon.name,
                         modifier = Modifier
                             .size(125.dp)

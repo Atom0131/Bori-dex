@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2026-10-24
+
+### Added
+- **Stage 8 Low-Light & Official Guidebook Vision Backbone**: 83,086 strategy guide illustrations and 562 physical samples trained with 6 adversarial GPU low-light operations (shadow gamma, sensor noise, deep dimming, tungsten tint, flashlight hotspot).
+- **Interactive Town Map & Gen 1–9 Habitat Tracker**: Encounter database (`pokemon_encounters.json`) with interactive cartridge-style region selector, spawn rates, and encounter popouts across 9 generations.
+- **5-Tier Calibrated Consensus Auto-Lock Engine**: Responsive auto-lock tiers (Tier 1 @ 8 frames down to Tier 5 @ 16 frames for dominant low-light targets).
+- **Expanded $0.85\times$ Optical Centered Crop**: Wide camera crop preventing edge clipping on broad subjects like Lunala's wings and Solgaleo's mane.
+- **250dp HUD Reticle Viewport**: Calibrated viewfinder framing with instant 0 ms offline sprite rendering and dynamic shiny sprite preview.
+
+### Fixed
+- **Advisory Mode Progress Bar Freeze**: Fixed progress calculation so the reticle no longer falsely reaches 100% and green while awaiting decisive consensus.
+- **Initial Camera Settling Latency**: Shaved ~130ms from camera startup by reducing settling threshold from 8 to 4 frames.
+- **Post-Lock Hold Delay**: Reduced voice announcement hold delay from 2400ms to 1600ms for crisp, fluid transition to the Dex entry.
+- **Volbeat & Illumise Specular Glare False Positives**: Applied $0.25\times$ attenuation to protect against packaging reflections.
+
 ## [1.3.0] - 2026-10-16
 
 ### Added

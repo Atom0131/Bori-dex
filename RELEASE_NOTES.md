@@ -1,3 +1,47 @@
+# 🚀 Release Notes - Bori-dex v1.7.0
+
+**Release Date:** October 24, 2026  
+**Platform:** Android (API 24 to API 36)  
+**Binary:** `Bori-dex-v1.7.0.apk` / `app-release.apk`  
+**Master Dataset:** [Bori-dex 1,025 Pokemon Master Vision Dataset (680k+ Images)](https://www.kaggle.com/datasets/atom0131/boridex-pokemon-master-dataset-494k)  
+
+---
+
+## What's New in v1.7.0
+
+### 🌙 1. Stage 8 Low-Light & Official Guidebook Vision Backbone
+- **Official Strategy Guide Extraction**: Extracted and ingested **83,086 official illustrations** across 756+ species from 28 strategy guides (Sun & Moon, Ultra Sun & Moon, HeartGold & SoulSilver, Diamond & Pearl, Scarlet & Violet, etc.).
+- **Physical Real-World Dataset**: Ingested **562 physical samples**, including retail store photos, test video crops (Lunala & Solgaleo 3DS box art), Fossil Museum Pikachu plushies, and statues.
+- **6 Adversarial Low-Light GPU Operations**: DirectML GPU augmentations simulating dim evening lighting (deep dimming down to $0.18\times$, shadow gamma $\gamma \le 2.6$, high-ISO sensor noise $\sigma \le 25$, $2700\text{K}$ incandescent tint, dynamic range flattening, flashlight hotspot).
+- **High-Precision Float32 TFLite Architecture**: Deployed as Float32 (`14.1 MB`) in `assets/model.tflite` to preserve full classification precision across all 1,025 classes.
+
+### 🗺️ 2. Interactive Town Map & Gen 1–9 Habitat Tracker
+- **Complete Encounter Engine**: Shipped `pokemon_encounters.json` covering encounter tables, locations, spawn percentages, and encounter methods (Walking, Surfing, Fishing, Rock Smash, Headbutt) across Gen 1 to Gen 9.
+- **Cartridge-Style Region Selector**: Interactive cartridge carousel with custom retro shells for Kanto, Johto, Hoenn, Sinnoh, Unova, Kalos, Alola, Galar, and Paldea.
+- **Dynamic Spawn Popouts**: Clean, responsive map dialogs with version-specific badges and habitat markers.
+
+### ⚡ 3. Consensus Latency Fine-Tuning & Snappy Transitions
+- **5-Tier Calibrated Auto-Lock**:
+  - **Tier 1** ($\ge 65\%$): Auto-locks in **8 frames (~0.5s)**.
+  - **Tier 2** ($\ge 40\%$): Auto-locks in **10 frames (~0.6s)**.
+  - **Tier 3** ($\ge 26\%$ & $\ge 1.4\times$ ratio): Auto-locks in **12 frames (~0.8s)**.
+  - **Tier 4** ($\ge 22\%$ & $\ge 1.8\times$ ratio): Auto-locks in **14 frames (~0.9s)**.
+  - **Tier 5 (Dominant Low-Light)**: $\ge 17\%$ with $\ge 2.5\times$ ratio auto-locks in **16 frames (~1.0s)**, eliminating the previous 2.6s advisory hold on dark packaging.
+- **Advisory Progress Bar Alignment**: Fixed progress bar calculation so it strictly reflects active locking progress, eliminating false 100% full-bar freezes.
+- **Initial Camera Settling**: Shaved ~130ms from lens activation by reducing settling frames from 8 to 4.
+- **Post-Lock Voice Reveal**: Tightened delay from 2400ms to 1600ms for immediate, fluid transition to the full Dex entry.
+
+### 👁️ 4. Scanner Viewport & Camera Optical Centering
+- **Expanded $0.85\times$ Optical Crop**: Widened camera analyzer crop from $0.70\times$ to **$0.85\times$** at optical center ($44.1\%$), capturing wide anatomical wingspan (Lunala), perimeter mane (Solgaleo), and physical 3DS box borders without edge clipping.
+- **Calibrated 250dp Reticle**: Perfectly balanced across folded cover and unfolded tablet displays on Samsung Galaxy Z Fold.
+- **0 ms Offline Sprites**: Instant offline loading from local assets with dynamic shiny sprite previews.
+
+### 🛡️ 5. Specular Glare Attenuation Guardrail
+- **Reflection Suppression**: Automatically applies $0.25\times$ attenuation to Volbeat/Illumise candidates below $60\%$ confidence to suppress false reflections on glossy packaging and retail glass.
+- **Automated Verification**: 14 JVM unit tests in `PokedexConsensusTest` passing 100%.
+
+---
+
 # 🚀 Release Notes - Bori-dex v1.6.4
 
 **Release Date:** October 22, 2026  

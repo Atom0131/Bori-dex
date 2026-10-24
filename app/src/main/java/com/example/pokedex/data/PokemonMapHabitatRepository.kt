@@ -1,21 +1,54 @@
 package com.example.pokedex.data
 
+import android.content.Context
+import org.json.JSONObject
 import java.util.Locale
 
 object PokemonMapHabitatRepository {
 
+    private var appContext: Context? = null
+    private var encountersJsonRoot: JSONObject? = null
+
+    fun init(context: Context) {
+        if (appContext == null) {
+            appContext = context.applicationContext
+        }
+    }
+
     fun getHabitatForPokemon(
         pokemonId: Int,
         pokemonName: String,
-        cartridgeId: String?
+        cartridgeId: String?,
+        context: Context? = null
     ): PokemonHabitatMap {
+        if (context != null && appContext == null) {
+            appContext = context.applicationContext
+        }
         val cid = cartridgeId?.trim() ?: "Default"
         val normName = pokemonName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+
+        val upperCid = cid.uppercase(Locale.ROOT)
 
         // Determine Region and Map Asset based on cartridge
         val (regionName, mapAsset, editionDisplayName) = resolveRegionAndMap(cid)
 
-        // 1. Check Starter Partner Gifts & Cross-Generation Regional Gifts
+        // 1. POKÉMON GO (Universal GPS Biomes, Eggs, Raids, Tasks)
+        if (upperCid in listOf("GO", "POKEMON GO", "POKÉMON GO")) {
+            return resolvePokemonGoEncounter(pokemonId, normName)
+        }
+
+        // 2. POKÉMON LEGENDS: Z-A (Lumiose City & Prism Tower Wild Encounters)
+        if (upperCid in listOf("LEGENDS: Z-A", "LEGENDS ZA", "ZA", "LUMIOSE", "LEGENDS Z-A")) {
+            return resolveLegendsZAEncounter(pokemonId, normName)
+        }
+
+        // 3. POKÉMON SCARLET & VIOLET (Paldea Starters, Blueberry Academy Terarium & 7-Star Raids)
+        if (upperCid in listOf("SCARLET", "VIOLET")) {
+            val svResult = resolveScarletVioletSpecial(pokemonId, normName, cid, editionDisplayName)
+            if (svResult != null) return svResult
+        }
+
+        // 4. Specific Starter Partner Gifts & Cross-Generation Regional Gifts (Red, Blue, Yellow, XY, HGSS, SwSh, etc.)
         val starterResult = resolveStarterGift(pokemonId, normName, cid, regionName, mapAsset, editionDisplayName)
         if (starterResult != null) return starterResult
 
@@ -26,6 +59,10 @@ object PokemonMapHabitatRepository {
         // 3. Check Known Wild Encounters
         val wildResult = resolveWildEncounters(pokemonId, normName, cid, regionName, mapAsset, editionDisplayName)
         if (wildResult != null) return wildResult
+
+        // 3.5. Query Comprehensive Offline Encounters Database (pokemon_encounters.json)
+        val jsonResult = resolveFromEncountersDatabase(pokemonId, normName, cid, regionName, mapAsset, editionDisplayName)
+        if (jsonResult != null) return jsonResult
 
         // 4. Evolution / Non-Wild Fallback (Area Unknown)
         return resolveEvolutionOrAreaUnknown(pokemonId, normName, cid, regionName, mapAsset, editionDisplayName)
@@ -56,25 +93,52 @@ object PokemonMapHabitatRepository {
     }
 
     private fun resolveRegionAndMap(cartridgeId: String): Triple<String, String, String> {
-        val upper = cartridgeId.uppercase(Locale.ROOT)
+        val upper = cartridgeId.uppercase(Locale.ROOT).trim()
         return when {
+            // Legends: Z-A (Lumiose City / Kalos)
+            upper in listOf("LEGENDS: Z-A", "LEGENDS ZA", "ZA", "LUMIOSE", "LEGENDS Z-A") ->
+                Triple("Lumiose City / Kalos", "kalos_xy.png", "LEGENDS: Z-A")
+
+            // Classic Kanto & Remakes
             upper in listOf("RED", "BLUE", "YELLOW") -> Triple("Kanto", "kanto_rgby.png", cartridgeId.uppercase())
             upper in listOf("FIRERED", "LEAFGREEN", "FIRE RED", "LEAF GREEN") -> Triple("Kanto", "kanto_frlg.png", cartridgeId.uppercase())
             upper in listOf("LET'S GO PIKACHU", "LET'S GO EEVEE", "LETS GO PIKACHU", "LETS GO EEVEE") -> Triple("Kanto", "kanto_frlg.png", cartridgeId.uppercase())
+
+            // Johto
             upper in listOf("GOLD", "SILVER", "CRYSTAL") -> Triple("Johto", "johto_gsc.png", cartridgeId.uppercase())
             upper in listOf("HEARTGOLD", "SOULSILVER", "HEART GOLD", "SOUL SILVER") -> Triple("Johto", "johto_hgss.png", cartridgeId.uppercase())
+
+            // Hoenn
             upper in listOf("RUBY", "SAPPHIRE", "EMERALD") -> Triple("Hoenn", "hoenn_rse.png", cartridgeId.uppercase())
             upper in listOf("OMEGA RUBY", "ALPHA SAPPHIRE", "OMEGARUBY", "ALPHASAPPHIRE") -> Triple("Hoenn", "hoenn_oras.png", cartridgeId.uppercase())
+
+            // Sinnoh
             upper in listOf("DIAMOND", "PEARL", "PLATINUM", "BDSP") -> Triple("Sinnoh", "sinnoh_pt.png", cartridgeId.uppercase())
+
+            // Unova
             upper in listOf("BLACK", "WHITE") -> Triple("Unova", "unova_bw.png", cartridgeId.uppercase())
             upper in listOf("BLACK 2", "WHITE 2", "BLACK2", "WHITE2") -> Triple("Unova", "unova_b2w2.png", cartridgeId.uppercase())
+
+            // Kalos
             upper in listOf("X", "Y") -> Triple("Kalos", "kalos_xy.png", cartridgeId.uppercase())
+
+            // Alola
             upper in listOf("SUN", "MOON") -> Triple("Alola", "alola_sm.png", cartridgeId.uppercase())
             upper in listOf("ULTRA SUN", "ULTRA MOON", "ULTRASUN", "ULTRAMOON") -> Triple("Alola", "alola_usum.png", cartridgeId.uppercase())
+
+            // Galar
             upper in listOf("SWORD", "SHIELD") -> Triple("Galar", "galar_swsh.png", cartridgeId.uppercase())
+
+            // Hisui
             upper in listOf("LEGENDS: ARCEUS", "LEGENDS ARCEUS", "HISUI") -> Triple("Hisui", "hisui_pla.png", "LEGENDS: ARCEUS")
+
+            // Paldea
             upper in listOf("SCARLET", "VIOLET") -> Triple("Paldea", "paldea_sv.png", cartridgeId.uppercase())
+
+            // Pokémon GO
             upper in listOf("GO", "POKEMON GO", "POKÉMON GO") -> Triple("Pokémon GO", "pokemongo_map.png", "POKÉMON GO")
+
+            // Default
             else -> Triple("Kanto", "kanto_rgby.png", "CANONICAL")
         }
     }
@@ -91,6 +155,178 @@ object PokemonMapHabitatRepository {
      * - Gen 8: SwSh (Leon Postwick)
      * - Gen 9: SV (Clavell Cabo Poco)
      */
+    
+    private fun resolvePokemonGoEncounter(pokemonId: Int, pokemonName: String): PokemonHabitatMap {
+        val pins = listOf(
+            MapLocationPin(
+                id = "pogo_wild",
+                areaName = "Worldwide GPS Biome Spawns",
+                coordinate = MapCoordinate(0.500f, 0.500f),
+                type = MapPinType.POKEMON_GO_BIOME,
+                encounterMethod = "Wild World Map GPS Encounter",
+                rateOrLevel = "Weather-Boosted Wild Overworld Spawn",
+                notes = "Spawns in real-world habitats influenced by local weather, biomes, and active seasonal events."
+            ),
+            MapLocationPin(
+                id = "pogo_eggs",
+                areaName = "Egg Hatches",
+                coordinate = MapCoordinate(0.250f, 0.350f),
+                type = MapPinType.POKEMON_GO_BIOME,
+                encounterMethod = "2km / 5km / 7km / 10km / 12km Eggs",
+                rateOrLevel = "Egg Hatch Reward",
+                notes = "Obtained by spinning Photo Discs at Pokéstops and Gyms, or via Gift exchanges."
+            ),
+            MapLocationPin(
+                id = "pogo_raids_tasks",
+                areaName = "Field Tasks & Raid Battles",
+                coordinate = MapCoordinate(0.750f, 0.650f),
+                type = MapPinType.POKEMON_GO_BIOME,
+                encounterMethod = "Pokéstop Field Research & Gym Raids",
+                rateOrLevel = "Tier 1-5 / Mega Raid Boss",
+                notes = "Earned as encounter rewards from Professor Willow's Research Tasks and defeating Raid Bosses."
+            )
+        )
+        return PokemonHabitatMap(
+            pokemonId = pokemonId,
+            pokemonName = pokemonName,
+            editionId = "POKÉMON GO",
+            editionDisplayName = "POKÉMON GO",
+            regionName = "Pokémon GO",
+            mapAsset = "pokemongo_map.png",
+            isAreaUnknown = false,
+            pins = pins,
+            narrationText = "In Pokémon GO, $pokemonName appears in the wild based on local real-world weather and biomes, as well as egg hatches, raid battles, and Field Research tasks."
+        )
+    }
+
+    private fun resolveLegendsZAEncounter(pokemonId: Int, pokemonName: String): PokemonHabitatMap {
+        val isStarter = pokemonId in listOf(
+            1, 4, 7,        // Bulbasaur, Charmander, Squirtle
+            152, 155, 158,  // Chikorita, Cyndaquil, Totodile
+            252, 255, 258,  // Treecko, Torchic, Mudkip
+            387, 390, 393,  // Turtwig, Chimchar, Piplup
+            495, 498, 501,  // Snivy, Tepig, Oshawott
+            650, 653, 656,  // Chespin, Fennekin, Froakie
+            722, 725, 728,  // Rowlet, Litten, Popplio
+            810, 813, 816,  // Grookey, Scorbunny, Sobble
+            906, 909, 912   // Sprigatito, Fuecoco, Quaxly
+        )
+
+        val pin = if (isStarter) {
+            MapLocationPin(
+                id = "za_prism_tower",
+                areaName = "Prism Tower (Wild Sector)",
+                coordinate = MapCoordinate(0.500f, 0.500f),
+                type = MapPinType.WILD_ROUTE,
+                encounterMethod = "Wild Urban Overworld Capture",
+                rateOrLevel = "Common Overworld Roaming Encounter",
+                notes = "In Pokémon Legends: Z-A, starters roam freely around Prism Tower and the urban sectors of Lumiose City, making them easy to capture directly!"
+            )
+        } else {
+            MapLocationPin(
+                id = "za_lumiose_sector",
+                areaName = "Lumiose City Urban Redevelopment Zone",
+                coordinate = MapCoordinate(0.500f, 0.500f),
+                type = MapPinType.WILD_ROUTE,
+                encounterMethod = "Wild City Sector Overworld Roam",
+                rateOrLevel = "Wild Overworld Spawn",
+                notes = "Encountered roaming the newly redeveloped plazas and alleys within Lumiose City."
+            )
+        }
+
+        val narration = if (isStarter) {
+            "In Pokémon Legends: Z-A, $pokemonName can be captured very easily in the wild around Prism Tower and throughout the urban sectors of Lumiose City."
+        } else {
+            "In Pokémon Legends: Z-A, $pokemonName is found roaming natively within Lumiose City during the urban redevelopment project."
+        }
+
+        return PokemonHabitatMap(
+            pokemonId = pokemonId,
+            pokemonName = pokemonName,
+            editionId = "LEGENDS: Z-A",
+            editionDisplayName = "LEGENDS: Z-A",
+            regionName = "Lumiose City / Kalos",
+            mapAsset = "kalos_xy.png",
+            isAreaUnknown = false,
+            pins = listOf(pin),
+            narrationText = narration
+        )
+    }
+
+    private fun resolveScarletVioletSpecial(
+        pokemonId: Int,
+        pokemonName: String,
+        cartridgeId: String,
+        editionDisplayName: String
+    ): PokemonHabitatMap? {
+        // Gen 9 Native Starters: Sprigatito (906), Fuecoco (909), Quaxly (912)
+        if (pokemonId in listOf(906, 909, 912)) {
+            val pin = MapLocationPin(
+                id = "cabo_poco_clavell",
+                areaName = "Cabo Poco (Director Clavell's House)",
+                coordinate = MapCoordinate(0.380f, 0.900f),
+                type = MapPinType.STARTER_GIFT,
+                encounterMethod = "Starter gift from Director Clavell",
+                rateOrLevel = "Lv. 5",
+                notes = "Presented by Academy Director Clavell at his private residence in Cabo Poco."
+            )
+            return PokemonHabitatMap(
+                pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                editionDisplayName = editionDisplayName, regionName = "Paldea", mapAsset = "paldea_sv.png",
+                isAreaUnknown = false, pins = listOf(pin),
+                narrationText = "In Pokémon $editionDisplayName, $pokemonName is chosen in Cabo Poco as your starter partner from Director Clavell."
+            )
+        }
+
+        // Legacy Starters (Gen 1 to 8): Bulbasaur (1), Charmander (4), Squirtle (7), etc.
+        val legacyStarters = listOf(
+            1, 4, 7,
+            152, 155, 158,
+            252, 255, 258,
+            387, 390, 393,
+            495, 498, 501,
+            650, 653, 656,
+            722, 725, 728,
+            810, 813, 816
+        )
+        if (pokemonId in legacyStarters) {
+            val biome = when (pokemonId) {
+                1, 7, 158, 258, 393, 501, 656, 728, 816 -> "Coastal Biome"
+                4, 155, 255, 390, 498, 501, 653, 725, 813 -> "Savanna Biome"
+                152, 252, 387, 495, 650, 722, 810 -> "Canyon Biome"
+                else -> "Polar Biome"
+            }
+            val pins = listOf(
+                MapLocationPin(
+                    id = "terarium_dome",
+                    areaName = "Blueberry Academy Terarium ($biome)",
+                    coordinate = MapCoordinate(0.850f, 0.850f),
+                    type = MapPinType.WILD_ROUTE,
+                    encounterMethod = "Terarium Dome Wild Encounter",
+                    rateOrLevel = "Lv. 55-70 (Indigo Disk DLC)",
+                    notes = "Roams wild in the $biome after upgrading the biome via the League Club Computer (3,000 BP)."
+                ),
+                MapLocationPin(
+                    id = "sv_trades_events",
+                    areaName = "Link Trades & Event Distributions",
+                    coordinate = MapCoordinate(0.500f, 0.680f),
+                    type = MapPinType.SPECIAL_GIFT,
+                    encounterMethod = "Link Trades, Mystery Gifts & 7-Star Black Crystal Tera Raids",
+                    rateOrLevel = "Lv. 75-100 (Event Raids) / Link Trade",
+                    notes = "Available via Link Trade with other trainers, Pokémon HOME transfer, special Mystery Gifts, and periodic 7-Star Black Crystal Tera Raid events with the Mightiest Mark!"
+                )
+            )
+            return PokemonHabitatMap(
+                pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                editionDisplayName = editionDisplayName, regionName = "Paldea", mapAsset = "paldea_sv.png",
+                isAreaUnknown = false, pins = pins,
+                narrationText = "In Pokémon $editionDisplayName, $pokemonName is obtainable through Link Trades, 7-Star Tera Raid events, and can be caught in the wild within the Blueberry Academy Terarium."
+            )
+        }
+
+        return null
+    }
+
     private fun resolveStarterGift(
         pokemonId: Int,
         pokemonName: String,
@@ -209,29 +445,78 @@ object PokemonMapHabitatRepository {
                 )
                 return PokemonHabitatMap(
                     pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
-                    editionDisplayName = editionDisplayName, regionName = "Johto / Kanto", mapAsset = "kanto_rgby.png",
+                    editionDisplayName = editionDisplayName, regionName = "Kanto (Post-Game)", mapAsset = "kanto_frlg.png",
                     isAreaUnknown = false, pins = listOf(pin),
                     narrationText = "In Pokémon $editionDisplayName, $pokemonName is awarded by Professor Oak in Pallet Town after you defeat Champion Red atop Mt. Silver!"
                 )
             }
 
-            // F. Classic Kanto (Red, Blue, FireRed, LeafGreen, Default)
-            val isFRLG = cid.contains("FIRE") || cid.contains("LEAF")
-            val coord = if (isFRLG) MapCoordinate(0.150f, 0.750f) else MapCoordinate(0.224f, 0.800f)
-            val pin = MapLocationPin(
-                id = "pallet_oak",
-                areaName = "Pallet Town (Pokémon Lab)",
-                coordinate = coord,
-                type = MapPinType.STARTER_GIFT,
-                encounterMethod = "Starter gift from Professor Oak",
-                rateOrLevel = "Lv. 5",
-                notes = "Chosen as your first partner Pokémon in the Pallet Town Pokémon Lab from Professor Oak."
-            )
+            // F. Original Generation 2 (Gold, Silver, Crystal - Time Capsule Trade)
+            if (cid.contains("GOLD") || cid.contains("SILVER") || cid.contains("CRYSTAL")) {
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Johto", mapAsset = "johto_gsc.png",
+                    isAreaUnknown = true,
+                    unknownReason = "In Pokémon $editionDisplayName, $pokemonName cannot be found in the wild in Johto or Kanto. It must be traded from Pokémon Red, Blue, or Yellow using the Pokémon Center Time Capsule.",
+                    pins = emptyList(),
+                    narrationText = "In Pokémon $editionDisplayName, $pokemonName must be traded from Pokémon Red, Blue, or Yellow via the Time Capsule in any Pokémon Center."
+                )
+            }
+
+            // G. Classic Kanto (Red, Blue, FireRed, LeafGreen, Default)
+            val isKanto = regionName == "Kanto" || cid.contains("RED") || cid.contains("BLUE") || cid.contains("FIRE") || cid.contains("LEAF") || cid.equals("Default", ignoreCase = true)
+            if (isKanto) {
+                val isFRLG = cid.contains("FIRE") || cid.contains("LEAF")
+                val coord = if (isFRLG) MapCoordinate(0.150f, 0.750f) else MapCoordinate(0.224f, 0.800f)
+                val pin = MapLocationPin(
+                    id = "pallet_oak",
+                    areaName = "Pallet Town (Pokémon Lab)",
+                    coordinate = coord,
+                    type = MapPinType.STARTER_GIFT,
+                    encounterMethod = "Starter gift from Professor Oak",
+                    rateOrLevel = "Lv. 5",
+                    notes = "Chosen as your first partner Pokémon in the Pallet Town Pokémon Lab from Professor Oak."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Kanto", mapAsset = mapAsset,
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In $editionDisplayName, $pokemonName is chosen as your first partner Pokémon in Pallet Town, received as a starter gift from Professor Oak in the Pokémon Lab."
+                )
+            }
+
+            // H. Ultra Sun / Ultra Moon (Island Scan Wild Catch)
+            if (cid.contains("ULTRA")) {
+                val (scanArea, scanDay, scanCoord) = when (pokemonId) {
+                    1 -> Triple("Route 2 (Melemele Island)", "Friday Island Scan", MapCoordinate(0.280f, 0.520f))
+                    4 -> Triple("Route 3 (Melemele Island)", "Sunday Island Scan", MapCoordinate(0.350f, 0.420f))
+                    else -> Triple("Seaward Cave (Melemele Island)", "Monday Island Scan", MapCoordinate(0.180f, 0.450f))
+                }
+                val pin = MapLocationPin(
+                    id = "usum_scan_$pokemonId",
+                    areaName = scanArea,
+                    coordinate = scanCoord,
+                    type = MapPinType.WILD_ROUTE,
+                    encounterMethod = "QR Island Scan Encounter ($scanDay)",
+                    rateOrLevel = "Lv. 12",
+                    notes = "Triggered using the QR Scanner Island Scan on $scanDay. Spawns for 1 hour only in $scanArea."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Alola", mapAsset = "alola_usum.png",
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In Pokémon $editionDisplayName, $pokemonName can be caught in the wild on $scanDay in $scanArea using Island Scan!"
+                )
+            }
+
+            // I. Other Generations (Hoenn, Sinnoh, Unova, Alola SM)
             return PokemonHabitatMap(
                 pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
-                editionDisplayName = editionDisplayName, regionName = "Kanto", mapAsset = mapAsset,
-                isAreaUnknown = false, pins = listOf(pin),
-                narrationText = "In $editionDisplayName, $pokemonName is chosen as your first partner Pokémon in Pallet Town, received as a starter gift from Professor Oak in the Pokémon Lab."
+                editionDisplayName = editionDisplayName, regionName = regionName, mapAsset = mapAsset,
+                isAreaUnknown = true,
+                unknownReason = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region. Originates from Kanto (Gen 1). Obtain via trading or transferring from a compatible game.",
+                pins = emptyList(),
+                narrationText = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region and must be transferred or traded."
             )
         }
 
@@ -319,20 +604,59 @@ object PokemonMapHabitatRepository {
             }
 
             // C. Native Johto (Gold, Silver, Crystal, HeartGold, SoulSilver)
-            val pin = MapLocationPin(
-                id = "new_bark_elm",
-                areaName = "New Bark Town (Pokémon Lab)",
-                coordinate = MapCoordinate(0.860f, 0.620f),
-                type = MapPinType.STARTER_GIFT,
-                encounterMethod = "Starter gift from Professor Elm",
-                rateOrLevel = "Lv. 5",
-                notes = "Selected as your starter partner Pokémon from Professor Elm in New Bark Town before visiting Mr. Pokémon."
-            )
+            val isJohto = regionName == "Johto" || cid.contains("GOLD") || cid.contains("SILVER") || cid.contains("CRYSTAL") || cid.contains("HEART") || cid.contains("SOUL") || cid.equals("Default", ignoreCase = true)
+            if (isJohto) {
+                val isHGSS = cid.contains("HEART") || cid.contains("SOUL")
+                val targetMap = if (isHGSS) "johto_hgss.png" else "johto_gsc.png"
+                val pin = MapLocationPin(
+                    id = "new_bark_elm",
+                    areaName = "New Bark Town (Pokémon Lab)",
+                    coordinate = MapCoordinate(0.860f, 0.620f),
+                    type = MapPinType.STARTER_GIFT,
+                    encounterMethod = "Starter gift from Professor Elm",
+                    rateOrLevel = "Lv. 5",
+                    notes = "Selected as your starter partner Pokémon from Professor Elm in New Bark Town before visiting Mr. Pokémon."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Johto", mapAsset = targetMap,
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In $editionDisplayName, $pokemonName is received in New Bark Town as a starter gift from Professor Elm in the Pokémon Lab."
+                )
+            }
+
+            // D. Ultra Sun / Ultra Moon (Island Scan Wild Catch)
+            if (cid.contains("ULTRA")) {
+                val (scanArea, scanDay, scanCoord) = when (pokemonId) {
+                    152 -> Triple("Route 2 (Melemele Island)", "Friday Island Scan", MapCoordinate(0.280f, 0.520f))
+                    155 -> Triple("Route 3 (Melemele Island)", "Sunday Island Scan", MapCoordinate(0.350f, 0.420f))
+                    else -> Triple("Seaward Cave (Melemele Island)", "Monday Island Scan", MapCoordinate(0.180f, 0.450f))
+                }
+                val pin = MapLocationPin(
+                    id = "usum_scan_$pokemonId",
+                    areaName = scanArea,
+                    coordinate = scanCoord,
+                    type = MapPinType.WILD_ROUTE,
+                    encounterMethod = "QR Island Scan Encounter ($scanDay)",
+                    rateOrLevel = "Lv. 12",
+                    notes = "Triggered using the QR Scanner Island Scan on $scanDay. Spawns for 1 hour only in $scanArea."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Alola", mapAsset = "alola_usum.png",
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In Pokémon $editionDisplayName, $pokemonName can be caught in the wild on $scanDay in $scanArea using Island Scan!"
+                )
+            }
+
+            // E. Non-native fallback
             return PokemonHabitatMap(
                 pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
-                editionDisplayName = editionDisplayName, regionName = "Johto", mapAsset = mapAsset,
-                isAreaUnknown = false, pins = listOf(pin),
-                narrationText = "In $editionDisplayName, $pokemonName is received in New Bark Town as a starter gift from Professor Elm in the Pokémon Lab."
+                editionDisplayName = editionDisplayName, regionName = regionName, mapAsset = mapAsset,
+                isAreaUnknown = true,
+                unknownReason = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region. Originates from Johto (Gen 2). Obtain via trading or transferring from a compatible game.",
+                pins = emptyList(),
+                narrationText = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region and must be transferred or traded."
             )
         }
 
@@ -353,27 +677,66 @@ object PokemonMapHabitatRepository {
                 )
                 return PokemonHabitatMap(
                     pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
-                    editionDisplayName = editionDisplayName, regionName = "Johto / Kanto", mapAsset = "kanto_rgby.png",
+                    editionDisplayName = editionDisplayName, regionName = "Kanto (Post-Game)", mapAsset = "kanto_frlg.png",
                     isAreaUnknown = false, pins = listOf(pin),
                     narrationText = "In Pokémon $editionDisplayName, $pokemonName is gifted by Steven Stone inside Silph Co. headquarters in Saffron City!"
                 )
             }
 
             // B. Native Hoenn (Ruby, Sapphire, Emerald, Omega Ruby, Alpha Sapphire)
-            val pin = MapLocationPin(
-                id = "route101_birch",
-                areaName = "Route 101 / Littleroot Town",
-                coordinate = MapCoordinate(0.230f, 0.690f),
-                type = MapPinType.STARTER_GIFT,
-                encounterMethod = "Starter gift from Professor Birch",
-                rateOrLevel = "Lv. 5",
-                notes = "Chosen from Professor Birch's briefcase on Route 101 to rescue him from an attacking wild Poochyena / Zigzagoon."
-            )
+            val isHoenn = regionName == "Hoenn" || cid.contains("RUBY") || cid.contains("SAPPHIRE") || cid.contains("EMERALD") || cid.equals("Default", ignoreCase = true)
+            if (isHoenn) {
+                val isORAS = cid.contains("OMEGA") || cid.contains("ALPHA")
+                val targetMap = if (isORAS) "hoenn_oras.png" else "hoenn_rse.png"
+                val pin = MapLocationPin(
+                    id = "route101_birch",
+                    areaName = "Route 101 / Littleroot Town",
+                    coordinate = MapCoordinate(0.230f, 0.690f),
+                    type = MapPinType.STARTER_GIFT,
+                    encounterMethod = "Starter gift from Professor Birch",
+                    rateOrLevel = "Lv. 5",
+                    notes = "Chosen from Professor Birch's briefcase on Route 101 to rescue him from an attacking wild Poochyena / Zigzagoon."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Hoenn", mapAsset = targetMap,
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In $editionDisplayName, $pokemonName is chosen on Route 101 from Professor Birch's bag to rescue him from a wild Pokémon."
+                )
+            }
+
+            // C. Ultra Sun / Ultra Moon (Island Scan Wild Catch)
+            if (cid.contains("ULTRA")) {
+                val (scanArea, scanDay, scanCoord) = when (pokemonId) {
+                    252 -> Triple("Route 5 (Akala Island)", "Friday Island Scan", MapCoordinate(0.480f, 0.350f))
+                    255 -> Triple("Route 8 (Akala Island)", "Sunday Island Scan", MapCoordinate(0.520f, 0.280f))
+                    else -> Triple("Brooklet Hill (Akala Island)", "Monday Island Scan", MapCoordinate(0.420f, 0.380f))
+                }
+                val pin = MapLocationPin(
+                    id = "usum_scan_$pokemonId",
+                    areaName = scanArea,
+                    coordinate = scanCoord,
+                    type = MapPinType.WILD_ROUTE,
+                    encounterMethod = "QR Island Scan Encounter ($scanDay)",
+                    rateOrLevel = "Lv. 16",
+                    notes = "Triggered using the QR Scanner Island Scan on $scanDay. Spawns for 1 hour only in $scanArea."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Alola", mapAsset = "alola_usum.png",
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In Pokémon $editionDisplayName, $pokemonName can be caught in the wild on $scanDay in $scanArea using Island Scan!"
+                )
+            }
+
+            // D. Non-native fallback
             return PokemonHabitatMap(
                 pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
-                editionDisplayName = editionDisplayName, regionName = "Hoenn", mapAsset = mapAsset,
-                isAreaUnknown = false, pins = listOf(pin),
-                narrationText = "In $editionDisplayName, $pokemonName is chosen on Route 101 from Professor Birch's bag to rescue him from a wild Pokémon."
+                editionDisplayName = editionDisplayName, regionName = regionName, mapAsset = mapAsset,
+                isAreaUnknown = true,
+                unknownReason = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region. Originates from Hoenn (Gen 3). Obtain via trading or transferring from a compatible game.",
+                pins = emptyList(),
+                narrationText = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region and must be transferred or traded."
             )
         }
 
@@ -416,20 +779,33 @@ object PokemonMapHabitatRepository {
             }
 
             // C. Native Sinnoh (Diamond, Pearl, Platinum, BDSP)
-            val pin = MapLocationPin(
-                id = "lake_verity_rowan",
-                areaName = "Lake Verity / Route 201",
-                coordinate = MapCoordinate(0.220f, 0.720f),
-                type = MapPinType.STARTER_GIFT,
-                encounterMethod = "Starter gift from Professor Rowan's Briefcase",
-                rateOrLevel = "Lv. 5",
-                notes = "Chosen from Professor Rowan's briefcase left at Lake Verity to fend off attacking wild Starly."
-            )
+            val isSinnoh = regionName == "Sinnoh" || cid.contains("DIAMOND") || cid.contains("PEARL") || cid.contains("PLATINUM") || cid.contains("BDSP") || cid.equals("Default", ignoreCase = true)
+            if (isSinnoh) {
+                val pin = MapLocationPin(
+                    id = "lake_verity_rowan",
+                    areaName = "Lake Verity / Route 201",
+                    coordinate = MapCoordinate(0.220f, 0.720f),
+                    type = MapPinType.STARTER_GIFT,
+                    encounterMethod = "Starter gift from Professor Rowan's Briefcase",
+                    rateOrLevel = "Lv. 5",
+                    notes = "Chosen from Professor Rowan's briefcase left at Lake Verity to fend off attacking wild Starly."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Sinnoh", mapAsset = mapAsset,
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In $editionDisplayName, $pokemonName is chosen at Lake Verity from Professor Rowan's briefcase to defend against wild Pokémon."
+                )
+            }
+
+            // D. Non-native fallback
             return PokemonHabitatMap(
                 pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
-                editionDisplayName = editionDisplayName, regionName = "Sinnoh", mapAsset = mapAsset,
-                isAreaUnknown = false, pins = listOf(pin),
-                narrationText = "In $editionDisplayName, $pokemonName is chosen at Lake Verity from Professor Rowan's briefcase to defend against wild Pokémon."
+                editionDisplayName = editionDisplayName, regionName = regionName, mapAsset = mapAsset,
+                isAreaUnknown = true,
+                unknownReason = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region. Originates from Sinnoh (Gen 4). Obtain via trading or transferring from a compatible game.",
+                pins = emptyList(),
+                narrationText = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region and must be transferred or traded."
             )
         }
 
@@ -476,20 +852,33 @@ object PokemonMapHabitatRepository {
             }
 
             // C. Native Black / White (Nuvema Town Juniper Gift Parcel)
-            val pin = MapLocationPin(
-                id = "nuvema_juniper",
-                areaName = "Nuvema Town (Player's House)",
-                coordinate = MapCoordinate(0.750f, 0.840f),
-                type = MapPinType.STARTER_GIFT,
-                encounterMethod = "Gift parcel from Professor Juniper",
-                rateOrLevel = "Lv. 5",
-                notes = "Delivered in a gift box to the Player's bedroom in Nuvema Town by Professor Juniper."
-            )
+            val isUnova = regionName == "Unova" || cid.contains("BLACK") || cid.contains("WHITE") || cid.equals("Default", ignoreCase = true)
+            if (isUnova) {
+                val pin = MapLocationPin(
+                    id = "nuvema_juniper",
+                    areaName = "Nuvema Town (Player's House)",
+                    coordinate = MapCoordinate(0.750f, 0.840f),
+                    type = MapPinType.STARTER_GIFT,
+                    encounterMethod = "Gift parcel from Professor Juniper",
+                    rateOrLevel = "Lv. 5",
+                    notes = "Delivered in a gift box to the Player's bedroom in Nuvema Town by Professor Juniper."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Unova", mapAsset = "unova_bw.png",
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In $editionDisplayName, $pokemonName is received in Nuvema Town inside a gift parcel from Professor Juniper."
+                )
+            }
+
+            // D. Non-native fallback
             return PokemonHabitatMap(
                 pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
-                editionDisplayName = editionDisplayName, regionName = "Unova", mapAsset = "unova_bw.png",
-                isAreaUnknown = false, pins = listOf(pin),
-                narrationText = "In $editionDisplayName, $pokemonName is received in Nuvema Town inside a gift parcel from Professor Juniper."
+                editionDisplayName = editionDisplayName, regionName = regionName, mapAsset = mapAsset,
+                isAreaUnknown = true,
+                unknownReason = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region. Originates from Unova (Gen 5). Obtain via trading or transferring from a compatible game.",
+                pins = emptyList(),
+                narrationText = "In Pokémon $editionDisplayName, $pokemonName is not found roaming in the wild in the $regionName region and must be transferred or traded."
             )
         }
 
@@ -538,22 +927,26 @@ object PokemonMapHabitatRepository {
             }
 
             // B. Native Alola (Sun, Moon, Ultra Sun, Ultra Moon)
-            val isUltra = cid.contains("ULTRA")
-            val pin = MapLocationPin(
-                id = "iki_town_hala",
-                areaName = if (isUltra) "Route 1 (Mahalo Approach)" else "Iki Town",
-                coordinate = MapCoordinate(0.300f, 0.650f),
-                type = MapPinType.STARTER_GIFT,
-                encounterMethod = "Starter gift from Kahuna Hala & Prof. Kukui",
-                rateOrLevel = "Lv. 5",
-                notes = "Presented by Island Kahuna Hala and Professor Kukui as your partner Pokémon."
-            )
-            return PokemonHabitatMap(
-                pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
-                editionDisplayName = editionDisplayName, regionName = "Alola", mapAsset = mapAsset,
-                isAreaUnknown = false, pins = listOf(pin),
-                narrationText = "In $editionDisplayName, $pokemonName is chosen at ${pin.areaName} as a gift from Kahuna Hala and Professor Kukui."
-            )
+            val isAlola = regionName == "Alola" || cid.contains("SUN") || cid.contains("MOON") || cid.equals("Default", ignoreCase = true)
+            if (isAlola) {
+                val isUltra = cid.contains("ULTRA")
+                val pin = MapLocationPin(
+                    id = "iki_town_hala",
+                    areaName = if (isUltra) "Route 1 (Mahalo Approach)" else "Iki Town",
+                    coordinate = MapCoordinate(0.300f, 0.650f),
+                    type = MapPinType.STARTER_GIFT,
+                    encounterMethod = "Starter gift from Kahuna Hala & Prof. Kukui",
+                    rateOrLevel = "Lv. 5",
+                    notes = "Presented by Island Kahuna Hala and Professor Kukui as your partner Pokémon."
+                )
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId, pokemonName = pokemonName, editionId = cartridgeId,
+                    editionDisplayName = editionDisplayName, regionName = "Alola", mapAsset = mapAsset,
+                    isAreaUnknown = false, pins = listOf(pin),
+                    narrationText = "In $editionDisplayName, $pokemonName is chosen at ${pin.areaName} as a gift from Kahuna Hala and Professor Kukui."
+                )
+            }
+            return null
         }
 
         // ==========================================
@@ -940,37 +1333,37 @@ object PokemonMapHabitatRepository {
     ): PokemonHabitatMap {
         val (reason, audio) = when {
             // Stage 1 & 2 Starters
-            pokemonId in listOf(2, 3) -> Pair("Evolves from Bulbasaur (Lv. 16 / Lv. 32). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Bulbasaur and is not found in the wild in $regionName.")
-            pokemonId in listOf(5, 6) -> Pair("Evolves from Charmander (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Charmander and is not found in the wild in $regionName.")
-            pokemonId in listOf(8, 9) -> Pair("Evolves from Squirtle (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Squirtle and is not found in the wild in $regionName.")
-            pokemonId in listOf(153, 154) -> Pair("Evolves from Chikorita (Lv. 16 / Lv. 32). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Chikorita and is not found in the wild in $regionName.")
-            pokemonId in listOf(156, 157) -> Pair("Evolves from Cyndaquil (Lv. 14 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Cyndaquil and is not found in the wild in $regionName.")
-            pokemonId in listOf(159, 160) -> Pair("Evolves from Totodile (Lv. 18 / Lv. 30). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Totodile and is not found in the wild in $regionName.")
-            pokemonId in listOf(253, 254) -> Pair("Evolves from Treecko (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Treecko and is not found in the wild in $regionName.")
-            pokemonId in listOf(256, 257) -> Pair("Evolves from Torchic (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Torchic and is not found in the wild in $regionName.")
-            pokemonId in listOf(259, 260) -> Pair("Evolves from Mudkip (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Mudkip and is not found in the wild in $regionName.")
-            pokemonId in listOf(388, 389) -> Pair("Evolves from Turtwig (Lv. 18 / Lv. 32). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Turtwig and is not found in the wild in $regionName.")
-            pokemonId in listOf(391, 392) -> Pair("Evolves from Chimchar (Lv. 14 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Chimchar and is not found in the wild in $regionName.")
-            pokemonId in listOf(394, 395) -> Pair("Evolves from Piplup (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Piplup and is not found in the wild in $regionName.")
-            pokemonId in listOf(496, 497) -> Pair("Evolves from Snivy (Lv. 17 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Snivy and is not found in the wild in $regionName.")
-            pokemonId in listOf(499, 500) -> Pair("Evolves from Tepig (Lv. 17 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Tepig and is not found in the wild in $regionName.")
-            pokemonId in listOf(502, 503) -> Pair("Evolves from Oshawott (Lv. 17 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Oshawott and is not found in the wild in $regionName.")
-            pokemonId in listOf(651, 652) -> Pair("Evolves from Chespin (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Chespin and is not found in the wild in $regionName.")
-            pokemonId in listOf(654, 655) -> Pair("Evolves from Fennekin (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Fennekin and is not found in the wild in $regionName.")
-            pokemonId in listOf(657, 658) -> Pair("Evolves from Froakie (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Froakie and is not found in the wild in $regionName.")
-            pokemonId in listOf(811, 812) -> Pair("Evolves from Grookey (Lv. 16 / Lv. 35). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Grookey and is not found in the wild in $regionName.")
-            pokemonId in listOf(814, 815) -> Pair("Evolves from Scorbunny (Lv. 16 / Lv. 35). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Scorbunny and is not found in the wild in $regionName.")
-            pokemonId in listOf(817, 818) -> Pair("Evolves from Sobble (Lv. 16 / Lv. 35). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Sobble and is not found in the wild in $regionName.")
-            pokemonId in listOf(907, 908) -> Pair("Evolves from Sprigatito (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Sprigatito and is not found in the wild in $regionName.")
-            pokemonId in listOf(910, 911) -> Pair("Evolves from Fuecoco (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Fuecoco and is not found in the wild in $regionName.")
-            pokemonId in listOf(913, 914) -> Pair("Evolves from Quaxly (Lv. 16 / Lv. 36). Starter evolution line not found in the wild in $regionName.", "$pokemonName evolves from Quaxly and is not found in the wild in $regionName.")
+            pokemonId in listOf(2, 3) -> Pair("Evolves from Bulbasaur (Lv. 16 / Lv. 32). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Bulbasaur and is not found in the wild in $regionName.")
+            pokemonId in listOf(5, 6) -> Pair("Evolves from Charmander (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Charmander and is not found in the wild in $regionName.")
+            pokemonId in listOf(8, 9) -> Pair("Evolves from Squirtle (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Squirtle and is not found in the wild in $regionName.")
+            pokemonId in listOf(153, 154) -> Pair("Evolves from Chikorita (Lv. 16 / Lv. 32). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Chikorita and is not found in the wild in $regionName.")
+            pokemonId in listOf(156, 157) -> Pair("Evolves from Cyndaquil (Lv. 14 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Cyndaquil and is not found in the wild in $regionName.")
+            pokemonId in listOf(159, 160) -> Pair("Evolves from Totodile (Lv. 18 / Lv. 30). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Totodile and is not found in the wild in $regionName.")
+            pokemonId in listOf(253, 254) -> Pair("Evolves from Treecko (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Treecko and is not found in the wild in $regionName.")
+            pokemonId in listOf(256, 257) -> Pair("Evolves from Torchic (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Torchic and is not found in the wild in $regionName.")
+            pokemonId in listOf(259, 260) -> Pair("Evolves from Mudkip (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Mudkip and is not found in the wild in $regionName.")
+            pokemonId in listOf(388, 389) -> Pair("Evolves from Turtwig (Lv. 18 / Lv. 32). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Turtwig and is not found in the wild in $regionName.")
+            pokemonId in listOf(391, 392) -> Pair("Evolves from Chimchar (Lv. 14 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Chimchar and is not found in the wild in $regionName.")
+            pokemonId in listOf(394, 395) -> Pair("Evolves from Piplup (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Piplup and is not found in the wild in $regionName.")
+            pokemonId in listOf(496, 497) -> Pair("Evolves from Snivy (Lv. 17 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Snivy and is not found in the wild in $regionName.")
+            pokemonId in listOf(499, 500) -> Pair("Evolves from Tepig (Lv. 17 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Tepig and is not found in the wild in $regionName.")
+            pokemonId in listOf(502, 503) -> Pair("Evolves from Oshawott (Lv. 17 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Oshawott and is not found in the wild in $regionName.")
+            pokemonId in listOf(651, 652) -> Pair("Evolves from Chespin (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Chespin and is not found in the wild in $regionName.")
+            pokemonId in listOf(654, 655) -> Pair("Evolves from Fennekin (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Fennekin and is not found in the wild in $regionName.")
+            pokemonId in listOf(657, 658) -> Pair("Evolves from Froakie (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Froakie and is not found in the wild in $regionName.")
+            pokemonId in listOf(811, 812) -> Pair("Evolves from Grookey (Lv. 16 / Lv. 35). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Grookey and is not found in the wild in $regionName.")
+            pokemonId in listOf(814, 815) -> Pair("Evolves from Scorbunny (Lv. 16 / Lv. 35). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Scorbunny and is not found in the wild in $regionName.")
+            pokemonId in listOf(817, 818) -> Pair("Evolves from Sobble (Lv. 16 / Lv. 35). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Sobble and is not found in the wild in $regionName.")
+            pokemonId in listOf(907, 908) -> Pair("Evolves from Sprigatito (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Sprigatito and is not found in the wild in $regionName.")
+            pokemonId in listOf(910, 911) -> Pair("Evolves from Fuecoco (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Fuecoco and is not found in the wild in $regionName.")
+            pokemonId in listOf(913, 914) -> Pair("Evolves from Quaxly (Lv. 16 / Lv. 36). Starter evolution lines are not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Quaxly and is not found in the wild in $regionName.")
 
             // Iconic Evolutions
             pokemonId == 26 -> Pair("Evolves from Pikachu with a Thunder Stone. Raichu is not found wild in $regionName in $editionDisplayName.", "Raichu evolves from Pikachu with a Thunder Stone and is not found wild in $regionName.")
             pokemonId == 130 -> Pair("Evolves from Magikarp at Level 20. Rarely encountered wild via Super Rod.", "Gyarados evolves from Magikarp at Level 20.")
-            pokemonId in listOf(64, 65) -> Pair("Evolves from Abra (Lv. 16) -> Kadabra evolves via Trade to Alakazam. Not found wild in Kanto.", "$pokemonName evolves from Abra and is not found wild in Kanto.")
+            pokemonId in listOf(64, 65) -> Pair("Evolves from Abra (Lv. 16) -> Kadabra evolves via Trade to Alakazam. Not found wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Abra and is not found wild in $regionName.")
             pokemonId in listOf(93, 94) -> Pair("Evolves from Gastly (Lv. 25) -> Haunter evolves via Trade to Gengar.", "$pokemonName evolves from Gastly and Haunter.")
-            pokemonId in listOf(148, 149) -> Pair("Evolves from Dratini (Lv. 30 -> Lv. 55). Dragonite line not found wild in Kanto.", "$pokemonName evolves from Dratini and is not found wild in Kanto.")
+            pokemonId in listOf(148, 149) -> Pair("Evolves from Dratini (Lv. 30 -> Lv. 55). Dragonite line not found wild in the $regionName region in Pokémon $editionDisplayName.", "$pokemonName evolves from Dratini and is not found wild in $regionName.")
 
             else -> Pair(
                 "Area Unknown in $regionName. Not encountered natively in the wild in $editionDisplayName. Must be traded or transferred.",
@@ -990,5 +1383,201 @@ object PokemonMapHabitatRepository {
             pins = emptyList(),
             narrationText = audio
         )
+    }
+@Synchronized
+    private fun loadEncountersJsonIfNeeded(): JSONObject? {
+        if (encountersJsonRoot != null) return encountersJsonRoot
+        val ctx = appContext ?: return null
+        return try {
+            val jsonStr = ctx.assets.open("pokemon_encounters.json").bufferedReader().use { it.readText() }
+            val root = JSONObject(jsonStr)
+            encountersJsonRoot = root
+            root
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    
+    private fun sanitizeEncounterText(
+        text: String?,
+        pokemonId: Int,
+        pokemonName: String,
+        regionName: String,
+        editionDisplayName: String,
+        debutRegion: String,
+        debutGen: Int
+    ): String {
+        if (text.isNullOrBlank()) {
+            return "Not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName. Originates from the $debutRegion region (Gen $debutGen). Obtain via trading or transferring from a compatible edition."
+        }
+        if (!regionName.equals("Kanto", ignoreCase = true)) {
+            var clean = text
+                .replace("in the wild in Kanto", "in the wild in the $regionName region", ignoreCase = true)
+                .replace("in Kanto", "in the $regionName region in Pokémon $editionDisplayName", ignoreCase = true)
+                .replace("in the Kanto region", "in the $regionName region", ignoreCase = true)
+                .replace("wild in Kanto", "wild in the $regionName region", ignoreCase = true)
+            return clean
+        }
+        return text
+    }
+
+    private fun resolveFromEncountersDatabase(
+        pokemonId: Int,
+        pokemonName: String,
+        cartridgeId: String,
+        regionName: String,
+        mapAsset: String,
+        editionDisplayName: String
+    ): PokemonHabitatMap? {
+        val root = loadEncountersJsonIfNeeded() ?: return null
+        val pokemonObj = root.optJSONObject("pokemon")?.optJSONObject(pokemonId.toString()) ?: return null
+
+        val upperCid = cartridgeId.uppercase(Locale.ROOT)
+        val isGo = upperCid in listOf("GO", "POKEMON GO", "POKÉMON GO")
+        val isDefault = cartridgeId.equals("Default", ignoreCase = true) || cartridgeId.equals("ALL", ignoreCase = true)
+
+        // 1. Pokémon GO Handling
+        if (isGo) {
+            val pogoArray = pokemonObj.optJSONArray("pogo")
+            val pins = mutableListOf<MapLocationPin>()
+            if (pogoArray != null) {
+                for (i in 0 until pogoArray.length()) {
+                    val p = pogoArray.getJSONObject(i)
+                    pins.add(
+                        MapLocationPin(
+                            id = p.optString("id", "pogo_$i"),
+                            areaName = p.optString("area", "Worldwide AR Biome"),
+                            coordinate = MapCoordinate(
+                                p.optDouble("x", 0.5).toFloat(),
+                                p.optDouble("y", 0.5).toFloat()
+                            ),
+                            type = parsePinType(p.optString("type")),
+                            encounterMethod = p.optString("method", "Wild GPS Encounter"),
+                            rateOrLevel = p.optString("rate", "Weather-Boosted"),
+                            notes = if (p.has("notes") && !p.isNull("notes")) p.getString("notes") else null
+                        )
+                    )
+                }
+            }
+            return PokemonHabitatMap(
+                pokemonId = pokemonId,
+                pokemonName = pokemonName,
+                editionId = cartridgeId,
+                editionDisplayName = "POKÉMON GO",
+                regionName = "Pokémon GO",
+                mapAsset = "pokemongo_map.png",
+                isAreaUnknown = false,
+                pins = pins,
+                narrationText = "In Pokémon GO, $pokemonName appears in the wild based on local real-world weather and biomes, as well as eggs, raids, and research."
+            )
+        }
+
+        val debutRegion = pokemonObj.optString("debutRegion", "Kanto")
+        val debutGen = pokemonObj.optInt("debutGen", 1)
+        val debutMap = pokemonObj.optString("mapAsset", "kanto_rgby.png")
+
+        // Check if matching pins exist in the comprehensive offline database
+
+        val isAreaUnknown = pokemonObj.optBoolean("isAreaUnknown", false)
+        val rawUnknownReason = pokemonObj.optString("unknownReason").takeIf { it.isNotEmpty() && it != "null" }
+        val rawNarration = pokemonObj.optString("narration", "In $regionName, $pokemonName is found natively in its natural habitat.")
+
+        val sanitizedReason = sanitizeEncounterText(rawUnknownReason, pokemonId, pokemonName, regionName, editionDisplayName, debutRegion, debutGen)
+        val sanitizedNarration = sanitizeEncounterText(rawNarration, pokemonId, pokemonName, regionName, editionDisplayName, debutRegion, debutGen)
+
+        if (isAreaUnknown) {
+            return PokemonHabitatMap(
+                pokemonId = pokemonId,
+                pokemonName = pokemonName,
+                editionId = cartridgeId,
+                editionDisplayName = editionDisplayName,
+                regionName = if (isDefault) debutRegion else regionName,
+                mapAsset = if (isDefault) debutMap else mapAsset,
+                isAreaUnknown = true,
+                unknownReason = sanitizedReason,
+                pins = emptyList(),
+                narrationText = sanitizedNarration
+            )
+        }
+
+        val pinsArray = pokemonObj.optJSONArray("pins")
+        val matchingPins = mutableListOf<MapLocationPin>()
+
+        if (pinsArray != null) {
+            for (i in 0 until pinsArray.length()) {
+                val p = pinsArray.getJSONObject(i)
+                val cartArray = p.optJSONArray("cartridges")
+                var matchesCart = true
+                if (cartArray != null && !isDefault) {
+                    matchesCart = false
+                    for (c in 0 until cartArray.length()) {
+                        val allowed = cartArray.getString(c).uppercase(Locale.ROOT)
+                        if (upperCid.contains(allowed) || allowed.contains(upperCid)) {
+                            matchesCart = true
+                            break
+                        }
+                    }
+                }
+                if (matchesCart) {
+                    matchingPins.add(
+                        MapLocationPin(
+                            id = p.optString("id", "${pokemonId}_pin_$i"),
+                            areaName = p.optString("area", "Wild Route"),
+                            coordinate = MapCoordinate(
+                                p.optDouble("x", 0.5).toFloat(),
+                                p.optDouble("y", 0.5).toFloat()
+                            ),
+                            type = parsePinType(p.optString("type")),
+                            encounterMethod = p.optString("method", "Tall Grass"),
+                            rateOrLevel = p.optString("rate", "Common"),
+                            notes = p.optString("notes").takeIf { it.isNotEmpty() && it != "null" }
+                        )
+                    )
+                }
+            }
+        }
+
+        if (matchingPins.isEmpty() && pinsArray != null && pinsArray.length() > 0) {
+            val isNativeToThisRegion = regionName.equals(debutRegion, ignoreCase = true)
+            val fallbackReason = if (isNativeToThisRegion) {
+                "Version Exclusive to the alternate edition. In $editionDisplayName, trade with another player to obtain."
+            } else {
+                "Not found roaming in the wild in the $regionName region in Pokémon $editionDisplayName. Originates from the $debutRegion region (Gen $debutGen). Obtain via trading or transferring from a compatible edition."
+            }
+            return PokemonHabitatMap(
+                pokemonId = pokemonId,
+                pokemonName = pokemonName,
+                editionId = cartridgeId,
+                editionDisplayName = editionDisplayName,
+                regionName = if (isDefault) debutRegion else regionName,
+                mapAsset = if (isDefault) debutMap else mapAsset,
+                isAreaUnknown = true,
+                unknownReason = fallbackReason,
+                pins = emptyList(),
+                narrationText = fallbackReason
+            )
+        }
+
+        return PokemonHabitatMap(
+            pokemonId = pokemonId,
+            pokemonName = pokemonName,
+            editionId = cartridgeId,
+            editionDisplayName = editionDisplayName,
+            regionName = if (isDefault) debutRegion else regionName,
+            mapAsset = if (isDefault) debutMap else mapAsset,
+            isAreaUnknown = matchingPins.isEmpty(),
+            unknownReason = if (matchingPins.isEmpty()) "Area unknown in the $regionName region in Pokémon $editionDisplayName." else null,
+            pins = matchingPins,
+            narrationText = sanitizedNarration
+        )
+    }
+
+    private fun parsePinType(typeStr: String?): MapPinType {
+        return try {
+            MapPinType.valueOf(typeStr ?: "WILD_ROUTE")
+        } catch (e: Exception) {
+            MapPinType.WILD_ROUTE
+        }
     }
 }

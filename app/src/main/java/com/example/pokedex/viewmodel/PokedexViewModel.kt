@@ -3,6 +3,7 @@ package com.example.pokedex.viewmodel
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.PokedexDatabase
 import com.example.pokedex.data.PokemonEntity
@@ -37,7 +38,10 @@ sealed class PokedexState {
     data class Error(val message: String) : PokedexState()
 }
 
-class PokedexViewModel(application: Application) : AndroidViewModel(application) {
+class PokedexViewModel(
+    application: Application,
+    private val savedStateHandle: SavedStateHandle? = null
+) : AndroidViewModel(application) {
     private val prefs = application.getSharedPreferences("pokedex_prefs", Context.MODE_PRIVATE)
     private val pokemonDao = PokedexDatabase.getDatabase(application).pokemonDao()
     private val tts = OfflineTTS(application)
@@ -126,6 +130,12 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         if (region == null) {
             _selectedMapEntryId.value = "all"
         }
+        prefs.edit()
+            .putString("last_selected_region", region?.name)
+            .putString("last_selected_map_entry_id", _selectedMapEntryId.value)
+            .apply()
+        savedStateHandle?.set("last_selected_region", region?.name)
+        savedStateHandle?.set("last_selected_map_entry_id", _selectedMapEntryId.value)
     }
 
     fun selectMapEntry(entry: RegionMapEntry) {
@@ -134,7 +144,23 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         if (!entry.preferredEditionId.isNullOrBlank()) {
             setPreferredGameEdition(entry.preferredEditionId)
         }
+        prefs.edit()
+            .putString("last_selected_region", entry.region?.name)
+            .putString("last_selected_map_entry_id", entry.id)
+            .apply()
+        savedStateHandle?.set("last_selected_region", entry.region?.name)
+        savedStateHandle?.set("last_selected_map_entry_id", entry.id)
     }
+
+    fun saveListScrollPosition(index: Int, offset: Int) {
+        prefs.edit()
+            .putInt("last_list_index", index)
+            .putInt("last_list_offset", offset)
+            .apply()
+    }
+
+    fun getSavedListIndex(): Int = prefs.getInt("last_list_index", 0)
+    fun getSavedListOffset(): Int = prefs.getInt("last_list_offset", 0)
 
     private val _scanFlowPreset = MutableStateFlow(
         ScanFlowPreset.fromId(prefs.getString("scan_flow_preset", ScanFlowPreset.NOSTALGIC.id) ?: ScanFlowPreset.NOSTALGIC.id)
@@ -186,7 +212,10 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     while (keys.hasNext()) {
                         val key = keys.next()
                         if (key.equals(candidate, ignoreCase = true)) {
-                            return obj.getString(key)
+                            val raw = obj.getString(key)
+                            val clean = raw.replace("Documented in the Lumiose City urban archives (Pokémon Legends: Z-A). Dex entry: ", "")
+                                .replace("Documented in the Lumiose City urban archives (Pokmon Legends: Z-A). Dex entry: ", "")
+                            return clean
                         }
                     }
                 }
@@ -272,6 +301,51 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     )
 
     init {
+        // 1. Persistent State Restoration: Search Query, Region & Map Entry
+        val savedSearch = savedStateHandle?.get<String>("last_search_query")
+            ?: prefs.getString("last_search_query", "") ?: ""
+        if (savedSearch.isNotBlank()) {
+            _searchQuery.value = savedSearch
+        }
+
+        val savedRegionName = savedStateHandle?.get<String>("last_selected_region")
+            ?: prefs.getString("last_selected_region", null)
+        if (savedRegionName != null) {
+            _selectedRegion.value = runCatching { PokemonRegion.valueOf(savedRegionName) }.getOrNull()
+        }
+
+        val savedEntryId = savedStateHandle?.get<String>("last_selected_map_entry_id")
+            ?: prefs.getString("last_selected_map_entry_id", "all") ?: "all"
+        _selectedMapEntryId.value = savedEntryId
+
+        // 2. Persistent State Restoration: Active Pokemon Result Card
+        val savedActiveState = savedStateHandle?.get<String>("last_active_state")
+            ?: prefs.getString("last_active_state", "IDLE")
+        val savedPokemonId = savedStateHandle?.get<Int>("last_viewed_pokemon_id")
+            ?: prefs.getInt("last_viewed_pokemon_id", -1)
+        val savedIsShiny = savedStateHandle?.get<Boolean>("last_viewed_is_shiny")
+            ?: prefs.getBoolean("last_viewed_is_shiny", false)
+
+        if (savedActiveState == "RESULT" && savedPokemonId > 0) {
+            viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                var restored = pokemonDao.getPokemonById(savedPokemonId)
+                if (restored == null) {
+                    delay(350)
+                    restored = pokemonDao.getPokemonById(savedPokemonId)
+                }
+                if (restored != null && _uiState.value is PokedexState.Idle) {
+                    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                        selectPokemon(
+                            pokemon = restored,
+                            isShiny = savedIsShiny,
+                            autoSpeak = false, // Do not auto-play voice narration on cold restore
+                            recordHistory = false
+                        )
+                    }
+                }
+            }
+        }
+
         tts.onSpeakingStateChanged = { speaking ->
             _isSpeaking.value = speaking
         }
@@ -286,9 +360,9 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             val sampleBulbasaur = pokemonDao.getPokemonById(1)
             val hasGoLore = sampleBulbasaur?.pokedexEntries?.contains("\"GO\"") == true
-            if (assetVersion < 10 || !hasGoLore) {
+            if (assetVersion < 11 || !hasGoLore) {
                 PokedexDatabase.syncAssetData(getApplication(), pokemonDao)
-                prefs.edit().putInt("pokemon_data_asset_version", 10).apply()
+                prefs.edit().putInt("pokemon_data_asset_version", 11).apply()
             }
         }
         
@@ -366,6 +440,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
 
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
+        prefs.edit().putString("last_search_query", query).apply()
+        savedStateHandle?.set("last_search_query", query)
     }
 
     suspend fun getPreEvolution(name: String): PokemonEntity? {
@@ -429,11 +505,18 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun selectPokemon(pokemon: PokemonEntity, evolvedFrom: String? = null, isBackNavigation: Boolean = false, isShiny: Boolean = false) {
+    fun selectPokemon(
+        pokemon: PokemonEntity,
+        evolvedFrom: String? = null,
+        isBackNavigation: Boolean = false,
+        isShiny: Boolean = false,
+        autoSpeak: Boolean = true,
+        recordHistory: Boolean = true
+    ) {
         consensusJob?.cancel()
         consensusJob = null
         scanningJob?.cancel()
-        if (!isBackNavigation) {
+        if (!isBackNavigation && recordHistory) {
             val currentState = _uiState.value
             if (currentState is PokedexState.Result) {
                 historyStack.add(currentState.pokemon)
@@ -444,12 +527,19 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         PokemonSoundPlayer.stop()
         _isSpeaking.value = false
         _uiState.value = PokedexState.Result(pokemon, isShiny = isShiny)
-        
+
+        // Persist active view state
+        prefs.edit()
+            .putString("last_active_state", "RESULT")
+            .putInt("last_viewed_pokemon_id", pokemon.id)
+            .putBoolean("last_viewed_is_shiny", isShiny)
+            .apply()
+        savedStateHandle?.set("last_active_state", "RESULT")
+        savedStateHandle?.set("last_viewed_pokemon_id", pokemon.id)
+        savedStateHandle?.set("last_viewed_is_shiny", isShiny)
+
         val baseFormName = PokemonFormDetector.formatFormDisplayName(pokemon.name)
         val capitalizedName = if (isShiny) "Shiny $baseFormName" else baseFormName
-
-
-
 
         val capitalizedEvo = evolvedFrom?.replace("-", " ")
             ?.split(" ")
@@ -460,16 +550,16 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         } else {
             "${capitalizedName}. "
         }
-        
+
         val typeText = "It is a ${pokemon.type.replace("/", " and ")} type Pokemon. "
         val rawFlavor = getEffectiveFlavorText(pokemon)
         val cleanedFlavor = rawFlavor.replace("\n", " ").replace("\u000c", " ").replace("\\f", " ").replace(Regex("\\s+"), " ").trim()
-        
-        if (_autoReadDexEntry.value) {
+
+        if (autoSpeak && _autoReadDexEntry.value) {
             tts.speak("${evoText}${typeText}${cleanedFlavor}")
         }
 
-        if (_autoPlayCryEntry.value) {
+        if (autoSpeak && _autoPlayCryEntry.value) {
             playPokemonCry(pokemon.id)
         }
     }
@@ -540,7 +630,8 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
     )
 
     private val rollingFrames = ArrayDeque<FrameResult>()
-    private val MAX_ROLLING_FRAMES = 8
+    private val MAX_ROLLING_FRAMES = 12
+    val GLARE_ATTRACTORS = setOf("volbeat", "illumise")
     private var scanningJob: Job? = null
     private var consensusJob: Job? = null
     private var scanSettlingUntil = 0L
@@ -573,7 +664,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         sharpestBitmap = null
         highestStreakConfidence = 0f
         // Quick 400ms settle for camera auto-focus/exposure
-        scanSettlingUntil = System.currentTimeMillis() + 400L
+        scanSettlingUntil = System.currentTimeMillis() + 800L
 
         scanningJob = viewModelScope.launch {
             delay(60_000) // 60-second inactivity timeout
@@ -639,7 +730,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 _uiState.value = PokedexState.Reveal(pokemon, finalBitmap, isShiny = isShiny)
                 val announcement = if (isShiny) "It's a Shiny $formTitle!" else "It's $formTitle!"
                 tts.speak(announcement)
-                delay(2400)
+                delay(1600)
             }
 
             if (!isActive) return@launch
@@ -723,6 +814,31 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     }
                 }
 
+                val rawTop1Label = labels.getOrNull(top1Idx)
+                val rawTop1Name = rawTop1Label?.let { nameMatcher.extractName(it)?.lowercase() }
+                if (rawTop1Name in GLARE_ATTRACTORS && top1Val < 0.60f) {
+                    // Specular Glare Attenuation Filter: Suppress glare false-positive in raw distribution
+                    probs[top1Idx] *= 0.25f
+
+                    // Re-calculate top 1 & top 2 for this frame
+                    top1Idx = 0
+                    top1Val = -1f
+                    top2Idx = 0
+                    top2Val = -1f
+                    for (i in probs.indices) {
+                        val p = probs[i]
+                        if (p > top1Val) {
+                            top2Val = top1Val
+                            top2Idx = top1Idx
+                            top1Val = p
+                            top1Idx = i
+                        } else if (p > top2Val) {
+                            top2Val = p
+                            top2Idx = i
+                        }
+                    }
+                }
+
                 val frameResult = FrameResult(
                     topIndex = top1Idx,
                     topVal = top1Val,
@@ -751,7 +867,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 for (i in framesSnapshot.indices) {
                     val f = framesSnapshot[i]
                     // Soft-clip raw frame confidence at 0.60f so one glitched frame cannot hijack the window
-                    val clippedConf = minOf(f.topVal, 0.60f).coerceAtLeast(0.02f)
+                    val clippedConf = minOf(f.topVal, 0.75f).coerceAtLeast(0.02f)
                     // Exponential recency decay: newest frame has weight 1.0, oldest in 8-frame buffer ~0.32
                     val recencyWeight = Math.pow(0.85, (nFrames - 1 - i).toDouble()).toFloat()
                     val weight = clippedConf * recencyWeight
@@ -793,7 +909,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 // 2. Multi-Tier Background & Ambient Clutter Rejection
                 // Must have at least 15% confidence and beat #2 by 2.0% or 1.20x ratio
                 val MIN_ACQUISITION_CONFIDENCE = 0.15f
-                val MIN_PEAK_MARGIN = 0.020f
+                val MIN_PEAK_MARGIN = 0.025f
                 val MIN_PEAK_RATIO = 1.20f
 
                 val leadMargin = fusedTop1Val - fusedTop2Val
@@ -802,7 +918,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                         (leadMargin >= MIN_PEAK_MARGIN || leadRatio >= MIN_PEAK_RATIO)
 
                 if (!isRecognizedTarget) {
-                    // Non-Pokémon object or target lost: decay streak rapidly by 2 frames per iteration
+                    // Non-Pokémon object or target lost: decay streak rapidly by 3 frames per iteration
                     lockStreakFrames = maxOf(0, lockStreakFrames - 2)
                     if (lockStreakFrames == 0) {
                         lockStreakCandidate = -1
@@ -863,10 +979,10 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                         highestStreakConfidence = effectiveLeaderVal
                         sharpestBitmap = bitmap
                     }
-                } else if (lockStreakFrames >= 4) {
-                    // Soft decay: a momentary single-frame glare/jitter only decays the streak by 2
+                } else if (lockStreakFrames >= 5) {
+                    // Soft decay: a momentary single-frame glare/jitter only decays the streak by 3
                     // rather than wiping out accumulated progress!
-                    lockStreakFrames = maxOf(1, lockStreakFrames - 2)
+                    lockStreakFrames = maxOf(1, lockStreakFrames - 3)
                 } else {
                     // Incumbent is exhausted or had low momentum: switch to new candidate
                     lockStreakCandidate = effectiveLeaderIdx
@@ -875,22 +991,27 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                     sharpestBitmap = bitmap
                 }
 
-                // 4. Dynamic Multi-Tier Auto-Locking
-                // Tier 1: High Confidence (>= 50%) -> Fast Lock in 8 frames (~500ms)
-                // Tier 2A: Good Confidence (>= 30%) & Lead Ratio >= 1.35x -> Lock in 10 frames (~650ms)
-                // Tier 2B: Dominant Leader Ratio >= 2.0x (>= 22% confidence) -> Lock in 12 frames (~800ms)
-                //          (Designed for under-represented Pokémon like Rayquaza where confidence is diluted)
-                // Tier 3: Low/Borderline Confidence (< 22%) -> Advisory mode, user can tap 1-Tap LOCK FAB
+                // 4. Graduated Multi-Tier Auto-Locking (Human-Crafted Temporal Runway)
+                // Tier 1: Ultra-High Confidence (>= 75%) -> Lock in 16 frames (~1.1s)
+                // Tier 2: High Confidence (>= 50%) -> Lock in 22 frames (~1.5s)
+                // Tier 3: Moderate Confidence (>= 35%) & Lead Ratio >= 1.40x -> Lock in 28 frames (~1.9s)
+                // Tier 4: Borderline / Complex (< 35%) -> Advisory Mode (999 frames), NEVER auto-locks
                 val currentLeadRatio = fusedTop1Val / maxOf(fusedTop2Val, 0.01f)
+                val currentMargin = fusedTop1Val - fusedTop2Val
+                val effectiveTargetConf = maxOf(effectiveLeaderVal, highestStreakConfidence * 0.88f)
+                val isGlareAttractor = rawCandName?.lowercase() in GLARE_ATTRACTORS
                 val targetLockFrames = when {
-                    effectiveLeaderVal >= 0.50f -> 8
-                    effectiveLeaderVal >= 0.30f && currentLeadRatio >= 1.35f -> 10
-                    effectiveLeaderVal >= 0.22f && currentLeadRatio >= 2.00f -> 12
-                    else -> 999 // Do not auto-lock borderline guesses, user can tap 1-Tap LOCK FAB
+                    isGlareAttractor && effectiveTargetConf < 0.60f -> 999 // Strictly forbid auto-locking glare
+                    effectiveTargetConf >= 0.65f -> 8
+                    effectiveTargetConf >= 0.40f -> 10
+                    effectiveTargetConf >= 0.26f && (currentLeadRatio >= 1.40f || currentMargin >= 0.07f) -> 12
+                    effectiveTargetConf >= 0.22f && currentLeadRatio >= 1.80f -> 14
+                    effectiveTargetConf >= 0.17f && currentLeadRatio >= 2.50f -> 16
+                    else -> 999 // Advisory mode: never auto-locks on weak guesses, user can tap 1-Tap LOCK FAB
                 }
 
-                val maxDisplayFrames = if (targetLockFrames <= 20) targetLockFrames else 15
-                val progressPct = (lockStreakFrames.toFloat() / maxDisplayFrames.toFloat()).coerceIn(0f, 1f)
+                val maxDisplayFrames = if (targetLockFrames <= 30) targetLockFrames else 999
+                val progressPct = if (targetLockFrames <= 30) (lockStreakFrames.toFloat() / targetLockFrames.toFloat()).coerceIn(0f, 1f) else 0f
                 _scanProgress.value = progressPct
                 _scanStreak.value = lockStreakFrames
 
@@ -982,7 +1103,10 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                 logScannerTelemetry(logLine)
 
                 // 5. Consensus Locked: Reached targetLockFrames AND meets minimum confidence
-                if (lockStreakFrames >= targetLockFrames && targetLockFrames <= 20 && highestStreakConfidence >= 0.22f) {
+                if (lockStreakFrames >= targetLockFrames && targetLockFrames <= 30 && highestStreakConfidence >= 0.17f && effectiveLeaderVal >= 0.15f) {
+                    if (rawCandName?.lowercase() in GLARE_ATTRACTORS && highestStreakConfidence < 0.60f) {
+                        return@launch
+                    }
                     val resolvedPokemon = _candidatePokemon.value ?: rawCandName?.let { pokemonDao.getPokemonByName(it) }
                     if (resolvedPokemon != null && _uiState.value is PokedexState.Scanning) {
                         lockConsensus(resolvedPokemon, sharpestBitmap ?: bitmap, isShiny = _isCandidateShiny.value)
@@ -1082,7 +1206,7 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
                             _uiState.value = PokedexState.Reveal(pokemon, bitmap, isShiny = isShiny)
                             val announcement = if (isShiny) "It's a Shiny $formTitle!" else "It's $formTitle!"
                             tts.speak(announcement)
-                            delay(2400)
+                            delay(1600)
                         }
 
                         if (!isActive) return@launch
@@ -1139,6 +1263,12 @@ class PokedexViewModel(application: Application) : AndroidViewModel(application)
         _detectedFormReason.value = null
 
         _uiState.value = PokedexState.Idle
+        prefs.edit()
+            .putString("last_active_state", "IDLE")
+            .putInt("last_viewed_pokemon_id", -1)
+            .apply()
+        savedStateHandle?.set("last_active_state", "IDLE")
+        savedStateHandle?.set("last_viewed_pokemon_id", -1)
     }
 
     override fun onCleared() {
