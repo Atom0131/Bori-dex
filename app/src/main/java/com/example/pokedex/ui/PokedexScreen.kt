@@ -2896,9 +2896,9 @@ fun PokedexList(
 
                             Text(
 
-                                text = "REGION: ${activeMapEntry.title}",
+                                text = if (activeMapEntry.id == "all") "ALL MAPS" else "REGION: ${activeMapEntry.title}",
 
-                                color = if (selectedRegion != null) Color(0xFF00FFCC) else Color.White,
+                                color = if (selectedRegion != null || activeMapEntry.id == "all") Color(0xFF00FFCC) else Color.White,
 
                                 fontWeight = FontWeight.Black,
 
@@ -2908,7 +2908,16 @@ fun PokedexList(
 
                             )
 
-                            if (selectedRegion != null) {
+                            if (activeMapEntry.id == "all") {
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = "• National Dex",
+                                    color = Color(0xFF00FFCC),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 10.sp,
+                                    maxLines = 1
+                                )
+                            } else if (selectedRegion != null) {
 
                                 Spacer(modifier = Modifier.width(4.dp))
 
@@ -3943,7 +3952,7 @@ fun PokedexDisplay(
 
                                 }
 
-                                val currentCleanedFlavor = rawFlavor
+                                val currentCleanedFlavor = com.example.pokedex.data.PokemonMapHabitatRepository.cleanFlavorText(rawFlavor)
 
                                     .replace("\n", " ")
 
@@ -4341,7 +4350,7 @@ fun PokedexDisplay(
 
 
 
-                            val cleanedFlavorText = displayFlavorText
+                            val cleanedFlavorText = com.example.pokedex.data.PokemonMapHabitatRepository.cleanFlavorText(displayFlavorText)
 
                                 .replace("\n", " ")
 

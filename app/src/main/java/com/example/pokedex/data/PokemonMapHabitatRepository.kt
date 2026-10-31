@@ -160,6 +160,9 @@ object PokemonMapHabitatRepository {
 
     fun cleanFlavorText(rawText: String): String {
         return rawText
+            .replace(Regex("This Pok[ée]mon does not naturally inhabit the [^.]+\\([^)]+\\)\\.\\s*(?:National\\s+Pok[ée]dex\\s+entry:\\s*)?", RegexOption.IGNORE_CASE), "")
+            .replace(Regex("This Pok[ée]mon is not documented in the [^.]+\\.\\s*(?:National\\s+Pok[ée]dex\\s+entry:\\s*)?", RegexOption.IGNORE_CASE), "")
+            .replace(Regex("^National\\s+Pok[ée]dex\\s+entry:\\s*", RegexOption.IGNORE_CASE), "")
             .replace("&eacute;", "é")
             .replace("&quot;", "\"")
             .replace("&amp;", "&")
@@ -295,12 +298,27 @@ object PokemonMapHabitatRepository {
             }
         }
 
-        // If not found in this game's regional Pokédex:
+        // If not found in this game's regional Pokédex, fallback to canonical/debut entry:
+        // Pure official entry without synthetic commentary per user request
         val debutCart = getDebutCartridgeIdForPokemon(pokemon.id)
-        val debutRegion = getDebutRegionForPokemon(pokemon.id)
-        val debutGen = getDebutGenForPokemon(pokemon.id)
+        if (entriesObj != null) {
+            val candidates = CARTRIDGE_CANDIDATE_KEYS[debutCart] ?: listOf(debutCart)
+            for (cand in candidates) {
+                val keys = entriesObj.keys()
+                while (keys.hasNext()) {
+                    val k = keys.next()
+                    if (k.equals(cand, ignoreCase = true)) {
+                        return ResolvedPokedexEntry(
+                            text = cleanFlavorText(entriesObj.getString(k)),
+                            matchedCartridgeId = cid,
+                            isDocumentedInEdition = false
+                        )
+                    }
+                }
+            }
+        }
         return ResolvedPokedexEntry(
-            text = "This Pokémon is not documented in the ${cid.uppercase(Locale.ROOT)} regional Pokédex. It debuted in Pokémon $debutCart ($debutRegion region, Gen $debutGen).",
+            text = cleanFlavorText(pokemon.flavorText),
             matchedCartridgeId = cid,
             isDocumentedInEdition = false
         )

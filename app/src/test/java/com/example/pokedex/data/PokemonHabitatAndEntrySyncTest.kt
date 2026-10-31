@@ -450,8 +450,9 @@ class PokemonHabitatAndEntrySyncTest {
         // 3. Swampert in Red (Incompatible / Gen 1)
         val redRes = PokemonMapHabitatRepository.resolvePokedexEntryForCartridge(swampert, "Red")
         assertFalse("Swampert did not exist in Gen 1 Red", redRes.isDocumentedInEdition)
-        assertTrue("Red explanation must state Pokémon is not documented in RED", redRes.text.contains("not documented in the RED regional Pokédex", ignoreCase = true))
-        assertTrue("Red explanation must point to debut in Ruby", redRes.text.contains("Ruby", ignoreCase = true))
+        assertTrue("Fallback entry should contain canonical flavor text", redRes.text.contains("boulder", ignoreCase = true) || redRes.text.contains("swims", ignoreCase = true) || redRes.text.contains("very strong", ignoreCase = true))
+        assertFalse("Fallback must not contain synthetic not documented notice", redRes.text.contains("not documented in the", ignoreCase = true))
+        assertFalse("Fallback must not contain synthetic National Pokédex entry prefix", redRes.text.contains("National Pokédex entry:", ignoreCase = true))
 
         // 4. Charizard in Red
         val charizard = findEntity(6)
@@ -515,5 +516,44 @@ class PokemonHabitatAndEntrySyncTest {
         val wyrdeerRes = PokemonMapHabitatRepository.resolvePokedexEntryForCartridge(wyrdeer, "Default")
         assertTrue("Wyrdeer must be documented in debut cartridge", wyrdeerRes.isDocumentedInEdition)
         assertEquals("Legends: Arceus", wyrdeerRes.matchedCartridgeId)
+    }
+
+    @Test
+    fun `pokemon_data json contains zero synthetic non-native prefixes and ALL MAPS is national dex`() {
+        val dataFile = resolveAssetFile("pokemon_data.json")
+        val rawJson = dataFile.readText(Charsets.UTF_8)
+        assertFalse("Must not contain synthetic inhabit text", rawJson.contains("does not naturally inhabit", ignoreCase = true))
+        assertFalse("Must not contain synthetic National Pokédex entry prefix", rawJson.contains("National Pokédex entry:", ignoreCase = true))
+
+        val allMapsEntry = ALL_REGION_MAP_ENTRIES.first { it.id == "all" }
+        assertEquals("ALL MAPS", allMapsEntry.title)
+        assertEquals("National Pokédex", allMapsEntry.eraSubtitle)
+        assertEquals("pokedex_icon.png", allMapsEntry.mapAsset)
+
+        val array = org.json.JSONArray(rawJson)
+        var weedle: PokemonEntity? = null
+        for (i in 0 until array.length()) {
+            val obj = array.getJSONObject(i)
+            if (obj.getInt("id") == 13) {
+                weedle = PokemonEntity(
+                    id = 13,
+                    name = obj.getString("name"),
+                    type = obj.getString("type"),
+                    height = obj.getString("height"),
+                    weight = obj.getString("weight"),
+                    flavorText = obj.getString("flavorText"),
+                    spriteUrl = obj.optString("spriteUrl", ""),
+                    shinySpriteUrl = null,
+                    evolvesTo = "",
+                    forms = "",
+                    pokedexEntries = obj.optString("pokedexEntries", "{}")
+                )
+                break
+            }
+        }
+        org.junit.Assert.assertNotNull(weedle)
+        val weedleScarlet = PokemonMapHabitatRepository.resolvePokedexEntryForCartridge(weedle!!, "Scarlet")
+        assertTrue("Weedle entry must be authentic", weedleScarlet.text.contains("venomous stinger", ignoreCase = true) || weedleScarlet.text.contains("forests", ignoreCase = true))
+        assertFalse("Weedle entry must not contain synthetic prefix", weedleScarlet.text.contains("does not naturally inhabit", ignoreCase = true))
     }
 }

@@ -19,11 +19,11 @@ val ALL_REGION_MAP_ENTRIES = listOf(
     RegionMapEntry(
         id = "all",
         region = null,
-        title = "ALL REGIONS",
+        title = "ALL MAPS",
         eraSubtitle = "National Pokédex",
         generationText = "All Generations",
         rangeText = "#001 - #1025",
-        mapAsset = "all_world.png",
+        mapAsset = "pokedex_icon.png",
         preferredEditionId = "Default",
         cardColor = Color(0xFF1E272C),
         accentColor = Color(0xFF00FFCC)
