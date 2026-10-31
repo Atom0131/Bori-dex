@@ -24,6 +24,8 @@ import com.example.pokedex.camera.TFLiteClassifier
 import com.example.pokedex.data.PokemonNameMatcher
 import com.example.pokedex.data.PokemonRegion
 import com.example.pokedex.data.RegionMapEntry
+import com.example.pokedex.data.PokemonGameGuideRepository
+import com.example.pokedex.data.GuideQueryResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
@@ -129,6 +131,14 @@ class PokedexViewModel(
         _selectedRegion.value = region
         if (region == null) {
             _selectedMapEntryId.value = "all"
+            setPreferredGameEdition("Default", syncRegionFilter = false)
+        } else {
+            val matchingEntry = com.example.pokedex.data.ALL_REGION_MAP_ENTRIES.firstOrNull { it.region == region }
+            if (matchingEntry != null) {
+                _selectedMapEntryId.value = matchingEntry.id
+            }
+            val defaultEdition = com.example.pokedex.data.PokemonMapHabitatRepository.getDefaultCartridgeIdForRegion(region.displayName)
+            setPreferredGameEdition(defaultEdition, syncRegionFilter = false)
         }
         prefs.edit()
             .putString("last_selected_region", region?.name)
@@ -142,7 +152,9 @@ class PokedexViewModel(
         _selectedMapEntryId.value = entry.id
         _selectedRegion.value = entry.region
         if (!entry.preferredEditionId.isNullOrBlank()) {
-            setPreferredGameEdition(entry.preferredEditionId)
+            setPreferredGameEdition(entry.preferredEditionId, syncRegionFilter = false)
+        } else {
+            setPreferredGameEdition("Default", syncRegionFilter = false)
         }
         prefs.edit()
             .putString("last_selected_region", entry.region?.name)
@@ -182,46 +194,117 @@ class PokedexViewModel(
     private val _autoReadDexEntry = MutableStateFlow(prefs.getBoolean("auto_read_dex_entry", true))
     val autoReadDexEntry: StateFlow<Boolean> = _autoReadDexEntry.asStateFlow()
 
+    // --- ULTIMATE POKÉMON GAME GUIDE & QUEST NAVIGATOR ---
+    private val _isGuideModalOpen = MutableStateFlow(false)
+    val isGuideModalOpen: StateFlow<Boolean> = _isGuideModalOpen.asStateFlow()
+
+    private val _guideQuery = MutableStateFlow("")
+    val guideQuery: StateFlow<String> = _guideQuery.asStateFlow()
+
+    private val _guideResult = MutableStateFlow<GuideQueryResult?>(null)
+    val guideResult: StateFlow<GuideQueryResult?> = _guideResult.asStateFlow()
+
+    private val _isGuideSearching = MutableStateFlow(false)
+    val isGuideSearching: StateFlow<Boolean> = _isGuideSearching.asStateFlow()
+
+    fun getEffectiveGameEdition(): String {
+        val pref = _preferredGameEdition.value
+        if (pref.isNotBlank() && !pref.equals("Default", ignoreCase = true)) {
+            return pref
+        }
+        val mapId = _selectedMapEntryId.value
+        if (!mapId.isNullOrBlank()) {
+            val entry = com.example.pokedex.data.ALL_REGION_MAP_ENTRIES.firstOrNull { it.id == mapId }
+            val editionId = entry?.preferredEditionId
+            if (!editionId.isNullOrBlank() && !editionId.equals("Default", ignoreCase = true)) {
+                return editionId
+            }
+        }
+        return "Emerald"
+    }
+
+    fun openGuideModal() {
+        _isGuideModalOpen.value = true
+        scanningJob?.cancel()
+        val ed = getEffectiveGameEdition()
+        if (_guideResult.value == null) {
+            searchGuide(
+                query = if (_guideQuery.value.isNotBlank()) _guideQuery.value else "help",
+                editionId = ed
+            )
+        }
+    }
+
+    fun closeGuideModal() {
+        _isGuideModalOpen.value = false
+    }
+
+    private var guideSearchJob: Job? = null
+
+    fun updateGuideQuery(q: String) {
+        _guideQuery.value = q
+        guideSearchJob?.cancel()
+        if (q.isBlank()) {
+            _guideResult.value = null
+            return
+        }
+        guideSearchJob = viewModelScope.launch {
+            delay(300)
+            searchGuide(q)
+        }
+    }
+
+    fun selectGuideTopic(topicName: String, cartridgeId: String? = null) {
+        _guideQuery.value = topicName
+        val ed = cartridgeId ?: getEffectiveGameEdition()
+        searchGuide(topicName, ed)
+    }
+
+    fun searchGuide(query: String? = null, editionId: String? = null) {
+        val rawQ = query ?: _guideQuery.value
+        val ed = editionId ?: getEffectiveGameEdition()
+        val q = if (rawQ.isBlank()) "help" else rawQ
+
+        _isGuideSearching.value = true
+        val offlineResult = PokemonGameGuideRepository.queryGuide(q, ed, getApplication())
+        _guideResult.value = offlineResult
+        _isGuideSearching.value = false
+    }
+
+    fun readGuideAdvice(result: GuideQueryResult) {
+        speakCustomText(result.spokenAdvice)
+    }
+
     private val _preferredGameEdition = MutableStateFlow(prefs.getString("preferred_game_edition", "Default") ?: "Default")
     val preferredGameEdition: StateFlow<String> = _preferredGameEdition.asStateFlow()
 
-    fun setPreferredGameEdition(edition: String) {
-        _preferredGameEdition.value = edition
-        prefs.edit().putString("preferred_game_edition", edition).apply()
+    fun setPreferredGameEdition(edition: String, syncRegionFilter: Boolean = true) {
+        val canonicalEdition = if (edition.equals("Paldea", ignoreCase = true)) "Scarlet" else edition
+        _preferredGameEdition.value = canonicalEdition
+        prefs.edit().putString("preferred_game_edition", canonicalEdition).apply()
+        if (syncRegionFilter) {
+            val mapEntry = com.example.pokedex.data.getRegionMapEntryForEdition(canonicalEdition)
+            _selectedRegion.value = mapEntry.region
+            _selectedMapEntryId.value = mapEntry.id
+            prefs.edit()
+                .putString("last_selected_region", mapEntry.region?.name)
+                .putString("last_selected_map_entry_id", mapEntry.id)
+                .apply()
+            savedStateHandle?.set("last_selected_region", mapEntry.region?.name)
+            savedStateHandle?.set("last_selected_map_entry_id", mapEntry.id)
+        }
+        if (_isGuideModalOpen.value) {
+            val q = if (_guideQuery.value.isBlank()) "help" else _guideQuery.value
+            searchGuide(q, canonicalEdition)
+        }
     }
 
-    fun getEffectiveFlavorText(pokemon: PokemonEntity): String {
-        val preferred = _preferredGameEdition.value
-        if (preferred != "Default" && pokemon.pokedexEntries.isNotBlank()) {
-            try {
-                val obj = org.json.JSONObject(pokemon.pokedexEntries)
-                val preferredCandidates = if (preferred.contains("/")) {
-                    preferred.split("/").map { it.trim() }
-                } else if (preferred.equals("Legends Arceus", ignoreCase = true) || preferred.equals("Legends: Arceus", ignoreCase = true)) {
-                    listOf("Legends Arceus", "Legends: Arceus", "Hisui")
-                } else if (preferred.contains("Legends", ignoreCase = true) && preferred.contains("Z", ignoreCase = true)) {
-                    listOf("Legends: Z-A", "Legends Z-A", "Legends ZA", "ZA", "Lumiose")
-                } else if (preferred.equals("GO", ignoreCase = true) || preferred.contains("Pokemon GO", ignoreCase = true) || preferred.contains("PokemonGo", ignoreCase = true)) {
-                    listOf("GO", "Pokemon GO", "PokemonGo")
-                } else {
-                    listOf(preferred)
-                }
-
-                for (candidate in preferredCandidates) {
-                    val keys = obj.keys()
-                    while (keys.hasNext()) {
-                        val key = keys.next()
-                        if (key.equals(candidate, ignoreCase = true)) {
-                            val raw = obj.getString(key)
-                            val clean = raw.replace("Documented in the Lumiose City urban archives (Pokémon Legends: Z-A). Dex entry: ", "")
-                                .replace("Documented in the Lumiose City urban archives (Pokmon Legends: Z-A). Dex entry: ", "")
-                            return clean
-                        }
-                    }
-                }
-            } catch (_: Exception) {}
-        }
-        return pokemon.flavorText
+    fun getEffectiveFlavorText(pokemon: PokemonEntity, cartridgeId: String? = null): String {
+        val targetCartridge = cartridgeId ?: _preferredGameEdition.value
+        return com.example.pokedex.data.PokemonMapHabitatRepository.resolvePokedexEntryForCartridge(
+            pokemon,
+            targetCartridge
+        ).text
     }
 
     fun setScanFlowPreset(preset: ScanFlowPreset) {
@@ -266,30 +349,69 @@ class PokedexViewModel(
         }
     }
 
+    private fun normalizeSearchString(text: String): String {
+        return java.text.Normalizer.normalize(text.lowercase().trim(), java.text.Normalizer.Form.NFD)
+            .replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")
+            .replace(".", "")
+            .replace("'", "")
+            .replace("’", "")
+            .replace("-", " ")
+            .replace("♀", " f")
+            .replace("♂", " m")
+    }
+
     val filteredPokemonList: StateFlow<List<PokemonEntity>> = kotlinx.coroutines.flow.combine(
         _pokemonList,
         _searchQuery,
         _selectedRegion
     ) { list, query, region ->
-        var result = list.filter { it.id <= 1025 }
+        val nationalList = list.filter { it.id <= 1025 }
+        var result = nationalList
 
-        // 1. Regional filter from Chip
+        // 1. Regional filter from Chip / Settings Game Edition
         if (region != null) {
             result = result.filter { region.matches(it) }
         }
 
         // 2. Search query filter
         if (query.isNotBlank()) {
-            val q = query.trim().lowercase()
+            val rawQ = query.trim().lowercase()
+            val q = when (rawQ) {
+                "mudberry", "mudbery", "mule", "donkey" -> "mudbray"
+                "draft horse", "mudhorse" -> "mudsdale"
+                else -> rawQ
+            }
+            val normQ = normalizeSearchString(q)
+            val numId = rawQ.removePrefix("#").trimStart('0').toIntOrNull()
+
             val queryRegion = PokemonRegion.fromQuery(q)
-            if (queryRegion != null && region == null) {
+            val isDirectPokemonMatch = nationalList.any {
+                val nName = normalizeSearchString(it.name)
+                nName == normQ || nName.contains(normQ) || (numId != null && it.id == numId)
+            }
+
+            if (queryRegion != null && region == null && !isDirectPokemonMatch) {
                 result = result.filter { queryRegion.matches(it) }
             } else {
-                result = result.filter { pokemon ->
-                    pokemon.name.lowercase().contains(q) ||
-                    pokemon.type.lowercase().contains(q) ||
-                    pokemon.id.toString() == q ||
-                    pokemon.forms.lowercase().contains(q)
+                val matchesQuery: (PokemonEntity) -> Boolean = { pokemon ->
+                    val normName = normalizeSearchString(pokemon.name)
+                    val normType = normalizeSearchString(pokemon.type)
+                    val normForms = normalizeSearchString(pokemon.forms)
+                    val normFlavor = if (normQ.length >= 4) normalizeSearchString(pokemon.flavorText) else ""
+
+                    (numId != null && pokemon.id == numId) ||
+                    pokemon.id.toString() == rawQ.removePrefix("#") ||
+                    normName.contains(normQ) ||
+                    normType.contains(normQ) ||
+                    normForms.contains(normQ) ||
+                    (normFlavor.isNotEmpty() && normFlavor.contains(normQ))
+                }
+                val regionalMatches = result.filter(matchesQuery)
+                result = if (regionalMatches.isNotEmpty() || region == null) {
+                    regionalMatches
+                } else {
+                    // Fallback to National Dex if the user explicitly searches a Pokémon name/number not in the current region filter
+                    nationalList.filter(matchesQuery)
                 }
             }
         }
@@ -301,22 +423,39 @@ class PokedexViewModel(
     )
 
     init {
-        // 1. Persistent State Restoration: Search Query, Region & Map Entry
+        // 1. Persistent State Restoration: Search Query, Region & Map Entry synchronized with Settings Game Version
         val savedSearch = savedStateHandle?.get<String>("last_search_query")
             ?: prefs.getString("last_search_query", "") ?: ""
         if (savedSearch.isNotBlank()) {
             _searchQuery.value = savedSearch
         }
 
+        val preferredEd = _preferredGameEdition.value
         val savedRegionName = savedStateHandle?.get<String>("last_selected_region")
             ?: prefs.getString("last_selected_region", null)
-        if (savedRegionName != null) {
-            _selectedRegion.value = runCatching { PokemonRegion.valueOf(savedRegionName) }.getOrNull()
-        }
-
         val savedEntryId = savedStateHandle?.get<String>("last_selected_map_entry_id")
             ?: prefs.getString("last_selected_map_entry_id", "all") ?: "all"
-        _selectedMapEntryId.value = savedEntryId
+
+        if (!preferredEd.equals("Default", ignoreCase = true) && preferredEd.isNotBlank()) {
+            val editionEntry = com.example.pokedex.data.getRegionMapEntryForEdition(preferredEd)
+            // Keep Costumes if user explicitly picked Costumes (which also uses GO edition), otherwise sync to the Settings game version
+            if (savedEntryId == "costumes" && preferredEd.equals("GO", ignoreCase = true)) {
+                _selectedRegion.value = PokemonRegion.COSTUMES
+                _selectedMapEntryId.value = "costumes"
+            } else {
+                _selectedRegion.value = editionEntry.region
+                _selectedMapEntryId.value = editionEntry.id
+                prefs.edit()
+                    .putString("last_selected_region", editionEntry.region?.name)
+                    .putString("last_selected_map_entry_id", editionEntry.id)
+                    .apply()
+            }
+        } else {
+            if (savedRegionName != null) {
+                _selectedRegion.value = runCatching { PokemonRegion.valueOf(savedRegionName) }.getOrNull()
+            }
+            _selectedMapEntryId.value = savedEntryId
+        }
 
         // 2. Persistent State Restoration: Active Pokemon Result Card
         val savedActiveState = savedStateHandle?.get<String>("last_active_state")
@@ -582,6 +721,12 @@ class PokedexViewModel(
             .replace(Regex("\\s+"), " ")
             .trim()
         tts.speak("${capitalizedName}. ${typeText}${cleaned}")
+    }
+
+    fun speakCustomText(text: String) {
+        tts.stop()
+        _isSpeaking.value = false
+        tts.speak(text)
     }
 
     fun selectPokemonById(id: Int) {
@@ -1126,8 +1271,8 @@ class PokedexViewModel(
         tts.stop()
         _isSpeaking.value = false
 
-        // Center-crop to 1:1 square so aspect ratio matches the training data & reticle
-        val minDim = minOf(rawBitmap.width, rawBitmap.height)
+        // 1. Standard 100% 1:1 Center Crop for display & primary inference
+        val minDim = minOf(rawBitmap.width, rawBitmap.height).coerceAtLeast(1)
         val cropX = (rawBitmap.width - minDim) / 2
         val cropY = (rawBitmap.height - minDim) / 2
         val bitmap = Bitmap.createBitmap(rawBitmap, cropX, cropY, minDim, minDim)
@@ -1137,97 +1282,133 @@ class PokedexViewModel(
         consensusJob?.cancel()
         consensusJob = viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             try {
-                val probs = classifier.getProbabilities(bitmap)
                 val labels = classifier.getLabels()
+                val crops = mutableListOf<Bitmap>(bitmap)
 
-                var maxIdx = 0
-                var maxVal = -1f
-                for (i in probs.indices) {
-                    if (probs[i] > maxVal) {
-                        maxVal = probs[i]
-                        maxIdx = i
+                // 2. Tighter 75% Center Crop (catches Pokémon inside phone screenshots, cards, or wider photos)
+                val innerDim = (minDim * 0.75f).toInt().coerceAtLeast(1)
+                if (innerDim < minDim) {
+                    val innerX = (rawBitmap.width - innerDim) / 2
+                    val innerY = (rawBitmap.height - innerDim) / 2
+                    crops.add(Bitmap.createBitmap(rawBitmap, innerX, innerY, innerDim, innerDim))
+                }
+
+                // 3. Full-Image Square Letterbox Fit (preserves full silhouette on tall/wide photos)
+                if (rawBitmap.width != rawBitmap.height) {
+                    val maxDim = maxOf(rawBitmap.width, rawBitmap.height).coerceAtLeast(1)
+                    val fitted = Bitmap.createBitmap(maxDim, maxDim, Bitmap.Config.ARGB_8888)
+                    val canvas = android.graphics.Canvas(fitted)
+                    canvas.drawColor(android.graphics.Color.rgb(245, 245, 245))
+                    val left = (maxDim - rawBitmap.width) / 2f
+                    val top = (maxDim - rawBitmap.height) / 2f
+                    canvas.drawBitmap(rawBitmap, left, top, null)
+                    crops.add(fitted)
+                }
+
+                // Fuse multi-crop probabilities weighted by each crop's peak confidence
+                val fusedProbs = FloatArray(labels.size)
+                var totalWeight = 0f
+                for (cropBmp in crops) {
+                    val cropProbs = classifier.getProbabilities(cropBmp)
+                    var cropMaxIdx = 0
+                    var cropMaxVal = -1f
+                    for (i in cropProbs.indices) {
+                        if (cropProbs[i] > cropMaxVal) {
+                            cropMaxVal = cropProbs[i]
+                            cropMaxIdx = i
+                        }
+                    }
+                    val rawCropLabel = labels.getOrNull(cropMaxIdx)
+                    val rawCropName = rawCropLabel?.let { nameMatcher.extractName(it)?.lowercase() }
+                    if (rawCropName in GLARE_ATTRACTORS && cropMaxVal < 0.60f) {
+                        cropProbs[cropMaxIdx] *= 0.25f
+                        cropMaxVal = cropProbs.maxOrNull() ?: 0.01f
+                    }
+                    val w = cropMaxVal.coerceAtLeast(0.05f)
+                    totalWeight += w
+                    for (i in cropProbs.indices) {
+                        fusedProbs[i] += cropProbs[i] * w
+                    }
+                }
+                if (totalWeight > 0f) {
+                    for (i in fusedProbs.indices) {
+                        fusedProbs[i] /= totalWeight
                     }
                 }
 
-                val topLabel = labels.getOrNull(maxIdx) ?: "UNKNOWN"
-                val top3 = probs.withIndex().sortedByDescending { it.value }.take(3)
-                var logStr = "Gallery Image Top 3: "
-                for (p in top3) {
+                val topCandidates = fusedProbs.withIndex().sortedByDescending { it.value }.take(5)
+                var logStr = "Gallery Multi-Crop Top 3: "
+                for (p in topCandidates.take(3)) {
                     logStr += "${labels.getOrNull(p.index)} (${"%.4f".format(p.value)}), "
                 }
                 android.util.Log.d("PokedexViewModel", logStr)
+                logScannerTelemetry(logStr)
 
-                // Baseline confidence for static gallery image (30% + margin check)
-                var galTop2Val = -1f
-                for (i in probs.indices) {
-                    if (i != maxIdx && probs[i] > galTop2Val) {
-                        galTop2Val = probs[i]
+                // Always pass through: resolve the top matched Pokémon from the ranked candidates
+                var basePokemon: PokemonEntity? = null
+                for (cand in topCandidates) {
+                    val label = labels.getOrNull(cand.index) ?: continue
+                    val extracted = nameMatcher.extractName(label) ?: label.lowercase().trim()
+                    basePokemon = pokemonDao.getPokemonByName(extracted)
+                        ?: pokemonDao.getPokemonByName(label.lowercase().trim())
+                        ?: pokemonDao.getPokemonByName(extracted.substringBefore("-"))
+                    if (basePokemon != null) break
+                }
+                if (basePokemon == null) {
+                    basePokemon = _pokemonList.value.firstOrNull() ?: pokemonDao.getFirstPokemon() ?: pokemonDao.getPokemonById(1)
+                }
+
+                if (basePokemon != null) {
+                    val formList = if (basePokemon.forms.isNotBlank()) {
+                        val names = basePokemon.forms.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+                        pokemonDao.getPokemonByNames(names)
+                    } else {
+                        emptyList()
                     }
-                }
-                val galMargin = maxVal - galTop2Val
-                val galRatio = if (galTop2Val > 0f) maxVal / galTop2Val else 10f
-
-                if (maxVal >= 0.30f && (galMargin >= 0.08f || galRatio >= 1.50f)) {
-                    val pokemonName = nameMatcher.extractName(topLabel)
-                    val basePokemon = pokemonName?.let { pokemonDao.getPokemonByName(it) }
-                    if (basePokemon != null) {
-                        val formList = if (basePokemon.forms.isNotBlank()) {
-                            val names = basePokemon.forms.split(",").map { it.trim() }.filter { it.isNotEmpty() }
-                            pokemonDao.getPokemonByNames(names)
-                        } else {
-                            emptyList()
-                        }
-                        val disambiguation = PokemonFormDetector.disambiguate(bitmap, basePokemon, formList)
-                        val pokemon = if (disambiguation.resolvedFormName.equals(basePokemon.name, ignoreCase = true)) {
-                            basePokemon
-                        } else {
-                            formList.firstOrNull { it.name.equals(disambiguation.resolvedFormName, ignoreCase = true) } ?: basePokemon
-                        }
-                        val isShiny = disambiguation.isShiny
-                        val formTitle = PokemonFormDetector.formatFormDisplayName(pokemon.name)
-
-                        tts.stop()
-                        _isSpeaking.value = false
-
-                        if (_playFanfare.value) {
-                            _uiState.value = PokedexState.WhosThat(bitmap)
-                            // Authentic 1997 anime fanfare & kids callout SFX
-                            PokemonSoundPlayer.playWhosThatPokemon(getApplication())
-                            delay(3400)
-                        }
-
-                        if (!isActive) return@launch
-
-                        if (_playCryOnReveal.value) {
-                            PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
-                        }
-
-                        if (_playVoiceReveal.value) {
-                            _uiState.value = PokedexState.Reveal(pokemon, bitmap, isShiny = isShiny)
-                            val announcement = if (isShiny) "It's a Shiny $formTitle!" else "It's $formTitle!"
-                            tts.speak(announcement)
-                            delay(1600)
-                        }
-
-                        if (!isActive) return@launch
-
-                        selectPokemon(pokemon, isShiny = isShiny)
-                        return@launch
+                    val disambiguation = PokemonFormDetector.disambiguate(bitmap, basePokemon, formList)
+                    val pokemon = if (disambiguation.resolvedFormName.equals(basePokemon.name, ignoreCase = true)) {
+                        basePokemon
+                    } else {
+                        formList.firstOrNull { it.name.equals(disambiguation.resolvedFormName, ignoreCase = true) } ?: basePokemon
                     }
+                    val isShiny = disambiguation.isShiny
+                    val formTitle = PokemonFormDetector.formatFormDisplayName(pokemon.name)
+
+                    tts.stop()
+                    _isSpeaking.value = false
+
+                    if (_playFanfare.value) {
+                        _uiState.value = PokedexState.WhosThat(bitmap)
+                        PokemonSoundPlayer.playWhosThatPokemon(getApplication())
+                        delay(3400)
+                    }
+
+                    if (!isActive) return@launch
+
+                    if (_playCryOnReveal.value) {
+                        PokemonSoundPlayer.playPokemonCry(getApplication(), pokemon.id)
+                    }
+
+                    if (_playVoiceReveal.value) {
+                        _uiState.value = PokedexState.Reveal(pokemon, bitmap, isShiny = isShiny)
+                        val announcement = if (isShiny) "It's a Shiny $formTitle!" else "It's $formTitle!"
+                        tts.speak(announcement)
+                        delay(1600)
+                    }
+
+                    if (!isActive) return@launch
+
+                    selectPokemon(pokemon, isShiny = isShiny)
+                    return@launch
                 }
 
-                // Unrecognized image
-                tts.speak("Could not identify Pokemon from photo.")
-                _uiState.value = PokedexState.Error("NO POKEMON IDENTIFIED")
-                delay(2500)
-                if (isActive) {
-                    _uiState.value = PokedexState.Idle
-                }
+                _uiState.value = PokedexState.Idle
             } catch (e: Exception) {
                 android.util.Log.e("PokedexViewModel", "Error analyzing gallery image", e)
-                _uiState.value = PokedexState.Error("ANALYSIS ERROR")
-                delay(2500)
-                if (isActive) {
+                val fallback = _pokemonList.value.firstOrNull()
+                if (fallback != null && isActive) {
+                    selectPokemon(fallback)
+                } else if (isActive) {
                     _uiState.value = PokedexState.Idle
                 }
             }

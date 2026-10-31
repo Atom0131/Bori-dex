@@ -51,11 +51,17 @@ class TFLiteClassifier(context: Context) {
         for (i in 0 until 224) {
             for (j in 0 until 224) {
                 val v = intValues[pixel++]
-                // Extract R, G, B channels as Float32 (0.0f .. 255.0f)
-                // The model's internal Rescaling layer converts to [-1, 1]
-                inputBuffer.putFloat(((v shr 16) and 0xFF).toFloat())
-                inputBuffer.putFloat(((v shr 8) and 0xFF).toFloat())
-                inputBuffer.putFloat((v and 0xFF).toFloat())
+                val a = (v ushr 24) and 0xFF
+                val rawR = (v shr 16) and 0xFF
+                val rawG = (v shr 8) and 0xFF
+                val rawB = v and 0xFF
+                // Composite transparent/semi-transparent PNG pixels over a neutral light backdrop (245)
+                val r = if (a < 255) (rawR * a + 245 * (255 - a)) / 255 else rawR
+                val g = if (a < 255) (rawG * a + 245 * (255 - a)) / 255 else rawG
+                val b = if (a < 255) (rawB * a + 245 * (255 - a)) / 255 else rawB
+                inputBuffer.putFloat(r.toFloat())
+                inputBuffer.putFloat(g.toFloat())
+                inputBuffer.putFloat(b.toFloat())
             }
         }
         

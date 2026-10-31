@@ -84,3 +84,5 @@ ENV/
 refnotes/
 old_refs/
 Current_instal_error*
+scratch_backups/
+apply_landmark_ui_recovered.py

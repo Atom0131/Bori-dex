@@ -233,3 +233,81 @@ val ALL_REGION_MAP_ENTRIES = listOf(
         accentColor = Color(0xFFFFD700)
     )
 )
+
+fun getRegionMapEntryForEdition(editionId: String): RegionMapEntry {
+    val clean = editionId.trim()
+    val entryId = when {
+        clean.equals("Default", ignoreCase = true) || clean.isBlank() -> "all"
+        clean.equals("Red", ignoreCase = true) ||
+            clean.equals("Blue", ignoreCase = true) ||
+            clean.equals("Yellow", ignoreCase = true) -> "kanto_rgby"
+        clean.equals("FireRed", ignoreCase = true) ||
+            clean.equals("LeafGreen", ignoreCase = true) ||
+            clean.equals("Let's Go Pikachu", ignoreCase = true) ||
+            clean.equals("Let's Go Eevee", ignoreCase = true) ||
+            clean.contains("Let's Go", ignoreCase = true) -> "kanto_frlg"
+        clean.equals("Gold", ignoreCase = true) ||
+            clean.equals("Silver", ignoreCase = true) ||
+            clean.equals("Crystal", ignoreCase = true) -> "johto_gsc"
+        clean.equals("HeartGold", ignoreCase = true) ||
+            clean.equals("SoulSilver", ignoreCase = true) -> "johto_hgss"
+        clean.equals("Ruby", ignoreCase = true) ||
+            clean.equals("Sapphire", ignoreCase = true) ||
+            clean.equals("Emerald", ignoreCase = true) -> "hoenn_rse"
+        clean.equals("Omega Ruby", ignoreCase = true) ||
+            clean.equals("Alpha Sapphire", ignoreCase = true) -> "hoenn_oras"
+        clean.equals("Diamond", ignoreCase = true) ||
+            clean.equals("Pearl", ignoreCase = true) ||
+            clean.equals("Platinum", ignoreCase = true) ||
+            clean.equals("Brilliant Diamond", ignoreCase = true) ||
+            clean.equals("Shining Pearl", ignoreCase = true) -> "sinnoh_pt"
+        clean.equals("Black 2", ignoreCase = true) ||
+            clean.equals("White 2", ignoreCase = true) -> "unova_b2w2"
+        clean.equals("Black", ignoreCase = true) ||
+            clean.equals("White", ignoreCase = true) -> "unova_bw"
+        clean.equals("X", ignoreCase = true) ||
+            clean.equals("Y", ignoreCase = true) ||
+            clean.contains("Legends: Z-A", ignoreCase = true) ||
+            clean.contains("Legends Z-A", ignoreCase = true) ||
+            clean.equals("Lumiose", ignoreCase = true) -> "kalos_xy"
+        clean.equals("Ultra Sun", ignoreCase = true) ||
+            clean.equals("Ultra Moon", ignoreCase = true) -> "alola_usum"
+        clean.equals("Sun", ignoreCase = true) ||
+            clean.equals("Moon", ignoreCase = true) -> "alola_sm"
+        clean.equals("Sword", ignoreCase = true) ||
+            clean.equals("Shield", ignoreCase = true) -> "galar_swsh"
+        clean.contains("Arceus", ignoreCase = true) ||
+            clean.equals("Hisui", ignoreCase = true) -> "hisui_pla"
+        clean.equals("Scarlet", ignoreCase = true) ||
+            clean.equals("Violet", ignoreCase = true) ||
+            clean.equals("Paldea", ignoreCase = true) -> "paldea_sv"
+        clean.equals("GO", ignoreCase = true) ||
+            clean.contains("Pokemon GO", ignoreCase = true) ||
+            clean.contains("Pokémon GO", ignoreCase = true) -> "pogo"
+        else -> "all"
+    }
+    return ALL_REGION_MAP_ENTRIES.firstOrNull { it.id == entryId } ?: ALL_REGION_MAP_ENTRIES.first()
+}
+
+fun getRegionForEdition(editionId: String): PokemonRegion? {
+    return getRegionMapEntryForEdition(editionId).region
+}
+
+enum class GameBoyPalette(
+    val id: String,
+    val displayName: String,
+    val mapAsset: String,
+    val chipColor: Color,
+    val textColor: Color
+) {
+    POCKET("pocket", "Pocket (B&W)", "kanto_rgby_pocket.png", Color(0xFF263238), Color.White),
+    DMG("dmg", "DMG (Olive)", "kanto_rgby_dmg.png", Color(0xFF306230), Color(0xFF9BBC0F)),
+    GBC_RED("gbc_red", "GBC Red", "kanto_rgby_gbc_red.png", Color(0xFF8B1E1E), Color(0xFFFFD1D1)),
+    GBC_BLUE("gbc_blue", "GBC Blue", "kanto_rgby_gbc_blue.png", Color(0xFF154360), Color(0xFFD4E6F1)),
+    SGB("sgb", "Super GB", "kanto_rgby_sgb.png", Color(0xFF512E5F), Color(0xFFE8DAEF))
+}
+
+fun isPixelArtMap(assetName: String): Boolean {
+    val base = assetName.removeSuffix(".png").lowercase()
+    return base.startsWith("kanto_rgby") || base == "johto_gsc" || base == "hoenn_rse" || base == "kanto_frlg"
+}

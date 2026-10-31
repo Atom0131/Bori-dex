@@ -1,149 +1,73 @@
 package com.example.pokedex.ui
 
-
-
-import androidx.activity.compose.rememberLauncherForActivityResult
-
-import androidx.activity.result.contract.ActivityResultContracts
-
-import android.graphics.ImageDecoder
-
-import android.os.Build
-
-import android.provider.MediaStore
-
-import androidx.compose.ui.graphics.asImageBitmap
-
-import androidx.compose.foundation.border
-
-import androidx.compose.ui.draw.clip
-
-
-
-
-
-import androidx.compose.foundation.Image
-
 import android.graphics.Bitmap
-
-
-
-
-
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
+import android.os.Build
+import android.provider.MediaStore
 import androidx.activity.compose.BackHandler
-
-import androidx.compose.foundation.background
-
-import androidx.compose.foundation.clickable
-
-import androidx.compose.foundation.layout.*
-
-import androidx.compose.foundation.lazy.LazyColumn
-
-import androidx.compose.foundation.lazy.items
-
-import androidx.compose.foundation.lazy.grid.GridCells
-
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-
-import androidx.compose.foundation.lazy.grid.items
-
-import androidx.compose.foundation.shape.CircleShape
-
-import androidx.compose.foundation.shape.RoundedCornerShape
-
-import androidx.compose.foundation.verticalScroll
-
-import androidx.compose.foundation.horizontalScroll
-
-import androidx.compose.foundation.rememberScrollState
-
-import androidx.compose.material3.*
-
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.*
-
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-
 import androidx.compose.ui.Alignment
-
 import androidx.compose.ui.Modifier
-
-import androidx.compose.ui.graphics.Color
-
-import androidx.compose.ui.text.font.FontWeight
-
-import androidx.compose.ui.unit.dp
-
-import androidx.compose.ui.unit.sp
-
-import androidx.compose.ui.window.Dialog
-
-import androidx.compose.ui.platform.LocalContext
-
-import androidx.compose.ui.graphics.graphicsLayer
-
-import androidx.compose.ui.graphics.ColorMatrix
-
-import androidx.compose.ui.graphics.ColorFilter
-
-import androidx.compose.ui.graphics.Shadow
-
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
-
-import coil.compose.AsyncImage
-
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.FilterQuality
-
-import com.example.pokedex.data.EvolutionGuideRepository
-
-import com.example.pokedex.data.EvolutionTarget
-
-import com.example.pokedex.data.PokemonEntity
-
-import com.example.pokedex.data.getCanonicalId
-
-import com.example.pokedex.data.PokemonCostume
-
-import com.example.pokedex.data.PokemonGoCostumeRepository
-
-import com.example.pokedex.data.PokemonRegion
-
-import com.example.pokedex.data.RegionMapEntry
-
-import com.example.pokedex.data.ALL_REGION_MAP_ENTRIES
-
-import com.example.pokedex.data.PokemonMapHabitatRepository
-
-import com.example.pokedex.data.PokemonHabitatMap
-
-import com.example.pokedex.data.MapLocationPin
-
-import com.example.pokedex.data.MapPinType
-
-import com.example.pokedex.data.MapCoordinate
-
-import androidx.compose.ui.platform.LocalDensity
-
-import androidx.compose.ui.text.style.TextAlign
-
-import androidx.compose.ui.text.style.TextOverflow
-
-import androidx.compose.ui.window.DialogProperties
-
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import coil.compose.AsyncImage
 import com.example.pokedex.camera.CameraXController
-
 import com.example.pokedex.camera.PokemonFormDetector
-
+import com.example.pokedex.data.*
 import com.example.pokedex.tts.VoiceProfile
-
 import com.example.pokedex.viewmodel.PokedexState
-
 import com.example.pokedex.viewmodel.PokedexViewModel
-
-
+import kotlinx.coroutines.flow.collect
 
 fun getColorForType(type: String): Color {
 
@@ -2671,18 +2595,27 @@ fun PokedexHeader(viewModel: PokedexViewModel, onOpenSettings: () -> Unit, onGal
 
         
 
-        // Settings Button
-
+        // Strategy Guide Button
         Button(
-
-            onClick = onOpenSettings,
-
-            colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
-
+            onClick = { viewModel.openGuideModal() },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
+            shape = RoundedCornerShape(8.dp),
+            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+            modifier = Modifier.height(36.dp)
         ) {
+            Text("🧭 GUIDE", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 11.sp)
+        }
 
-            Text("SETTINGS", color = Color.White, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.width(8.dp))
 
+        // Settings Button
+        Button(
+            onClick = onOpenSettings,
+            colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
+            shape = RoundedCornerShape(8.dp),
+            modifier = Modifier.height(36.dp)
+        ) {
+            Text("SETTINGS", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 11.sp)
         }
 
     }
@@ -2709,6 +2642,68 @@ fun PokedexControls(uiState: PokedexState, viewModel: PokedexViewModel) {
             contentAlignment = Alignment.Center
         ) {
             Text("◀ INDEX / RESET", color = Color(0xFF00FFCC), fontWeight = FontWeight.Black, fontSize = 11.5.sp)
+        }
+    }
+}
+
+
+
+@Composable
+fun PokedexFoldHinge(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .width(18.dp)
+            .fillMaxHeight(),
+        contentAlignment = Alignment.Center
+    ) {
+        // Dark red recessed hinge groove
+        Box(
+            modifier = Modifier
+                .width(14.dp)
+                .fillMaxHeight()
+                .background(
+                    Brush.horizontalGradient(
+                        listOf(
+                            Color(0xFF660000),
+                            Color(0xFF440000),
+                            Color(0xFF220000),
+                            Color(0xFF440000),
+                            Color(0xFF660000)
+                        )
+                    ),
+                    shape = RoundedCornerShape(7.dp)
+                )
+                .border(1.dp, Color(0xFF2A0000), RoundedCornerShape(7.dp))
+        ) {
+            // Cylindrical metallic hinge knuckles
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(vertical = 12.dp),
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                repeat(4) {
+                    Box(
+                        modifier = Modifier
+                            .width(10.dp)
+                            .height(32.dp)
+                            .background(
+                                Brush.verticalGradient(
+                                    listOf(
+                                        Color(0xFF555555),
+                                        Color(0xFF888888),
+                                        Color(0xFFCCCCCC),
+                                        Color(0xFF888888),
+                                        Color(0xFF444444)
+                                    )
+                                ),
+                                shape = RoundedCornerShape(4.dp)
+                            )
+                            .border(0.5.dp, Color.Black.copy(alpha = 0.6f), RoundedCornerShape(4.dp))
+                    )
+                }
+            }
         }
     }
 }
@@ -3591,6 +3586,8 @@ fun PokedexDisplay(
 
                             var showPokemonMapModal by remember { mutableStateOf(false) }
 
+                            var showTypeGuide by remember(state.pokemon.id) { mutableStateOf(false) }
+
                             val preferredEdition by viewModel.preferredGameEdition.collectAsState()
 
                             val currentSprite = if (selectedCostume != null) {
@@ -3663,29 +3660,7 @@ fun PokedexDisplay(
 
                                 )
 
-                                Box(
-
-                                    modifier = Modifier
-
-                                        .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(6.dp))
-
-                                        .padding(horizontal = 10.dp, vertical = 4.dp)
-
-                                ) {
-
-                                    Text(
-
-                                        text = state.pokemon.type.uppercase(),
-
-                                        color = Color(0xFF00FFCC),
-
-                                        fontSize = 12.sp,
-
-                                        fontWeight = FontWeight.Bold
-
-                                    )
-
-                                }
+                                PokemonTypeBadge(type = state.pokemon.type)
 
                             }
 
@@ -3717,7 +3692,7 @@ fun PokedexDisplay(
 
                                 Box(
                                     modifier = Modifier
-                                        .size(112.dp)
+                                        .size(152.dp)
 
                                         .background(Color.Black.copy(alpha = 0.25f), RoundedCornerShape(12.dp))
 
@@ -3745,7 +3720,7 @@ fun PokedexDisplay(
 
                                             contentDescription = state.pokemon.name,
 
-                                            modifier = Modifier.size(115.dp)
+                                            modifier = Modifier.size(136.dp)
 
                                         )
 
@@ -3791,7 +3766,7 @@ fun PokedexDisplay(
 
                                             contentDescription = state.pokemon.name,
 
-                                            modifier = Modifier.size(115.dp),
+                                            modifier = Modifier.size(136.dp),
 
                                             contentScale = androidx.compose.ui.layout.ContentScale.Fit
 
@@ -4044,9 +4019,77 @@ fun PokedexDisplay(
 
 
 
+                            // Type weakness strip + Ultimate Type Guide launcher
+                            val isSpanishLocale = java.util.Locale.getDefault().language == "es"
+                            val typeWeaknesses = remember(state.pokemon.type) {
+                                PokemonTypeEffectiveness.getWeaknesses(state.pokemon.type)
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 2.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "WEAK TO",
+                                    color = Color.White,
+                                    fontSize = 9.sp,
+                                    fontWeight = FontWeight.Black,
+                                    modifier = Modifier.padding(end = 5.dp)
+                                )
+                                Row(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .horizontalScroll(rememberScrollState()),
+                                    horizontalArrangement = Arrangement.spacedBy(3.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    typeWeaknesses.forEach { w ->
+                                        TypePillBadge(
+                                            type = w.type,
+                                            multiplierLabel = if (w.multiplier >= 4.0f) "4×" else "2×",
+                                            isQuad = w.multiplier >= 4.0f,
+                                            isSpanish = isSpanishLocale
+                                        )
+                                    }
+                                }
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Box(
+                                    modifier = Modifier
+                                        .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(6.dp))
+                                        .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
+                                        .clickable { showTypeGuide = true }
+                                        .padding(horizontal = 8.dp, vertical = 5.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "TYPE GUIDE ℹ️",
+                                        color = Color(0xFF00FFCC),
+                                        fontSize = 10.sp,
+                                        fontWeight = FontWeight.Black
+                                    )
+                                }
+                            }
+
+                            if (showTypeGuide) {
+                                TypeMatchupsDialog(
+                                    pokemonName = displayName,
+                                    typeString = state.pokemon.type,
+                                    onReadMatchups = {
+                                        viewModel.speakCustomText(
+                                            PokemonTypeEffectiveness.formatFullMatchupsForSpeech(
+                                                displayName,
+                                                PokemonTypeEffectiveness.getFullMatchups(state.pokemon.type),
+                                                isSpanishLocale,
+                                                PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
+                                            )
+                                        )
+                                    },
+                                    onDismiss = { showTypeGuide = false }
+                                )
+                            }
+
                             Spacer(modifier = Modifier.height(3.dp))
-
-
 
                             // 3. Ultra-Slim Text-Only Evolution Line
 
@@ -5926,20 +5969,12 @@ fun SettingsDialog(viewModel: PokedexViewModel, onDismiss: () -> Unit) {
 }
 
 
-
 @Composable
-
 fun PokedexScreen(viewModel: PokedexViewModel) {
-
     val uiState by viewModel.uiState.collectAsState()
-
     val filteredPokemonList by viewModel.filteredPokemonList.collectAsState()
-
     val searchQuery by viewModel.searchQuery.collectAsState()
-
     var showSettings by remember { mutableStateOf(false) }
-
-
 
     val initialListIndex = remember { viewModel.getSavedListIndex() }
     val initialListOffset = remember { viewModel.getSavedListOffset() }
@@ -5959,190 +5994,819 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
 
     var lastViewedPokemonId by remember { mutableStateOf<Int?>(null) }
 
-
-
     LaunchedEffect(uiState) {
-
         if (uiState is PokedexState.Result) {
-
             lastViewedPokemonId = (uiState as PokedexState.Result).pokemon.id
-
         } else if (uiState is PokedexState.Idle && lastViewedPokemonId != null) {
-
             val targetIdx = filteredPokemonList.indexOfFirst { it.id == lastViewedPokemonId }
-
             if (targetIdx >= 0) {
-
                 listState.animateScrollToItem(targetIdx)
-
             }
-
         }
-
     }
 
-
-
     val context = LocalContext.current
-
     val galleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-
         if (uri != null) {
-
             try {
-
                 val softwareBitmap = if (Build.VERSION.SDK_INT >= 28) {
-
                     val source = ImageDecoder.createSource(context.contentResolver, uri)
-
                     ImageDecoder.decodeBitmap(source) { decoder, _, _ ->
-
                         decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
-
                         decoder.isMutableRequired = true
-
                     }
-
                 } else {
-
                     @Suppress("DEPRECATION")
-
                     val bmp = MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
-
-                    bmp.copy(android.graphics.Bitmap.Config.ARGB_8888, true)
-
+                    bmp.copy(Bitmap.Config.ARGB_8888, true)
                 }
-
                 viewModel.analyzeGalleryImage(softwareBitmap)
-
             } catch (e: Exception) {
-
                 android.util.Log.e("PokedexScreen", "Error loading gallery image", e)
-
             }
-
         }
-
     }
 
     val launchGallery = { galleryLauncher.launch("image/*") }
 
-
-
     BackHandler(enabled = uiState !is PokedexState.Idle) {
-
         viewModel.goBack()
-
     }
-
-
 
     if (showSettings) {
-
         SettingsDialog(viewModel = viewModel, onDismiss = { showSettings = false })
-
     }
 
-
+    val isGuideModalOpen by viewModel.isGuideModalOpen.collectAsState()
+    if (isGuideModalOpen) {
+        GameGuideModal(viewModel = viewModel, onDismiss = { viewModel.closeGuideModal() })
+    }
 
     BoxWithConstraints(
-
         modifier = Modifier
-
             .fillMaxSize()
-
             .background(Color(0xFFCC0000))
-
             .statusBarsPadding()
-
             .navigationBarsPadding()
-
             .padding(horizontal = 16.dp, vertical = 8.dp)
-
     ) {
+        val isWide = maxWidth > 600.dp
 
-        if (maxWidth > 600.dp) {
-
-            Row(modifier = Modifier.fillMaxSize()) {
-
-                Column(modifier = Modifier.weight(1f)) {
-
-                    PokedexHeader(viewModel, onOpenSettings = { showSettings = true }, onGalleryClick = launchGallery)
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    PokedexDisplay(uiState, filteredPokemonList, searchQuery, viewModel, onGalleryClick = launchGallery, isListOnly = true, listState = listState, modifier = Modifier.fillMaxSize())
-
+        LaunchedEffect(isWide, filteredPokemonList, searchQuery) {
+            if (isWide && filteredPokemonList.isNotEmpty()) {
+                val currentPokemon = (uiState as? PokedexState.Result)?.pokemon
+                val currentInList = currentPokemon != null && filteredPokemonList.any { it.id == currentPokemon.id }
+                if (!currentInList) {
+                    viewModel.selectPokemon(
+                        pokemon = filteredPokemonList.first(),
+                        autoSpeak = false,
+                        recordHistory = false
+                    )
                 }
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Column(modifier = Modifier.weight(1f)) {
-
-                    if (uiState is PokedexState.Idle) {
-
-                        Box(
-
-                            modifier = Modifier.fillMaxSize().background(Color.Black, shape = RoundedCornerShape(8.dp)),
-
-                            contentAlignment = Alignment.Center
-
-                        ) {
-
-                            Text(
-
-                                "SELECT A POKÉMON OR TAP THE BLUE SCANNER LENS.",
-
-                                color = Color.White,
-
-                                fontWeight = FontWeight.Bold,
-
-                                modifier = Modifier.padding(16.dp)
-
-                            )
-
-                        }
-
-                    } else {
-
-                        PokedexDisplay(uiState, emptyList(), "", viewModel, onGalleryClick = launchGallery, isListOnly = false, listState = listState, modifier = Modifier.weight(1f))
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        PokedexControls(uiState, viewModel)
-
-                    }
-
-                }
-
             }
-
-        } else {
-
-            Column(modifier = Modifier.fillMaxSize()) {
-
-                PokedexHeader(viewModel, onOpenSettings = { showSettings = true }, onGalleryClick = launchGallery)
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                PokedexDisplay(uiState, filteredPokemonList, searchQuery, viewModel, onGalleryClick = launchGallery, isListOnly = false, listState = listState, modifier = Modifier.weight(1f))
-
-                if (uiState !is PokedexState.Idle) {
-
-                    Spacer(modifier = Modifier.height(6.dp))
-
-                    PokedexControls(uiState, viewModel)
-
-                }
-
-            }
-
         }
 
-    }
+        if (isWide) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                PokedexHeader(
+                    viewModel = viewModel,
+                    onOpenSettings = { showSettings = true },
+                    onGalleryClick = launchGallery
+                )
 
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                    ) {
+                        PokedexDisplay(
+                            uiState = uiState,
+                            pokemonList = filteredPokemonList,
+                            searchQuery = searchQuery,
+                            viewModel = viewModel,
+                            onGalleryClick = launchGallery,
+                            isListOnly = true,
+                            listState = listState,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+
+                    PokedexFoldHinge(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(horizontal = 4.dp)
+                    )
+
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                    ) {
+                        if (uiState is PokedexState.Idle) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(Color.Black, shape = RoundedCornerShape(8.dp)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    "SELECT A POKÉMON OR TAP THE BLUE SCANNER LENS.",
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(16.dp)
+                                )
+                            }
+                        } else {
+                            PokedexDisplay(
+                                uiState = uiState,
+                                pokemonList = emptyList(),
+                                searchQuery = "",
+                                viewModel = viewModel,
+                                onGalleryClick = launchGallery,
+                                isListOnly = false,
+                                listState = listState,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                    }
+                }
+            }
+        } else {
+            Column(modifier = Modifier.fillMaxSize()) {
+                PokedexHeader(viewModel, onOpenSettings = { showSettings = true }, onGalleryClick = launchGallery)
+                Spacer(modifier = Modifier.height(16.dp))
+                PokedexDisplay(uiState, filteredPokemonList, searchQuery, viewModel, onGalleryClick = launchGallery, isListOnly = false, listState = listState, modifier = Modifier.weight(1f))
+                if (uiState !is PokedexState.Idle) {
+                    Spacer(modifier = Modifier.height(6.dp))
+                    PokedexControls(uiState, viewModel)
+                }
+            }
+        }
+    }
 }
 
+
+
+val LandmarkTypeSetSaver: androidx.compose.runtime.saveable.Saver<Set<MapLandmarkType>, ArrayList<String>> =
+    androidx.compose.runtime.saveable.Saver(
+        save = { set -> ArrayList(set.map { it.name }) },
+        restore = { list -> list.map { MapLandmarkType.valueOf(it) }.toSet() }
+    )
+
+@Composable
+fun RegionMapLandmarksLayer(
+    landmarks: List<MapLandmark>,
+    drawnWidthDp: androidx.compose.ui.unit.Dp,
+    drawnHeightDp: androidx.compose.ui.unit.Dp,
+    enabledTypes: Set<MapLandmarkType> = MapLandmarkType.values().toSet(),
+    selectedLandmark: MapLandmark? = null,
+    onSelectLandmark: ((MapLandmark) -> Unit)? = null,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier.size(drawnWidthDp, drawnHeightDp)
+    ) {
+        landmarks.filter { it.type in enabledTypes }.forEach { landmark ->
+            val isSelected = selectedLandmark?.id == landmark.id
+            val xDp = drawnWidthDp * landmark.xNorm.coerceIn(0.02f, 0.98f)
+            val yDp = drawnHeightDp * landmark.yNorm.coerceIn(0.02f, 0.98f)
+
+            val (badgeBg, borderCol, textCol) = when (landmark.type) {
+                MapLandmarkType.CITY -> Triple(
+                    Color(0xFF0F1A1E).copy(alpha = 0.92f),
+                    Color(0xFF00FFCC).copy(alpha = 0.90f),
+                    Color(0xFF00FFCC)
+                )
+                MapLandmarkType.TOWN -> Triple(
+                    Color(0xFF1E1A0F).copy(alpha = 0.92f),
+                    Color(0xFFFFCC00).copy(alpha = 0.90f),
+                    Color(0xFFFFCC00)
+                )
+                MapLandmarkType.ROUTE -> Triple(
+                    Color(0xFF151D24).copy(alpha = 0.88f),
+                    Color(0xFF4FC3F7).copy(alpha = 0.75f),
+                    Color(0xFFE0F7FA)
+                )
+                MapLandmarkType.POI -> Triple(
+                    Color(0xFF221712).copy(alpha = 0.90f),
+                    Color(0xFFFF7043).copy(alpha = 0.85f),
+                    Color(0xFFFFAB91)
+                )
+                MapLandmarkType.ENTRANCE -> Triple(
+                    Color(0xFF1B1526).copy(alpha = 0.92f),
+                    Color(0xFFA78BFA).copy(alpha = 0.85f),
+                    Color(0xFFEDE9FE)
+                )
+                MapLandmarkType.SECRET -> Triple(
+                    Color(0xFF24141E).copy(alpha = 0.92f),
+                    Color(0xFFF472B6).copy(alpha = 0.90f),
+                    Color(0xFFFCE7F3)
+                )
+                MapLandmarkType.PUZZLE -> Triple(
+                    Color(0xFF102018).copy(alpha = 0.92f),
+                    Color(0xFF34D399).copy(alpha = 0.88f),
+                    Color(0xFFD1FAE5)
+                )
+            }
+
+            val effectiveBorderCol = if (isSelected) Color(0xFF00FFCC) else borderCol
+            val effectiveBorderWidth = if (isSelected) 1.8.dp else 0.8.dp
+            val effectiveBadgeBg = if (isSelected) Color(0xFF00FFCC).copy(alpha = 0.35f) else badgeBg
+
+            val tagEstimatedWidth = if (landmark.type == MapLandmarkType.ROUTE) 26.dp else 48.dp
+            val tagOffsetX = (xDp - (tagEstimatedWidth / 2)).coerceIn(2.dp, (drawnWidthDp - tagEstimatedWidth - 4.dp).coerceAtLeast(2.dp))
+            val tagOffsetY = (yDp - 8.dp).coerceIn(2.dp, (drawnHeightDp - 18.dp).coerceAtLeast(2.dp))
+
+            Box(
+                modifier = Modifier
+                    .offset(x = tagOffsetX, y = tagOffsetY)
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(effectiveBadgeBg, RoundedCornerShape(4.dp))
+                    .border(effectiveBorderWidth, effectiveBorderCol, RoundedCornerShape(4.dp))
+                    .then(
+                        if (onSelectLandmark != null) Modifier.clickable { onSelectLandmark(landmark) }
+                        else Modifier
+                    )
+                    .padding(horizontal = if (isSelected) 4.5.dp else 3.dp, vertical = if (isSelected) 1.8.dp else 1.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    if (isSelected) {
+                        Text(
+                            text = "📍",
+                            fontSize = 7.sp,
+                            lineHeight = 8.sp
+                        )
+                    } else if (landmark.type != MapLandmarkType.ROUTE) {
+                        Text(
+                            text = landmark.type.emoji,
+                            fontSize = 6.5.sp,
+                            lineHeight = 7.5.sp
+                        )
+                    }
+                    Text(
+                        text = landmark.shortName,
+                        color = if (isSelected) Color.White else textCol,
+                        fontSize = if (landmark.type == MapLandmarkType.ROUTE) 7.sp else 7.5.sp,
+                        fontWeight = FontWeight.Black,
+                        lineHeight = 8.5.sp,
+                        maxLines = 1
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MapLandmarkInspectorCard(
+    landmark: MapLandmark,
+    onClose: () -> Unit,
+    onSelectConnectedArea: (String) -> Unit = {},
+    onReadAdvice: () -> Unit = {},
+    onOpenInGuide: (() -> Unit)? = null,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp, vertical = 2.dp),
+        shape = RoundedCornerShape(12.dp),
+        color = Color(0xFF14191E).copy(alpha = 0.96f),
+        border = BorderStroke(1.5.dp, landmark.type.badgeColor.copy(alpha = 0.85f)),
+        tonalElevation = 8.dp
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ) {
+            // Header Row: Type emoji badge, Landmark Name, Read Audio, Close
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    modifier = Modifier.weight(1f).padding(end = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .background(landmark.type.badgeColor.copy(alpha = 0.20f), RoundedCornerShape(4.dp))
+                            .border(1.dp, landmark.type.badgeColor.copy(alpha = 0.8f), RoundedCornerShape(4.dp))
+                            .padding(horizontal = 5.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            text = "${landmark.type.emoji} ${landmark.type.displayName.uppercase()}",
+                            color = landmark.type.badgeColor,
+                            fontSize = 8.5.sp,
+                            fontWeight = FontWeight.Black
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = landmark.name,
+                        color = Color.White,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 12.5.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    // TTS Read Button
+                    Box(
+                        modifier = Modifier
+                            .size(26.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFF00FFCC).copy(alpha = 0.20f))
+                            .border(1.dp, Color(0xFF00FFCC), CircleShape)
+                            .clickable { onReadAdvice() },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("🔊", fontSize = 11.sp)
+                    }
+
+                    // Close Button
+                    Box(
+                        modifier = Modifier
+                            .size(26.dp)
+                            .clip(CircleShape)
+                            .background(Color.Black.copy(alpha = 0.6f))
+                            .border(1.dp, Color.White.copy(alpha = 0.3f), CircleShape)
+                            .clickable { onClose() },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("✕", color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                    }
+                }
+            }
+
+            // Tagline / Slogan
+            if (!landmark.tagline.isNullOrBlank()) {
+                Spacer(modifier = Modifier.height(3.dp))
+                Text(
+                    text = "“" + landmark.tagline + "”",
+                    color = Color(0xFFFFCC00),
+                    fontSize = 10.5.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
+                )
+            }
+
+            // Overview / Description
+            if (!landmark.description.isNullOrBlank()) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = landmark.description,
+                    color = Color.White.copy(alpha = 0.92f),
+                    fontSize = 10.5.sp,
+                    lineHeight = 14.5.sp
+                )
+            }
+
+            // Gym Information
+            if (!landmark.gymInfo.isNullOrBlank()) {
+                Spacer(modifier = Modifier.height(5.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFF00FFCC).copy(alpha = 0.12f), RoundedCornerShape(6.dp))
+                        .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = "🏟️ ${landmark.gymInfo}",
+                        color = Color(0xFF00FFCC),
+                        fontSize = 9.5.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
+            // Key Facilities & Landmarks
+            if (landmark.keyLocations.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = "KEY FACILITIES & LANDMARKS:",
+                    color = Color(0xFF00FFCC),
+                    fontSize = 8.5.sp,
+                    fontWeight = FontWeight.Black
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                landmark.keyLocations.forEach { loc ->
+                    Text(
+                        text = loc,
+                        color = Color.White.copy(alpha = 0.85f),
+                        fontSize = 9.5.sp,
+                        lineHeight = 13.sp,
+                        modifier = Modifier.padding(vertical = 1.dp)
+                    )
+                }
+            }
+
+            // Connected Routes & Areas
+            if (landmark.connectedAreas.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = "CONNECTED ROUTES & AREAS (TAP TO JUMP):",
+                    color = Color(0xFF4FC3F7),
+                    fontSize = 8.5.sp,
+                    fontWeight = FontWeight.Black
+                )
+                Spacer(modifier = Modifier.height(3.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    landmark.connectedAreas.forEach { area ->
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(4.dp))
+                                .background(Color(0xFF4FC3F7).copy(alpha = 0.15f))
+                                .border(0.8.dp, Color(0xFF4FC3F7).copy(alpha = 0.6f), RoundedCornerShape(4.dp))
+                            .clickable { onSelectConnectedArea(area) }
+                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                        ) {
+                            Text(
+                                text = "🛣️ $area",
+                                color = Color(0xFFE0F7FA),
+                                fontSize = 8.5.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                }
+            }
+
+            // Dexter's Strategy Advice
+            if (!landmark.guideAdvice.isNullOrBlank()) {
+                Spacer(modifier = Modifier.height(5.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(6.dp))
+                        .border(0.8.dp, Color(0xFFFFCC00).copy(alpha = 0.4f), RoundedCornerShape(6.dp))
+                        .padding(6.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = "💡 DEXTER'S TRAINER ADVICE",
+                            color = Color(0xFFFFCC00),
+                            fontSize = 8.5.sp,
+                            fontWeight = FontWeight.Black
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = landmark.guideAdvice,
+                            color = Color.White.copy(alpha = 0.90f),
+                            fontSize = 9.5.sp,
+                            lineHeight = 13.sp
+                        )
+                    }
+                }
+            }
+
+            // Open in Game Guide Action
+            if (onOpenInGuide != null) {
+                Spacer(modifier = Modifier.height(6.dp))
+                Button(
+                    onClick = onOpenInGuide,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
+                    shape = RoundedCornerShape(6.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(26.dp)
+                ) {
+                    Text(
+                        text = "🧭 SEARCH IN STRATEGY GUIDE ▶",
+                        color = Color.Black,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 9.sp
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MapQuickLayerBar(
+    enabledTypes: Set<MapLandmarkType>,
+    onToggleType: (MapLandmarkType) -> Unit,
+    onOpenFilterModal: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Open Modal Button
+        Box(
+            modifier = Modifier
+                .height(26.dp)
+                .clip(RoundedCornerShape(6.dp))
+                .background(Color(0xFF00FFCC).copy(alpha = 0.22f))
+                .border(1.dp, Color(0xFF00FFCC), RoundedCornerShape(6.dp))
+                .clickable { onOpenFilterModal() }
+                .padding(horizontal = 7.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "🏷️ LAYERS (${enabledTypes.size}/7) ▼",
+                color = Color(0xFF00FFCC),
+                fontSize = 9.sp,
+                fontWeight = FontWeight.Black
+            )
+        }
+
+        // Quick Toggle Chips for all 7 types
+        MapLandmarkType.values().forEach { type ->
+            val isEnabled = enabledTypes.contains(type)
+            Box(
+                modifier = Modifier
+                    .height(26.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(if (isEnabled) type.badgeColor.copy(alpha = 0.25f) else Color.Black.copy(alpha = 0.5f))
+                    .border(
+                        if (isEnabled) 1.2.dp else 0.8.dp,
+                        if (isEnabled) type.badgeColor else Color.White.copy(alpha = 0.2f),
+                        RoundedCornerShape(6.dp)
+                    )
+                    .clickable { onToggleType(type) }
+                    .padding(horizontal = 6.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(type.emoji, fontSize = 8.5.sp)
+                    Spacer(modifier = Modifier.width(3.dp))
+                    Text(
+                        text = if (isEnabled) "${type.displayName} ✓" else type.displayName,
+                        color = if (isEnabled) Color.White else Color.Gray,
+                        fontSize = 8.5.sp,
+                        fontWeight = if (isEnabled) FontWeight.Bold else FontWeight.Normal
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MapLayersFilterModal(
+    regionName: String,
+    landmarks: List<MapLandmark>,
+    enabledTypes: Set<MapLandmarkType>,
+    onToggleType: (MapLandmarkType) -> Unit,
+    onSetAll: (Set<MapLandmarkType>) -> Unit,
+    onDismiss: () -> Unit
+) {
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = androidx.compose.ui.window.DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnClickOutside = true
+        )
+    ) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth(0.92f)
+                .wrapContentHeight()
+                .padding(vertical = 16.dp),
+            shape = RoundedCornerShape(16.dp),
+            color = Color(0xFF12161A),
+            border = BorderStroke(2.dp, Color(0xFF00FFCC).copy(alpha = 0.85f))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("🗺️", fontSize = 20.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text(
+                                text = "MAP LAYER CONTROLS",
+                                color = Color(0xFF00FFCC),
+                                fontWeight = FontWeight.Black,
+                                fontSize = 14.sp
+                            )
+                            Text(
+                                text = "Toggle landmark visibility on the ${regionName.uppercase()} map:",
+                                color = Color.Gray,
+                                fontSize = 10.sp,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
+                    IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier
+                            .size(28.dp)
+                            .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                            .border(1.dp, Color.White.copy(alpha = 0.3f), CircleShape)
+                    ) {
+                        Text("✕", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Presets Bar
+                Text(
+                    text = "QUICK PRESETS:",
+                    color = Color.White.copy(alpha = 0.7f),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 9.sp
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    val allSet = MapLandmarkType.values().toSet()
+                    val civSet = setOf(MapLandmarkType.TOWN, MapLandmarkType.CITY)
+                    val wildSet = setOf(MapLandmarkType.POI, MapLandmarkType.ENTRANCE, MapLandmarkType.SECRET, MapLandmarkType.PUZZLE)
+
+                    // ALL
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(28.dp)
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(if (enabledTypes.size == allSet.size) Color(0xFF00FFCC).copy(alpha = 0.25f) else Color.White.copy(alpha = 0.06f))
+                            .border(1.dp, if (enabledTypes.size == allSet.size) Color(0xFF00FFCC) else Color.White.copy(alpha = 0.2f), RoundedCornerShape(6.dp))
+                            .clickable { onSetAll(allSet) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("ALL (7)", color = if (enabledTypes.size == allSet.size) Color(0xFF00FFCC) else Color.White, fontSize = 9.sp, fontWeight = FontWeight.Black)
+                    }
+
+                    // NONE
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(28.dp)
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(if (enabledTypes.isEmpty()) Color(0xFFFF5252).copy(alpha = 0.25f) else Color.White.copy(alpha = 0.06f))
+                            .border(1.dp, if (enabledTypes.isEmpty()) Color(0xFFFF5252) else Color.White.copy(alpha = 0.2f), RoundedCornerShape(6.dp))
+                            .clickable { onSetAll(emptySet()) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("NONE", color = if (enabledTypes.isEmpty()) Color(0xFFFF5252) else Color.White, fontSize = 9.sp, fontWeight = FontWeight.Black)
+                    }
+
+                    // CIVILIZATION
+                    Box(
+                        modifier = Modifier
+                            .weight(1.3f)
+                            .height(28.dp)
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(if (enabledTypes == civSet) Color(0xFFFFCC00).copy(alpha = 0.25f) else Color.White.copy(alpha = 0.06f))
+                            .border(1.dp, if (enabledTypes == civSet) Color(0xFFFFCC00) else Color.White.copy(alpha = 0.2f), RoundedCornerShape(6.dp))
+                            .clickable { onSetAll(civSet) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("🏠 TOWNS ONLY", color = if (enabledTypes == civSet) Color(0xFFFFCC00) else Color.White, fontSize = 8.5.sp, fontWeight = FontWeight.Black)
+                    }
+
+                    // WILD & SECRETS
+                    Box(
+                        modifier = Modifier
+                            .weight(1.4f)
+                            .height(28.dp)
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(if (enabledTypes == wildSet) Color(0xFF34D399).copy(alpha = 0.25f) else Color.White.copy(alpha = 0.06f))
+                            .border(1.dp, if (enabledTypes == wildSet) Color(0xFF34D399) else Color.White.copy(alpha = 0.2f), RoundedCornerShape(6.dp))
+                            .clickable { onSetAll(wildSet) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("🔍 WILD & SECRETS", color = if (enabledTypes == wildSet) Color(0xFF34D399) else Color.White, fontSize = 8.5.sp, fontWeight = FontWeight.Black)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Granular Category Rows
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f, fill = false)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    MapLandmarkType.values().forEach { type ->
+                        val isEnabled = enabledTypes.contains(type)
+                        val count = landmarks.count { it.type == type }
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (isEnabled) type.badgeColor.copy(alpha = 0.12f) else Color.White.copy(alpha = 0.04f))
+                                .border(
+                                    1.dp,
+                                    if (isEnabled) type.badgeColor.copy(alpha = 0.85f) else Color.White.copy(alpha = 0.15f),
+                                    RoundedCornerShape(8.dp)
+                                )
+                                .clickable { onToggleType(type) }
+                                .padding(horizontal = 12.dp, vertical = 9.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(type.emoji, fontSize = 16.sp)
+                                    Spacer(modifier = Modifier.width(10.dp))
+                                    Column {
+                                        Text(
+                                            text = type.displayName,
+                                            color = Color.White,
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 12.sp
+                                        )
+                                        Text(
+                                            text = "$count located in this region",
+                                            color = type.badgeColor,
+                                            fontSize = 9.sp
+                                        )
+                                    }
+                                }
+
+                                Box(
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(12.dp))
+                                        .background(if (isEnabled) type.badgeColor.copy(alpha = 0.25f) else Color.White.copy(alpha = 0.08f))
+                                        .border(1.dp, if (isEnabled) type.badgeColor else Color.Gray, RoundedCornerShape(12.dp))
+                                        .padding(horizontal = 10.dp, vertical = 3.dp)
+                                ) {
+                                    Text(
+                                        text = if (isEnabled) "ACTIVE ✓" else "OFF",
+                                        color = if (isEnabled) type.badgeColor else Color.Gray,
+                                        fontWeight = FontWeight.Black,
+                                        fontSize = 9.5.sp
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                // Done Button
+                Button(
+                    onClick = onDismiss,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(36.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text(
+                        text = "APPLY & VIEW MAP ▶",
+                        color = Color.Black,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 11.5.sp
+                    )
+                }
+            }
+        }
+    }
+}
 
 
 @Composable
@@ -6186,23 +6850,48 @@ fun PokemonMapHabitatModal(
 
 
 
-    val mapBitmap = remember(habitat.mapAsset) {
-
-        try {
-
-            context.assets.open("maps/${habitat.mapAsset}").use { inputStream ->
-
-                android.graphics.BitmapFactory.decodeStream(inputStream)
-
-            }
-
-        } catch (_: Exception) {
-
-            null
-
+    var selectedGbPalette by remember(activeCartridge.id) {
+        val initial = when {
+            activeCartridge.id.equals("Red", ignoreCase = true) -> GameBoyPalette.POCKET
+            activeCartridge.id.equals("Blue", ignoreCase = true) -> GameBoyPalette.POCKET
+            activeCartridge.id.equals("Yellow", ignoreCase = true) -> GameBoyPalette.SGB
+            else -> GameBoyPalette.POCKET
         }
-
+        mutableStateOf(initial)
     }
+
+    val effectiveMapAsset = remember(habitat.mapAsset, selectedGbPalette) {
+        if (habitat.mapAsset.startsWith("kanto_rgby")) selectedGbPalette.mapAsset else habitat.mapAsset
+    }
+
+    val isPixelMap = remember(effectiveMapAsset) {
+        isPixelArtMap(effectiveMapAsset)
+    }
+
+    var enabledLandmarkTypes by rememberSaveable(stateSaver = LandmarkTypeSetSaver) {
+        mutableStateOf(MapLandmarkType.values().toSet())
+    }
+    var showLayerFilterModal by remember { mutableStateOf(false) }
+
+    val landmarks = remember(effectiveMapAsset) {
+        RegionMapLandmarksRepository.getLandmarksForMap(effectiveMapAsset)
+    }
+
+    val mapBitmap = remember(effectiveMapAsset) {
+        try {
+            context.assets.open("maps/$effectiveMapAsset").use { inputStream ->
+                val options = android.graphics.BitmapFactory.Options().apply {
+                    inPreferredConfig = android.graphics.Bitmap.Config.ARGB_8888
+                    inScaled = false
+                }
+                android.graphics.BitmapFactory.decodeStream(inputStream, null, options)
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    var selectedLandmark by remember { mutableStateOf<MapLandmark?>(null) }
 
 
 
@@ -6425,6 +7114,22 @@ fun PokemonMapHabitatModal(
                     }
                 }
 
+                // Quick Map Layers Control Bar
+                MapQuickLayerBar(
+                    enabledTypes = enabledLandmarkTypes,
+                    onToggleType = { toggled ->
+                        enabledLandmarkTypes = if (enabledLandmarkTypes.contains(toggled)) {
+                            enabledLandmarkTypes - toggled
+                        } else {
+                            enabledLandmarkTypes + toggled
+                        }
+                    },
+                    onOpenFilterModal = { showLayerFilterModal = true },
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 2.dp)
+                )
+
+                Spacer(modifier = Modifier.height(6.dp))
+
                 // Town Map Canvas with responsive coordinate overlay
 
                 Box(
@@ -6506,17 +7211,22 @@ fun PokemonMapHabitatModal(
 
 
                             // The Map Artwork
-
                             Image(
-
                                 bitmap = mapBitmap.asImageBitmap(),
-
                                 contentDescription = "${habitat.regionName} Town Map",
-
                                 contentScale = ContentScale.Fit,
-
+                                filterQuality = if (isPixelMap) FilterQuality.None else FilterQuality.High,
                                 modifier = Modifier.fillMaxSize()
+                            )
 
+                            // Granular landmark layers overlay with click inspection
+                            RegionMapLandmarksLayer(
+                                landmarks = landmarks,
+                                drawnWidthDp = drawnWidthDp,
+                                drawnHeightDp = drawnHeightDp,
+                                enabledTypes = enabledLandmarkTypes,
+                                selectedLandmark = selectedLandmark,
+                                onSelectLandmark = { lm -> selectedLandmark = lm }
                             )
 
 
@@ -6733,25 +7443,43 @@ fun PokemonMapHabitatModal(
 
 
 
-                // Detail Encounter Drawer below the map
-
-                Column(
-
-                    modifier = Modifier
-
-                        .fillMaxWidth()
-
-                        .heightIn(min = 100.dp, max = 150.dp)
-
-                        .background(Color.Black.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
-
-                        .border(1.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(10.dp))
-
-                        .padding(10.dp)
-
-                        .verticalScroll(rememberScrollState())
-
-                ) {
+                // Detail Encounter / Landmark Inspector Drawer below the map
+                if (selectedLandmark != null) {
+                    MapLandmarkInspectorCard(
+                        landmark = selectedLandmark!!,
+                        onClose = { selectedLandmark = null },
+                        onSelectConnectedArea = { areaName ->
+                            val matched = landmarks.firstOrNull { lm ->
+                                areaName.contains(lm.name, ignoreCase = true) ||
+                                areaName.contains(lm.shortName, ignoreCase = true) ||
+                                (lm.id.startsWith("r") && areaName.contains(lm.name.substringBefore(" ("), ignoreCase = true))
+                            }
+                            if (matched != null) selectedLandmark = matched
+                        },
+                        onReadAdvice = {
+                            val lm = selectedLandmark!!
+                            val spoken = "${lm.name}. ${lm.tagline ?: ""} ${lm.description ?: ""} ${lm.guideAdvice ?: ""}".trim()
+                            viewModel.readFlavorText(pokemon, spoken)
+                        },
+                        onOpenInGuide = {
+                            viewModel.openGuideModal()
+                            viewModel.searchGuide(selectedLandmark!!.name, activeCartridge.id)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 160.dp)
+                            .verticalScroll(rememberScrollState())
+                    )
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 100.dp, max = 150.dp)
+                            .background(Color.Black.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
+                            .border(1.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(10.dp))
+                            .padding(10.dp)
+                            .verticalScroll(rememberScrollState())
+                    ) {
 
                     if (habitat.pins.isNotEmpty()) {
 
@@ -6973,6 +7701,8 @@ fun PokemonMapHabitatModal(
 
             }
 
+            }
+
             if (showRegionPopout) {
                 RegionSelectionModal(
                     title = "SELECT REGION MAP",
@@ -7005,6 +7735,2149 @@ fun PokemonMapHabitatModal(
                     onDismiss = { showVersionPopout = false }
                 )
             }
+        }
+    }
+}
+
+
+@Composable
+fun PokemonTypeBadge(
+    type: String,
+    isSpanish: Boolean = false,
+    modifier: Modifier = Modifier
+) {
+    val types = type.split("/").map { it.trim() }
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        types.forEach { t ->
+            val typeColor = Color(PokemonTypeEffectiveness.getTypeColor(t))
+            val textColor = Color(PokemonTypeEffectiveness.getTypeTextColor(t))
+            val typeName = PokemonTypeEffectiveness.translateType(t, isSpanish).uppercase()
+            Box(
+                modifier = Modifier
+                    .background(typeColor, RoundedCornerShape(4.dp))
+                    .border(0.5.dp, Color.White.copy(alpha = 0.4f), RoundedCornerShape(4.dp))
+                    .padding(horizontal = 6.dp, vertical = 2.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(3.5.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = PokemonTypeEffectiveness.getTypeIconRes(t)),
+                        contentDescription = typeName,
+                        tint = textColor,
+                        modifier = Modifier.size(12.dp)
+                    )
+                    Text(
+                        text = typeName,
+                        color = textColor,
+                        fontSize = 9.5.sp,
+                        fontWeight = FontWeight.Black
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TypePillBadge(
+    type: String,
+    multiplierLabel: String,
+    isQuad: Boolean,
+    isSpanish: Boolean,
+    showText: Boolean = false,
+    useFullName: Boolean = false
+) {
+    val typeColor = Color(PokemonTypeEffectiveness.getTypeColor(type))
+    val textColor = Color(PokemonTypeEffectiveness.getTypeTextColor(type))
+    val typeName = if (useFullName) {
+        PokemonTypeEffectiveness.translateType(type, isSpanish).uppercase()
+    } else {
+        PokemonTypeEffectiveness.getAbbreviatedType(type, isSpanish).uppercase()
+    }
+
+    Box(
+        modifier = Modifier
+            .background(typeColor, RoundedCornerShape(4.dp))
+            .border(
+                width = if (isQuad) 1.2.dp else 0.5.dp,
+                color = if (isQuad) Color(0xFFFF5252) else Color.White.copy(alpha = 0.4f),
+                shape = RoundedCornerShape(4.dp)
+            )
+            .padding(horizontal = if (showText) 5.dp else 3.5.dp, vertical = 1.5.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(2.5.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = PokemonTypeEffectiveness.getTypeIconRes(type)),
+                contentDescription = typeName,
+                tint = textColor,
+                modifier = Modifier.size(11.dp)
+            )
+            if (showText) {
+                Text(
+                    text = typeName,
+                    color = textColor,
+                    fontSize = 8.5.sp,
+                    fontWeight = FontWeight.Black
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .background(if (isQuad) Color(0xFFD32F2F) else Color.Black.copy(alpha = 0.35f), RoundedCornerShape(2.dp))
+                    .padding(horizontal = 2.dp, vertical = 0.5.dp)
+            ) {
+                Text(
+                    text = multiplierLabel,
+                    color = if (isQuad) Color.White else textColor,
+                    fontSize = 7.5.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+fun TypeMatchupsDialog(
+    pokemonName: String,
+    typeString: String,
+    onReadMatchups: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+    val isWide = configuration.screenWidthDp > 600
+    val isSpanish = java.util.Locale.getDefault().language == "es"
+    val summary = remember(typeString) { PokemonTypeEffectiveness.getFullMatchups(typeString) }
+    val offensive = remember(typeString) { PokemonTypeEffectiveness.getOffensiveStrengths(typeString) }
+
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(usePlatformDefaultWidth = false, dismissOnClickOutside = false)
+    ) {
+        Surface(
+            modifier = Modifier
+                .widthIn(max = 720.dp)
+                .fillMaxWidth(if (isWide) 0.82f else 0.94f)
+                .wrapContentHeight()
+                .heightIn(max = 620.dp),
+            shape = RoundedCornerShape(12.dp),
+            color = Color(0xFF1E2124),
+            tonalElevation = 8.dp,
+            border = androidx.compose.foundation.BorderStroke(1.5.dp, Color(0xFF00FFCC).copy(alpha = 0.8f))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(14.dp)
+            ) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = if (isSpanish) "GUÍA MAESTRA DE TIPOS" else "ULTIMATE TYPE GUIDE",
+                            color = Color(0xFF00FFCC),
+                            fontWeight = FontWeight.Black,
+                            fontSize = 16.sp
+                        )
+                        Text(
+                            text = if (isSpanish) "$pokemonName • Tipo: ${typeString.uppercase()}"
+                                   else "$pokemonName • Type: ${typeString.uppercase()}",
+                            color = Color.LightGray,
+                            fontSize = 11.sp
+                        )
+                    }
+                    IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                    ) {
+                        Text("✖", color = Color.White, fontSize = 14.sp)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Scrollable categories: 2-Column Battle Matrix for wide/foldable screens, 1-Column for portrait
+                if (isWide) {
+                    Row(
+                        modifier = Modifier
+                            .weight(1f, fill = false)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        // Left Column: Tactical Advantages (STAB 2x, Resists 1/2x & 1/4x, Immunities 0x)
+                        Column(
+                            modifier = Modifier
+                                .weight(1f)
+                                .verticalScroll(rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(
+                                text = if (isSpanish) "VENTAJAS Y DEFENSAS" else "STRENGTHS & DEFENSES",
+                                color = Color(0xFF00FFCC),
+                                fontWeight = FontWeight.Black,
+                                fontSize = 11.sp,
+                                letterSpacing = 0.5.sp
+                            )
+
+                            // 0. Offensive STAB Advantages (2x)
+                            if (offensive.isNotEmpty()) {
+                                MatchupGridSection(
+                                    title = if (isSpanish) "⚡ VENTAJAS OFENSIVAS (STAB 2×)" else "⚡ OFFENSIVE ADVANTAGES (STAB 2×)",
+                                    titleColor = Color(0xFF00FFCC),
+                                    types = offensive,
+                                    multiplierLabel = "2×",
+                                    isQuad = false,
+                                    isSpanish = isSpanish,
+                                    isWide = true
+                                )
+                            }
+
+                            // 4. Not Very Effective (0.5x & 0.25x)
+                            val resists = summary.notVeryEffectiveHalf + summary.notVeryEffectiveQuarter
+                            if (resists.isNotEmpty()) {
+                                MatchupGridSection(
+                                    title = if (isSpanish) "🛡️ RESISTENCIAS (½× / ¼×)" else "🛡️ RESISTANCES (½× / ¼×)",
+                                    titleColor = Color(0xFF64B5F6),
+                                    types = summary.notVeryEffectiveHalf,
+                                    quarterTypes = summary.notVeryEffectiveQuarter,
+                                    isSpanish = isSpanish,
+                                    isWide = true
+                                )
+                            }
+
+                            // 5. Immune (0x)
+                            if (summary.immune.isNotEmpty()) {
+                                MatchupGridSection(
+                                    title = if (isSpanish) "✨ INMUNIDADES (0×)" else "✨ IMMUNITIES (0×)",
+                                    titleColor = Color(0xFFB0BEC5),
+                                    types = summary.immune,
+                                    multiplierLabel = "0×",
+                                    isQuad = false,
+                                    isSpanish = isSpanish,
+                                    isWide = true
+                                )
+                            }
+                        }
+
+                        // Right Column: Vulnerabilities & Neutral (4x, 2x, 1x)
+                        Column(
+                            modifier = Modifier
+                                .weight(1f)
+                                .verticalScroll(rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(
+                                text = if (isSpanish) "VULNERABILIDADES Y DAÑO" else "VULNERABILITIES & NEUTRAL",
+                                color = Color(0xFFFF5252),
+                                fontWeight = FontWeight.Black,
+                                fontSize = 11.sp,
+                                letterSpacing = 0.5.sp
+                            )
+
+                            // 1. Super Effective (4x)
+                            if (summary.superEffectiveQuad.isNotEmpty()) {
+                                MatchupGridSection(
+                                    title = if (isSpanish) "💥 SÚPER EFICAZ (4×)" else "💥 SUPER EFFECTIVE (4×)",
+                                    titleColor = Color(0xFFFF5252),
+                                    types = summary.superEffectiveQuad,
+                                    multiplierLabel = "4×",
+                                    isQuad = true,
+                                    isSpanish = isSpanish,
+                                    isWide = true
+                                )
+                            }
+
+                            // 2. Effective (2x)
+                            if (summary.effectiveDouble.isNotEmpty()) {
+                                MatchupGridSection(
+                                    title = if (isSpanish) "⚠️ EFICAZ / DEBILIDAD (2×)" else "⚠️ WEAKNESSES (2×)",
+                                    titleColor = Color(0xFFFFCC00),
+                                    types = summary.effectiveDouble,
+                                    multiplierLabel = "2×",
+                                    isQuad = false,
+                                    isSpanish = isSpanish,
+                                    isWide = true
+                                )
+                            }
+
+                            // 3. Just Effective / Neutral (1x)
+                            if (summary.normalEffective.isNotEmpty()) {
+                                MatchupGridSection(
+                                    title = if (isSpanish) "⚖️ EFICAZ NORMAL (1×)" else "⚖️ NEUTRAL DAMAGE (1×)",
+                                    titleColor = Color(0xFFE0E0E0),
+                                    types = summary.normalEffective,
+                                    multiplierLabel = "1×",
+                                    isQuad = false,
+                                    isSpanish = isSpanish,
+                                    isWide = true
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    // Mobile Portrait: Single scrollable vertical column
+                    Column(
+                        modifier = Modifier
+                            .weight(1f, fill = false)
+                            .verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        // 0. Offensive STAB Advantages (2x)
+                        if (offensive.isNotEmpty()) {
+                            MatchupGridSection(
+                                title = if (isSpanish) "⚡ VENTAJAS OFENSIVAS (STAB 2×)" else "⚡ OFFENSIVE ADVANTAGES (STAB 2×)",
+                                titleColor = Color(0xFF00FFCC),
+                                types = offensive,
+                                multiplierLabel = "2×",
+                                isQuad = false,
+                                isSpanish = isSpanish,
+                                isWide = false
+                            )
+                        }
+
+                        // 1. Super Effective (4x)
+                        if (summary.superEffectiveQuad.isNotEmpty()) {
+                            MatchupGridSection(
+                                title = if (isSpanish) "💥 SÚPER EFICAZ (4×)" else "💥 SUPER EFFECTIVE (4×)",
+                                titleColor = Color(0xFFFF5252),
+                                types = summary.superEffectiveQuad,
+                                multiplierLabel = "4×",
+                                isQuad = true,
+                                isSpanish = isSpanish,
+                                isWide = false
+                            )
+                        }
+
+                        // 2. Effective (2x)
+                        if (summary.effectiveDouble.isNotEmpty()) {
+                            MatchupGridSection(
+                                title = if (isSpanish) "⚠️ EFICAZ / DEBILIDAD (2×)" else "⚠️ WEAKNESSES (2×)",
+                                titleColor = Color(0xFFFFCC00),
+                                types = summary.effectiveDouble,
+                                multiplierLabel = "2×",
+                                isQuad = false,
+                                isSpanish = isSpanish,
+                                isWide = false
+                            )
+                        }
+
+                        // 3. Just Effective / Neutral (1x)
+                        if (summary.normalEffective.isNotEmpty()) {
+                            MatchupGridSection(
+                                title = if (isSpanish) "⚖️ EFICAZ NORMAL (1×)" else "⚖️ NEUTRAL DAMAGE (1×)",
+                                titleColor = Color(0xFFE0E0E0),
+                                types = summary.normalEffective,
+                                multiplierLabel = "1×",
+                                isQuad = false,
+                                isSpanish = isSpanish,
+                                isWide = false
+                            )
+                        }
+
+                        // 4. Not Very Effective (0.5x & 0.25x)
+                        val resists = summary.notVeryEffectiveHalf + summary.notVeryEffectiveQuarter
+                        if (resists.isNotEmpty()) {
+                            MatchupGridSection(
+                                title = if (isSpanish) "🛡️ RESISTENCIAS (½× / ¼×)" else "🛡️ RESISTANCES (½× / ¼×)",
+                                titleColor = Color(0xFF64B5F6),
+                                types = summary.notVeryEffectiveHalf,
+                                quarterTypes = summary.notVeryEffectiveQuarter,
+                                isSpanish = isSpanish,
+                                isWide = false
+                            )
+                        }
+
+                        // 5. Immune (0x)
+                        if (summary.immune.isNotEmpty()) {
+                            MatchupGridSection(
+                                title = if (isSpanish) "✨ INMUNIDADES (0×)" else "✨ IMMUNITIES (0×)",
+                                titleColor = Color(0xFFB0BEC5),
+                                types = summary.immune,
+                                multiplierLabel = "0×",
+                                isQuad = false,
+                                isSpanish = isSpanish,
+                                isWide = false
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Bottom Buttons
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(
+                        onClick = onReadMatchups,
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(
+                            text = if (isSpanish) "🔊 ESCUCHAR GUÍA" else "🔊 READ TYPE GUIDE",
+                            color = Color.Black,
+                            fontWeight = FontWeight.Black,
+                            fontSize = 12.sp
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Button(
+                        onClick = onDismiss,
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333)),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(
+                            text = if (isSpanish) "CERRAR" else "CLOSE",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MatchupGridSection(
+    title: String,
+    titleColor: Color,
+    types: List<String>,
+    multiplierLabel: String = "",
+    quarterTypes: List<String> = emptyList(),
+    isQuad: Boolean = false,
+    isSpanish: Boolean = false,
+    isWide: Boolean = false
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(8.dp))
+            .border(1.dp, titleColor.copy(alpha = 0.25f), RoundedCornerShape(8.dp))
+            .padding(8.dp)
+    ) {
+        Text(
+            text = title,
+            color = titleColor,
+            fontWeight = FontWeight.Black,
+            fontSize = 11.5.sp,
+            modifier = Modifier.padding(bottom = 6.dp)
+        )
+        val allItems = types.map { it to (if (multiplierLabel.isNotEmpty()) multiplierLabel else "½×") } +
+                quarterTypes.map { it to "¼×" }
+
+        val chunkSize = if (isWide) 2 else 3
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            allItems.chunked(chunkSize).forEach { rowItems ->
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    rowItems.forEach { (type, mult) ->
+                        TypePillBadge(
+                            type = type,
+                            multiplierLabel = mult,
+                            isQuad = isQuad,
+                            isSpanish = isSpanish,
+                            showText = true,
+                            useFullName = true
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun GuideCategoryPopoutModal(
+    categories: List<com.example.pokedex.data.GuideCategory>,
+    selectedCategoryId: String?,
+    onSelectTopic: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val context = LocalContext.current
+    var activeCategory by remember(selectedCategoryId) {
+        mutableStateOf(categories.firstOrNull { it.id == selectedCategoryId })
+    }
+
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = androidx.compose.ui.window.DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnClickOutside = false
+        )
+    ) {
+        Box(
+            modifier = Modifier
+                .widthIn(max = 720.dp)
+                .fillMaxWidth(0.92f)
+                .fillMaxHeight(0.85f)
+                .background(Color(0xFF16191D), RoundedCornerShape(16.dp))
+                .border(2.dp, Color(0xFF00FFCC).copy(alpha = 0.85f), RoundedCornerShape(16.dp))
+                .padding(14.dp)
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (activeCategory != null) {
+                            Button(
+                                onClick = { activeCategory = null },
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF242B33)),
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                modifier = Modifier
+                                    .height(28.dp)
+                                    .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                            ) {
+                                Text("◀ ALL DOMAINS", color = Color(0xFF00FFCC), fontWeight = FontWeight.Bold, fontSize = 10.sp)
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                        }
+                        if (activeCategory != null) {
+                            Box(
+                                modifier = Modifier
+                                    .size(28.dp)
+                                    .background(Color.Black.copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                                    .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.5f), RoundedCornerShape(6.dp)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                PixelItemIcon(itemName = activeCategory!!.iconAsset, modifier = Modifier.size(20.dp))
+                            }
+                        } else {
+                            Text("🧭", fontSize = 20.sp)
+                        }
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Column {
+                            Text(
+                                text = activeCategory?.title?.uppercase() ?: "STRATEGY GUIDE DOMAINS",
+                                color = Color(0xFF00FFCC),
+                                fontWeight = FontWeight.Black,
+                                fontSize = 14.sp
+                            )
+                            Text(
+                                text = if (activeCategory == null) "Tap a category to explore items, puzzles & walkthroughs:" else activeCategory!!.subtitle,
+                                color = Color.LightGray,
+                                fontSize = 10.sp,
+                                maxLines = 1
+                            )
+                        }
+                    }
+                    IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier
+                            .size(28.dp)
+                            .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                    ) {
+                        Text("✕", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Body: View A (Category Adaptive Grid) vs View B (Topic Adaptive Grid)
+                if (activeCategory == null) {
+                    // View A: Adaptive Grid of Categories (2 columns on folded, 3-4 on unfolded)
+                    LazyVerticalGrid(
+                        columns = GridCells.Adaptive(minSize = 220.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                    ) {
+                        items(categories, key = { it.id }) { cat ->
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color(0xFF1E242B), RoundedCornerShape(10.dp))
+                                    .border(1.5.dp, Color(0xFF00FFCC).copy(alpha = 0.35f), RoundedCornerShape(10.dp))
+                                    .clickable { activeCategory = cat }
+                                    .padding(10.dp)
+                            ) {
+                                Column {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(32.dp)
+                                                .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(6.dp))
+                                                .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.35f), RoundedCornerShape(6.dp)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            PixelItemIcon(
+                                                itemName = cat.iconAsset,
+                                                modifier = Modifier.size(24.dp)
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(
+                                            text = cat.title,
+                                            color = Color.White,
+                                            fontWeight = FontWeight.Black,
+                                            fontSize = 11.5.sp,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = cat.subtitle,
+                                        color = Color.Gray,
+                                        fontSize = 9.sp,
+                                        lineHeight = 11.sp,
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    // View B: Adaptive Grid of Topics (1 column on folded, 2 on unfolded)
+                    val currentCat = activeCategory!!
+                    val topics = remember(currentCat.id) {
+                        com.example.pokedex.data.PokemonGameGuideRepository.getTopicsForCategory(currentCat.id, context)
+                    }
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Adaptive(minSize = 260.dp),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                    ) {
+                        items(topics, key = { it.name }) { topic ->
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color(0xFF1E242B), RoundedCornerShape(8.dp))
+                                    .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.35f), RoundedCornerShape(8.dp))
+                                    .clickable {
+                                        onSelectTopic(topic.name)
+                                        onDismiss()
+                                    }
+                                    .padding(horizontal = 12.dp, vertical = 10.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    if (topic.iconAsset != null) {
+                                        Box(
+                                            modifier = Modifier
+                                                .padding(end = 10.dp)
+                                                .size(32.dp)
+                                                .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(6.dp))
+                                                .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.35f), RoundedCornerShape(6.dp)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            PixelItemIcon(
+                                                itemName = topic.iconAsset,
+                                                modifier = Modifier.size(24.dp)
+                                            )
+                                        }
+                                    }
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Text(
+                                            text = topic.name,
+                                            color = Color.White,
+                                            fontWeight = FontWeight.Black,
+                                            fontSize = 12.sp,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                        if (topic.aliases.isNotEmpty()) {
+                                            Text(
+                                                text = "Keywords: " + topic.aliases.joinToString(", "),
+                                                color = Color.Gray,
+                                                fontSize = 9.5.sp,
+                                                maxLines = 1,
+                                                overflow = TextOverflow.Ellipsis
+                                            )
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text("VIEW ▶", color = Color(0xFF00FFCC), fontWeight = FontWeight.Bold, fontSize = 10.sp)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun GuideMapPinCanvas(
+    mapAsset: String,
+    pinX: Float?,
+    pinY: Float?,
+    pinLabel: String?,
+    editionName: String,
+    firstEncounter: String? = null,
+    subsequentAvailability: String? = null,
+    modifier: Modifier = Modifier,
+    canvasHeight: androidx.compose.ui.unit.Dp = 180.dp,
+    fillMaxHeight: Boolean = false
+) {
+    val context = LocalContext.current
+    var selectedGbPalette by rememberSaveable { mutableStateOf(GameBoyPalette.POCKET) }
+    val effectiveMapAsset = remember(mapAsset, selectedGbPalette) {
+        if (mapAsset.startsWith("kanto_rgby")) selectedGbPalette.mapAsset else mapAsset
+    }
+    val isPixel = remember(effectiveMapAsset) { isPixelArtMap(effectiveMapAsset) }
+    var enabledLandmarkTypes by rememberSaveable(stateSaver = LandmarkTypeSetSaver) {
+        mutableStateOf(MapLandmarkType.values().toSet())
+    }
+    var showLayerFilterModal by remember { mutableStateOf(false) }
+    var selectedLandmark by remember { mutableStateOf<MapLandmark?>(null) }
+    val landmarks = remember(effectiveMapAsset) {
+        RegionMapLandmarksRepository.getLandmarksForMap(effectiveMapAsset)
+    }
+    val mapBitmap = remember(effectiveMapAsset) {
+        try {
+            context.assets.open("maps/$effectiveMapAsset").use { inputStream ->
+                val options = android.graphics.BitmapFactory.Options().apply {
+                    inPreferredConfig = android.graphics.Bitmap.Config.ARGB_8888
+                    inScaled = false
+                }
+                android.graphics.BitmapFactory.decodeStream(inputStream, null, options)
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    var isExpanded by rememberSaveable { mutableStateOf(false) }
+
+    val infiniteTransition = rememberInfiniteTransition(label = "guidePulse")
+    val pulseScale by infiniteTransition.animateFloat(
+        initialValue = 0.8f,
+        targetValue = 1.9f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1300, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "guidePulseScale"
+    )
+    val pulseAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.85f,
+        targetValue = 0.0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1300, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "guidePulseAlpha"
+    )
+
+    Column(modifier = modifier.fillMaxWidth()) {
+        if (mapAsset.startsWith("kanto_rgby")) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("PALETTE:", color = Color.Gray, fontSize = 8.5.sp, fontWeight = FontWeight.Bold)
+                GameBoyPalette.values().forEach { pal ->
+                    val isSelected = selectedGbPalette == pal
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(26.dp)
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(pal.chipColor.copy(alpha = if (isSelected) 1.0f else 0.45f))
+                            .border(
+                                if (isSelected) 1.5.dp else 0.5.dp,
+                                if (isSelected) Color(0xFF00FFCC) else Color.White.copy(alpha = 0.2f),
+                                RoundedCornerShape(6.dp)
+                            )
+                            .clickable { selectedGbPalette = pal },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = pal.displayName,
+                            color = if (isSelected) Color.White else pal.textColor.copy(alpha = 0.85f),
+                            fontSize = 8.sp,
+                            fontWeight = if (isSelected) FontWeight.Black else FontWeight.Bold,
+                            maxLines = 1
+                        )
+                    }
+                }
+            }
+        }
+
+        val canvasModifier = if (fillMaxHeight) {
+            Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        } else {
+            Modifier
+                .fillMaxWidth()
+                .height(canvasHeight)
+        }
+
+        Box(
+            modifier = canvasModifier
+                .background(Color.Black, RoundedCornerShape(10.dp))
+                .border(1.5.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), RoundedCornerShape(10.dp))
+                .clip(RoundedCornerShape(10.dp))
+                .clickable(enabled = mapBitmap != null) { isExpanded = true },
+            contentAlignment = Alignment.Center
+        ) {
+        if (mapBitmap != null) {
+            BoxWithConstraints(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                val containerWidth = maxWidth
+                val containerHeight = maxHeight
+                val density = LocalDensity.current
+
+                val containerWidthPx = with(density) { containerWidth.toPx() }
+                val containerHeightPx = with(density) { containerHeight.toPx() }
+
+                val bitmapWidth = mapBitmap.width.toFloat()
+                val bitmapHeight = mapBitmap.height.toFloat()
+                val bitmapRatio = bitmapWidth / bitmapHeight
+                val containerRatio = containerWidthPx / containerHeightPx
+
+                val (drawnWidthPx, drawnHeightPx) = if (containerRatio > bitmapRatio) {
+                    val h = containerHeightPx
+                    val w = h * bitmapRatio
+                    Pair(w, h)
+                } else {
+                    val w = containerWidthPx
+                    val h = w / bitmapRatio
+                    Pair(w, h)
+                }
+
+                val drawnWidthDp = with(density) { drawnWidthPx.toDp() }
+                val drawnHeightDp = with(density) { drawnHeightPx.toDp() }
+
+                // The Map Artwork
+                Image(
+                    bitmap = mapBitmap.asImageBitmap(),
+                    contentDescription = "$editionName Region Map",
+                    contentScale = ContentScale.Fit,
+                    filterQuality = if (isPixel) FilterQuality.None else FilterQuality.High,
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                // Town and Road Landmark Labels (granular layer filtering + click inspection)
+                RegionMapLandmarksLayer(
+                    landmarks = landmarks,
+                    drawnWidthDp = drawnWidthDp,
+                    drawnHeightDp = drawnHeightDp,
+                    enabledTypes = enabledLandmarkTypes,
+                    selectedLandmark = selectedLandmark,
+                    onSelectLandmark = { lm -> selectedLandmark = lm }
+                )
+
+                // Render Glowing Pinpoint directly on the map if coordinates exist!
+                if (pinX != null && pinY != null) {
+                    Box(
+                        modifier = Modifier
+                            .size(drawnWidthDp, drawnHeightDp)
+                            .align(Alignment.Center)
+                    ) {
+                        val pinXDp = drawnWidthDp * pinX.coerceIn(0.04f, 0.96f)
+                        val pinYDp = drawnHeightDp * pinY.coerceIn(0.04f, 0.96f)
+
+                        Box(
+                            modifier = Modifier
+                                .offset(x = pinXDp - 18.dp, y = pinYDp - 18.dp)
+                                .size(36.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            // Pulsing Radar Beacon
+                            Box(
+                                modifier = Modifier
+                                    .size(34.dp * pulseScale)
+                                    .background(Color(0xFF00FFCC).copy(alpha = pulseAlpha), CircleShape)
+                                    .border(2.dp, Color(0xFF00FFCC), CircleShape)
+                            )
+
+                            // Pin Core Disc
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .background(Color.Black.copy(alpha = 0.92f), CircleShape)
+                                    .border(2.dp, Color(0xFFFFCC00), CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text("📍", fontSize = 12.sp)
+                            }
+                        }
+
+                        // Floating Location Name Tag
+                        if (!pinLabel.isNullOrBlank()) {
+                            val tagYOffset = if (pinY > 0.35f) pinYDp - 36.dp else pinYDp + 20.dp
+                            val tagXOffset = (pinXDp - 50.dp).coerceIn(4.dp, (drawnWidthDp - 100.dp).coerceAtLeast(4.dp))
+                            Box(
+                                modifier = Modifier
+                                    .offset(x = tagXOffset, y = tagYOffset)
+                                    .background(Color(0xFF16191D).copy(alpha = 0.95f), RoundedCornerShape(4.dp))
+                                    .border(1.dp, Color(0xFFFFCC00), RoundedCornerShape(4.dp))
+                                    .padding(horizontal = 6.dp, vertical = 2.dp)
+                            ) {
+                                Text(
+                                    text = pinLabel,
+                                    color = Color(0xFFFFCC00),
+                                    fontSize = 9.sp,
+                                    fontWeight = FontWeight.Black,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Top Header Overlay Badge
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(6.dp)
+                    .background(Color.Black.copy(alpha = 0.8f), RoundedCornerShape(4.dp))
+                    .border(0.5.dp, Color(0xFF00FFCC).copy(alpha = 0.5f), RoundedCornerShape(4.dp))
+                    .padding(horizontal = 6.dp, vertical = 2.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("🗺️", fontSize = 9.sp)
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = if (pinX != null) "TARGET LOCATION PINPOINT (${editionName.uppercase()})" else "REGION MAP (${editionName.uppercase()})",
+                        color = Color(0xFF00FFCC),
+                        fontSize = 8.5.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
+            // Top End Expand Badge
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(6.dp)
+                    .background(Color.Black.copy(alpha = 0.85f), RoundedCornerShape(4.dp))
+                    .border(1.dp, Color(0xFF00FFCC), RoundedCornerShape(4.dp))
+                    .padding(horizontal = 6.dp, vertical = 2.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("⛶", color = Color(0xFF00FFCC), fontSize = 9.sp)
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "TAP TO EXPAND",
+                        color = Color(0xFF00FFCC),
+                        fontSize = 8.5.sp,
+                        fontWeight = FontWeight.Black
+                    )
+                }
+            }
+
+            // Bottom Start Layers Filter Badge
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(6.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(Color.Black.copy(alpha = 0.85f))
+                    .border(0.8.dp, if (enabledLandmarkTypes.isNotEmpty()) Color(0xFF00FFCC) else Color.Gray, RoundedCornerShape(4.dp))
+                    .clickable { showLayerFilterModal = true }
+                    .padding(horizontal = 6.dp, vertical = 2.5.dp)
+            ) {
+                Text(
+                    text = "🏷️ LAYERS (${enabledLandmarkTypes.size}/7) ▼",
+                    color = if (enabledLandmarkTypes.isNotEmpty()) Color(0xFF00FFCC) else Color.LightGray,
+                    fontSize = 8.5.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+        if (selectedLandmark != null) {
+            Spacer(modifier = Modifier.height(6.dp))
+            MapLandmarkInspectorCard(
+                landmark = selectedLandmark!!,
+                onClose = { selectedLandmark = null },
+                onSelectConnectedArea = { areaName ->
+                    val matched = landmarks.firstOrNull { lm ->
+                        areaName.contains(lm.name, ignoreCase = true) ||
+                        areaName.contains(lm.shortName, ignoreCase = true) ||
+                        (lm.id.startsWith("r") && areaName.contains(lm.name.substringBefore(" ("), ignoreCase = true))
+                    }
+                    if (matched != null) selectedLandmark = matched
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 180.dp)
+                    .verticalScroll(rememberScrollState())
+            )
+        }
+
+            if (showLayerFilterModal) {
+                MapLayersFilterModal(
+                    regionName = editionName,
+                    landmarks = landmarks,
+                    enabledTypes = enabledLandmarkTypes,
+                    onToggleType = { toggled ->
+                        enabledLandmarkTypes = if (enabledLandmarkTypes.contains(toggled)) {
+                            enabledLandmarkTypes - toggled
+                        } else {
+                            enabledLandmarkTypes + toggled
+                        }
+                    },
+                    onSetAll = { newSet -> enabledLandmarkTypes = newSet },
+                    onDismiss = { showLayerFilterModal = false }
+                )
+            }
+        } else {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text("🗺️", fontSize = 24.sp)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text("MAP NOT AVAILABLE", color = Color.Gray, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+    }
+
+    if (isExpanded && mapBitmap != null) {
+        ExpandedGuideMapModal(
+            mapAsset = effectiveMapAsset,
+            pinX = pinX,
+            pinY = pinY,
+            pinLabel = pinLabel,
+            editionName = editionName,
+            firstEncounter = firstEncounter,
+            subsequentAvailability = subsequentAvailability,
+            onDismiss = { isExpanded = false }
+        )
+    }
+}
+
+@Composable
+
+
+fun ExpandedGuideMapModal(
+    mapAsset: String,
+    pinX: Float?,
+    pinY: Float?,
+    pinLabel: String?,
+    editionName: String,
+    firstEncounter: String? = null,
+    subsequentAvailability: String? = null,
+    onDismiss: () -> Unit
+) {
+    val context = LocalContext.current
+    var enabledLandmarkTypes by rememberSaveable(stateSaver = LandmarkTypeSetSaver) {
+        mutableStateOf(MapLandmarkType.values().toSet())
+    }
+    var showLayerFilterModal by remember { mutableStateOf(false) }
+    var selectedLandmark by remember { mutableStateOf<MapLandmark?>(null) }
+    val landmarks = remember(mapAsset) {
+        RegionMapLandmarksRepository.getLandmarksForMap(mapAsset)
+    }
+    val mapBitmap = remember(mapAsset) {
+        try {
+            context.assets.open("maps/$mapAsset").use { inputStream ->
+                val options = android.graphics.BitmapFactory.Options().apply {
+                    inPreferredConfig = android.graphics.Bitmap.Config.ARGB_8888
+                    inScaled = false
+                }
+                android.graphics.BitmapFactory.decodeStream(inputStream, null, options)
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    var scale by remember { mutableFloatStateOf(1.0f) }
+    var offsetX by remember { mutableFloatStateOf(0f) }
+    var offsetY by remember { mutableFloatStateOf(0f) }
+
+    val infiniteTransition = rememberInfiniteTransition(label = "expandedGuidePulse")
+    val pulseScale by infiniteTransition.animateFloat(
+        initialValue = 0.8f,
+        targetValue = 2.0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1200, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "expandedPulseScale"
+    )
+    val pulseAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.85f,
+        targetValue = 0.0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1200, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "expandedPulseAlpha"
+    )
+
+    androidx.activity.compose.BackHandler(enabled = true) {
+        onDismiss()
+    }
+
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = androidx.compose.ui.window.DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnClickOutside = false,
+            dismissOnBackPress = false
+        )
+    ) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth(0.96f)
+                .fillMaxHeight(0.92f),
+            shape = RoundedCornerShape(16.dp),
+            color = Color(0xFF101418),
+            border = BorderStroke(2.dp, Color(0xFF00FFCC).copy(alpha = 0.85f))
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                // 1. Header Bar
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 14.dp, vertical = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("🗺️", fontSize = 20.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text(
+                                text = "EXPANDED REGION MAP",
+                                color = Color(0xFF00FFCC),
+                                fontWeight = FontWeight.Black,
+                                fontSize = 14.sp
+                            )
+                            Text(
+                                text = "${editionName.uppercase()} EDITION • ${pinLabel ?: "REGIONAL MAP"}",
+                                color = Color.White.copy(alpha = 0.85f),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        // Layers Filter Button
+                        Box(
+                            modifier = Modifier
+                                .height(32.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (enabledLandmarkTypes.isNotEmpty()) Color(0xFF00FFCC).copy(alpha = 0.22f) else Color.White.copy(alpha = 0.08f))
+                                .border(1.dp, if (enabledLandmarkTypes.isNotEmpty()) Color(0xFF00FFCC) else Color.White.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
+                                .clickable { showLayerFilterModal = true }
+                                .padding(horizontal = 8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "🏷️ LAYERS (${enabledLandmarkTypes.size}/7) ▼",
+                                color = if (enabledLandmarkTypes.isNotEmpty()) Color(0xFF00FFCC) else Color.LightGray,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 10.sp
+                            )
+                        }
+
+                        // Tactile Close Button
+                        IconButton(
+                            onClick = onDismiss,
+                            modifier = Modifier
+                                .size(32.dp)
+                                .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                                .border(1.dp, Color.White.copy(alpha = 0.3f), CircleShape)
+                        ) {
+                            Text("✕", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                        }
+                    }
+                }
+
+                // 2. Interactive Pinch-to-Zoom & Pan Map Canvas
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .background(Color.Black)
+                        .clipToBounds()
+                        .pointerInput(Unit) {
+                            detectTransformGestures { _, pan, zoom, _ ->
+                                val newScale = (scale * zoom).coerceIn(1.0f, 4.0f)
+                                scale = newScale
+                                if (newScale > 1.0f) {
+                                    val maxOffsetX = (size.width * (newScale - 1f)) / 2f
+                                    val maxOffsetY = (size.height * (newScale - 1f)) / 2f
+                                    offsetX = (offsetX + pan.x).coerceIn(-maxOffsetX, maxOffsetX)
+                                    offsetY = (offsetY + pan.y).coerceIn(-maxOffsetY, maxOffsetY)
+                                } else {
+                                    offsetX = 0f
+                                    offsetY = 0f
+                                }
+                            }
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (mapBitmap != null) {
+                        BoxWithConstraints(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            val containerWidth = maxWidth
+                            val containerHeight = maxHeight
+                            val density = LocalDensity.current
+
+                            val containerWidthPx = with(density) { containerWidth.toPx() }
+                            val containerHeightPx = with(density) { containerHeight.toPx() }
+
+                            val bitmapWidth = mapBitmap.width.toFloat()
+                            val bitmapHeight = mapBitmap.height.toFloat()
+                            val bitmapRatio = bitmapWidth / bitmapHeight
+                            val containerRatio = containerWidthPx / containerHeightPx
+
+                            val (drawnWidthPx, drawnHeightPx) = if (containerRatio > bitmapRatio) {
+                                val h = containerHeightPx
+                                val w = h * bitmapRatio
+                                Pair(w, h)
+                            } else {
+                                val w = containerWidthPx
+                                val h = w / bitmapRatio
+                                Pair(w, h)
+                            }
+
+                            val drawnWidthDp = with(density) { drawnWidthPx.toDp() }
+                            val drawnHeightDp = with(density) { drawnHeightPx.toDp() }
+
+                            // Transformed content container
+                            Box(
+                                modifier = Modifier
+                                    .size(drawnWidthDp, drawnHeightDp)
+                                    .graphicsLayer {
+                                        scaleX = scale
+                                        scaleY = scale
+                                        translationX = offsetX
+                                        translationY = offsetY
+                                    }
+                            ) {
+                                Image(
+                                    bitmap = mapBitmap.asImageBitmap(),
+                                    contentDescription = "$editionName Region Map Expanded",
+                                    contentScale = ContentScale.Fit,
+                                    filterQuality = if (isPixelArtMap(mapAsset)) FilterQuality.None else FilterQuality.High,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+
+                                // Town and Road Landmark Labels (granular layer filtering + click inspection)
+                                RegionMapLandmarksLayer(
+                                    landmarks = landmarks,
+                                    drawnWidthDp = drawnWidthDp,
+                                    drawnHeightDp = drawnHeightDp,
+                                    enabledTypes = enabledLandmarkTypes,
+                                    selectedLandmark = selectedLandmark,
+                                    onSelectLandmark = { lm -> selectedLandmark = lm }
+                                )
+
+                                if (pinX != null && pinY != null) {
+                                    val pinXDp = drawnWidthDp * pinX.coerceIn(0.04f, 0.96f)
+                                    val pinYDp = drawnHeightDp * pinY.coerceIn(0.04f, 0.96f)
+
+                                    Box(
+                                        modifier = Modifier
+                                            .offset(x = pinXDp - 22.dp, y = pinYDp - 22.dp)
+                                            .size(44.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        // Outer pulsing beacon
+                                        Box(
+                                            modifier = Modifier
+                                                .size(42.dp * pulseScale)
+                                                .background(Color(0xFF00FFCC).copy(alpha = pulseAlpha), CircleShape)
+                                                .border(2.dp, Color(0xFF00FFCC), CircleShape)
+                                        )
+
+                                        // Pin Core Disc
+                                        Box(
+                                            modifier = Modifier
+                                                .size(28.dp)
+                                                .background(Color.Black.copy(alpha = 0.95f), CircleShape)
+                                                .border(2.dp, Color(0xFFFFCC00), CircleShape),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Text("📍", fontSize = 14.sp)
+                                        }
+                                    }
+
+                                    // Floating Pin Label
+                                    if (!pinLabel.isNullOrBlank()) {
+                                        val tagYOffset = if (pinY > 0.35f) pinYDp - 40.dp else pinYDp + 24.dp
+                                        val tagXOffset = (pinXDp - 60.dp).coerceIn(6.dp, (drawnWidthDp - 120.dp).coerceAtLeast(6.dp))
+                                        Box(
+                                            modifier = Modifier
+                                                .offset(x = tagXOffset, y = tagYOffset)
+                                                .background(Color(0xFF16191D).copy(alpha = 0.95f), RoundedCornerShape(6.dp))
+                                                .border(1.dp, Color(0xFFFFCC00), RoundedCornerShape(6.dp))
+                                                .padding(horizontal = 8.dp, vertical = 3.dp)
+                                        ) {
+                                            Text(
+                                                text = pinLabel,
+                                                color = Color(0xFFFFCC00),
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Black,
+                                                maxLines = 1
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Tactile Zoom HUD Overlay (Bottom End)
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(12.dp)
+                            .background(Color.Black.copy(alpha = 0.75f), RoundedCornerShape(20.dp))
+                            .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.5f), RoundedCornerShape(20.dp))
+                            .padding(horizontal = 6.dp, vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        // Zoom Out
+                        Box(
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFF222830))
+                                .clickable {
+                                    val newScale = (scale - 0.5f).coerceAtLeast(1.0f)
+                                    scale = newScale
+                                    if (newScale == 1.0f) {
+                                        offsetX = 0f
+                                        offsetY = 0f
+                                    }
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("➖", fontSize = 11.sp)
+                        }
+
+                        // Reset Zoom Scale Indicator
+                        Box(
+                            modifier = Modifier
+                                .height(28.dp)
+                                .clip(RoundedCornerShape(14.dp))
+                                .background(Color(0xFF181E24))
+                                .clickable {
+                                    scale = 1.0f
+                                    offsetX = 0f
+                                    offsetY = 0f
+                                }
+                                .padding(horizontal = 8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "${String.format(java.util.Locale.US, "%.1f", scale)}x ↺",
+                                color = Color(0xFF00FFCC),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        // Zoom In
+                        Box(
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFF222830))
+                                .clickable {
+                                    scale = (scale + 0.5f).coerceAtMost(4.0f)
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("➕", fontSize = 11.sp)
+                        }
+                    }
+                }
+
+                // 3. Bottom Information & Progression Banner
+                if (!firstEncounter.isNullOrBlank() || !subsequentAvailability.isNullOrBlank()) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color(0xFF161A1E))
+                            .padding(12.dp)
+                    ) {
+                        if (!firstEncounter.isNullOrBlank()) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("📍", fontSize = 14.sp)
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Column {
+                                    Text(
+                                        text = "FIRST ENCOUNTER & UNLOCK PIN",
+                                        color = Color(0xFF00FFCC),
+                                        fontSize = 9.sp,
+                                        fontWeight = FontWeight.Black
+                                    )
+                                    Text(
+                                        text = firstEncounter.replace("First Encounter / Earliest Unlock: ", "").replace("First Encounter: ", ""),
+                                        color = Color.White,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                            }
+                        }
+
+                        if (!subsequentAvailability.isNullOrBlank()) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("🌐", fontSize = 14.sp)
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Column {
+                                    Text(
+                                        text = "REGION-WIDE MART PROGRESSION",
+                                        color = Color(0xFF00BFFF),
+                                        fontSize = 9.sp,
+                                        fontWeight = FontWeight.Black
+                                    )
+                                    Text(
+                                        text = subsequentAvailability.replace("Region-Wide Availability: ", "").replace("Subsequent Availability: ", ""),
+                                        color = Color.White.copy(alpha = 0.95f),
+                                        fontSize = 10.5.sp,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+        if (selectedLandmark != null) {
+            Spacer(modifier = Modifier.height(6.dp))
+            MapLandmarkInspectorCard(
+                landmark = selectedLandmark!!,
+                onClose = { selectedLandmark = null },
+                onSelectConnectedArea = { areaName ->
+                    val matched = landmarks.firstOrNull { lm ->
+                        areaName.contains(lm.name, ignoreCase = true) ||
+                        areaName.contains(lm.shortName, ignoreCase = true) ||
+                        (lm.id.startsWith("r") && areaName.contains(lm.name.substringBefore(" ("), ignoreCase = true))
+                    }
+                    if (matched != null) selectedLandmark = matched
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 180.dp)
+                    .verticalScroll(rememberScrollState())
+            )
+        }
+
+            if (showLayerFilterModal) {
+                MapLayersFilterModal(
+                    regionName = editionName,
+                    landmarks = landmarks,
+                    enabledTypes = enabledLandmarkTypes,
+                    onToggleType = { toggled ->
+                        enabledLandmarkTypes = if (enabledLandmarkTypes.contains(toggled)) {
+                            enabledLandmarkTypes - toggled
+                        } else {
+                            enabledLandmarkTypes + toggled
+                        }
+                    },
+                    onSetAll = { newSet -> enabledLandmarkTypes = newSet },
+                    onDismiss = { showLayerFilterModal = false }
+                )
+            }
+}
+
+
+@Composable
+fun GameGuideModal(
+    viewModel: PokedexViewModel,
+    onDismiss: () -> Unit
+) {
+    val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
+    val keyboardController = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
+    val preferredEdition by viewModel.preferredGameEdition.collectAsState()
+    val guideQuery by viewModel.guideQuery.collectAsState()
+    val guideResult by viewModel.guideResult.collectAsState()
+    val isSearching by viewModel.isGuideSearching.collectAsState()
+
+    var showEditionPicker by remember { mutableStateOf(false) }
+    var showCategoryPicker by remember { mutableStateOf(false) }
+
+    val activeCartridge = remember(preferredEdition) {
+        val effectiveId = if (preferredEdition.isNotBlank() && !preferredEdition.equals("Default", ignoreCase = true)) {
+            preferredEdition
+        } else {
+            viewModel.getEffectiveGameEdition()
+        }
+        ALL_GAME_CARTRIDGES.firstOrNull {
+            it.id.equals(effectiveId, ignoreCase = true) ||
+            it.candidateKeys.any { k -> k.equals(effectiveId, ignoreCase = true) }
+        } ?: ALL_GAME_CARTRIDGES.firstOrNull { it.id == "Emerald" || it.id == "Red" } ?: ALL_GAME_CARTRIDGES.first()
+    }
+
+    androidx.activity.compose.BackHandler(enabled = (showEditionPicker || showCategoryPicker)) {
+        if (showEditionPicker) {
+            showEditionPicker = false
+        } else if (showCategoryPicker) {
+            showCategoryPicker = false
+        }
+    }
+
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = androidx.compose.ui.window.DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnClickOutside = false,
+            dismissOnBackPress = false
+        )
+    ) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth(0.95f)
+                .fillMaxHeight(0.90f),
+            shape = RoundedCornerShape(16.dp),
+            color = Color(0xFF14181B),
+            border = androidx.compose.foundation.BorderStroke(2.dp, Color(0xFF00FFCC).copy(alpha = 0.8f))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(14.dp)
+            ) {
+                // 1. Header with Cartridge Switcher
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("🧭", fontSize = 22.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text(
+                                text = "ULTIMATE GAME GUIDE",
+                                color = Color(0xFF00FFCC),
+                                fontWeight = FontWeight.Black,
+                                fontSize = 15.sp
+                            )
+                            Text(
+                                text = "AI Quest Navigator & Strategy Guide",
+                                color = Color.Gray,
+                                fontSize = 10.5.sp
+                            )
+                        }
+                    }
+
+                    // Symmetrical Popout Control Bar: Cartridge & Category Popouts
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        // 1. Version Popout Button
+                        Button(
+                            onClick = { showEditionPicker = true },
+                            colors = ButtonDefaults.buttonColors(containerColor = activeCartridge.cartridgeColor),
+                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                            shape = RoundedCornerShape(6.dp),
+                            modifier = Modifier
+                                .height(30.dp)
+                                .border(1.dp, activeCartridge.textColor.copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                        ) {
+                            Text(
+                                text = "${activeCartridge.displayName} ▼",
+                                color = activeCartridge.textColor,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 10.sp
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        // 2. Topics & Categories Popout Button
+                        Button(
+                            onClick = { showCategoryPicker = true },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2C3238)),
+                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                            shape = RoundedCornerShape(6.dp),
+                            modifier = Modifier
+                                .height(30.dp)
+                                .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                        ) {
+                            Text(
+                                text = "📚 TOPICS ▼",
+                                color = Color(0xFF00FFCC),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 10.sp
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        IconButton(
+                            onClick = onDismiss,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .background(Color.Black.copy(alpha = 0.6f), CircleShape)
+                        ) {
+                            Text("✕", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // 2. Search & Ask Input Bar
+                OutlinedTextField(
+                    value = guideQuery,
+                    onValueChange = { viewModel.updateGuideQuery(it) },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = {
+                        Text(
+                            "Ask anything (e.g. 'Exp. Share', 'Sudowoodo', 'Move Relearner', 'Swampert build')...",
+                            color = Color.Gray,
+                            fontSize = 11.5.sp
+                        )
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        focusedBorderColor = Color(0xFF00FFCC),
+                        unfocusedBorderColor = Color.DarkGray
+                    ),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                    keyboardActions = KeyboardActions(onSearch = {
+                        viewModel.searchGuide(guideQuery, activeCartridge.id)
+                        focusManager.clearFocus()
+                        keyboardController?.hide()
+                    }),
+                    trailingIcon = {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            if (guideQuery.isNotBlank()) {
+                                IconButton(onClick = {
+                                    viewModel.updateGuideQuery("")
+                                    viewModel.searchGuide("help", activeCartridge.id)
+                                    focusManager.clearFocus()
+                                    keyboardController?.hide()
+                                }) {
+                                    Text("✕", color = Color.White.copy(alpha = 0.7f), fontWeight = FontWeight.Bold)
+                                }
+                            }
+                            IconButton(onClick = {
+                                viewModel.searchGuide(guideQuery, activeCartridge.id)
+                                focusManager.clearFocus()
+                                keyboardController?.hide()
+                            }) {
+                                Text("🔍", fontSize = 16.sp)
+                            }
+                        }
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // 3. Tactile Strategy Domain Launcher Bar (Zero Side-Scrolling)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(
+                        onClick = { showCategoryPicker = true },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(38.dp)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("📚", fontSize = 14.sp)
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "BROWSE 13 STRATEGY DOMAINS ▶",
+                                color = Color.Black,
+                                fontWeight = FontWeight.Black,
+                                fontSize = 11.sp
+                            )
+                        }
+                    }
+
+                    if (guideQuery.isNotBlank()) {
+                        Button(
+                            onClick = {
+                                viewModel.updateGuideQuery("")
+                                viewModel.searchGuide("help", activeCartridge.id)
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333)),
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.height(38.dp)
+                        ) {
+                            Text("CLEAR", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 11.sp)
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // 4. Results Card & Walkthrough Display
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(10.dp))
+                        .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(10.dp))
+                        .padding(12.dp)
+                ) {
+                    if (isSearching) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            CircularProgressIndicator(color = Color(0xFF00FFCC))
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text("CONSULTING DEXTER'S STRATEGY DATABASE...", color = Color(0xFF00FFCC), fontSize = 11.sp)
+                        }
+                    } else if (guideResult != null) {
+                        val res = guideResult!!
+                        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+                            val isFoldableWide = maxWidth > 650.dp && res.mapAsset != null
+
+                            if (isFoldableWide) {
+                                // 🌟 FOLDABLE TWO-PANE ADAPTIVE LAYOUT (Pixel Fold unfolded 2076x2152)
+                                Row(
+                                    modifier = Modifier.fillMaxSize(),
+                                    horizontalArrangement = Arrangement.spacedBy(14.dp)
+                                ) {
+                                    // LEFT PANE: Full Walkthrough, Encounter Unlocks & Strategy Instructions
+                                    Column(
+                                        modifier = Modifier
+                                            .weight(1.1f)
+                                            .fillMaxHeight()
+                                            .verticalScroll(rememberScrollState())
+                                    ) {
+                                        // Title & Category Row
+                                        Row(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Row(
+                                                modifier = Modifier.weight(1f),
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                if (res.itemIconAsset != null) {
+                                                    Box(
+                                                        modifier = Modifier
+                                                            .padding(end = 10.dp)
+                                                            .size(40.dp)
+                                                            .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(8.dp))
+                                                            .border(1.5.dp, Color(0xFFFFCC00).copy(alpha = 0.7f), RoundedCornerShape(8.dp)),
+                                                        contentAlignment = Alignment.Center
+                                                    ) {
+                                                        PixelItemIcon(
+                                                            itemName = res.itemIconAsset,
+                                                            modifier = Modifier.size(30.dp)
+                                                        )
+                                                    }
+                                                }
+                                                Column(modifier = Modifier.weight(1f)) {
+                                                    Text(
+                                                        text = res.title,
+                                                        color = Color(0xFFFFCC00),
+                                                        fontWeight = FontWeight.Black,
+                                                        fontSize = 15.sp,
+                                                        maxLines = 1,
+                                                        overflow = TextOverflow.Ellipsis
+                                                    )
+                                                    Text(
+                                                        text = "${res.category} • ${res.editionName.uppercase()} EDITION",
+                                                        color = Color(0xFF00FFCC),
+                                                        fontWeight = FontWeight.Bold,
+                                                        fontSize = 10.sp,
+                                                        maxLines = 1,
+                                                        overflow = TextOverflow.Ellipsis
+                                                    )
+                                                }
+                                            }
+
+                                            // Spoken Audio Button
+                                            Button(
+                                                onClick = { viewModel.readGuideAdvice(res) },
+                                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
+                                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                                shape = RoundedCornerShape(6.dp),
+                                                modifier = Modifier.height(28.dp)
+                                            ) {
+                                                Text("🗣 READ GUIDE", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 9.sp)
+                                            }
+                                        }
+
+                                        Spacer(modifier = Modifier.height(8.dp))
+
+                                        // Location & Progression Banners
+                                        if (res.firstEncounter != null) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .background(Color(0xFF00FFCC).copy(alpha = 0.12f), RoundedCornerShape(6.dp))
+                                                    .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), RoundedCornerShape(6.dp))
+                                                    .padding(8.dp)
+                                            ) {
+                                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                                    Text("📍", fontSize = 16.sp)
+                                                    Spacer(modifier = Modifier.width(6.dp))
+                                                    Column {
+                                                        Text(text = "FIRST ENCOUNTER & UNLOCK PIN", color = Color(0xFF00FFCC), fontSize = 9.sp, fontWeight = FontWeight.Black)
+                                                        Text(text = res.firstEncounter.replace("First Encounter / Earliest Unlock: ", "").replace("First Encounter: ", ""), color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                                    }
+                                                }
+                                            }
+
+                                            if (res.subsequentAvailability != null) {
+                                                Spacer(modifier = Modifier.height(6.dp))
+                                                Box(
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .background(Color(0xFF00BFFF).copy(alpha = 0.10f), RoundedCornerShape(6.dp))
+                                                        .border(1.dp, Color(0xFF00BFFF).copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                                                        .padding(8.dp)
+                                                ) {
+                                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                                        Text("🌐", fontSize = 16.sp)
+                                                        Spacer(modifier = Modifier.width(6.dp))
+                                                        Column {
+                                                            Text(text = "REGION-WIDE MART PROGRESSION", color = Color(0xFF00BFFF), fontSize = 9.sp, fontWeight = FontWeight.Black)
+                                                            Text(text = res.subsequentAvailability.replace("Region-Wide Availability: ", "").replace("Subsequent Availability: ", ""), color = Color.White.copy(alpha = 0.95f), fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            Box(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .background(Color.White.copy(alpha = 0.05f), RoundedCornerShape(6.dp))
+                                                    .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.25f), RoundedCornerShape(6.dp))
+                                                    .padding(8.dp)
+                                            ) {
+                                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                                    Text("📍", fontSize = 14.sp)
+                                                    Spacer(modifier = Modifier.width(6.dp))
+                                                    Column {
+                                                        Text(text = "LOCATION / CONTEXT", color = Color.Gray, fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                                        Text(text = res.location, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        if (!res.prerequisites.isNullOrBlank()) {
+                                            Spacer(modifier = Modifier.height(6.dp))
+                                            Text(
+                                                text = "🔑 Prerequisite / Cost: ${res.prerequisites}",
+                                                color = Color(0xFFFF9900),
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        }
+
+                                        Spacer(modifier = Modifier.height(10.dp))
+
+                                        // Step-by-Step Instructions
+                                        Text(
+                                            text = "WALKTHROUGH & STRATEGY:",
+                                            color = Color(0xFF00FFCC),
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Black
+                                        )
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        res.steps.forEach { step ->
+                                            Text(
+                                                text = step,
+                                                color = Color.White.copy(alpha = 0.95f),
+                                                fontSize = 11.5.sp,
+                                                lineHeight = 16.sp,
+                                                modifier = Modifier.padding(vertical = 2.dp)
+                                            )
+                                        }
+                                    }
+
+                                    // RIGHT PANE: Full-Height Interactive Region Map Pinpoint
+                                    Column(
+                                        modifier = Modifier
+                                            .weight(0.9f)
+                                            .fillMaxHeight()
+                                    ) {
+                                        GuideMapPinCanvas(
+                                            mapAsset = res.mapAsset!!,
+                                            pinX = res.pinX,
+                                            pinY = res.pinY,
+                                            pinLabel = res.pinLocationName ?: res.location,
+                                            editionName = res.editionName,
+                                            firstEncounter = res.firstEncounter,
+                                            subsequentAvailability = res.subsequentAvailability,
+                                            fillMaxHeight = true,
+                                            modifier = Modifier.fillMaxSize()
+                                        )
+                                    }
+                                }
+                            } else {
+                                // COMPACT PHONE / SINGLE-PANE LAYOUT
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .verticalScroll(rememberScrollState())
+                                ) {
+                                    // Title & Category Row
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Row(
+                                            modifier = Modifier.weight(1f),
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            if (res.itemIconAsset != null) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .padding(end = 10.dp)
+                                                        .size(40.dp)
+                                                        .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(8.dp))
+                                                        .border(1.5.dp, Color(0xFFFFCC00).copy(alpha = 0.7f), RoundedCornerShape(8.dp)),
+                                                    contentAlignment = Alignment.Center
+                                                ) {
+                                                    PixelItemIcon(
+                                                        itemName = res.itemIconAsset,
+                                                        modifier = Modifier.size(30.dp)
+                                                    )
+                                                }
+                                            }
+                                            Column(modifier = Modifier.weight(1f)) {
+                                                Text(
+                                                    text = res.title,
+                                                    color = Color(0xFFFFCC00),
+                                                    fontWeight = FontWeight.Black,
+                                                    fontSize = 15.sp,
+                                                    maxLines = 1,
+                                                    overflow = TextOverflow.Ellipsis
+                                                )
+                                                Text(
+                                                    text = "${res.category} • ${res.editionName.uppercase()} EDITION",
+                                                    color = Color(0xFF00FFCC),
+                                                    fontWeight = FontWeight.Bold,
+                                                    fontSize = 10.sp,
+                                                    maxLines = 1,
+                                                    overflow = TextOverflow.Ellipsis
+                                                )
+                                            }
+                                        }
+
+                                        // Spoken Audio Button
+                                        Button(
+                                            onClick = { viewModel.readGuideAdvice(res) },
+                                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
+                                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                            shape = RoundedCornerShape(6.dp),
+                                            modifier = Modifier.height(28.dp)
+                                        ) {
+                                            Text("🗣 READ GUIDE", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 9.sp)
+                                        }
+                                    }
+
+                                    Spacer(modifier = Modifier.height(8.dp))
+
+                                    // Location & Progression Banners
+                                    if (res.firstEncounter != null) {
+                                        Box(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .background(Color(0xFF00FFCC).copy(alpha = 0.12f), RoundedCornerShape(6.dp))
+                                                .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), RoundedCornerShape(6.dp))
+                                                .padding(8.dp)
+                                        ) {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                Text("📍", fontSize = 16.sp)
+                                                Spacer(modifier = Modifier.width(6.dp))
+                                                Column {
+                                                    Text(text = "FIRST ENCOUNTER & UNLOCK PIN", color = Color(0xFF00FFCC), fontSize = 9.sp, fontWeight = FontWeight.Black)
+                                                    Text(text = res.firstEncounter.replace("First Encounter / Earliest Unlock: ", "").replace("First Encounter: ", ""), color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                                }
+                                            }
+                                        }
+
+                                        if (res.subsequentAvailability != null) {
+                                            Spacer(modifier = Modifier.height(6.dp))
+                                            Box(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .background(Color(0xFF00BFFF).copy(alpha = 0.10f), RoundedCornerShape(6.dp))
+                                                    .border(1.dp, Color(0xFF00BFFF).copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                                                    .padding(8.dp)
+                                            ) {
+                                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                                    Text("🌐", fontSize = 16.sp)
+                                                    Spacer(modifier = Modifier.width(6.dp))
+                                                    Column {
+                                                        Text(text = "REGION-WIDE MART PROGRESSION", color = Color(0xFF00BFFF), fontSize = 9.sp, fontWeight = FontWeight.Black)
+                                                        Text(text = res.subsequentAvailability.replace("Region-Wide Availability: ", "").replace("Subsequent Availability: ", ""), color = Color.White.copy(alpha = 0.95f), fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        Box(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .background(Color.White.copy(alpha = 0.05f), RoundedCornerShape(6.dp))
+                                                .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.25f), RoundedCornerShape(6.dp))
+                                                .padding(8.dp)
+                                        ) {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                Text("📍", fontSize = 14.sp)
+                                                Spacer(modifier = Modifier.width(6.dp))
+                                                Column {
+                                                    Text(text = "LOCATION / CONTEXT", color = Color.Gray, fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                                                    Text(text = res.location, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (!res.prerequisites.isNullOrBlank()) {
+                                        Spacer(modifier = Modifier.height(6.dp))
+                                        Text(
+                                            text = "🔑 Prerequisite / Cost: ${res.prerequisites}",
+                                            color = Color(0xFFFF9900),
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
+
+                                    if (res.mapAsset != null) {
+                                        Spacer(modifier = Modifier.height(10.dp))
+                                        GuideMapPinCanvas(
+                                            mapAsset = res.mapAsset,
+                                            pinX = res.pinX,
+                                            pinY = res.pinY,
+                                            pinLabel = res.pinLocationName ?: res.location,
+                                            editionName = res.editionName,
+                                            firstEncounter = res.firstEncounter,
+                                            subsequentAvailability = res.subsequentAvailability
+                                        )
+                                    }
+
+                                    Spacer(modifier = Modifier.height(10.dp))
+
+                                    // Step-by-Step Instructions
+                                    Text(
+                                        text = "WALKTHROUGH & STRATEGY:",
+                                        color = Color(0xFF00FFCC),
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Black
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    res.steps.forEach { step ->
+                                        Text(
+                                            text = step,
+                                            color = Color.White.copy(alpha = 0.95f),
+                                            fontSize = 11.5.sp,
+                                            lineHeight = 16.sp,
+                                            modifier = Modifier.padding(vertical = 2.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (showEditionPicker) {
+            GameEditionModal(
+                title = "SELECT GAME VERSION",
+                subtitle = "Choose an edition to ask quest, item, and map questions for:",
+                cartridges = ALL_GAME_CARTRIDGES.filter { it.id != "Default" },
+                selectedCartridgeId = activeCartridge.id,
+                onSelectCartridge = { selectedCart ->
+                    showEditionPicker = false
+                    viewModel.setPreferredGameEdition(selectedCart.id)
+                    val q = if (guideQuery.isBlank()) "help" else guideQuery
+                    viewModel.searchGuide(q, selectedCart.id)
+                },
+                onDismiss = { showEditionPicker = false }
+            )
+        }
+
+        if (showCategoryPicker) {
+            val categories = remember { com.example.pokedex.data.PokemonGameGuideRepository.getCategories(context) }
+            GuideCategoryPopoutModal(
+                categories = categories,
+                selectedCategoryId = null,
+                onSelectTopic = { topicName ->
+                    showCategoryPicker = false
+                    viewModel.selectGuideTopic(topicName, activeCartridge.id)
+                },
+                onDismiss = { showCategoryPicker = false }
+            )
         }
     }
 }

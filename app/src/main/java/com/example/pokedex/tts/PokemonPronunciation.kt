@@ -43,7 +43,9 @@ object PokemonPronunciation {
             multiWordPhrases.clear()
             multiWordTemp.sortByDescending { it.first.length }
             for ((phrase, phonetic) in multiWordTemp) {
-                val pattern = Pattern.compile("(?i)\\b" + Pattern.quote(phrase) + "\\b")
+                val startBoundary = if (phrase.first().isLetterOrDigit()) "\\b" else ""
+                val endBoundary = if (phrase.last().isLetterOrDigit()) "\\b" else ""
+                val pattern = Pattern.compile("(?i)" + startBoundary + Pattern.quote(phrase) + endBoundary)
                 multiWordPhrases.add(Pair(pattern, phonetic))
             }
 
@@ -73,7 +75,9 @@ object PokemonPronunciation {
 
         multiWordTemp.sortByDescending { it.first.length }
         for ((phrase, phonetic) in multiWordTemp) {
-            val pattern = Pattern.compile("(?i)\\b" + Pattern.quote(phrase) + "\\b")
+            val startBoundary = if (phrase.first().isLetterOrDigit()) "\\b" else ""
+            val endBoundary = if (phrase.last().isLetterOrDigit()) "\\b" else ""
+            val pattern = Pattern.compile("(?i)" + startBoundary + Pattern.quote(phrase) + endBoundary)
             multiWordPhrases.add(Pair(pattern, phonetic))
         }
         isLoaded = true
@@ -87,6 +91,75 @@ object PokemonPronunciation {
         return pronunciationMap[key] ?: pronunciationMap[key.replace(" ", "-")] ?: pronunciationMap[key.split("-")[0]]
     }
 
+    private fun lookupWordOrPossessive(word: String): String? {
+        val lower = word.lowercase()
+        val isPossessive = lower.endsWith("'s")
+        val isTrailingApos = lower.endsWith("s'")
+        val base = when {
+            isPossessive -> lower.substring(0, lower.length - 2)
+            isTrailingApos -> lower.substring(0, lower.length - 1)
+            else -> lower
+        }
+
+        val direct = pronunciationMap[lower]
+            ?: pronunciationMap[lower.replace(" ", "-")]
+            ?: pronunciationMap[lower.replace("'", "")]
+            ?: pronunciationMap[base]?.let { if (isPossessive) "$it's" else if (isTrailingApos) "$it'" else it }
+            ?: pronunciationMap[base.replace(" ", "-")]?.let { if (isPossessive) "$it's" else if (isTrailingApos) "$it'" else it }
+
+        if (direct != null) {
+            if (direct.equals(word, ignoreCase = true)) {
+                return word
+            }
+            return direct
+        }
+
+        // If the token is hyphenated (e.g. "Hisui-region", "Grass-type") and not a single dictionary key,
+        // resolve each hyphen-separated component individually and join smoothly.
+        if (word.contains("-")) {
+            val parts = word.split("-")
+            var anyChanged = false
+            val resolvedParts = parts.map { part ->
+                if (part.isEmpty()) {
+                    part
+                } else {
+                    val subPhonetic = lookupSingleToken(part)
+                    if (subPhonetic != null) {
+                        anyChanged = true
+                        subPhonetic
+                    } else {
+                        part
+                    }
+                }
+            }
+            if (anyChanged) {
+                // If the word was a canonical compound like Ho-Oh, keep hyphen; otherwise use space for fluid speech
+                return if (word.equals("Ho-Oh", ignoreCase = true)) "Ho-Oh" else resolvedParts.joinToString(" ")
+            }
+        }
+
+        return null
+    }
+
+    private fun lookupSingleToken(token: String): String? {
+        val lower = token.lowercase()
+        val isPossessive = lower.endsWith("'s")
+        val isTrailingApos = lower.endsWith("s'")
+        val base = when {
+            isPossessive -> lower.substring(0, lower.length - 2)
+            isTrailingApos -> lower.substring(0, lower.length - 1)
+            else -> lower
+        }
+        val direct = pronunciationMap[lower]
+            ?: pronunciationMap[lower.replace("'", "")]
+            ?: pronunciationMap[base]?.let { if (isPossessive) "$it's" else if (isTrailingApos) "$it'" else it }
+
+        if (direct != null && direct.equals(token, ignoreCase = true)) {
+            return token
+        }
+        return direct
+    }
+
     /**
      * Formats raw text so that the offline speech engine pronounces Pokemon names,
      * punctuation, and flavor text naturally and accurately.
@@ -98,7 +171,9 @@ object PokemonPronunciation {
         text = text.replace("-\n", "").replace("-\r\n", "")
         text = text.replace("\n", " ").replace("\r", " ")
 
-        // 2. Normalize smart quotes, hyphens, and non-ASCII character artifacts
+        // 2. Normalize smart quotes, gender symbols, and non-ASCII character artifacts
+        text = text.replace("♀", " Female")
+        text = text.replace("♂", " Male")
         text = text.replace('\u2019', '\'') // right single quotation mark
         text = text.replace('\u2018', '\'') // left single quotation mark
         text = text.replace('\u201C', '"')  // left double quotation mark
@@ -111,34 +186,32 @@ object PokemonPronunciation {
         text = text.replace("(?i)\\bPOKéMON\\b".toRegex(), "Pokemon")
         text = text.replace("(?i)\\bPOKEMON\\b".toRegex(), "Pokemon")
 
-        // 3.5. Multi-word phrase replacement (e.g. "Tapu Koko", "Iron Treads", "Mr. Mime")
+        // 3.5. Multi-word phrase replacement protected by sentinel tokens so Step 4 never re-mutates them
+        val multiWordPlaceholders = mutableListOf<String>()
         if (multiWordPhrases.isNotEmpty()) {
             for ((pattern, phonetic) in multiWordPhrases) {
-                text = pattern.matcher(text).replaceAll(MatcherQuote(phonetic))
+                val matcher = pattern.matcher(text)
+                if (matcher.find()) {
+                    val sb = StringBuffer()
+                    matcher.reset()
+                    while (matcher.find()) {
+                        val idx = multiWordPlaceholders.size
+                        multiWordPlaceholders.add(phonetic)
+                        matcher.appendReplacement(sb, "\u0001$idx\u0002")
+                    }
+                    matcher.appendTail(sb)
+                    text = sb.toString()
+                }
             }
         }
 
-        // 4. Fast phonetic replacement using matcher buffer (with possessive resolution)
+        // 4. Single-token & hyphenated-token phonetic replacement (with possessive resolution)
         if (pronunciationMap.isNotEmpty()) {
             val matcher = wordPattern.matcher(text)
             val sb = StringBuffer()
             while (matcher.find()) {
                 val word = matcher.group()
-                val lower = word.lowercase()
-                val isPossessive = lower.endsWith("'s")
-                val isTrailingApos = lower.endsWith("s'")
-                val base = when {
-                    isPossessive -> lower.substring(0, lower.length - 2)
-                    isTrailingApos -> lower.substring(0, lower.length - 1)
-                    else -> lower
-                }
-
-                val phonetic = pronunciationMap[lower]
-                    ?: pronunciationMap[lower.replace(" ", "-")]
-                    ?: pronunciationMap[lower.replace("'", "")]
-                    ?: pronunciationMap[base]?.let { if (isPossessive) "$it's" else "$it'" }
-                    ?: pronunciationMap[base.replace(" ", "-")]?.let { if (isPossessive) "$it's" else "$it'" }
-
+                val phonetic = lookupWordOrPossessive(word)
                 if (phonetic != null) {
                     matcher.appendReplacement(sb, MatcherQuote(phonetic))
                 } else {
@@ -147,6 +220,11 @@ object PokemonPronunciation {
             }
             matcher.appendTail(sb)
             text = sb.toString()
+        }
+
+        // 4.5. Restore protected multi-word replacements
+        for (i in multiWordPlaceholders.indices) {
+            text = text.replace("\u0001$i\u0002", multiWordPlaceholders[i])
         }
 
         // 5. Ensure natural pauses around punctuation and eliminate excess spaces

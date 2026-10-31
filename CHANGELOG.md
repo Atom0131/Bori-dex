@@ -5,6 +5,69 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2026-10-26
+
+### Added
+- **Default Authentic Town & Road Labels on All Regional Maps**:
+  - Implemented `RegionMapLandmarksRepository` and `RegionMapLandmarksLayer` composable rendering authentic town badges (`🏠`), city badges (`🏛️`), connecting route shields (`R1`, `R104`, `R29`), and key landmark pins (`📍`) across all 11 Pokémon world regions (Kanto GB, Kanto GBA + Sevii Islands, Johto, Hoenn, Sinnoh, Unova, Kalos, Alola, Galar, Hisui, Paldea).
+  - Labels are **enabled by default** across all map views:
+    - Pokédex Detail Town Map modal (`PokemonMapHabitatModal`).
+    - Embedded Strategy Guide topic canvas (`GuideMapPinCanvas`).
+    - Interactive full-screen pinch-to-zoom & pan modal (`ExpandedGuideMapModal`).
+  - Added tactile interactive toggle button (`🏷️ LABELS: ON / OFF`) across all map header and canvas HUDs to allow toggling between labeled view and pristine raw artwork view.
+  - In `ExpandedGuideMapModal`, labels scale and translate smoothly with pinch-to-zoom and pan gestures.
+  - Added comprehensive unit test suite in `RegionMapLandmarksTest.kt` verifying non-empty landmark sets, towns & routes presence, normalized coordinate ranges (`[0.02, 0.98]`), and edition name lookups (100% pass rate).
+
+## [1.8.1] - 2026-10-26
+
+### Added
+- **Comprehensive Strategy Guide Logic & Content Review**: Full audit and synchronization of Dexter's 12 Strategy Domains (`game_guides_index.json`), expanding total curated walkthrough topics from 57 to 84 (100% domain coverage).
+  - Populated all 27 previously missing/mismatched topic IDs: `devon_scope`, `liberty_pass`, `dragon_scale`, `upgrade_dubious`, `protector`, `link_cable`, `life_orb`, `assault_vest`, `heavy_duty_boots`, `ability_patch`, `psyduck_headache`, `route_110_blockade`, `devon_goods_quest`, `silph_co_invasion`, `power_plant_part`, `dowsing_radar_spots`, `hidden_rare_candies`, `buried_fossils`, `daily_berry_trees`, `ruin_of_alph_puzzles`, `tanoby_ruins_cipher`, `abyssal_ruins_alphabet`, `ice_path_sliding_puzzles`, `lt_surge_trash_can_switches`, `silph_co_warp_pads`, `sabrina_gym_warp_maze`, and `sootopolis_gym_ice_tiles`.
+  - Added full multi-region map pinpoint coordinate offsets in `PokemonGameGuideRepository.resolveMapCoordinates()` for Liberty Garden, Route 210 Psyduck Blockade, Rusturf Tunnel, Silph Co. HQ, Cerulean Gym Machine Part, and Tanoby Ruins.
+  - Enriched Johto edition coverage for Snorlax (`Gold`, `Silver`, `Crystal`, `HeartGold`, `SoulSilver`) with Route 11 Vermilion City pin and EXPN Poké Flute radio broadcast instructions.
+  - Added unit test suite in `PokemonGameGuideTest.kt` guaranteeing 100% topic ID resolution across all 12 categories and validating case-insensitive edition lookups.
+
+### Fixed
+- **Case-Insensitive Cartridge Candidate Key Resolution**: Fixed `PokemonGameGuideRepository.resolveVersionKey()` to sanitize spaces and perform case-insensitive lookups across `CARTRIDGE_CANDIDATE_KEYS`, preventing lowercased cartridge IDs from failing to resolve.
+- **Category Topic ID Alignment & Alias Duplication**: Resolved dangling aliases in `healing_items`, `battle_items`, and puzzle categories, ensuring every declared category topic maps to an active topic record.
+
+## [1.8.0] - 2026-10-26
+
+### Added
+- **Strategy Guide Quest Search Precedence & Pinpoint Radar**: Reordered search query evaluation in `PokemonGameGuideRepository.kt` so quest topics, items, and roadblocks are evaluated before competitive builds. Searching legendary or mythical Pokémon (e.g. "Mew", "Rayquaza", "Darkrai", "Arceus") now instantly routes to their canonical capture quests with active Town Map radar beacons and coordinates, reserving competitive builds for explicit queries ("build", "moveset", "nature", "ev").
+- **Authentic Multi-Region Map Coordinate Mappings**: Expanded `resolveMapCoordinates()` across Kanto (GB & FRLG), Johto (GBC), Hoenn (GBA), and Sinnoh (DS) to support exact pinpoints for Faraway Island, Birth Island, Navel Rock, Southern Island, Newmoon Island, Flower Paradise, Spear Pillar, Seafoam Islands, Ilex Forest Shrine, Mossdeep Space Center White Rock, Desert Ruins, Island Cave, Ancient Tomb, Cave of Origin, Fullmoon Island, Snowpoint Temple, and Turnback Cave.
+- **Synchronized Event Pokémon & Legendary Guide Index**: Populated and aligned all categories, topic IDs, and search aliases in `game_guides_index.json` for Old Sea Map (Mew), Aurora Ticket (Deoxys), Eon Ticket (Latias/Latios), Mystic Ticket (Lugia/Ho-Oh), Member Card (Darkrai), Oak's Letter (Shaymin), Azure Flute (Arceus), Ilex Forest Shrine (Celebi), and Mossdeep White Rock (Jirachi).
+- **Foldable Dual-Pane Pokédex Hardware Hinge (`PokedexFoldHinge`)**: Added an authentic retro hardware hinge spine down the center fold crease on foldable devices (`maxWidth > 600.dp`, Pixel Fold unfolded), complete with metallic pivot cylinders and recessed chassis depth.
+- **Unified Spanning Pokédex Header**: Elevated the Pokédex top bar (`PokedexHeader`) to span gracefully across both halves of the foldable chassis, featuring the Blue Scanner Lens and status lights on the left, a central `SILPH CO. DUAL-SCREEN POKÉDEX` badge, and quick Guide + Settings controls on the right.
+- **Dual-Pane Active Selection Indicator**: Active Pokémon card in master index displays a vibrant cyan border (`2.5.dp`, `#00FFCC`) and an `ACTIVE ENTRY ▶` badge on foldable/tablet screens (`maxWidth > 600.dp`).
+- **Authentic In-Game Pixel Town Maps (Native ROM Extracts)**:
+  - **Pokémon Emerald (GBA)**: Extracted native 240x160 PokéNav Town Map from ROM decomp assets (`beater-studios/swg3`), integer-upscaled 8x nearest-neighbor to `1920x1280` with 27 hardware colors (`hoenn_rse.png`). Replaced blurry 3DS concept art.
+  - **Pokémon Red & Blue (GB)**: Native 4-shade monochrome Game Boy Town Map (`1712x1440`). Default is authentic monochrome with 5 Game Boy hardware palette options (`Pocket (B&W)`, `DMG (Olive)`, `GBC Red`, `GBC Blue`, `Super GB`).
+  - **Pokémon FireRed & LeafGreen (GBA)**: Extracted native 240x160 GBA Town Map from ROM decomp assets (`beater-studios/swg3`), integer-upscaled 8x nearest-neighbor to `1920x1280` with 27 hardware colors (`kanto_frlg.png`). Replaced 4:3 anime poster.
+  - **Pokémon Gold, Silver & Crystal (GBC)**: Native 160x144 GBC Pokégear Town Map (`1976x1440`).
+- **Game Boy Hardware Palette Switcher**: Interactive selector bar on Gen 1 maps allowing live hardware color switching between Pocket, DMG, GBC Red, GBC Blue, and Super Game Boy.
+- **Retro 8-Bit Pixel-Art Item Sprites Engine**: 150+ authentic Gen 3/4/5 item sprites across Potions, Revives, Poké Balls, Key Items, and Evolution Stones, with nearest-neighbor crisp rendering.
+- **Two-Tier Search Engine Overhaul**: Exact/phrase matching with keyword token overlap, stop word filtering, and numeric/accent normalization (`Flabébé`, `#025`, `golem`).
+- **Nearest-Neighbor Scaling (`FilterQuality.None`)**: Applied nearest-neighbor rendering across all 2D pixel art maps in canvas, thumbnail, and modal zoom views.
+
+### Fixed
+- **Foldable Dual-Pane Vertical Asymmetry**: Resolved vertical misalignment where the left screen started ~96dp below the top header while the right detail pane started at the very top (`y=0`), and the right pane was truncated ~50dp at the bottom by a redundant `◀ INDEX / RESET` button. Master list and detail monitor now share identical top and bottom Y coordinates, identical height, and harmonized `8.dp` outer bezel padding.
+- **Dual-Pane Master-Detail Desynchronization**: Resolved issue on foldable screens (`maxWidth > 600.dp`, Pixel Fold unfolded) where searching or filtering left the right detail pane stuck on a previously selected Pokémon (e.g. Rayquaza on left vs Bulbasaur on right). Injected real-time silent auto-synchronization (`LaunchedEffect`) keeping master and detail in sync without interrupting user input.
+- **Edition & Map Desynchronization**: Fixed bug where selecting Red in the version picker still displayed Emerald's Hoenn map. Replaced early-exit on blank query with default helpful fallback search, ensuring immediate state and map updates when switching editions. Fixed `queryGym` fallback from picking Emerald's map on non-native item/gym queries.
+- **Modal Persistence & Always-On Screen**: Injected `FLAG_KEEP_SCREEN_ON` and outside-touch protection (`dismissOnClickOutside = false`) to prevent unwanted dismissals.
+
+## [Unreleased] - 2026-10-25
+
+### Added
+- **Comprehensive 1,025-Species Anime Pronunciation Engine**: Expanded `pokemon_pronunciations.json` to 1,834 phonetic mappings across Gen 1–9, including all 6 Legendary Titans (Regirock, Regice, Registeel, Regigigas, Regieleki, Regidrago), all 7 Hisui-native Pokémon (`#899–#905`), all 16 Hisuian regional forms, Paradox Pokémon, Treasures of Ruin, and Loyal Three.
+- **Multi-Region Habitat Database (`pokemon_encounters.json` v3)**: Expanded wild habitat data to 4,729 regional habitat entries (`regionalHabitats` + `nativeRegions`) across Kanto, Johto, Hoenn, Sinnoh, Unova, Kalos, Alola, Galar, Hisui, and Paldea (including wild Paldea, Galar, and Alola habitats for returning species like Mudbray `#749` and Mudsdale `#750`).
+- **Town Map ↔ Pokédex Entry & Voice Synchronization**: Switching regions or game cartridges in the Town Map modal or main index now synchronizes the active game edition, regional Pokédex entry drawer, and Dexter voice narration, with interactive `📍 <NATIVE REGION>` jump chips on `Area Unknown` overlays.
+
+### Fixed
+- **Multi-Word Phonetic Token Protection**: Added sentinel protection in `PokemonPronunciation.kt` to prevent single-word dictionary keys from corrupting already-replaced multi-word phrases, plus hyphenated sub-token resolution and default form suffix suppression in `PokemonFormDetector.kt`.
+- **Cross-Region Habitat Pin Leakage**: Fixed `PokemonMapHabitatRepository` so primary debut-region pins never leak onto unrelated regional Town Maps when a Pokémon is not found in that region.
+- **Flavor Text HTML Entity Cleanup**: Cleaned 242 raw `Pok&eacute;mon` HTML entities in `pokemon_data.json` and bumped Room database to v11.
+
 ## [1.7.0] - 2026-10-24
 
 ### Added

@@ -431,26 +431,136 @@ object PokemonFormDetector {
         return disambiguateFromProfile(profile, basePokemon, availableForms)
     }
 
+    private val DEFAULT_FORM_SUFFIXES = setOf(
+        "-normal",
+        "-plant",
+        "-altered",
+        "-land",
+        "-red-striped",
+        "-standard",
+        "-incarnate",
+        "-ordinary",
+        "-aria",
+        "-shield",
+        "-average",
+        "-50",
+        "-baile",
+        "-midday",
+        "-solo",
+        "-red-meteor",
+        "-disguised",
+        "-amped",
+        "-ice",
+        "-full-belly",
+        "-single-strike",
+        "-family-of-four",
+        "-green-plumage",
+        "-zero",
+        "-curly",
+        "-two-segment"
+    )
+
+    private val DEFAULT_MALE_BASE_SPECIES = setOf(
+        "frillish-male",
+        "jellicent-male",
+        "pyroar-male",
+        "meowstic-male",
+        "indeedee-male",
+        "basculegion-male",
+        "oinkologne-male"
+    )
+
+    private val EXACT_FORM_DISPLAY_NAMES = mapOf(
+        "nidoran-f" to "Nidoran♀",
+        "nidoran-m" to "Nidoran♂",
+        "mr-mime" to "Mr. Mime",
+        "mime-jr" to "Mime Jr.",
+        "mr-rime" to "Mr. Rime",
+        "farfetchd" to "Farfetch'd",
+        "sirfetchd" to "Sirfetch'd",
+        "ho-oh" to "Ho-Oh",
+        "porygon-z" to "Porygon-Z",
+        "type-null" to "Type: Null",
+        "jangmo-o" to "Jangmo-o",
+        "hakamo-o" to "Hakamo-o",
+        "kommo-o" to "Kommo-o",
+        "tapu-koko" to "Tapu Koko",
+        "tapu-lele" to "Tapu Lele",
+        "tapu-bulu" to "Tapu Bulu",
+        "tapu-fini" to "Tapu Fini",
+        "wo-chien" to "Wo-Chien",
+        "chien-pao" to "Chien-Pao",
+        "ting-lu" to "Ting-Lu",
+        "chi-yu" to "Chi-Yu",
+        "mr-mime-galar" to "Galarian Mr. Mime",
+        "farfetchd-galar" to "Galarian Farfetch'd",
+        "tauros-paldea-combat-breed" to "Paldean Tauros (Combat)",
+        "tauros-paldea-blaze-breed" to "Paldean Tauros (Blaze)",
+        "tauros-paldea-aqua-breed" to "Paldean Tauros (Aqua)",
+        "ursaluna-bloodmoon" to "Bloodmoon Ursaluna",
+        "calyrex-ice" to "Ice Rider Calyrex",
+        "calyrex-shadow" to "Shadow Rider Calyrex",
+        "zacian-crowned" to "Crowned Sword Zacian",
+        "zamazenta-crowned" to "Crowned Shield Zamazenta",
+        "dialga-origin" to "Origin Forme Dialga",
+        "palkia-origin" to "Origin Forme Palkia",
+        "giratina-origin" to "Origin Forme Giratina",
+        "shaymin-sky" to "Sky Forme Shaymin",
+        "tornadus-therian" to "Therian Forme Tornadus",
+        "thundurus-therian" to "Therian Forme Thundurus",
+        "landorus-therian" to "Therian Forme Landorus",
+        "enamorus-therian" to "Therian Forme Enamorus",
+        "kyurem-black" to "Black Kyurem",
+        "kyurem-white" to "White Kyurem",
+        "necrozma-dusk" to "Dusk Mane Necrozma",
+        "necrozma-dawn" to "Dawn Wings Necrozma",
+        "necrozma-ultra" to "Ultra Necrozma",
+        "hoopa-unbound" to "Hoopa Unbound",
+        "zygarde-10" to "10% Forme Zygarde",
+        "zygarde-complete" to "Complete Forme Zygarde",
+        "urshifu-rapid-strike" to "Rapid Strike Urshifu",
+        "palafin-hero" to "Hero Form Palafin",
+        "basculegion-female" to "Female Basculegion",
+        "indeedee-female" to "Female Indeedee",
+        "meowstic-female" to "Female Meowstic",
+        "oinkologne-female" to "Female Oinkologne",
+        "frillish-female" to "Female Frillish",
+        "jellicent-female" to "Female Jellicent",
+        "pyroar-female" to "Female Pyroar"
+    )
+
     /**
      * Formats database slugs (e.g. 'rayquaza-mega', 'groudon-primal', 'raichu-alola')
      * into elegant, human-readable display titles.
      */
     fun formatFormDisplayName(entityName: String): String {
         val lower = entityName.lowercase().trim()
+
+        EXACT_FORM_DISPLAY_NAMES[lower]?.let { return it }
+
+        if (lower in DEFAULT_MALE_BASE_SPECIES) {
+            val base = lower.removeSuffix("-male")
+            return EXACT_FORM_DISPLAY_NAMES[base] ?: base.replaceFirstChar { it.uppercase() }
+        }
+
+        for (suffix in DEFAULT_FORM_SUFFIXES) {
+            if (lower.endsWith(suffix)) {
+                val base = lower.removeSuffix(suffix)
+                return EXACT_FORM_DISPLAY_NAMES[base] ?: base.replaceFirstChar { it.uppercase() }
+            }
+        }
+
         return when {
-            lower.endsWith("-mega-x") -> "Mega ${lower.removeSuffix("-mega-x").replaceFirstChar { it.uppercase() }} X"
-            lower.endsWith("-mega-y") -> "Mega ${lower.removeSuffix("-mega-y").replaceFirstChar { it.uppercase() }} Y"
-            lower.endsWith("-mega-z") -> "Mega ${lower.removeSuffix("-mega-z").replaceFirstChar { it.uppercase() }} Z"
-            lower.endsWith("-mega") -> "Mega ${lower.removeSuffix("-mega").replaceFirstChar { it.uppercase() }}"
-            lower.endsWith("-primal") -> "Primal ${lower.removeSuffix("-primal").replaceFirstChar { it.uppercase() }}"
-            lower.endsWith("-alola") -> "Alolan ${lower.removeSuffix("-alola").replaceFirstChar { it.uppercase() }}"
-            lower.endsWith("-hisui") -> "Hisuian ${lower.removeSuffix("-hisui").replaceFirstChar { it.uppercase() }}"
-            lower.endsWith("-galar") -> "Galarian ${lower.removeSuffix("-galar").replaceFirstChar { it.uppercase() }}"
-            lower.endsWith("-paldea") -> "Paldean ${lower.removeSuffix("-paldea").replaceFirstChar { it.uppercase() }}"
-            lower.endsWith("-gmax") -> "${lower.removeSuffix("-gmax").replaceFirstChar { it.uppercase() }} Gigantamax"
-            lower == "necrozma-dusk" -> "Dusk Mane Necrozma"
-            lower == "necrozma-dawn" -> "Dawn Wings Necrozma"
-            lower == "necrozma-ultra" -> "Ultra Necrozma"
+            lower.endsWith("-mega-x") -> "Mega ${formatFormDisplayName(lower.removeSuffix("-mega-x"))} X"
+            lower.endsWith("-mega-y") -> "Mega ${formatFormDisplayName(lower.removeSuffix("-mega-y"))} Y"
+            lower.endsWith("-mega-z") -> "Mega ${formatFormDisplayName(lower.removeSuffix("-mega-z"))} Z"
+            lower.endsWith("-mega") -> "Mega ${formatFormDisplayName(lower.removeSuffix("-mega"))}"
+            lower.endsWith("-primal") -> "Primal ${formatFormDisplayName(lower.removeSuffix("-primal"))}"
+            lower.endsWith("-alola") -> "Alolan ${formatFormDisplayName(lower.removeSuffix("-alola"))}"
+            lower.endsWith("-hisui") -> "Hisuian ${formatFormDisplayName(lower.removeSuffix("-hisui"))}"
+            lower.endsWith("-galar") -> "Galarian ${formatFormDisplayName(lower.removeSuffix("-galar"))}"
+            lower.endsWith("-paldea") -> "Paldean ${formatFormDisplayName(lower.removeSuffix("-paldea"))}"
+            lower.endsWith("-gmax") -> "${formatFormDisplayName(lower.removeSuffix("-gmax"))} Gigantamax"
             lower.contains("-") -> lower.split("-").joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
             else -> lower.replaceFirstChar { it.uppercase() }
         }
