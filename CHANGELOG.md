@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.1] - 2026-10-30
+
+### Fixed
+- **Pure Official Pokédex Entries**:
+  - Stripped all 724 synthetic non-native prefixes (`"This Pokémon does not naturally inhabit the Paldea region... National Pokédex entry: "`) from `pokemon_data.json` across Pokémon Scarlet and Violet records.
+  - Purified `PokemonMapHabitatRepository.resolvePokedexEntryForCartridge()` fallback logic: when a Pokémon is not natively documented in a selected regional game's Pokédex, it cleanly returns the Pokémon's canonical Pokédex entry without appending synthetic commentary ("This Pokémon is not documented in the...").
+  - Hardened `PokemonMapHabitatRepository.cleanFlavorText()` and UI presentation layers (`displayFlavorText`, `currentCleanedFlavor`) to strip any synthetic non-native prefix strings.
+  - Incremented Room SQLite asset sync version to 12 in `PokedexDatabase.kt` and `PokedexViewModel.kt` to guarantee fresh synchronization on first launch.
+
+### Added
+- **"ALL MAPS" National Pokédex Branding & Device Symbol**:
+  - Rebranded the All-Regions town map entry to **"ALL MAPS"** (`eraSubtitle = "National Pokédex"`, `#001 - #1025`).
+  - Featured the iconic red Pokédex device icon (`assets/maps/pokedex_icon.png`) in the master Town Map selector and main header thumbnail.
+  - Updated main screen header banner to display `ALL MAPS • National Dex` in cyan (`#00FFCC`).
+
 ## [1.9.0] - 2026-10-26
 
 ### Added
