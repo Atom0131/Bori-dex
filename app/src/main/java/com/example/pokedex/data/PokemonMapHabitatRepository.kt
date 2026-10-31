@@ -32,6 +32,136 @@ object PokemonMapHabitatRepository {
         907, 908, 910, 911, 913, 914
     )
 
+    data class CanonicalLegendarySpec(
+        val canonicalRegions: List<String>,
+        val nativeNotes: String
+    )
+
+    val CANONICAL_LEGENDARY_MAP: Map<Int, CanonicalLegendarySpec> = mapOf(
+        // Gen 1
+        144 to CanonicalLegendarySpec(listOf("Kanto", "Galar"), "Articuno is native to Kanto (Seafoam Islands) and Galar (Crown Tundra - Galarian form)."),
+        145 to CanonicalLegendarySpec(listOf("Kanto", "Galar"), "Zapdos is native to Kanto (Power Plant) and Galar (Wild Area - Galarian form)."),
+        146 to CanonicalLegendarySpec(listOf("Kanto", "Galar"), "Moltres is native to Kanto (Victory Road / Mt. Ember) and Galar (Isle of Armor - Galarian form)."),
+        150 to CanonicalLegendarySpec(listOf("Kanto", "Kalos"), "Mewtwo is native to Kanto (Cerulean Cave) and Kalos (Unknown Dungeon)."),
+        151 to CanonicalLegendarySpec(listOf("Kanto"), "Mew is a Mythical Pokémon native to Kanto."),
+
+        // Gen 2
+        243 to CanonicalLegendarySpec(listOf("Johto"), "Raikou is a Legendary Beast native to Johto."),
+        244 to CanonicalLegendarySpec(listOf("Johto"), "Entei is a Legendary Beast native to Johto."),
+        245 to CanonicalLegendarySpec(listOf("Johto"), "Suicune is a Legendary Beast native to Johto."),
+        249 to CanonicalLegendarySpec(listOf("Johto"), "Lugia is the guardian of the seas native to Johto (Whirl Islands)."),
+        250 to CanonicalLegendarySpec(listOf("Johto"), "Ho-Oh is the guardian of the skies native to Johto (Bell Tower)."),
+        251 to CanonicalLegendarySpec(listOf("Johto"), "Celebi is a Mythical Pokémon native to Johto (Ilex Forest)."),
+
+        // Gen 3
+        377 to CanonicalLegendarySpec(listOf("Hoenn"), "Regirock is a Legendary Titan native to Hoenn (Desert Ruins)."),
+        378 to CanonicalLegendarySpec(listOf("Hoenn"), "Regice is a Legendary Titan native to Hoenn (Island Cave)."),
+        379 to CanonicalLegendarySpec(listOf("Hoenn"), "Registeel is a Legendary Titan native to Hoenn (Ancient Tomb)."),
+        380 to CanonicalLegendarySpec(listOf("Hoenn"), "Latias is an Eon Pokémon native to Hoenn."),
+        381 to CanonicalLegendarySpec(listOf("Hoenn"), "Latios is an Eon Pokémon native to Hoenn."),
+        382 to CanonicalLegendarySpec(listOf("Hoenn"), "Kyogre is the super-ancient Legendary Pokémon native to Hoenn (Cave of Origin / Marine Cave)."),
+        383 to CanonicalLegendarySpec(listOf("Hoenn"), "Groudon is the super-ancient Legendary Pokémon native to Hoenn (Cave of Origin / Terra Cave)."),
+        384 to CanonicalLegendarySpec(listOf("Hoenn"), "Rayquaza is the sky-high Legendary Pokémon native to Hoenn (Sky Pillar)."),
+        385 to CanonicalLegendarySpec(listOf("Hoenn"), "Jirachi is a Mythical Pokémon native to Hoenn."),
+        386 to CanonicalLegendarySpec(listOf("Hoenn"), "Deoxys is a Mythical DNA Pokémon native to Hoenn (Birth Island)."),
+
+        // Gen 4
+        480 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Uxie is a Lake Guardian native to Sinnoh and Hisui (Lake Acuity)."),
+        481 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Mesprit is a Lake Guardian native to Sinnoh and Hisui (Lake Verity)."),
+        482 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Azelf is a Lake Guardian native to Sinnoh and Hisui (Lake Valor)."),
+        483 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Dialga is the temporal Legendary Pokémon native to Sinnoh and Hisui (Spear Pillar / Temple of Sinnoh)."),
+        484 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Palkia is the spatial Legendary Pokémon native to Sinnoh and Hisui (Spear Pillar / Temple of Sinnoh)."),
+        485 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Heatran is a Legendary Pokémon native to Sinnoh and Hisui (Stark Mountain)."),
+        486 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Regigigas is the Colossal Pokémon native to Sinnoh and Hisui (Snowpoint Temple)."),
+        487 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Giratina is the Renegade Pokémon native to Sinnoh and Hisui (Distortion World / Turnback Cave)."),
+        488 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Cresselia is the Lunar Pokémon native to Sinnoh and Hisui (Fullmoon Island)."),
+        489 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Phione is a Mythical Pokémon native to Sinnoh and Hisui."),
+        490 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Manaphy is a Mythical Pokémon native to Sinnoh and Hisui."),
+        491 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Darkrai is the Pitch-Black Mythical Pokémon native to Sinnoh and Hisui (Newmoon Island)."),
+        492 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Shaymin is the Gratitude Mythical Pokémon native to Sinnoh and Hisui (Flower Paradise)."),
+        493 to CanonicalLegendarySpec(listOf("Sinnoh", "Hisui"), "Arceus is the Alpha Mythical Pokémon native to Sinnoh and Hisui (Hall of Origin)."),
+
+        // Gen 5
+        494 to CanonicalLegendarySpec(listOf("Unova"), "Victini is the Victory Mythical Pokémon native to Unova (Liberty Garden)."),
+        638 to CanonicalLegendarySpec(listOf("Unova"), "Cobalion is a Sword of Justice native to Unova (Guidance Chamber)."),
+        639 to CanonicalLegendarySpec(listOf("Unova"), "Terrakion is a Sword of Justice native to Unova (Trial Chamber)."),
+        640 to CanonicalLegendarySpec(listOf("Unova"), "Virizion is a Sword of Justice native to Unova (Rumination Field)."),
+        641 to CanonicalLegendarySpec(listOf("Unova", "Hisui"), "Tornadus is a Force of Nature native to Unova and Hisui."),
+        642 to CanonicalLegendarySpec(listOf("Unova", "Hisui"), "Thundurus is a Force of Nature native to Unova and Hisui."),
+        643 to CanonicalLegendarySpec(listOf("Unova"), "Reshiram is the Vast White Legendary Pokémon native to Unova (N's Castle / Dragonspiral Tower)."),
+        644 to CanonicalLegendarySpec(listOf("Unova"), "Zekrom is the Deep Black Legendary Pokémon native to Unova (N's Castle / Dragonspiral Tower)."),
+        645 to CanonicalLegendarySpec(listOf("Unova", "Hisui"), "Landorus is a Force of Nature native to Unova and Hisui (Abundant Shrine)."),
+        646 to CanonicalLegendarySpec(listOf("Unova"), "Kyurem is the Boundary Legendary Pokémon native to Unova (Giant Chasm)."),
+        647 to CanonicalLegendarySpec(listOf("Unova"), "Keldeo is a Sword of Justice Mythical Pokémon native to Unova."),
+        648 to CanonicalLegendarySpec(listOf("Unova"), "Meloetta is the Melody Mythical Pokémon native to Unova."),
+        649 to CanonicalLegendarySpec(listOf("Unova"), "Genesect is the Paleozoic Mythical Pokémon native to Unova."),
+
+        // Gen 6
+        716 to CanonicalLegendarySpec(listOf("Kalos"), "Xerneas is the Life Legendary Pokémon native to Kalos (Geosenge Town / Team Flare Secret HQ)."),
+        717 to CanonicalLegendarySpec(listOf("Kalos"), "Yveltal is the Destruction Legendary Pokémon native to Kalos (Geosenge Town / Team Flare Secret HQ)."),
+        718 to CanonicalLegendarySpec(listOf("Kalos", "Alola"), "Zygarde is the Order Legendary Pokémon native to Kalos (Terminus Cave) and Alola (Resolution Cave)."),
+        719 to CanonicalLegendarySpec(listOf("Kalos"), "Diancie is the Jewel Mythical Pokémon native to Kalos."),
+        720 to CanonicalLegendarySpec(listOf("Kalos"), "Hoopa is the Mischief Mythical Pokémon native to Kalos."),
+        721 to CanonicalLegendarySpec(listOf("Kalos"), "Volcanion is the Steam Mythical Pokémon native to Kalos."),
+
+        // Gen 7
+        772 to CanonicalLegendarySpec(listOf("Alola"), "Type: Null is a Synthetic Pokémon native to Alola."),
+        773 to CanonicalLegendarySpec(listOf("Alola"), "Silvally is a Synthetic Pokémon native to Alola."),
+        785 to CanonicalLegendarySpec(listOf("Alola"), "Tapu Koko is a Guardian Deity native to Alola (Ruins of Conflict)."),
+        786 to CanonicalLegendarySpec(listOf("Alola"), "Tapu Lele is a Guardian Deity native to Alola (Ruins of Life)."),
+        787 to CanonicalLegendarySpec(listOf("Alola"), "Tapu Bulu is a Guardian Deity native to Alola (Ruins of Abundance)."),
+        788 to CanonicalLegendarySpec(listOf("Alola"), "Tapu Fini is a Guardian Deity native to Alola (Ruins of Hope)."),
+        789 to CanonicalLegendarySpec(listOf("Alola"), "Cosmog is the Nebula Legendary Pokémon native to Alola (Lake of the Sunne / Lake of the Moone)."),
+        790 to CanonicalLegendarySpec(listOf("Alola"), "Cosmoem is the Protostar Legendary Pokémon native to Alola."),
+        791 to CanonicalLegendarySpec(listOf("Alola"), "Solgaleo is the Sunne Legendary Pokémon native to Alola (Altar of the Sunne)."),
+        792 to CanonicalLegendarySpec(listOf("Alola"), "Lunala is the Moone Legendary Pokémon native to Alola (Altar of the Moone)."),
+        793 to CanonicalLegendarySpec(listOf("Alola"), "Nihilego is an Ultra Beast native to Alola."),
+        794 to CanonicalLegendarySpec(listOf("Alola"), "Buzzwole is an Ultra Beast native to Alola."),
+        795 to CanonicalLegendarySpec(listOf("Alola"), "Pheromosa is an Ultra Beast native to Alola."),
+        796 to CanonicalLegendarySpec(listOf("Alola"), "Xurkitree is an Ultra Beast native to Alola."),
+        797 to CanonicalLegendarySpec(listOf("Alola"), "Celesteela is an Ultra Beast native to Alola."),
+        798 to CanonicalLegendarySpec(listOf("Alola"), "Kartana is an Ultra Beast native to Alola."),
+        799 to CanonicalLegendarySpec(listOf("Alola"), "Guzzlord is an Ultra Beast native to Alola."),
+        800 to CanonicalLegendarySpec(listOf("Alola"), "Necrozma is the Prism Legendary Pokémon native to Alola (Mount Lanakila / Megalo Tower)."),
+        801 to CanonicalLegendarySpec(listOf("Alola"), "Magearna is the Artificial Mythical Pokémon native to Alola."),
+        802 to CanonicalLegendarySpec(listOf("Alola"), "Marshadow is the Gloomdweller Mythical Pokémon native to Alola."),
+        803 to CanonicalLegendarySpec(listOf("Alola"), "Poipole is an Ultra Beast native to Alola."),
+        804 to CanonicalLegendarySpec(listOf("Alola"), "Naganadel is an Ultra Beast native to Alola."),
+        805 to CanonicalLegendarySpec(listOf("Alola"), "Stakataka is an Ultra Beast native to Alola."),
+        806 to CanonicalLegendarySpec(listOf("Alola"), "Blacephalon is an Ultra Beast native to Alola."),
+        807 to CanonicalLegendarySpec(listOf("Alola"), "Zeraora is the Thunderclap Mythical Pokémon native to Alola."),
+        808 to CanonicalLegendarySpec(listOf("Kanto", "Pokémon GO"), "Meltan is the Hex Nut Mythical Pokémon native to Pokémon GO and Kanto (Let's Go)."),
+        809 to CanonicalLegendarySpec(listOf("Kanto", "Pokémon GO"), "Melmetal is the Hex Nut Mythical Pokémon native to Pokémon GO and Kanto (Let's Go)."),
+
+        // Gen 8
+        888 to CanonicalLegendarySpec(listOf("Galar"), "Zacian is the Warrior Legendary Pokémon native to Galar (Slumbering Weald / Energy Plant)."),
+        889 to CanonicalLegendarySpec(listOf("Galar"), "Zamazenta is the Warrior Legendary Pokémon native to Galar (Slumbering Weald / Energy Plant)."),
+        890 to CanonicalLegendarySpec(listOf("Galar"), "Eternatus is the Gigantic Legendary Pokémon native to Galar (Energy Plant)."),
+        891 to CanonicalLegendarySpec(listOf("Galar"), "Kubfu is the Wushu Legendary Pokémon native to Galar (Master Dojo)."),
+        892 to CanonicalLegendarySpec(listOf("Galar"), "Urshifu is the Wushu Legendary Pokémon native to Galar (Towers of Two Fists)."),
+        893 to CanonicalLegendarySpec(listOf("Galar"), "Zarude is the Rogue Monkey Mythical Pokémon native to Galar."),
+        894 to CanonicalLegendarySpec(listOf("Galar"), "Regieleki is the Electron Legendary Titan native to Galar (Split-Decision Ruins)."),
+        895 to CanonicalLegendarySpec(listOf("Galar"), "Regidrago is the Dragon Orb Legendary Titan native to Galar (Split-Decision Ruins)."),
+        896 to CanonicalLegendarySpec(listOf("Galar"), "Glastrier is the Wild Horse Legendary Pokémon native to Galar (Crown Shrine)."),
+        897 to CanonicalLegendarySpec(listOf("Galar"), "Spectrier is the Swift Horse Legendary Pokémon native to Galar (Crown Shrine)."),
+        898 to CanonicalLegendarySpec(listOf("Galar"), "Calyrex is the King Legendary Pokémon native to Galar (Crown Shrine)."),
+        905 to CanonicalLegendarySpec(listOf("Hisui"), "Enamorus is the Love-Hate Force of Nature native to Hisui (Scarlet Bog)."),
+
+        // Gen 9
+        1001 to CanonicalLegendarySpec(listOf("Paldea"), "Wo-Chien is a Treasure of Ruin native to Paldea (Grasswither Shrine)."),
+        1002 to CanonicalLegendarySpec(listOf("Paldea"), "Chien-Pao is a Treasure of Ruin native to Paldea (Icerend Shrine)."),
+        1003 to CanonicalLegendarySpec(listOf("Paldea"), "Ting-Lu is a Treasure of Ruin native to Paldea (Groundblight Shrine)."),
+        1004 to CanonicalLegendarySpec(listOf("Paldea"), "Chi-Yu is a Treasure of Ruin native to Paldea (Firescourge Shrine)."),
+        1007 to CanonicalLegendarySpec(listOf("Paldea"), "Koraidon is the Paradox Legendary Pokémon native to Paldea (Area Zero)."),
+        1008 to CanonicalLegendarySpec(listOf("Paldea"), "Miraidon is the Paradox Legendary Pokémon native to Paldea (Area Zero)."),
+        1014 to CanonicalLegendarySpec(listOf("Paldea"), "Okidogi is one of the Loyal Three native to Paldea / Kitakami (Paradise Barrens)."),
+        1015 to CanonicalLegendarySpec(listOf("Paldea"), "Munkidori is one of the Loyal Three native to Paldea / Kitakami (Wistful Fields)."),
+        1016 to CanonicalLegendarySpec(listOf("Paldea"), "Fezandipiti is one of the Loyal Three native to Paldea / Kitakami (Oni Mountain)."),
+        1017 to CanonicalLegendarySpec(listOf("Paldea"), "Ogerpon is the Mask Pokémon native to Paldea / Kitakami (Dreaded Den)."),
+        1024 to CanonicalLegendarySpec(listOf("Paldea"), "Terapagos is the Tera Pokémon native to Paldea / Blueberry Academy (Underdepths)."),
+        1025 to CanonicalLegendarySpec(listOf("Paldea"), "Pecharunt is the Subjugation Mythical Pokémon native to Paldea / Kitakami (Peachy's).")
+    )
+
     fun init(context: Context) {
         if (appContext == null) {
             appContext = context.applicationContext
@@ -68,6 +198,27 @@ object PokemonMapHabitatRepository {
         // Immediately resolve to Area Unknown with verified evolution lineage, preventing false wild pins.
         if (STARTER_EVOLUTION_IDS.contains(pokemonId)) {
             return resolveEvolutionOrAreaUnknown(pokemonId, normName, cid, regionName, mapAsset, editionDisplayName)
+        }
+
+        // 1.6. Canonical Legendary & Mythical Quarantine
+        // Legendaries are strictly isolated to their canonical regions and never roam wild across unauthorized maps.
+        CANONICAL_LEGENDARY_MAP[pokemonId]?.let { spec ->
+            val isCanonical = spec.canonicalRegions.any { it.equals(regionName, ignoreCase = true) }
+            if (!isCanonical) {
+                val allowedStr = spec.canonicalRegions.joinToString(", ")
+                return PokemonHabitatMap(
+                    pokemonId = pokemonId,
+                    pokemonName = normName,
+                    editionId = cid,
+                    editionDisplayName = editionDisplayName,
+                    regionName = regionName,
+                    mapAsset = mapAsset,
+                    isAreaUnknown = true,
+                    unknownReason = "Legendary Pokémon $normName does not appear naturally in the $regionName region in Pokémon $editionDisplayName. It natively inhabits only: $allowedStr. Obtain via trading or transferring from a compatible version.",
+                    pins = emptyList(),
+                    narrationText = "Area Unknown in $regionName. Legendary Pokémon $normName is not found natively in the $regionName region."
+                )
+            }
         }
 
         // 2. POKÉMON LEGENDS: Z-A (Lumiose City & Prism Tower Wild Encounters)
@@ -342,6 +493,10 @@ object PokemonMapHabitatRepository {
     }
 
     fun getNativeRegionsForPokemon(pokemonId: Int, context: Context? = null): List<String> {
+        // Canonical Legendaries & Mythicals are isolated to their official canonical regions
+        CANONICAL_LEGENDARY_MAP[pokemonId]?.let {
+            return it.canonicalRegions
+        }
         // Starter evolutions are strictly non-wild in all mainline regions
         if (STARTER_EVOLUTION_IDS.contains(pokemonId)) {
             return emptyList()
@@ -1386,6 +1541,82 @@ object PokemonMapHabitatRepository {
                         MapLocationPin("victory_road_moltres", "Victory Road (2F)", MapCoordinate(0.150f, 0.380f), MapPinType.LEGENDARY_STATIC, "Static Legendary encounter", "Lv. 50", "Nestled in the caverns of Victory Road before the Indigo Plateau.")
                     }
                     return PokemonHabitatMap(146, pokemonName, cartridgeId, editionDisplayName, "Kanto", mapAsset, false, null, listOf(pin), "Moltres is encountered as a static Legendary at Level 50 in ${pin.areaName}.")
+                }
+            }
+        }
+
+        // Kalos Legendaries
+        if (regionName == "Kalos") {
+            when (pokemonId) {
+                716 -> {
+                    val pin = MapLocationPin("kalos_geosenge_xerneas", "Team Flare Secret HQ (Geosenge Town)", MapCoordinate(0.320f, 0.480f), MapPinType.LEGENDARY_STATIC, "Story Encounter (Geomancy)", "Lv. 50 (X Exclusive)", "Awakened from the legendary tree inside the deepest level of Team Flare Secret HQ.")
+                    return PokemonHabitatMap(716, pokemonName, cartridgeId, editionDisplayName, "Kalos", mapAsset, false, null, listOf(pin), "In Pokémon X, Xerneas is awakened inside the Team Flare Secret HQ in Geosenge Town.")
+                }
+                717 -> {
+                    val pin = MapLocationPin("kalos_geosenge_yveltal", "Team Flare Secret HQ (Geosenge Town)", MapCoordinate(0.320f, 0.480f), MapPinType.LEGENDARY_STATIC, "Story Encounter (Oblivion Wing)", "Lv. 50 (Y Exclusive)", "Awakened from the legendary cocoon inside the deepest level of Team Flare Secret HQ.")
+                    return PokemonHabitatMap(717, pokemonName, cartridgeId, editionDisplayName, "Kalos", mapAsset, false, null, listOf(pin), "In Pokémon Y, Yveltal is awakened inside the Team Flare Secret HQ in Geosenge Town.")
+                }
+                718 -> {
+                    val pin = MapLocationPin("kalos_terminus_zygarde", "Terminus Cave (B3F)", MapCoordinate(0.850f, 0.580f), MapPinType.LEGENDARY_STATIC, "Static Legendary encounter", "Lv. 70 (50% Forme)", "Awaiting battle in the deepest chamber of Terminus Cave.")
+                    return PokemonHabitatMap(718, pokemonName, cartridgeId, editionDisplayName, "Kalos", mapAsset, false, null, listOf(pin), "Zygarde rests in the deepest chamber of Terminus Cave at Level 70.")
+                }
+                150 -> {
+                    val pin = MapLocationPin("kalos_unknown_dungeon_mewtwo", "Unknown Dungeon (Pokémon Village)", MapCoordinate(0.420f, 0.880f), MapPinType.LEGENDARY_STATIC, "Static Post-Game Encounter", "Lv. 70 (Holding Mewtwonite)", "Deep inside the cave in Pokémon Village after entering the Hall of Fame.")
+                    return PokemonHabitatMap(150, pokemonName, cartridgeId, editionDisplayName, "Kalos", mapAsset, false, null, listOf(pin), "In Pokémon X and Y, Mewtwo is located inside the Unknown Dungeon in Pokémon Village at Level 70.")
+                }
+            }
+        }
+
+        // Hoenn Legendaries
+        if (regionName == "Hoenn") {
+            when (pokemonId) {
+                382 -> {
+                    val pin = MapLocationPin("hoenn_cave_of_origin_kyogre", "Cave of Origin (Sootopolis City)", MapCoordinate(0.820f, 0.580f), MapPinType.LEGENDARY_STATIC, "Story Encounter", "Lv. 45 (Sapphire) / Lv. 70 (Emerald) / Lv. 45 Primal (Alpha Sapphire)", "Encountered in the deepest chamber of Cave of Origin.")
+                    return PokemonHabitatMap(382, pokemonName, cartridgeId, editionDisplayName, "Hoenn", mapAsset, false, null, listOf(pin), "Kyogre is awakened in the Cave of Origin in Sootopolis City.")
+                }
+                383 -> {
+                    val pin = MapLocationPin("hoenn_cave_of_origin_groudon", "Cave of Origin (Sootopolis City)", MapCoordinate(0.820f, 0.580f), MapPinType.LEGENDARY_STATIC, "Story Encounter", "Lv. 45 (Ruby) / Lv. 70 (Emerald) / Lv. 45 Primal (Omega Ruby)", "Encountered in the deepest chamber of Cave of Origin.")
+                    return PokemonHabitatMap(383, pokemonName, cartridgeId, editionDisplayName, "Hoenn", mapAsset, false, null, listOf(pin), "Groudon is awakened in the Cave of Origin in Sootopolis City.")
+                }
+                384 -> {
+                    val pin = MapLocationPin("hoenn_sky_pillar_rayquaza", "Sky Pillar (Summit)", MapCoordinate(0.720f, 0.820f), MapPinType.LEGENDARY_STATIC, "Apex Legendary Encounter", "Lv. 70", "Perched atop the summit of Sky Pillar on Route 131.")
+                    return PokemonHabitatMap(384, pokemonName, cartridgeId, editionDisplayName, "Hoenn", mapAsset, false, null, listOf(pin), "Rayquaza awaits atop the Sky Pillar on Route 131 at Level 70.")
+                }
+            }
+        }
+
+        // Sinnoh Legendaries
+        if (regionName == "Sinnoh") {
+            when (pokemonId) {
+                483 -> {
+                    val pin = MapLocationPin("sinnoh_spear_pillar_dialga", "Spear Pillar (Mt. Coronet Summit)", MapCoordinate(0.500f, 0.350f), MapPinType.LEGENDARY_STATIC, "Apex Legendary Encounter", "Lv. 47 (Diamond) / Lv. 70 (Platinum)", "Summoned atop Spear Pillar.")
+                    return PokemonHabitatMap(483, pokemonName, cartridgeId, editionDisplayName, "Sinnoh", mapAsset, false, null, listOf(pin), "Dialga appears atop Spear Pillar at the summit of Mt. Coronet.")
+                }
+                484 -> {
+                    val pin = MapLocationPin("sinnoh_spear_pillar_palkia", "Spear Pillar (Mt. Coronet Summit)", MapCoordinate(0.500f, 0.350f), MapPinType.LEGENDARY_STATIC, "Apex Legendary Encounter", "Lv. 47 (Pearl) / Lv. 70 (Platinum)", "Summoned atop Spear Pillar.")
+                    return PokemonHabitatMap(484, pokemonName, cartridgeId, editionDisplayName, "Sinnoh", mapAsset, false, null, listOf(pin), "Palkia appears atop Spear Pillar at the summit of Mt. Coronet.")
+                }
+                487 -> {
+                    val pin = MapLocationPin("sinnoh_distortion_world_giratina", "Distortion World / Turnback Cave", MapCoordinate(0.780f, 0.550f), MapPinType.LEGENDARY_STATIC, "Apex Legendary Encounter", "Lv. 47 (Platinum) / Lv. 70 (DP)", "Encountered in the Distortion World or deep inside Turnback Cave.")
+                    return PokemonHabitatMap(487, pokemonName, cartridgeId, editionDisplayName, "Sinnoh", mapAsset, false, null, listOf(pin), "Giratina is encountered in the Distortion World or deep in Turnback Cave.")
+                }
+            }
+        }
+
+        // Unova Legendaries
+        if (regionName == "Unova") {
+            when (pokemonId) {
+                643 -> {
+                    val pin = MapLocationPin("unova_n_castle_reshiram", "N's Castle / Dragonspiral Tower", MapCoordinate(0.500f, 0.200f), MapPinType.LEGENDARY_STATIC, "Story Encounter", "Lv. 50 (Black) / Lv. 70 (White 2)", "Awakened from the Light Stone.")
+                    return PokemonHabitatMap(643, pokemonName, cartridgeId, editionDisplayName, "Unova", mapAsset, false, null, listOf(pin), "Reshiram awakens from the Light Stone at N's Castle / Dragonspiral Tower.")
+                }
+                644 -> {
+                    val pin = MapLocationPin("unova_n_castle_zekrom", "N's Castle / Dragonspiral Tower", MapCoordinate(0.500f, 0.200f), MapPinType.LEGENDARY_STATIC, "Story Encounter", "Lv. 50 (White) / Lv. 70 (Black 2)", "Awakened from the Dark Stone.")
+                    return PokemonHabitatMap(644, pokemonName, cartridgeId, editionDisplayName, "Unova", mapAsset, false, null, listOf(pin), "Zekrom awakens from the Dark Stone at N's Castle / Dragonspiral Tower.")
+                }
+                646 -> {
+                    val pin = MapLocationPin("unova_giant_chasm_kyurem", "Giant Chasm (Crater Cavern)", MapCoordinate(0.780f, 0.250f), MapPinType.LEGENDARY_STATIC, "Apex Legendary Encounter", "Lv. 75 (BW) / Lv. 70 (B2W2)", "Resides deep within the icy crater cavern of Giant Chasm.")
+                    return PokemonHabitatMap(646, pokemonName, cartridgeId, editionDisplayName, "Unova", mapAsset, false, null, listOf(pin), "Kyurem resides deep in the icy crater of Giant Chasm.")
                 }
             }
         }

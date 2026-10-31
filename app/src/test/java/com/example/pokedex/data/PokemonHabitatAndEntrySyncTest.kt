@@ -556,4 +556,95 @@ class PokemonHabitatAndEntrySyncTest {
         assertTrue("Weedle entry must be authentic", weedleScarlet.text.contains("venomous stinger", ignoreCase = true) || weedleScarlet.text.contains("forests", ignoreCase = true))
         assertFalse("Weedle entry must not contain synthetic prefix", weedleScarlet.text.contains("does not naturally inhabit", ignoreCase = true))
     }
+
+    @Test
+    fun `Canonical Legendary Quarantine isolates Yveltal and Xerneas to Kalos and blocks Hoenn roaming`() {
+        // Hoenn / Ruby / Sapphire / Emerald / Omega Ruby / Alpha Sapphire
+        val yveltalHoenn = PokemonMapHabitatRepository.getHabitatForPokemon(717, "Yveltal", "Ruby")
+        assertTrue("Yveltal in Ruby must be Area Unknown", yveltalHoenn.isAreaUnknown)
+        assertTrue("Yveltal in Ruby must have 0 pins", yveltalHoenn.pins.isEmpty())
+        assertTrue("Unknown reason must cite native Kalos", yveltalHoenn.unknownReason?.contains("Kalos") == true)
+
+        val yveltalOras = PokemonMapHabitatRepository.getHabitatForPokemon(717, "Yveltal", "Omega Ruby")
+        assertTrue("Yveltal in Omega Ruby must be Area Unknown", yveltalOras.isAreaUnknown)
+        assertTrue("Yveltal in Omega Ruby must have 0 pins", yveltalOras.pins.isEmpty())
+
+        val xerneasHoenn = PokemonMapHabitatRepository.getHabitatForPokemon(716, "Xerneas", "Ruby")
+        assertTrue("Xerneas in Ruby must be Area Unknown", xerneasHoenn.isAreaUnknown)
+        assertTrue("Xerneas in Ruby must have 0 pins", xerneasHoenn.pins.isEmpty())
+
+        // Kalos / X / Y
+        val yveltalKalos = PokemonMapHabitatRepository.getHabitatForPokemon(717, "Yveltal", "Y")
+        assertFalse("Yveltal in Y must NOT be Area Unknown", yveltalKalos.isAreaUnknown)
+        assertTrue("Yveltal in Y must have Geosenge Town pin", yveltalKalos.pins.any { it.areaName.contains("Geosenge") })
+
+        val xerneasKalos = PokemonMapHabitatRepository.getHabitatForPokemon(716, "Xerneas", "X")
+        assertFalse("Xerneas in X must NOT be Area Unknown", xerneasKalos.isAreaUnknown)
+        assertTrue("Xerneas in X must have Geosenge Town pin", xerneasKalos.pins.any { it.areaName.contains("Geosenge") })
+
+        // Check Rayquaza (#384)
+        val rayquazaSinnoh = PokemonMapHabitatRepository.getHabitatForPokemon(384, "Rayquaza", "Diamond")
+        assertTrue("Rayquaza in Diamond must be Area Unknown", rayquazaSinnoh.isAreaUnknown)
+        assertTrue("Rayquaza in Diamond must have 0 pins", rayquazaSinnoh.pins.isEmpty())
+
+        val rayquazaHoenn = PokemonMapHabitatRepository.getHabitatForPokemon(384, "Rayquaza", "Ruby")
+        assertFalse("Rayquaza in Ruby must NOT be Area Unknown", rayquazaHoenn.isAreaUnknown)
+        assertTrue("Rayquaza in Ruby must have Sky Pillar pin", rayquazaHoenn.pins.any { it.areaName.contains("Sky Pillar") })
+
+        // Check Mewtwo (#150)
+        val mewtwoHoenn = PokemonMapHabitatRepository.getHabitatForPokemon(150, "Mewtwo", "Ruby")
+        assertTrue("Mewtwo in Ruby must be Area Unknown", mewtwoHoenn.isAreaUnknown)
+        assertTrue("Mewtwo in Ruby must have 0 pins", mewtwoHoenn.pins.isEmpty())
+
+        val mewtwoKanto = PokemonMapHabitatRepository.getHabitatForPokemon(150, "Mewtwo", "Red")
+        assertFalse("Mewtwo in Red must NOT be Area Unknown", mewtwoKanto.isAreaUnknown)
+        assertTrue("Mewtwo in Red must have Cerulean Cave pin", mewtwoKanto.pins.any { it.areaName.contains("Cerulean Cave") })
+
+        val mewtwoKalos = PokemonMapHabitatRepository.getHabitatForPokemon(150, "Mewtwo", "X")
+        assertFalse("Mewtwo in Kalos must NOT be Area Unknown", mewtwoKalos.isAreaUnknown)
+        assertTrue("Mewtwo in Kalos must have Unknown Dungeon pin", mewtwoKalos.pins.any { it.areaName.contains("Unknown Dungeon") })
+
+        // Check Starter evolutions (Ivysaur #2, Blaziken #257, Greninja #658)
+        val ivysaurRed = PokemonMapHabitatRepository.getHabitatForPokemon(2, "Ivysaur", "Red")
+        assertTrue("Ivysaur must be Area Unknown", ivysaurRed.isAreaUnknown)
+        assertTrue("Ivysaur must have 0 pins", ivysaurRed.pins.isEmpty())
+
+        val blazikenRuby = PokemonMapHabitatRepository.getHabitatForPokemon(257, "Blaziken", "Ruby")
+        assertTrue("Blaziken must be Area Unknown", blazikenRuby.isAreaUnknown)
+        assertTrue("Blaziken must have 0 pins", blazikenRuby.pins.isEmpty())
+
+        val greninjaX = PokemonMapHabitatRepository.getHabitatForPokemon(658, "Greninja", "X")
+        assertTrue("Greninja must be Area Unknown", greninjaX.isAreaUnknown)
+        assertTrue("Greninja must have 0 pins", greninjaX.pins.isEmpty())
+    }
+
+    @Test
+    fun `PokemonRegion matches Kalos exclusively for Yveltal and Xerneas and does NOT match Hoenn`() {
+        val yveltalEntity = PokemonEntity(
+            id = 717,
+            name = "yveltal",
+            type = "Dark/Flying",
+            height = "5.8 m",
+            weight = "203.0 kg",
+            flavorText = "When this legendary Pokémon's wings and tail feathers spread wide and glow red, it absorbs the life force of living creatures.",
+            spriteUrl = "",
+            shinySpriteUrl = "",
+            evolvesTo = "",
+            forms = "",
+            pokedexEntries = """
+                {
+                  "Y": "When this legendary Pokémon's wings and tail feathers spread wide and glow red, it absorbs the life force of living creatures.",
+                  "Omega Ruby": "When this legendary Pokémon's wings and tail feathers spread wide and glow red, it absorbs the life force of living creatures."
+                }
+            """.trimIndent()
+        )
+
+        assertTrue("Yveltal must match KALOS", PokemonRegion.KALOS.matches(yveltalEntity))
+        assertFalse("Yveltal must NOT match HOENN despite having ORAS entry", PokemonRegion.HOENN.matches(yveltalEntity))
+        assertFalse("Yveltal must NOT match KANTO", PokemonRegion.KANTO.matches(yveltalEntity))
+        assertFalse("Yveltal must NOT match SINNOH", PokemonRegion.SINNOH.matches(yveltalEntity))
+
+        val nativeRegions = PokemonMapHabitatRepository.getNativeRegionsForPokemon(717)
+        assertEquals("Yveltal native regions must be strictly Kalos", listOf("Kalos"), nativeRegions)
+    }
 }

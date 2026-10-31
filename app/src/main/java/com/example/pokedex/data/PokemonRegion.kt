@@ -38,43 +38,9 @@ enum class PokemonRegion(
         if (pokemon.id in startId..endId) return true
 
         // Also match returning species that natively inhabit this region's Pokédex
-        if (PokemonMapHabitatRepository.getNativeRegionsForPokemon(pokemon.id).any {
-                it.equals(this.displayName, ignoreCase = true)
-            }
-        ) {
-            return true
+        return PokemonMapHabitatRepository.getNativeRegionsForPokemon(pokemon.id).any {
+            it.equals(this.displayName, ignoreCase = true)
         }
-
-        return hasNativeRegionalEntry(pokemon.pokedexEntries)
-    }
-
-    private fun hasNativeRegionalEntry(pokedexEntriesJson: String): Boolean {
-        if (pokedexEntriesJson.isBlank()) return false
-        val editionKeys = when (this) {
-            KANTO -> listOf("\"Red\"", "\"Blue\"", "\"Yellow\"", "\"FireRed\"", "\"LeafGreen\"", "\"Let's Go Pikachu\"")
-            JOHTO -> listOf("\"Gold\"", "\"Silver\"", "\"Crystal\"", "\"HeartGold\"", "\"SoulSilver\"")
-            HOENN -> listOf("\"Ruby\"", "\"Sapphire\"", "\"Emerald\"", "\"Omega Ruby\"", "\"Alpha Sapphire\"")
-            SINNOH -> listOf("\"Diamond\"", "\"Pearl\"", "\"Platinum\"", "\"Brilliant Diamond\"", "\"Shining Pearl\"")
-            UNOVA -> listOf("\"Black\"", "\"White\"", "\"Black 2\"", "\"White 2\"")
-            KALOS -> listOf("\"X\"", "\"Y\"")
-            ALOLA -> listOf("\"Sun\"", "\"Moon\"", "\"Ultra Sun\"", "\"Ultra Moon\"")
-            GALAR -> listOf("\"Sword\"", "\"Shield\"")
-            HISUI -> listOf("\"Legends: Arceus\"")
-            PALDEA -> listOf("\"Scarlet\"", "\"Violet\"")
-            else -> emptyList()
-        }
-        val notInhabitMarker = "does not naturally inhabit the ${this.displayName} region"
-        for (key in editionKeys) {
-            val idx = pokedexEntriesJson.indexOf(key, ignoreCase = true)
-            if (idx >= 0) {
-                val snippetEnd = minOf(pokedexEntriesJson.length, idx + 220)
-                val snippet = pokedexEntriesJson.substring(idx, snippetEnd)
-                if (!snippet.contains(notInhabitMarker, ignoreCase = true)) {
-                    return true
-                }
-            }
-        }
-        return false
     }
 
     companion object {

@@ -499,9 +499,9 @@ class PokedexViewModel(
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             val sampleBulbasaur = pokemonDao.getPokemonById(1)
             val hasGoLore = sampleBulbasaur?.pokedexEntries?.contains("\"GO\"") == true
-            if (assetVersion < 12 || !hasGoLore) {
+            if (assetVersion < 13 || !hasGoLore) {
                 PokedexDatabase.syncAssetData(getApplication(), pokemonDao)
-                prefs.edit().putInt("pokemon_data_asset_version", 12).apply()
+                prefs.edit().putInt("pokemon_data_asset_version", 13).apply()
             }
         }
         

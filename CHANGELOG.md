@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.3] - 2026-10-31
+
+### Fixed
+- **Canonical Map Habitat & Legendary Quarantine Audit**:
+  - Grounded map encounters strictly in official Game Freak / Nintendo game guides, purging 523 fabricated `regionalHabitats` cross-region blocks, 179 invalid legendary region assignments, and 326 invalid pre-generation chronological assignments from `pokemon_encounters.json`.
+  - Implemented compile-time `CANONICAL_LEGENDARY_MAP` in `PokemonMapHabitatRepository.kt`, strictly isolating all 100+ Legendaries, Mythicals, Ultra Beasts, and Paradox Legendaries across Gens 1–9 to their canonical regions and static story encounters.
+  - Eliminated the bug where Kalos-exclusive Legendary Yveltal (#717) erroneously appeared roaming wild in Hoenn (Mt. Pyre / Route 101); querying Yveltal or Xerneas under Hoenn editions (Ruby, Sapphire, Emerald, Omega Ruby, Alpha Sapphire) now returns `isAreaUnknown = true` with 0 pins, while Kalos (X and Y) displays the authentic Geosenge Town Team Flare Secret HQ static story pin.
+  - Hardened `PokemonRegion.matches()` in `PokemonRegion.kt` to prevent non-native species from matching foreign regions based on National Pokédex flavor texts.
+  - Incremented Room database asset sync version to 13 in `PokedexDatabase.kt` and `PokedexViewModel.kt` to ensure seamless database re-synchronization.
+
 ## [1.9.2] - 2026-10-31
 
 ### Fixed
