@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.4] - 2026-10-31
+
+### Added & Changed
+- **Pokédex Entry Card Tactical Integration (STRONG TO & WEAK TO Relocation)**:
+  - Migrated the defensive **`⚠️ WEAK TO`** badge strip down from the upper monitor stage into the spacious **`POKÉDEX DATA`** card, eliminating visual crowding between action buttons and the evolution lineage.
+  - Added a dedicated **`⚡ STRONG TO`** row inside the Pokédex entry card displaying the Pokémon's offensive Same-Type Attack Bonus (STAB) super-effective coverage (`2×`) alongside the **`TYPE GUIDE ℹ️`** battle matrix launcher.
+  - Provided over 800px of horizontal breathing room for tactical badges on wide/foldable screens (`maxWidth > 600.dp`), with horizontal scrolling on compact phone displays and dedicated `NONE (1×)` / `NONE` fallbacks for species without super-effective offensive or defensive matchups.
+  - Preserved full scrollable narrative game lore text beneath the tactical strips with dynamic weight (`weight(1f)`).
+
 ## [1.9.3] - 2026-10-31
 
 ### Fixed

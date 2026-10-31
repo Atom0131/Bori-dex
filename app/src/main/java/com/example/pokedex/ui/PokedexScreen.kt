@@ -4038,77 +4038,7 @@ fun PokedexDisplay(
 
 
 
-                            // Type weakness strip + Ultimate Type Guide launcher
-                            val isSpanishLocale = java.util.Locale.getDefault().language == "es"
-                            val typeWeaknesses = remember(state.pokemon.type) {
-                                PokemonTypeEffectiveness.getWeaknesses(state.pokemon.type)
-                            }
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 2.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = "WEAK TO",
-                                    color = Color.White,
-                                    fontSize = 9.sp,
-                                    fontWeight = FontWeight.Black,
-                                    modifier = Modifier.padding(end = 5.dp)
-                                )
-                                Row(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .horizontalScroll(rememberScrollState()),
-                                    horizontalArrangement = Arrangement.spacedBy(3.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    typeWeaknesses.forEach { w ->
-                                        TypePillBadge(
-                                            type = w.type,
-                                            multiplierLabel = if (w.multiplier >= 4.0f) "4×" else "2×",
-                                            isQuad = w.multiplier >= 4.0f,
-                                            isSpanish = isSpanishLocale
-                                        )
-                                    }
-                                }
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Box(
-                                    modifier = Modifier
-                                        .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(6.dp))
-                                        .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
-                                        .clickable { showTypeGuide = true }
-                                        .padding(horizontal = 8.dp, vertical = 5.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        text = "TYPE GUIDE ℹ️",
-                                        color = Color(0xFF00FFCC),
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Black
-                                    )
-                                }
-                            }
-
-                            if (showTypeGuide) {
-                                TypeMatchupsDialog(
-                                    pokemonName = displayName,
-                                    typeString = state.pokemon.type,
-                                    onReadMatchups = {
-                                        viewModel.speakCustomText(
-                                            PokemonTypeEffectiveness.formatFullMatchupsForSpeech(
-                                                displayName,
-                                                PokemonTypeEffectiveness.getFullMatchups(state.pokemon.type),
-                                                isSpanishLocale,
-                                                PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
-                                            )
-                                        )
-                                    },
-                                    onDismiss = { showTypeGuide = false }
-                                )
-                            }
-
-                            Spacer(modifier = Modifier.height(3.dp))
+                            Spacer(modifier = Modifier.height(6.dp))
 
                             // 3. Ultra-Slim Text-Only Evolution Line
 
@@ -4530,6 +4460,145 @@ fun PokedexDisplay(
                                             fontSize = 9.sp
                                         )
                                     }
+                                }
+
+                                Spacer(modifier = Modifier.height(6.dp))
+
+                                // Row 3: STRONG TO (Offensive STAB Coverage 2×) + Ultimate Type Guide Launcher
+                                val isSpanishLocale = remember { java.util.Locale.getDefault().language == "es" }
+                                val offensiveStrengths = remember(state.pokemon.type) {
+                                    PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
+                                }
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 1.5.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = if (isSpanishLocale) "⚡ FUERTE C/" else "⚡ STRONG TO",
+                                        color = Color(0xFF00FFCC),
+                                        fontSize = 9.sp,
+                                        fontWeight = FontWeight.Black,
+                                        modifier = Modifier.padding(end = 5.dp)
+                                    )
+                                    Row(
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .horizontalScroll(rememberScrollState()),
+                                        horizontalArrangement = Arrangement.spacedBy(3.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        if (offensiveStrengths.isEmpty()) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(4.dp))
+                                                    .padding(horizontal = 5.dp, vertical = 2.dp)
+                                            ) {
+                                                Text(
+                                                    text = if (isSpanishLocale) "NINGUNA (1×)" else "NONE (1×)",
+                                                    color = Color.White.copy(alpha = 0.6f),
+                                                    fontSize = 8.sp,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            }
+                                        } else {
+                                            offensiveStrengths.forEach { t ->
+                                                TypePillBadge(
+                                                    type = t,
+                                                    multiplierLabel = "2×",
+                                                    isQuad = false,
+                                                    isSpanish = isSpanishLocale
+                                                )
+                                            }
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Box(
+                                        modifier = Modifier
+                                            .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(6.dp))
+                                            .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
+                                            .clickable { showTypeGuide = true }
+                                            .padding(horizontal = 7.dp, vertical = 4.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Text(
+                                            text = "TYPE GUIDE ℹ️",
+                                            color = Color(0xFF00FFCC),
+                                            fontSize = 9.sp,
+                                            fontWeight = FontWeight.Black
+                                        )
+                                    }
+                                }
+
+                                Spacer(modifier = Modifier.height(3.dp))
+
+                                // Row 4: WEAK TO (Defensive Vulnerabilities 2× / 4×)
+                                val typeWeaknesses = remember(state.pokemon.type) {
+                                    PokemonTypeEffectiveness.getWeaknesses(state.pokemon.type)
+                                }
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 1.5.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = if (isSpanishLocale) "⚠️ DÉBIL A" else "⚠️ WEAK TO",
+                                        color = Color(0xFFFF7777),
+                                        fontSize = 9.sp,
+                                        fontWeight = FontWeight.Black,
+                                        modifier = Modifier.padding(end = 5.dp)
+                                    )
+                                    Row(
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .horizontalScroll(rememberScrollState()),
+                                        horizontalArrangement = Arrangement.spacedBy(3.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        if (typeWeaknesses.isEmpty()) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(4.dp))
+                                                    .padding(horizontal = 5.dp, vertical = 2.dp)
+                                            ) {
+                                                Text(
+                                                    text = if (isSpanishLocale) "NINGUNA" else "NONE",
+                                                    color = Color.White.copy(alpha = 0.6f),
+                                                    fontSize = 8.sp,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            }
+                                        } else {
+                                            typeWeaknesses.forEach { w ->
+                                                TypePillBadge(
+                                                    type = w.type,
+                                                    multiplierLabel = if (w.multiplier >= 4.0f) "4×" else "2×",
+                                                    isQuad = w.multiplier >= 4.0f,
+                                                    isSpanish = isSpanishLocale
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (showTypeGuide) {
+                                    TypeMatchupsDialog(
+                                        pokemonName = displayName,
+                                        typeString = state.pokemon.type,
+                                        onReadMatchups = {
+                                            viewModel.speakCustomText(
+                                                PokemonTypeEffectiveness.formatFullMatchupsForSpeech(
+                                                    displayName,
+                                                    PokemonTypeEffectiveness.getFullMatchups(state.pokemon.type),
+                                                    isSpanishLocale,
+                                                    PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
+                                                )
+                                            )
+                                        },
+                                        onDismiss = { showTypeGuide = false }
+                                    )
                                 }
 
                                 Spacer(modifier = Modifier.height(6.dp))
