@@ -3665,7 +3665,17 @@ fun PokedexDisplay(
 
                                     fontSize = 22.sp,
 
-                                    fontWeight = FontWeight.Black
+                                    fontWeight = FontWeight.Black,
+
+                                    maxLines = 1,
+
+                                    overflow = TextOverflow.Ellipsis,
+
+                                    modifier = Modifier
+
+                                        .weight(1f, fill = false)
+
+                                        .padding(horizontal = 6.dp)
 
                                 )
 
@@ -4378,35 +4388,23 @@ fun PokedexDisplay(
 
                             ) {
 
+                                // Row 1: Section Title & Audio on Left, Edition Selector on Right
                                 Row(
-
                                     modifier = Modifier.fillMaxWidth(),
-
                                     horizontalArrangement = Arrangement.SpaceBetween,
-
                                     verticalAlignment = Alignment.CenterVertically
-
                                 ) {
-
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-
                                         Text(
-
                                             text = "POKÉDEX DATA",
-
                                             color = Color(0xFF00FFCC),
-
-                                            fontSize = 11.5.sp,
-
+                                            fontSize = 12.sp,
                                             fontWeight = FontWeight.Bold
-
                                         )
-
                                         Spacer(modifier = Modifier.width(6.dp))
-
                                         Box(
                                             modifier = Modifier
-                                                .size(32.dp)
+                                                .size(28.dp)
                                                 .clip(RoundedCornerShape(6.dp))
                                                 .background(Color.Black.copy(alpha = 0.5f))
                                                 .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), RoundedCornerShape(6.dp))
@@ -4415,185 +4413,124 @@ fun PokedexDisplay(
                                         ) {
                                             Text(
                                                 text = "🔊",
-                                                fontSize = 16.sp
+                                                fontSize = 14.sp
                                             )
-                                        }
-
-                                        Spacer(modifier = Modifier.width(5.dp))
-
-                                        val activeMapAsset = remember(activeCartridge.id, state.pokemon.id) {
-                                            PokemonMapHabitatRepository.getMapAssetForCartridge(activeCartridge.id, state.pokemon.id)
-                                        }
-
-                                        Box(
-                                            modifier = Modifier
-                                                .width(36.dp)
-                                                .height(32.dp)
-                                                .clip(RoundedCornerShape(6.dp))
-                                                .background(Color.Black.copy(alpha = 0.6f))
-                                                .border(1.2.dp, Color(0xFF00FFCC), RoundedCornerShape(6.dp))
-                                                .clickable { showPokemonMapModal = true },
-
-                                            contentAlignment = Alignment.Center
-
-                                        ) {
-
-                                            PixelMapIcon(
-
-                                                assetName = activeMapAsset,
-
-                                                modifier = Modifier
-
-                                                    .fillMaxSize()
-
-                                                    .clip(RoundedCornerShape(7.dp)),
-
-                                                contentDescription = "Town Map"
-
-                                            )
-
                                         }
                                     }
-
-
 
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-
-                                        Button(
-
-                                            onClick = { showEvolutionModal = true },
-
-                                            colors = ButtonDefaults.buttonColors(
-
-                                                containerColor = Color(0xFF00FFCC)
-
-                                            ),
-
-                                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
-
-                                            shape = RoundedCornerShape(6.dp),
-
-                                            modifier = Modifier.height(30.dp)
-
-                                        ) {
-
-                                            Text(
-
-                                                text = "⚡ FORMS & EVOS",
-
-                                                color = Color.Black,
-
-                                                fontWeight = FontWeight.Black,
-
-                                                fontSize = 9.sp
-
-                                            )
-
-                                        }
-
-
-
-                                        Spacer(modifier = Modifier.width(6.dp))
-
-
-
                                         if (activeCartridge.id.equals("GO", ignoreCase = true)) {
-
                                             Box(
-
                                                 modifier = Modifier
-
-                                                    .height(30.dp)
-
+                                                    .height(28.dp)
                                                     .background(Color(0xFF0075BE), RoundedCornerShape(6.dp))
-
                                                     .border(1.dp, Color(0xFF00FFCC), RoundedCornerShape(6.dp))
-
                                                     .clickable {
-
                                                         selectedCartridgeId = "Default"
-
                                                         viewModel.setPreferredGameEdition("Default")
-
                                                     }
-
                                                     .padding(horizontal = 6.dp),
-
                                                 contentAlignment = Alignment.Center
-
                                             ) {
-
                                                 Row(verticalAlignment = Alignment.CenterVertically) {
-
                                                     PixelCartridgeIcon(
-
                                                         assetName = "pokemongo.png",
-
-                                                        modifier = Modifier.size(14.dp)
-
+                                                        modifier = Modifier.size(13.dp)
                                                     )
-
                                                     Spacer(modifier = Modifier.width(3.dp))
-
                                                     Text(
-
                                                         text = "EXIT GO",
-
                                                         color = Color.White,
-
                                                         fontWeight = FontWeight.Black,
-
                                                         fontSize = 9.sp
-
                                                     )
-
                                                 }
-
                                             }
-
                                             Spacer(modifier = Modifier.width(6.dp))
-
                                         }
-
-
 
                                         Button(
-
                                             onClick = { showEditionModal = true },
-
                                             colors = ButtonDefaults.buttonColors(containerColor = activeCartridge.cartridgeColor),
-
                                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
-
                                             shape = RoundedCornerShape(6.dp),
-
                                             modifier = Modifier
-
-                                                .heightIn(min = 30.dp)
-
+                                                .heightIn(min = 28.dp)
                                                 .border(1.dp, activeCartridge.textColor.copy(alpha = 0.5f), RoundedCornerShape(6.dp))
-
                                         ) {
-
                                             Text(
-
                                                 text = "VER: ${activeCartridge.displayName} ▼",
-
                                                 color = activeCartridge.textColor,
-
                                                 fontWeight = FontWeight.Bold,
-
                                                 fontSize = 10.sp
-
                                             )
-
                                         }
-
                                     }
-
                                 }
 
+                                Spacer(modifier = Modifier.height(6.dp))
 
+                                // Row 2: Habitat Town Map Pill on Left, Forms & Evos Button on Right
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    val activeMapAsset = remember(activeCartridge.id, state.pokemon.id) {
+                                        PokemonMapHabitatRepository.getMapAssetForCartridge(activeCartridge.id, state.pokemon.id)
+                                    }
+
+                                    // Town Map Launcher Pill
+                                    Box(
+                                        modifier = Modifier
+                                            .height(28.dp)
+                                            .clip(RoundedCornerShape(6.dp))
+                                            .background(Color.Black.copy(alpha = 0.6f))
+                                            .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
+                                            .clickable { showPokemonMapModal = true }
+                                            .padding(horizontal = 6.dp, vertical = 2.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(20.dp)
+                                                    .clip(RoundedCornerShape(4.dp))
+                                            ) {
+                                                PixelMapIcon(
+                                                    assetName = activeMapAsset,
+                                                    modifier = Modifier.fillMaxSize(),
+                                                    contentDescription = "Town Map"
+                                                )
+                                            }
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(
+                                                text = "TOWN MAP 🗺️",
+                                                color = Color(0xFF00FFCC),
+                                                fontSize = 9.5.sp,
+                                                fontWeight = FontWeight.Black
+                                            )
+                                        }
+                                    }
+
+                                    // Forms & Evos Button
+                                    Button(
+                                        onClick = { showEvolutionModal = true },
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = Color(0xFF00FFCC)
+                                        ),
+                                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                        shape = RoundedCornerShape(6.dp),
+                                        modifier = Modifier.height(28.dp)
+                                    ) {
+                                        Text(
+                                            text = "⚡ FORMS & EVOS",
+                                            color = Color.Black,
+                                            fontWeight = FontWeight.Black,
+                                            fontSize = 9.sp
+                                        )
+                                    }
+                                }
 
                                 Spacer(modifier = Modifier.height(6.dp))
 
