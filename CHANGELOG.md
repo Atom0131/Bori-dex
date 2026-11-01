@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.6] - 2026-11-01
+
+### Added & Enhanced
+- **Stage 10 Vision Model: Extreme Screen Scanning, Harsh Color Casts & Rear Battle Models**:
+  - **Dataset Ingestion**: Enriched training dataset with official PokeAPI 2D back sprites, Showdown 3D rear models, and Scarlet & Violet / Legends: Arceus battle screenshots captured from behind with over-the-shoulder perspectives.
+  - **Stage 10 Adversarial GPU Augmentation Graph**:
+    - **CRT & LCD Subpixel Scanlines**: Alternating horizontal/vertical raster scanlines simulating handheld Nintendo Switch OLED, Switch Lite, 3DS, and TV displays.
+    - **Moiré Optical Interference Fringes**: High-frequency dual-angle beating patterns simulating camera sensor aliasing against screen pixels.
+    - **Night Shift / f.lux Amber-Yellow Cast**: Heavy blue light suppression and warm color temperature shifts altering base elemental colors.
+    - **Crimson Battle Arena & Sunset Wash**: Intense scarlet/red illumination simulating dramatic battle arenas and red ambient lighting.
+    - **Over-The-Shoulder Rear Perspective Warp**: Simulates camera angles looking up from behind the Pokémon on the battlefield.
+    - **Display Glass Specular Hotspots**: Injects indoor ceiling lamp reflection flares on glossy screens.
+    - Retains Stage 9 holographic rainbow diffraction, cosmos sparkle glitter, packaging crimps, and low-light sensor noise.
+  - **Float32 TFLite Deployment**: Fine-tuned MobileNetV2 architecture resuming from Stage 9 weights, exported unquantized Float32 TFLite model (~14 MB), and deployed directly to `app/src/main/assets/model.tflite`.
+
 ## [1.9.5] - 2026-10-31
 
 ### Added & Enhanced
