@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.5] - 2026-10-31
+
+### Added & Enhanced
+- **Stage 9 Vision Model: Booster Packs, Retail Packaging, Covers & Holographic Cards Retraining**:
+  - **Dataset Ingestion**: Enriched training dataset across all Pokémon species with official card booster packs, booster boxes, tins, retail blister packaging, game box art covers, CoroCoro magazine covers, and Pokémon Adventures manga covers.
+  - **Holographic & Specular Glare Resilience**: Specifically addressed failure modes on holographic/foil cards—targeting the **Pokémon Halloween Trick or Trade set (2022/2023)** with dedicated high-density coverage of **Mewtwo (#150)** and **Darkrai (#491)** alongside Gengar, Mimikyu, and Halloween holo rares.
+  - **Stage 9 GPU Adversarial Holographic & Packaging Augmentation Graph**:
+    - Synthesizes realistic prismatic rainbow diffraction grating (sinusoidal hue phase waves across diagonal angles) directly on the GPU during training.
+    - Simulates high-intensity specular glare hotspots and reflection streaks (camera flash bouncing off glossy card foil and plastic booster wrappers).
+    - Injects cosmos foil iridescent micro-sparkle glitter noise matching the Trick or Trade holofoil pattern.
+    - Generates booster pack serrated crimp ridges and retail packaging cutoffs / partial card exposures.
+    - Preserves deep low-light dimming, shadow gamma crush, and high-ISO sensor grain.
+  - **Float32 TFLite Deployment**: Fine-tuned MobileNetV2 architecture with cosine decay learning rate resuming from Stage 8 checkpoint, exported unquantized Float32 TFLite model (~14 MB), and deployed directly to `app/src/main/assets/model.tflite`.
+
 ## [1.9.4] - 2026-10-31
 
 ### Added & Changed
