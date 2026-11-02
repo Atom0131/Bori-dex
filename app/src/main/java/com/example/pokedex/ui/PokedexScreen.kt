@@ -3715,9 +3715,69 @@ fun PokedexDisplay(
 
                             }
 
+                            val formattedHeight = remember(state.pokemon.height) { formatPokemonHeight(state.pokemon.height) }
+                            val formattedWeight = remember(state.pokemon.weight) { formatPokemonWeight(state.pokemon.weight) }
+                            val formattedSize = remember(state.pokemon.height) { formatPokemonSizeCategory(state.pokemon.height) }
 
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState())
+                                    .padding(horizontal = 4.dp, vertical = 2.dp),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                // Height Chip
+                                Box(
+                                    modifier = Modifier
+                                        .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
+                                        .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.70f), RoundedCornerShape(5.dp))
+                                        .padding(horizontal = 7.dp, vertical = 3.dp)
+                                ) {
+                                    Text(
+                                        text = formattedHeight,
+                                        color = Color(0xFF00FFCC),
+                                        fontWeight = FontWeight.Black,
+                                        fontSize = 9.5.sp
+                                    )
+                                }
 
-                            Spacer(modifier = Modifier.height(6.dp))
+                                Spacer(modifier = Modifier.width(6.dp))
+
+                                // Weight Chip
+                                Box(
+                                    modifier = Modifier
+                                        .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
+                                        .border(1.dp, Color(0xFFFFCC00).copy(alpha = 0.70f), RoundedCornerShape(5.dp))
+                                        .padding(horizontal = 7.dp, vertical = 3.dp)
+                                ) {
+                                    Text(
+                                        text = formattedWeight,
+                                        color = Color(0xFFFFCC00),
+                                        fontWeight = FontWeight.Black,
+                                        fontSize = 9.5.sp
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.width(6.dp))
+
+                                // Size Classification Chip
+                                Box(
+                                    modifier = Modifier
+                                        .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
+                                        .border(1.dp, Color.White.copy(alpha = 0.35f), RoundedCornerShape(5.dp))
+                                        .padding(horizontal = 7.dp, vertical = 3.dp)
+                                ) {
+                                    Text(
+                                        text = formattedSize,
+                                        color = Color.White,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 9.sp
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(4.dp))
 
 
 
@@ -4504,10 +4564,7 @@ fun PokedexDisplay(
                                      else -> Pair(10.5.sp, 14.sp)
                                  }
 
-                                 val formattedHeight = remember(state.pokemon.height) { formatPokemonHeight(state.pokemon.height) }
-                                  val formattedWeight = remember(state.pokemon.weight) { formatPokemonWeight(state.pokemon.weight) }
-                                  val formattedSize = remember(state.pokemon.height) { formatPokemonSizeCategory(state.pokemon.height) }
-                                  val isSpanishLocale = remember { java.util.Locale.getDefault().language == "es" }
+                                 val isSpanishLocale = remember { java.util.Locale.getDefault().language == "es" }
                                  val offensiveStrengths = remember(state.pokemon.type) {
                                      PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
                                  }
@@ -4655,63 +4712,7 @@ fun PokedexDisplay(
 
                                      Spacer(modifier = Modifier.height(6.dp))
 
-                                     // Row 3 inside dark box: Physical Specs Telemetry Strip (HT, WT, SIZE)
-                                      Row(
-                                          modifier = Modifier
-                                              .fillMaxWidth()
-                                              .horizontalScroll(rememberScrollState()),
-                                          horizontalArrangement = Arrangement.spacedBy(6.dp),
-                                          verticalAlignment = Alignment.CenterVertically
-                                      ) {
-                                          // Height Chip
-                                          Box(
-                                              modifier = Modifier
-                                                  .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
-                                                  .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.70f), RoundedCornerShape(5.dp))
-                                                  .padding(horizontal = 7.dp, vertical = 3.dp)
-                                          ) {
-                                              Text(
-                                                  text = formattedHeight,
-                                                  color = Color(0xFF00FFCC),
-                                                  fontWeight = FontWeight.Black,
-                                                  fontSize = 9.sp
-                                              )
-                                          }
-
-                                          // Weight Chip
-                                          Box(
-                                              modifier = Modifier
-                                                  .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
-                                                  .border(1.dp, Color(0xFFFFCC00).copy(alpha = 0.70f), RoundedCornerShape(5.dp))
-                                                  .padding(horizontal = 7.dp, vertical = 3.dp)
-                                          ) {
-                                              Text(
-                                                  text = formattedWeight,
-                                                  color = Color(0xFFFFCC00),
-                                                  fontWeight = FontWeight.Black,
-                                                  fontSize = 9.sp
-                                              )
-                                          }
-
-                                          // Size Classification Chip
-                                          Box(
-                                              modifier = Modifier
-                                                  .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
-                                                  .border(1.dp, Color.White.copy(alpha = 0.35f), RoundedCornerShape(5.dp))
-                                                  .padding(horizontal = 7.dp, vertical = 3.dp)
-                                          ) {
-                                              Text(
-                                                  text = formattedSize,
-                                                  color = Color.White,
-                                                  fontWeight = FontWeight.Bold,
-                                                  fontSize = 8.5.sp
-                                              )
-                                          }
-                                      }
-
-                                      Spacer(modifier = Modifier.height(5.dp))
-
-                                      // Subtle Terminal Divider
+                                     // Subtle Terminal Divider
                                      Box(
                                          modifier = Modifier
                                              .fillMaxWidth()
