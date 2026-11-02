@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.8] - 2026-11-02
+
+### Added & Enhanced
+- **Adaptive Layout Overhaul for Foldable Cover Screens (Android 17 / Material 3 WindowSizeClass)**:
+  - Dynamically scaled `PokedexHeader` (50dp lens), monitor sprite stage (110dp box, 95dp sprite), audio actions (32dp), evolution bar (24dp), terminal header (30dp), toolbar (28dp), and matchup chips (20dp) on compact screens (`< 600dp`).
+  - Reclaimed ~114dp (~300px) of vertical space on compact viewports, providing spacious, unclipped narrative lore text (>150dp height).
+  - Maintained full 80dp lens, 152dp monitor stage, and fold-hinge awareness on unfolded displays (`>= 600dp`).
+- **Canonical Area Zero & Paradox Encounter Encyclopedia**:
+  - Ingested exhaustive official web guides and encounter data for all 16 Paradox Pokémon across Area Zero Research Stations 1–4 and the Zero Gate.
+- **Physical Specifications Telemetry**:
+  - Live metric/imperial height and weight telemetry chips with dynamic anatomical size category chips.
+
 ## [1.9.6] - 2026-11-01
 
 ### Added & Enhanced

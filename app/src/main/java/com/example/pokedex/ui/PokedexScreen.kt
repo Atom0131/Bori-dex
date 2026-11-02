@@ -2501,7 +2501,12 @@ fun PixelItemIcon(itemName: String?, modifier: Modifier = Modifier) {
 
 @Composable
 
-fun PokedexHeader(viewModel: PokedexViewModel, onOpenSettings: () -> Unit, onGalleryClick: () -> Unit) {
+fun PokedexHeader(
+    viewModel: PokedexViewModel,
+    onOpenSettings: () -> Unit,
+    onGalleryClick: () -> Unit,
+    isCompact: Boolean = false
+) {
 
     val isSpeaking by viewModel.isSpeaking.collectAsState()
 
@@ -2543,7 +2548,7 @@ fun PokedexHeader(viewModel: PokedexViewModel, onOpenSettings: () -> Unit, onGal
 
             modifier = Modifier
 
-                .size(80.dp)
+                .size(if (isCompact) 50.dp else 80.dp)
 
                 .background(Color.White, shape = CircleShape)
 
@@ -3195,6 +3200,8 @@ fun PokedexDisplay(
 
     listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState(),
 
+    isCompact: Boolean = false,
+
     modifier: Modifier = Modifier
 
 ) {
@@ -3782,28 +3789,33 @@ fun PokedexDisplay(
 
 
                             // 2. Centered Monitor Sprite Stage with Page-Turn Edge Arrows
+                            val spriteBoxSize = if (isCompact) 110.dp else 152.dp
+                            val spriteIconSize = if (isCompact) 95.dp else 136.dp
+                            val arrowBtnSize = if (isCompact) 34.dp else 44.dp
+                            val arrowTextSize = if (isCompact) 15.sp else 20.sp
+
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 8.dp, vertical = 2.dp)
+                                    .padding(horizontal = if (isCompact) 4.dp else 8.dp, vertical = 2.dp)
                             ) {
                                 Box(
                                     modifier = Modifier
-                                        .size(44.dp)
+                                        .size(arrowBtnSize)
                                         .clip(CircleShape)
                                         .background(Color.Black.copy(alpha = 0.65f))
                                         .border(1.5.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), CircleShape)
                                         .clickable { viewModel.selectPreviousPokemon() },
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("◀", color = Color(0xFF00FFCC), fontSize = 20.sp, fontWeight = FontWeight.Black)
+                                    Text("◀", color = Color(0xFF00FFCC), fontSize = arrowTextSize, fontWeight = FontWeight.Black)
                                 }
 
                                 Box(
                                     modifier = Modifier
-                                        .size(152.dp)
+                                        .size(spriteBoxSize)
 
                                         .background(Color.Black.copy(alpha = 0.25f), RoundedCornerShape(12.dp))
 
@@ -3831,7 +3843,7 @@ fun PokedexDisplay(
 
                                             contentDescription = state.pokemon.name,
 
-                                            modifier = Modifier.size(136.dp)
+                                            modifier = Modifier.size(spriteIconSize)
 
                                         )
 
@@ -3877,7 +3889,7 @@ fun PokedexDisplay(
 
                                             contentDescription = state.pokemon.name,
 
-                                            modifier = Modifier.size(136.dp),
+                                            modifier = Modifier.size(spriteIconSize),
 
                                             contentScale = androidx.compose.ui.layout.ContentScale.Fit
 
@@ -3895,9 +3907,9 @@ fun PokedexDisplay(
 
                                                 .align(Alignment.BottomEnd)
 
-                                                .padding(6.dp)
+                                                .padding(if (isCompact) 4.dp else 6.dp)
 
-                                                .size(28.dp)
+                                                .size(if (isCompact) 22.dp else 28.dp)
 
                                                 .background(
 
@@ -3927,7 +3939,7 @@ fun PokedexDisplay(
 
                                                 text = "✨",
 
-                                                fontSize = 13.sp
+                                                fontSize = if (isCompact) 11.sp else 13.sp
 
                                             )
 
@@ -3941,14 +3953,14 @@ fun PokedexDisplay(
 
                                 Box(
                                     modifier = Modifier
-                                        .size(44.dp)
+                                        .size(arrowBtnSize)
                                         .clip(CircleShape)
                                         .background(Color.Black.copy(alpha = 0.65f))
                                         .border(1.5.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), CircleShape)
                                         .clickable { viewModel.selectNextPokemon() },
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("▶", color = Color(0xFF00FFCC), fontSize = 20.sp, fontWeight = FontWeight.Black)
+                                    Text("▶", color = Color(0xFF00FFCC), fontSize = arrowTextSize, fontWeight = FontWeight.Black)
                                 }
                             }
 
@@ -4006,7 +4018,11 @@ fun PokedexDisplay(
 
 
 
-                            // Action Buttons (Cry, Speak, Shiny)
+                            // Action Buttons (Cry, Speak, Shiny) (Google Adaptive Apps: 28dp height on compact)
+                            val actionBtnHeight = if (isCompact) 28.dp else 34.dp
+                            val actionBtnFont = if (isCompact) 9.5.sp else 11.sp
+                            val actionBtnPadH = if (isCompact) 10.dp else 14.dp
+                            val actionBtnPadV = if (isCompact) 2.dp else 4.dp
 
                             Row(
 
@@ -4020,7 +4036,7 @@ fun PokedexDisplay(
 
                                     .horizontalScroll(rememberScrollState())
 
-                                    .padding(vertical = 4.dp)
+                                    .padding(vertical = if (isCompact) 2.dp else 4.dp)
 
                             ) {
 
@@ -4030,21 +4046,21 @@ fun PokedexDisplay(
 
                                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
 
-                                    contentPadding = PaddingValues(horizontal = 14.dp, vertical = 4.dp),
+                                    contentPadding = PaddingValues(horizontal = actionBtnPadH, vertical = actionBtnPadV),
 
                                     shape = RoundedCornerShape(6.dp),
 
-                                    modifier = Modifier.heightIn(min = 34.dp)
+                                    modifier = Modifier.height(actionBtnHeight)
 
                                 ) {
 
-                                    Text("🔊 CRY", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 11.sp)
+                                    Text("🔊 CRY", color = Color.Black, fontWeight = FontWeight.Black, fontSize = actionBtnFont)
 
                                 }
 
 
 
-                                Spacer(modifier = Modifier.width(6.dp))
+                                Spacer(modifier = Modifier.width(if (isCompact) 4.dp else 6.dp))
 
 
 
@@ -4074,15 +4090,15 @@ fun PokedexDisplay(
 
                                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
 
-                                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                                    contentPadding = PaddingValues(horizontal = if (isCompact) 8.dp else 12.dp, vertical = actionBtnPadV),
 
                                     shape = RoundedCornerShape(6.dp),
 
-                                    modifier = Modifier.heightIn(min = 34.dp)
+                                    modifier = Modifier.height(actionBtnHeight)
 
                                 ) {
 
-                                    Text("🗣 SPEAK", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 11.sp)
+                                    Text("🗣 SPEAK", color = Color.Black, fontWeight = FontWeight.Black, fontSize = actionBtnFont)
 
                                 }
 
@@ -4090,7 +4106,7 @@ fun PokedexDisplay(
 
                                 if (!state.pokemon.shinySpriteUrl.isNullOrEmpty() || selectedCostume?.shinyAssetPath != null) {
 
-                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Spacer(modifier = Modifier.width(if (isCompact) 4.dp else 6.dp))
 
                                     Button(
 
@@ -4102,11 +4118,11 @@ fun PokedexDisplay(
 
                                         ),
 
-                                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 4.dp),
+                                        contentPadding = PaddingValues(horizontal = actionBtnPadH, vertical = actionBtnPadV),
 
                                         shape = RoundedCornerShape(6.dp),
 
-                                        modifier = Modifier.heightIn(min = 34.dp)
+                                        modifier = Modifier.height(actionBtnHeight)
 
                                     ) {
 
@@ -4118,7 +4134,7 @@ fun PokedexDisplay(
 
                                             fontWeight = if (showShiny) FontWeight.Black else FontWeight.Bold,
 
-                                            fontSize = 11.sp
+                                            fontSize = actionBtnFont
 
                                         )
 
@@ -4130,7 +4146,7 @@ fun PokedexDisplay(
 
 
 
-                            Spacer(modifier = Modifier.height(6.dp))
+                            Spacer(modifier = Modifier.height(if (isCompact) 3.dp else 6.dp))
 
                             // 3. Ultra-Slim Text-Only Evolution Line
 
@@ -4144,7 +4160,7 @@ fun PokedexDisplay(
 
                                         .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(6.dp))
 
-                                        .padding(horizontal = 8.dp, vertical = 5.dp),
+                                        .padding(horizontal = if (isCompact) 6.dp else 8.dp, vertical = if (isCompact) 3.dp else 5.dp),
 
                                     horizontalArrangement = Arrangement.Center,
 
@@ -4158,7 +4174,7 @@ fun PokedexDisplay(
 
                                         color = Color(0xFF00FFCC),
 
-                                        fontSize = 11.sp,
+                                        fontSize = if (isCompact) 9.5.sp else 11.sp,
 
                                         fontWeight = FontWeight.Bold,
 
@@ -4214,7 +4230,7 @@ fun PokedexDisplay(
 
                                                     }
 
-                                                    .padding(horizontal = 10.dp, vertical = 5.dp)
+                                                    .padding(horizontal = if (isCompact) 7.dp else 10.dp, vertical = if (isCompact) 3.dp else 5.dp)
 
                                             ) {
 
@@ -4226,7 +4242,7 @@ fun PokedexDisplay(
 
                                                     fontWeight = if (isCurrent) FontWeight.Black else FontWeight.Bold,
 
-                                                    fontSize = 12.sp
+                                                    fontSize = if (isCompact) 10.5.sp else 12.sp
 
                                                 )
 
@@ -4406,11 +4422,11 @@ fun PokedexDisplay(
 
                                     .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(10.dp))
 
-                                    .padding(horizontal = 12.dp, vertical = 10.dp)
+                                    .padding(horizontal = if (isCompact) 8.dp else 12.dp, vertical = if (isCompact) 6.dp else 10.dp)
 
                             ) {
 
-                                // Row 1: Section Title & Audio on Left, Edition Selector on Right
+                                // Row 1: Section Title & Audio on Left, Edition Selector on Right (Google Adaptive Apps)
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -4420,13 +4436,13 @@ fun PokedexDisplay(
                                         Text(
                                             text = "POKÉDEX DATA",
                                             color = Color(0xFF00FFCC),
-                                            fontSize = 12.sp,
+                                            fontSize = if (isCompact) 11.sp else 12.sp,
                                             fontWeight = FontWeight.Bold
                                         )
-                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Spacer(modifier = Modifier.width(if (isCompact) 4.dp else 6.dp))
                                         Box(
                                             modifier = Modifier
-                                                .size(28.dp)
+                                                .size(if (isCompact) 24.dp else 28.dp)
                                                 .clip(RoundedCornerShape(6.dp))
                                                 .background(Color.Black.copy(alpha = 0.5f))
                                                 .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), RoundedCornerShape(6.dp))
@@ -4435,7 +4451,7 @@ fun PokedexDisplay(
                                         ) {
                                             Text(
                                                 text = "🔊",
-                                                fontSize = 14.sp
+                                                fontSize = if (isCompact) 12.sp else 14.sp
                                             )
                                         }
                                     }
@@ -4444,7 +4460,7 @@ fun PokedexDisplay(
                                         if (activeCartridge.id.equals("GO", ignoreCase = true)) {
                                             Box(
                                                 modifier = Modifier
-                                                    .height(28.dp)
+                                                    .height(if (isCompact) 24.dp else 28.dp)
                                                     .background(Color(0xFF0075BE), RoundedCornerShape(6.dp))
                                                     .border(1.dp, Color(0xFF00FFCC), RoundedCornerShape(6.dp))
                                                     .clickable {
@@ -4474,23 +4490,23 @@ fun PokedexDisplay(
                                         Button(
                                             onClick = { showEditionModal = true },
                                             colors = ButtonDefaults.buttonColors(containerColor = activeCartridge.cartridgeColor),
-                                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                            contentPadding = PaddingValues(horizontal = if (isCompact) 6.dp else 8.dp, vertical = 2.dp),
                                             shape = RoundedCornerShape(6.dp),
                                             modifier = Modifier
-                                                .heightIn(min = 28.dp)
+                                                .heightIn(min = if (isCompact) 24.dp else 28.dp)
                                                 .border(1.dp, activeCartridge.textColor.copy(alpha = 0.5f), RoundedCornerShape(6.dp))
                                         ) {
                                             Text(
                                                 text = "VER: ${activeCartridge.displayName} ▼",
                                                 color = activeCartridge.textColor,
                                                 fontWeight = FontWeight.Bold,
-                                                fontSize = 10.sp
+                                                fontSize = if (isCompact) 9.sp else 10.sp
                                             )
                                         }
                                     }
                                 }
 
-                                Spacer(modifier = Modifier.height(6.dp))
+                                Spacer(modifier = Modifier.height(if (isCompact) 3.dp else 6.dp))
 
                                 // Row 2: Habitat Town Map Pill on Left, Forms & Evos Button on Right
                                 Row(
@@ -4505,18 +4521,18 @@ fun PokedexDisplay(
                                     // Town Map Launcher Pill
                                     Box(
                                         modifier = Modifier
-                                            .height(28.dp)
+                                            .height(if (isCompact) 24.dp else 28.dp)
                                             .clip(RoundedCornerShape(6.dp))
                                             .background(Color.Black.copy(alpha = 0.6f))
                                             .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
                                             .clickable { showPokemonMapModal = true }
-                                            .padding(horizontal = 6.dp, vertical = 2.dp),
+                                            .padding(horizontal = if (isCompact) 5.dp else 6.dp, vertical = 2.dp),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
                                             Box(
                                                 modifier = Modifier
-                                                    .size(20.dp)
+                                                    .size(if (isCompact) 16.dp else 20.dp)
                                                     .clip(RoundedCornerShape(4.dp))
                                             ) {
                                                 PixelMapIcon(
@@ -4525,11 +4541,11 @@ fun PokedexDisplay(
                                                     contentDescription = "Town Map"
                                                 )
                                             }
-                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Spacer(modifier = Modifier.width(if (isCompact) 4.dp else 6.dp))
                                             Text(
                                                 text = "TOWN MAP 🗺️",
                                                 color = Color(0xFF00FFCC),
-                                                fontSize = 9.5.sp,
+                                                fontSize = if (isCompact) 8.5.sp else 9.5.sp,
                                                 fontWeight = FontWeight.Black
                                             )
                                         }
@@ -4538,18 +4554,18 @@ fun PokedexDisplay(
                                     // Type Guide Pill
                                     Box(
                                         modifier = Modifier
-                                            .height(28.dp)
+                                            .height(if (isCompact) 24.dp else 28.dp)
                                             .clip(RoundedCornerShape(6.dp))
                                             .background(Color.Black.copy(alpha = 0.6f))
                                             .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
                                             .clickable { showTypeGuide = true }
-                                            .padding(horizontal = 8.dp, vertical = 2.dp),
+                                            .padding(horizontal = if (isCompact) 6.dp else 8.dp, vertical = 2.dp),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Text(
                                             text = "TYPE GUIDE ℹ️",
                                             color = Color(0xFF00FFCC),
-                                            fontSize = 9.sp,
+                                            fontSize = if (isCompact) 8.5.sp else 9.sp,
                                             fontWeight = FontWeight.Black
                                         )
                                     }
@@ -4560,20 +4576,20 @@ fun PokedexDisplay(
                                         colors = ButtonDefaults.buttonColors(
                                             containerColor = Color(0xFF00FFCC)
                                         ),
-                                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                        contentPadding = PaddingValues(horizontal = if (isCompact) 6.dp else 8.dp, vertical = 2.dp),
                                         shape = RoundedCornerShape(6.dp),
-                                        modifier = Modifier.height(28.dp)
+                                        modifier = Modifier.height(if (isCompact) 24.dp else 28.dp)
                                     ) {
                                         Text(
                                             text = "⚡ FORMS & EVOS",
                                             color = Color.Black,
                                             fontWeight = FontWeight.Black,
-                                            fontSize = 9.sp
+                                            fontSize = if (isCompact) 8.5.sp else 9.sp
                                         )
                                     }
                                 }
 
-                                Spacer(modifier = Modifier.height(6.dp))
+                                Spacer(modifier = Modifier.height(if (isCompact) 3.dp else 6.dp))
 
                                 val (entryFontSize, entryLineHeight) = when {
                                      cleanedFlavorText.length <= 95 -> Pair(15.sp, 21.sp)
@@ -4597,21 +4613,21 @@ fun PokedexDisplay(
                                          .weight(1f)
                                          .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(8.dp))
                                          .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.25f), RoundedCornerShape(8.dp))
-                                         .padding(8.dp)
+                                         .padding(if (isCompact) 5.dp else 8.dp)
                                  ) {
                                      // Row 1 inside dark box: STRONG TO (Offensive STAB Coverage 2×) + Ultimate Type Guide Launcher
                                      Row(
                                          modifier = Modifier
                                              .fillMaxWidth()
-                                             .padding(vertical = 1.5.dp),
+                                             .padding(vertical = if (isCompact) 1.dp else 1.5.dp),
                                          verticalAlignment = Alignment.CenterVertically
                                      ) {
                                          Text(
                                              text = if (isSpanishLocale) "⚡ FUERTE C/" else "⚡ STRONG TO",
                                              color = Color(0xFF00FFCC),
-                                             fontSize = 9.sp,
+                                             fontSize = if (isCompact) 8.5.sp else 9.sp,
                                              fontWeight = FontWeight.Black,
-                                             modifier = Modifier.padding(end = 5.dp)
+                                             modifier = Modifier.padding(end = 4.dp)
                                          )
                                          Row(
                                              modifier = Modifier
@@ -4653,15 +4669,15 @@ fun PokedexDisplay(
                                      Row(
                                          modifier = Modifier
                                              .fillMaxWidth()
-                                             .padding(vertical = 1.5.dp),
+                                             .padding(vertical = if (isCompact) 1.dp else 1.5.dp),
                                          verticalAlignment = Alignment.CenterVertically
                                      ) {
                                          Text(
                                              text = if (isSpanishLocale) "⚠️ DÉBIL A" else "⚠️ WEAK TO",
                                              color = Color(0xFFFF7777),
-                                             fontSize = 9.sp,
+                                             fontSize = if (isCompact) 8.5.sp else 9.sp,
                                              fontWeight = FontWeight.Black,
-                                             modifier = Modifier.padding(end = 5.dp)
+                                             modifier = Modifier.padding(end = 4.dp)
                                          )
                                          Row(
                                              modifier = Modifier
@@ -4714,7 +4730,7 @@ fun PokedexDisplay(
                                          )
                                      }
 
-                                     Spacer(modifier = Modifier.height(6.dp))
+                                     Spacer(modifier = Modifier.height(if (isCompact) 3.dp else 6.dp))
 
                                      // Subtle Terminal Divider
                                      Box(
@@ -4732,7 +4748,7 @@ fun PokedexDisplay(
                                              )
                                      )
 
-                                     Spacer(modifier = Modifier.height(6.dp))
+                                     Spacer(modifier = Modifier.height(if (isCompact) 3.dp else 6.dp))
 
                                      // Narrative Lore Box with Scroll
                                      Box(
@@ -6206,7 +6222,8 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                 PokedexHeader(
                     viewModel = viewModel,
                     onOpenSettings = { showSettings = true },
-                    onGalleryClick = launchGallery
+                    onGalleryClick = launchGallery,
+                    isCompact = false
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
@@ -6229,6 +6246,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                             onGalleryClick = launchGallery,
                             isListOnly = true,
                             listState = listState,
+                            isCompact = false,
                             modifier = Modifier.fillMaxSize()
                         )
                     }
@@ -6267,6 +6285,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                                 onGalleryClick = launchGallery,
                                 isListOnly = false,
                                 listState = listState,
+                                isCompact = false,
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
@@ -6275,11 +6294,26 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
             }
         } else {
             Column(modifier = Modifier.fillMaxSize()) {
-                PokedexHeader(viewModel, onOpenSettings = { showSettings = true }, onGalleryClick = launchGallery)
-                Spacer(modifier = Modifier.height(16.dp))
-                PokedexDisplay(uiState, filteredPokemonList, searchQuery, viewModel, onGalleryClick = launchGallery, isListOnly = false, listState = listState, modifier = Modifier.weight(1f))
+                PokedexHeader(
+                    viewModel = viewModel,
+                    onOpenSettings = { showSettings = true },
+                    onGalleryClick = launchGallery,
+                    isCompact = true
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                PokedexDisplay(
+                    uiState = uiState,
+                    pokemonList = filteredPokemonList,
+                    searchQuery = searchQuery,
+                    viewModel = viewModel,
+                    onGalleryClick = launchGallery,
+                    isListOnly = false,
+                    listState = listState,
+                    isCompact = true,
+                    modifier = Modifier.weight(1f)
+                )
                 if (uiState !is PokedexState.Idle) {
-                    Spacer(modifier = Modifier.height(6.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
                     PokedexControls(uiState, viewModel)
                 }
             }

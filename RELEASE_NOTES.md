@@ -1,3 +1,35 @@
+# 🚀 Release Notes - Bori-dex v1.9.8
+
+**Release Date:** November 2, 2026  
+**Platform:** Android (API 24 to API 36 / 37 Adaptive Ready)  
+**Binary:** `Bori-dex-v1.9.8.apk` / `Bori-dex.apk`  
+**Master Dataset:** [Bori-dex 1,025 Pokemon Master Vision Dataset](https://www.kaggle.com/datasets/atom0131/boridex-pokemon-master-dataset-494k)  
+
+---
+
+## What's New in v1.9.8
+
+### 📐 1. Google Adaptive Apps & Foldable Layout Overhaul (Android 17 Standard)
+- **Material 3 WindowSizeClass Breakpoints**: Dynamic reflow based on `WindowWidthSizeClass` (Compact `< 600dp` vs Medium/Expanded `\ge 600dp`).
+- **Vertical Space Optimization on Folded Devices**: Resolved vertical layout cramping on compact cover screens (e.g., Samsung Galaxy Z Fold closed mode, 475dp viewport):
+  - **Dynamic Top Lens**: Scaled main scanner lens from 80dp to 50dp and action buttons from 40dp to 34dp on compact displays, reclaiming ~30dp.
+  - **Monitor Sprite Stage**: Dynamically scaled from 152dp to 110dp (sprite icon 95dp, edge pagination arrows 34dp), reclaiming ~42dp.
+  - **Action & Evolution Strip**: Compact 32dp action buttons and 24dp monospace evolution line, reclaiming ~14dp.
+  - **Terminal Header & Quick Toolbar**: Tightened toolbar from 36dp to 28dp and matchup chips from 26dp to 20dp, reclaiming ~28dp.
+  - **Spacious Lore Description**: Reclaimed **~114dp (~300px)** of net vertical space, allowing the narrative flavor text box to render with >150dp (>400px) of fluid, unclipped breathing room.
+- **Unfolded Two-Pane Experience**: Retained full 80dp lens, 152dp monitor stage, and fold-hinge awareness across dual-pane tablets and unfolded foldables.
+
+### 🧭 2. Canonical Area Zero & Paradox Encounter Encyclopedia
+- **Ingested Official Web Guides & Walkthroughs**: Ingested complete Bulbapedia, IGN, Game8, Serebii, and strategy guide documentation for the Great Crater of Paldea (Area Zero) and the Zero Gate.
+- **Complete Paradox Coverage**: Comprehensive encounter data for all Scarlet & Violet Paradox Pokémon (Great Tusk, Scream Tail, Brute Bonnet, Flutter Mane, Slither Wing, Sandy Shocks, Roaring Moon, Koraidon, Iron Treads, Iron Bundle, Iron Hands, Iron Jugulis, Iron Moth, Iron Thorns, Iron Valiant, Miraidon).
+- **Research Stations 1–4 & Depths**: Detailed spawn breakdowns across Upper Surface Biome, Research Station 2 cavern entrances, Research Station 3 waterfall cliffs, Research Station 4 crystal depths, and the Hidden Roaring Moon / Iron Valiant secret cave.
+
+### ⚖️ 3. Physical Specifications & Telemetry Display
+- **Metric & Imperial Height/Weight Chips**: Dual-unit display formatted as `HT: X.Xm • F'IN"` and `WT: XX.Xkg • XXX.Xlbs`.
+- **Anatomical Size Classification**: Automatic categorisation into `TINY`, `SMALL`, `MEDIUM`, `LARGE`, or `GIGANTIC` with dedicated cybernetic badge styling.
+
+---
+
 # 🚀 Release Notes - Bori-dex v1.7.0
 
 **Release Date:** October 24, 2026  
