@@ -3145,6 +3145,38 @@ fun PokedexList(
 
 
 
+fun formatPokemonHeight(rawHeight: String?): String {
+    if (rawHeight.isNullOrBlank() || rawHeight.contains("?")) return "📏 HT: --"
+    val numStr = rawHeight.replace(Regex("[^0-9.]"), "")
+    val meters = numStr.toDoubleOrNull() ?: return "📏 HT: $rawHeight"
+    val totalInches = Math.round(meters * 39.3701).toInt()
+    val feet = totalInches / 12
+    val inches = totalInches % 12
+    return "📏 HT: ${meters}m • ${feet}'%02d\"".format(inches)
+}
+
+fun formatPokemonWeight(rawWeight: String?): String {
+    if (rawWeight.isNullOrBlank() || rawWeight.contains("?")) return "⚖️ WT: --"
+    val numStr = rawWeight.replace(Regex("[^0-9.]"), "")
+    val kg = numStr.toDoubleOrNull() ?: return "⚖️ WT: $rawWeight"
+    val lbs = kg * 2.20462
+    return "⚖️ WT: ${String.format(java.util.Locale.US, "%.1f", kg)}kg • ${String.format(java.util.Locale.US, "%.1f", lbs)}lbs"
+}
+
+fun formatPokemonSizeCategory(rawHeight: String?): String {
+    if (rawHeight.isNullOrBlank() || rawHeight.contains("?")) return "🏷️ SIZE: STANDARD"
+    val numStr = rawHeight.replace(Regex("[^0-9.]"), "")
+    val meters = numStr.toDoubleOrNull() ?: return "🏷️ SIZE: STANDARD"
+    val sizeLabel = when {
+        meters < 0.5 -> "TINY"
+        meters <= 1.2 -> "SMALL"
+        meters <= 2.2 -> "MEDIUM"
+        meters <= 3.5 -> "LARGE"
+        else -> "GIGANTIC"
+    }
+    return "🏷️ SIZE: $sizeLabel"
+}
+
 @Composable
 
 fun PokedexDisplay(
@@ -4472,7 +4504,10 @@ fun PokedexDisplay(
                                      else -> Pair(10.5.sp, 14.sp)
                                  }
 
-                                 val isSpanishLocale = remember { java.util.Locale.getDefault().language == "es" }
+                                 val formattedHeight = remember(state.pokemon.height) { formatPokemonHeight(state.pokemon.height) }
+                                  val formattedWeight = remember(state.pokemon.weight) { formatPokemonWeight(state.pokemon.weight) }
+                                  val formattedSize = remember(state.pokemon.height) { formatPokemonSizeCategory(state.pokemon.height) }
+                                  val isSpanishLocale = remember { java.util.Locale.getDefault().language == "es" }
                                  val offensiveStrengths = remember(state.pokemon.type) {
                                      PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
                                  }
@@ -4620,7 +4655,63 @@ fun PokedexDisplay(
 
                                      Spacer(modifier = Modifier.height(6.dp))
 
-                                     // Subtle Terminal Divider
+                                     // Row 3 inside dark box: Physical Specs Telemetry Strip (HT, WT, SIZE)
+                                      Row(
+                                          modifier = Modifier
+                                              .fillMaxWidth()
+                                              .horizontalScroll(rememberScrollState()),
+                                          horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                          verticalAlignment = Alignment.CenterVertically
+                                      ) {
+                                          // Height Chip
+                                          Box(
+                                              modifier = Modifier
+                                                  .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
+                                                  .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.70f), RoundedCornerShape(5.dp))
+                                                  .padding(horizontal = 7.dp, vertical = 3.dp)
+                                          ) {
+                                              Text(
+                                                  text = formattedHeight,
+                                                  color = Color(0xFF00FFCC),
+                                                  fontWeight = FontWeight.Black,
+                                                  fontSize = 9.sp
+                                              )
+                                          }
+
+                                          // Weight Chip
+                                          Box(
+                                              modifier = Modifier
+                                                  .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
+                                                  .border(1.dp, Color(0xFFFFCC00).copy(alpha = 0.70f), RoundedCornerShape(5.dp))
+                                                  .padding(horizontal = 7.dp, vertical = 3.dp)
+                                          ) {
+                                              Text(
+                                                  text = formattedWeight,
+                                                  color = Color(0xFFFFCC00),
+                                                  fontWeight = FontWeight.Black,
+                                                  fontSize = 9.sp
+                                              )
+                                          }
+
+                                          // Size Classification Chip
+                                          Box(
+                                              modifier = Modifier
+                                                  .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
+                                                  .border(1.dp, Color.White.copy(alpha = 0.35f), RoundedCornerShape(5.dp))
+                                                  .padding(horizontal = 7.dp, vertical = 3.dp)
+                                          ) {
+                                              Text(
+                                                  text = formattedSize,
+                                                  color = Color.White,
+                                                  fontWeight = FontWeight.Bold,
+                                                  fontSize = 8.5.sp
+                                              )
+                                          }
+                                      }
+
+                                      Spacer(modifier = Modifier.height(5.dp))
+
+                                      // Subtle Terminal Divider
                                      Box(
                                          modifier = Modifier
                                              .fillMaxWidth()
