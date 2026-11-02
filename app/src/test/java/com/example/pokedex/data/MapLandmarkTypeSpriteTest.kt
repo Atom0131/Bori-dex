@@ -5,7 +5,12 @@ import org.junit.Test
 import java.io.File
 
 class MapLandmarkTypeSpriteTest {
-    private val assetsDir = File("${"C:\\Users\\pagan\\OneDrive\\Documents\\Code\\Pokedex\\PokedexApp\\app\\src\\main\\assets\\items"}")
+    private val assetsDir = listOf(
+        File("src/main/assets/items"),
+        File("app/src/main/assets/items"),
+        File("Pokedex/PokedexApp/app/src/main/assets/items"),
+        File("C:\\Users\\pagan\\OneDrive\\Documents\\Code\\Pokedex\\PokedexApp\\app\\src\\main\\assets\\items")
+    ).firstOrNull { it.exists() } ?: File("src/main/assets/items")
 
     @Test
     fun testAllItemSpritesExist() {
