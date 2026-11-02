@@ -170,6 +170,33 @@ object RegionMapLandmarksRepository {
         )
     }
 
+    private fun paldeaLandmark(
+        id: String,
+        name: String,
+        shortName: String,
+        xNorm: Float,
+        yNorm: Float,
+        type: MapLandmarkType,
+        isMajor: Boolean = true
+    ): MapLandmark {
+        val details = PALDEA_LANDMARK_DETAILS[id]
+        return MapLandmark(
+            id = id,
+            name = name,
+            shortName = shortName,
+            xNorm = xNorm,
+            yNorm = yNorm,
+            type = type,
+            isMajor = isMajor,
+            tagline = details?.tagline,
+            description = details?.description,
+            keyLocations = details?.keyLocations ?: emptyList(),
+            connectedAreas = details?.connectedAreas ?: emptyList(),
+            guideAdvice = details?.guideAdvice,
+            gymInfo = details?.gymInfo
+        )
+    }
+
     // -------------------------------------------------------------
     // KANTO COMPREHENSIVE STRATEGY GUIDE DETAILS
     // -------------------------------------------------------------
@@ -1548,26 +1575,247 @@ object RegionMapLandmarksRepository {
     // -------------------------------------------------------------
     // 11. PALDEA (Scarlet & Violet)
     // -------------------------------------------------------------
-    val PALDEA_LANDMARKS: List<MapLandmark> = listOf(
-        MapLandmark("cabo_poco", "Cabo Poco", "Cabo Poco", 0.38f, 0.92f, MapLandmarkType.TOWN),
-        MapLandmark("los_platos", "Los Platos", "Los Platos", 0.42f, 0.85f, MapLandmarkType.TOWN),
-        MapLandmark("mesagoza", "Mesagoza (Naranja/Uva)", "Mesagoza", 0.50f, 0.70f, MapLandmarkType.CITY),
-        MapLandmark("cortondo", "Cortondo", "Cortondo", 0.35f, 0.75f, MapLandmarkType.TOWN),
-        MapLandmark("artazon", "Artazon", "Artazon", 0.65f, 0.70f, MapLandmarkType.TOWN),
-        MapLandmark("levincia", "Levincia", "Levincia", 0.85f, 0.60f, MapLandmarkType.CITY),
-        MapLandmark("cascarrafa", "Cascarrafa", "Cascarrafa", 0.28f, 0.55f, MapLandmarkType.CITY),
-        MapLandmark("porto_marinada", "Porto Marinada", "P. Marinada", 0.15f, 0.48f, MapLandmarkType.TOWN),
-        MapLandmark("medali", "Medali", "Medali", 0.38f, 0.42f, MapLandmarkType.TOWN),
-        MapLandmark("montenevera", "Montenevera", "Montenevera", 0.45f, 0.25f, MapLandmarkType.TOWN),
-        MapLandmark("alfornada", "Alfornada", "Alfornada", 0.18f, 0.88f, MapLandmarkType.TOWN),
-        MapLandmark("zapapico", "Zapapico", "Zapapico", 0.68f, 0.52f, MapLandmarkType.TOWN),
-        MapLandmark("area_zero", "Great Crater of Paldea (Area Zero)", "Area Zero", 0.50f, 0.50f, MapLandmarkType.SECRET),
+    val PALDEA_LANDMARK_DETAILS: Map<String, LandmarkGuideDetails> = mapOf(
+        "cabo_poco" to LandmarkGuideDetails(
+            tagline = "Where the path to treasure begins!",
+            description = "A peaceful coastal hamlet situated on the southern tip of the Paldea region, home to the player character and Nemona.",
+            keyLocations = listOf(
+                "🏠 Player's House: Starting point of the journey with Mom",
+                "🏡 Nemona's Mansion: Sprawling beachside estate with a private battlefield",
+                "🌊 Cabo Poco Beach: Scenic shore meeting the South Paldean Sea"
+            ),
+            connectedAreas = listOf("Poco Path (North toward Mesagoza)"),
+            guideAdvice = "Choose your starter Pokémon (Sprigatito, Fuecoco, or Quaxly) and battle Nemona on the private beach before setting out on Poco Path."
+        ),
+        "los_platos" to LandmarkGuideDetails(
+            tagline = "The town of abundant plates and pottery!",
+            description = "A quaint pastoral town known for its ceramic artisans, windmill, and bustling market stalls.",
+            keyLocations = listOf(
+                "🏥 Los Platos Pokémon Center: First outdoor Pokémon Center with TM Machine and Union Circle terminal",
+                "🏪 Market Vendors: Sells basic sandwich ingredients and cooking supplies",
+                "💨 Hillside Windmill: Scenic landmark overlooking the lower valley"
+            ),
+            connectedAreas = listOf("Poco Path (South)", "South Province Area One (North toward Mesagoza)"),
+            guideAdvice = "Learn how to use the TM Machine to craft powerful moves using wild Pokémon drops, and prepare sandwiches to boost capture power."
+        ),
+        "mesagoza" to LandmarkGuideDetails(
+            tagline = "The Splendid City of Tradition and Learning!",
+            description = "The vibrant academic capital of Paldea, centered around the grand clock tower and the renowned Naranja Academy (Scarlet) or Uva Academy (Violet).",
+            keyLocations = listOf(
+                "🎓 Naranja / Uva Academy: Clavell's office, biology lab, battle studies, and student dormitories",
+                "🛍️ Central Plaza: Boutiques, Delibird Presents, and street food stalls",
+                "🏥 North & South Pokémon Centers: Battle items and supply replenishment"
+            ),
+            connectedAreas = listOf("South Province (Area One)", "West Province (Area One)", "East Province (Area One)"),
+            guideAdvice = "Receive your Rotom Phone, Pokédex, and ride Legendary from Director Clavell and Nemona. Stock up on Poké Balls before embarking on your Treasure Hunt."
+        ),
+        "cortondo" to LandmarkGuideDetails(
+            tagline = "The olive-scented town of green groves!",
+            description = "A charming agricultural town surrounded by olive orchards, home to the Bug-type Gym led by the master baker Katy.",
+            gymInfo = "Leader: Katy • Specialty: Bug • Bug Badge (Lv. 14-15)",
+            keyLocations = listOf(
+                "🏟️ Cortondo Gym: Bug-type Gym led by Katy (Bug Badge)",
+                "🫒 Olive Roll Field: Large grassy arena for the Gym Test",
+                "🧁 Pâtisserie Soapberry: Famous bakery known for sweet confections"
+            ),
+            connectedAreas = listOf("South Province (Area Two)", "West Province (Area One)"),
+            guideAdvice = "Complete the Olive Roll Gym Test by guiding a giant olive into the goal. Use Fire, Flying, or Rock moves against Katy's Teddiursa with Bug Tera Type."
+        ),
+        "artazon" to LandmarkGuideDetails(
+            tagline = "The town of brass flowers and sunlit art!",
+            description = "An artistic oasis filled with sculptures and flowering gardens, featuring the Grass-type Gym led by Brassius.",
+            gymInfo = "Leader: Brassius • Specialty: Grass • Grass Badge (Lv. 16-17)",
+            keyLocations = listOf(
+                "🏟️ Artazon Gym: Grass-type Gym led by Brassius (Grass Badge)",
+                "🌻 Sunflora Plaza: Playground where wild Sunflora gather for the Gym Test",
+                "🎨 Brassius Sculpture Garden: Famous works including 'Surrendering Sunflora'"
+            ),
+            connectedAreas = listOf("South Province (Area Three)", "East Province (Area One)"),
+            guideAdvice = "Gather 10 Sunflora scattered across Artazon to unlock the battle with Brassius. Watch out for his Sudowoodo Terastallizing into Grass type with Trailblaze."
+        ),
+        "levincia" to LandmarkGuideDetails(
+            tagline = "The shining city of lights, streams, and streams!",
+            description = "A hyper-modern coastal metropolis illuminated by holographic billboards, home to the Electric-type Gym and celebrity streamer Iono.",
+            gymInfo = "Leader: Iono • Specialty: Electric • Electric Badge (Lv. 23-24)",
+            keyLocations = listOf(
+                "🏟️ Levincia Gym: Electric-type Gym led by Iono (Electric Badge)",
+                "📺 Iono Zone Streaming Stage: Broadcast studio where Clavell participates in the hide-and-seek test",
+                "🏙️ Levincia Central Skyscraper: Modern corporate headquarters"
+            ),
+            connectedAreas = listOf("East Province (Area Two)", "East Province (Area Three)"),
+            guideAdvice = "Find Director Clavell in Iono's live stream hide-and-seek test. Beware of Iono's Mismagius with Levitate and Electric Tera Type, which has zero type weaknesses!"
+        ),
+        "cascarrafa" to LandmarkGuideDetails(
+            tagline = "The Oasis City of tiered waterfalls!",
+            description = "A stunning desert oasis built on multi-tiered water elevators, featuring the Water-type Gym led by master chef Kofu.",
+            gymInfo = "Leader: Kofu • Specialty: Water • Water Badge (Lv. 29-30)",
+            keyLocations = listOf(
+                "🏟️ Cascarrafa Gym: Water-type Gym led by Kofu (Water Badge)",
+                "🌊 Tiered Water Elevators: Moving water lifts connecting the three city terraces",
+                "🍽️ Restaurant Kofu: Premier dining establishment"
+            ),
+            connectedAreas = listOf("Asado Desert", "West Province (Area One)"),
+            guideAdvice = "Retrieve Kofu's forgotten wallet in Porto Marinada and win the seaweed auction. Electric and Grass attacks counter his Crabominable's Water Tera Type."
+        ),
+        "porto_marinada" to LandmarkGuideDetails(
+            tagline = "The port of bustling market auctions!",
+            description = "A lively seaside harbor famous for its daily open-air auctions where rare evolution items, berries, and Rotom catalog forms are sold.",
+            keyLocations = listOf(
+                "🏷️ Porto Marinada Market: Daily auction stalls selling rare items and apricorn balls",
+                "⚓ Harbor Lighthouse: Overlooks the West Paldean Sea",
+                "🏥 Pokémon Center: Healing station for desert travelers"
+            ),
+            connectedAreas = listOf("Asado Desert (East)", "West Province (Area Two)"),
+            guideAdvice = "Check the auction daily with large sums of Poké Dollars to obtain Apricorn Balls, Golden Bottle Caps, and form-changing items for Rotom and Legendaries."
+        ),
+        "medali" to LandmarkGuideDetails(
+            tagline = "The culinary town of hardworking diners!",
+            description = "A bustling commercial town famous for hearty gastronomy and the Normal-type Gym led by the salaryman Larry.",
+            gymInfo = "Leader: Larry • Specialty: Normal • Normal Badge (Lv. 35-36)",
+            keyLocations = listOf(
+                "🏟️ Medali Gym: Normal-type Gym led by Larry (Normal Badge)",
+                "🍜 Treasure Eatery: Famous restaurant where the secret menu Gym Test is ordered",
+                "🎁 League Representative: Awards the Amulet Coin after defeating 5 trainers"
+            ),
+            connectedAreas = listOf("West Province (Area Three)", "Dalizapa Passage"),
+            guideAdvice = "Order 'Grilled rice balls, Medium serving, Extra crispy over Fire blast style, with Lemon' at Treasure Eatery to challenge Larry. Use Fighting moves against his Staraptor."
+        ),
+        "montenevera" to LandmarkGuideDetails(
+            tagline = "The snowbound city of spectral rap!",
+            description = "A frigid mountain retreat situated on the northern heights of Glaseado Mountain, home to the Ghost-type Gym and rapper Ryme.",
+            gymInfo = "Leader: Ryme • Specialty: Ghost • Ghost Badge (Lv. 41-42)",
+            keyLocations = listOf(
+                "🏟️ Montenevera Gym: Ghost-type Gym featuring Double Battles led by Ryme (Ghost Badge)",
+                "🎤 Concert Stage: Open-air arena with audience hype mechanics",
+                "🏔️ Glaseado Slopes: Snowy cliffs leading to the Glaseado Mountain peak"
+            ),
+            connectedAreas = listOf("Glaseado Mountain", "North Province (Area One)"),
+            guideAdvice = "Montenevera Gym matches are Double Battles! Boost your crowd hype by scoring KOs to gain stat buffs. Dark and Ghost types counter Ryme's Toxtricity."
+        ),
+        "alfornada" to LandmarkGuideDetails(
+            tagline = "The town of starry observatories and pottery!",
+            description = "A picturesque mountain city perched atop southwest cliffs, featuring an ancient observatory and the Psychic-type Gym led by makeup artist Tulip.",
+            gymInfo = "Leader: Tulip • Specialty: Psychic • Psychic Badge (Lv. 44-45)",
+            keyLocations = listOf(
+                "🏟️ Alfornada Gym: Psychic-type Gym led by Tulip (Psychic Badge)",
+                "🔭 Alfornada Observatory: Ancient stone observatory overlooking the southern ocean",
+                "🏃 Dena's Emotional Calisthenics: Gym Test rhythm exercise"
+            ),
+            connectedAreas = listOf("Alfornada Cavern", "South Province (Area Six)"),
+            guideAdvice = "Complete the Emotional Calisthenics button-matching minigame with Dena. Use Bug, Ghost, or Dark types against Tulip's Florges with Psychic Tera Type."
+        ),
+        "zapapico" to LandmarkGuideDetails(
+            tagline = "The mining settlement of forge and armor!",
+            description = "A rugged mining settlement nestled in a crater valley between East Province and the Great Crater, home to the armor artisan who crafts Auspicious Armor and Malicious Armor.",
+            keyLocations = listOf(
+                "🛡️ Armor Artisan: Trades 10 Bronzor Fragments for Auspicious Armor (Armarouge in Scarlet) or 10 Sinistea Chips for Malicious Armor (Ceruledge in Violet)",
+                "⛏️ Zapapico Mining Quarries: Rich mineral extraction sites",
+                "🏥 East & West Pokémon Centers: Healing hubs for mountain routes"
+            ),
+            connectedAreas = listOf("East Province (Area Three)", "Tagtree Thicket"),
+            guideAdvice = "Collect Bronzor Fragments (Scarlet) or Sinistea Chips (Violet) from wild Pokémon to trade for the special armor needed to evolve Charcadet into Armarouge or Ceruledge."
+        ),
+        "area_zero" to LandmarkGuideDetails(
+            tagline = "The Unfathomable Depths of Paldea's Great Crater",
+            description = "A colossal, cloud-veiled crater formed over 1,000,000 years ago by an ancient meteorite impact. At its bottom lies Area Zero and the Zero Lab, radiating immense Terastal crystal energy and harboring enigmatic Paradox Pokémon from distant epochs.",
+            keyLocations = listOf(
+                "🔬 Zero Gate: Modern rim facility controlling access to the descent transport lift",
+                "🏠 Research Stations 1 to 4: Outposts constructed along the descent with security lock override consoles",
+                "🌊 Subterranean Waterfalls: Mid-tier waterways and secret caves harboring Roaring Moon and Iron Valiant",
+                "💎 Crystal Depths: Lower caverns coated in giant Terastal crystals and high-level wild Pokémon",
+                "🏛️ The Zero Lab: Colossal subterranean research laboratory housing the Time Machine and AI Professor"
+            ),
+            connectedAreas = listOf("Paldea Surface Rim (Zero Gate)", "The Great Crater Rim"),
+            guideAdvice = "To enter Area Zero, complete Victory Road, Path of Legends, and ★ Starfall Street. Meet Nemona, Arven, and Penny at the Zero Gate. Override the terminal locks at all 4 Research Stations to access the Zero Lab and halt the Time Machine."
+        ),
+        "poco_path" to LandmarkGuideDetails(
+            tagline = "The coastal trail of fledgling trainers!",
+            description = "The winding dirt pathway extending from Cabo Poco to the inlet lighthouse, where wild Pokémon roam among olive trees and seaside bluffs.",
+            keyLocations = listOf(
+                "🗼 Poco Path Lighthouse: Observation tower with Professor Sada/Turo's old laboratory",
+                "🌊 Coastal Bluffs: Sea view where the injured Legendary Pokémon is first encountered",
+                "🌿 Starter Route Grass: Home to Lechonk, Tarountula, and Fletchling"
+            ),
+            connectedAreas = listOf("Cabo Poco (South)", "Inlet Grotto (Base of Lighthouse)", "South Province Area One (North)"),
+            guideAdvice = "Investigate the mysterious cry at the bluff to discover your version's Legendary Pokémon (Koraidon or Miraidon) and nurse it back to health with a sandwich."
+        ),
+        "south_prov1" to LandmarkGuideDetails(
+            tagline = "The sweeping gateway to Central Paldea!",
+            description = "Expansive open meadows and rocky hills stretching between Los Platos and the towering south gates of Mesagoza.",
+            keyLocations = listOf(
+                "🏥 South Province Pokémon Center: Hub for early-game exploration",
+                "🌉 Mesagoza South Gate: Grand drawbridge leading into the academic capital",
+                "🪨 Rocky Bluffs: Roaming grounds for Pawmi, Rookidee, and Smoliv"
+            ),
+            connectedAreas = listOf("Los Platos (South)", "Mesagoza (North)", "South Province Area Two (West)"),
+            guideAdvice = "Defeat at least 4 trainers in South Province Area One to receive TM082 (Thunder Wave) from the Pokémon League Representative at the Pokémon Center."
+        ),
+        "east_prov1" to LandmarkGuideDetails(
+            tagline = "The rugged badlands of wind and stone!",
+            description = "Vast scrublands and rocky canyons connecting Artazon to the eastern coastline, home to wild Diglett, Orthworm, and Tandemaus.",
+            keyLocations = listOf(
+                "🏥 East Province Area One Pokémon Center: Rest stop for trainers travelling east",
+                "🏜️ Eastern Canyons: Rocky outcroppings harboring wild Fighting and Rock Pokémon",
+                "⛰️ Watchtower: Elevated observation post for Tera Raid crystals"
+            ),
+            connectedAreas = listOf("Artazon (West)", "East Province Area Two (North toward Levincia)"),
+            guideAdvice = "Battle trainers in East Province Area One to earn the Loaded Dice battle item from the League Representative, which guarantees multi-strike moves hit maximum times."
+        ),
+        "west_prov1" to LandmarkGuideDetails(
+            tagline = "The rolling hills of wind and windmills!",
+            description = "Breezy green plateaus and rolling hills situated west of Mesagoza, dotted with towering wind turbines and wild Pokémon.",
+            keyLocations = listOf(
+                "🏥 West Province Area One Pokémon Center: Hub between Mesagoza and Cortondo",
+                "💨 Wind Turbine Fields: Tall turbines generating clean energy for the region",
+                "🌉 Cascarrafa Canyon Bridge: Overpass connecting to the Asado Desert"
+            ),
+            connectedAreas = listOf("Mesagoza (East)", "Cortondo (South)", "Cascarrafa (North)"),
+            guideAdvice = "Inspect the windmill ledges to find hidden TM070 (Sleep Talk) and TM027 (Aerial Ace). Clear trainers to receive the Clear Amulet from the League Rep."
+        ),
+        "inlet_grotto" to LandmarkGuideDetails(
+            tagline = "The shadowy sea cavern beneath the lighthouse!",
+            description = "A dark sea cave carved into the cliffs beneath Poco Path Lighthouse, where the player first journeys alongside their weakened Legendary Pokémon.",
+            keyLocations = listOf(
+                "🌊 Subterranean Tidal Cavern: Damp tunnels inhabited by wild Diglett and Houndour",
+                "🐺 Houndoom's Lair: Deep cavern chamber where an aggressive Houndoom pack confronts the player",
+                "🪜 Lighthouse Escape Cave: Ascending path leading directly to Arven's lighthouse lab"
+            ),
+            connectedAreas = listOf("Poco Path Bluff (Entrance)", "Poco Path Lighthouse (Exit)"),
+            guideAdvice = "Follow your companion Legendary Pokémon through the cave. The Legendary will smash the blocking boulders and leap up the cliff face to rescue you from the Houndoom pack."
+        ),
+        "cortondo_trial" to LandmarkGuideDetails(
+            tagline = "The rolling fun of the Olive Harvest!",
+            description = "The official Cortondo Gym Test arena where challengers must maneuver an oversized bouncing olive through a maze of obstacles into the goal.",
+            keyLocations = listOf(
+                "🫒 Giant Olive Arena: Sloped grass field with wooden hurdles and barriers",
+                "🧑‍🌾 Cortondo Test Stewards: Gym trainers positioned along the track",
+                "🥅 Harvest Goal: Final basket where scoring unlocks the battle with Gym Leader Katy"
+            ),
+            connectedAreas = listOf("Cortondo Town"),
+            guideAdvice = "You can bump the olive with your ride Pokémon or on foot. Defeat the optional Gym Trainer shortcuts along the track to open a direct lane to the goal!"
+        )
+    )
 
-        MapLandmark("poco_path", "Poco Path", "Poco Path", 0.40f, 0.89f, MapLandmarkType.ROUTE),
-        MapLandmark("south_prov1", "South Province (Area One)", "S. Prov 1", 0.48f, 0.82f, MapLandmarkType.ROUTE),
-        MapLandmark("east_prov1", "East Province (Area One)", "E. Prov 1", 0.72f, 0.66f, MapLandmarkType.ROUTE),
-        MapLandmark("west_prov1", "West Province (Area One)", "W. Prov 1", 0.30f, 0.65f, MapLandmarkType.ROUTE),
-        MapLandmark("inlet_grotto", "Inlet Grotto Entrance", "Inlet Grotto", 0.40f, 0.90f, MapLandmarkType.ENTRANCE),
-        MapLandmark("cortondo_trial", "Olive Roll Trial", "Olive Roll", 0.33f, 0.72f, MapLandmarkType.PUZZLE)
+    val PALDEA_LANDMARKS: List<MapLandmark> = listOf(
+        paldeaLandmark("cabo_poco", "Cabo Poco", "Cabo Poco", 0.38f, 0.92f, MapLandmarkType.TOWN),
+        paldeaLandmark("los_platos", "Los Platos", "Los Platos", 0.42f, 0.85f, MapLandmarkType.TOWN),
+        paldeaLandmark("mesagoza", "Mesagoza (Naranja/Uva)", "Mesagoza", 0.50f, 0.70f, MapLandmarkType.CITY),
+        paldeaLandmark("cortondo", "Cortondo", "Cortondo", 0.35f, 0.75f, MapLandmarkType.TOWN),
+        paldeaLandmark("artazon", "Artazon", "Artazon", 0.65f, 0.70f, MapLandmarkType.TOWN),
+        paldeaLandmark("levincia", "Levincia", "Levincia", 0.85f, 0.60f, MapLandmarkType.CITY),
+        paldeaLandmark("cascarrafa", "Cascarrafa", "Cascarrafa", 0.28f, 0.55f, MapLandmarkType.CITY),
+        paldeaLandmark("porto_marinada", "Porto Marinada", "P. Marinada", 0.15f, 0.48f, MapLandmarkType.TOWN),
+        paldeaLandmark("medali", "Medali", "Medali", 0.38f, 0.42f, MapLandmarkType.TOWN),
+        paldeaLandmark("montenevera", "Montenevera", "Montenevera", 0.45f, 0.25f, MapLandmarkType.TOWN),
+        paldeaLandmark("alfornada", "Alfornada", "Alfornada", 0.18f, 0.88f, MapLandmarkType.TOWN),
+        paldeaLandmark("zapapico", "Zapapico", "Zapapico", 0.68f, 0.52f, MapLandmarkType.TOWN),
+        paldeaLandmark("area_zero", "Great Crater of Paldea (Area Zero)", "Area Zero", 0.50f, 0.50f, MapLandmarkType.SECRET),
+
+        paldeaLandmark("poco_path", "Poco Path", "Poco Path", 0.40f, 0.89f, MapLandmarkType.ROUTE),
+        paldeaLandmark("south_prov1", "South Province (Area One)", "S. Prov 1", 0.48f, 0.82f, MapLandmarkType.ROUTE),
+        paldeaLandmark("east_prov1", "East Province (Area One)", "E. Prov 1", 0.72f, 0.66f, MapLandmarkType.ROUTE),
+        paldeaLandmark("west_prov1", "West Province (Area One)", "W. Prov 1", 0.30f, 0.65f, MapLandmarkType.ROUTE),
+        paldeaLandmark("inlet_grotto", "Inlet Grotto Entrance", "Inlet Grotto", 0.40f, 0.90f, MapLandmarkType.ENTRANCE),
+        paldeaLandmark("cortondo_trial", "Olive Roll Trial", "Olive Roll", 0.33f, 0.72f, MapLandmarkType.PUZZLE)
     )
 }

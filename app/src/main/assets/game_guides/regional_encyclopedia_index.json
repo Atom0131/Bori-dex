@@ -1,0 +1,205 @@
+{
+  "version": "1.0",
+  "description": "Master index mapping canonical region locations and lore queries to comprehensive offline guide documents.",
+  "entries": [
+    {
+      "id": "paldea_great_crater_area_zero",
+      "file": "paldea_great_crater_area_zero.json",
+      "title": "Great Crater of Paldea (Area Zero)",
+      "region": "Paldea",
+      "versions": [
+        "Scarlet",
+        "Violet"
+      ],
+      "keywords": [
+        "great crater",
+        "great crater of paldea",
+        "area zero",
+        "zero lab",
+        "zero gate",
+        "professor turo",
+        "professor sada",
+        "ai turo",
+        "ai sada",
+        "time machine",
+        "paradise protection protocol",
+        "the way home",
+        "paradox pokemon",
+        "scarlet book",
+        "violet book",
+        "heath",
+        "terapagos",
+        "booster energy",
+        "iron valiant",
+        "roaring moon",
+        "iron hands",
+        "great tusk",
+        "scream tail",
+        "iron bundle",
+        "flutter mane",
+        "slither wing",
+        "iron jugulis",
+        "sandy shocks",
+        "iron moth",
+        "iron thorns"
+      ]
+    },
+    {
+      "id": "kanto_cerulean_cave_mewtwo",
+      "title": "Cerulean Cave & Mewtwo",
+      "region": "Kanto",
+      "versions": [
+        "Red",
+        "Blue",
+        "Yellow",
+        "FireRed",
+        "LeafGreen",
+        "Let's Go, Pikachu!",
+        "Let's Go, Eevee!"
+      ],
+      "keywords": [
+        "cerulean cave",
+        "unknown dungeon",
+        "mewtwo",
+        "master ball"
+      ]
+    },
+    {
+      "id": "johto_mt_silver_red",
+      "title": "Mt. Silver & Red Final Battle",
+      "region": "Johto",
+      "versions": [
+        "Gold",
+        "Silver",
+        "Crystal",
+        "HeartGold",
+        "SoulSilver"
+      ],
+      "keywords": [
+        "mt silver",
+        "mount silver",
+        "trainer red",
+        "red battle"
+      ]
+    },
+    {
+      "id": "hoenn_sky_pillar_rayquaza",
+      "title": "Sky Pillar & Rayquaza",
+      "region": "Hoenn",
+      "versions": [
+        "Ruby",
+        "Sapphire",
+        "Emerald",
+        "Omega Ruby",
+        "Alpha Sapphire"
+      ],
+      "keywords": [
+        "sky pillar",
+        "rayquaza",
+        "mach bike cracks"
+      ]
+    },
+    {
+      "id": "sinnoh_spear_pillar_coronet",
+      "title": "Mt. Coronet & Spear Pillar",
+      "region": "Sinnoh",
+      "versions": [
+        "Diamond",
+        "Pearl",
+        "Platinum",
+        "Brilliant Diamond",
+        "Shining Pearl"
+      ],
+      "keywords": [
+        "spear pillar",
+        "mt coronet",
+        "dialga",
+        "palkia",
+        "giratina",
+        "hall of origin",
+        "arceus"
+      ]
+    },
+    {
+      "id": "unova_giant_chasm_kyurem",
+      "title": "Giant Chasm & Kyurem",
+      "region": "Unova",
+      "versions": [
+        "Black",
+        "White",
+        "Black 2",
+        "White 2"
+      ],
+      "keywords": [
+        "giant chasm",
+        "kyurem",
+        "dna splicers",
+        "lacunosa meteor"
+      ]
+    },
+    {
+      "id": "kalos_lumiose_prism_tower",
+      "title": "Lumiose City & Prism Tower",
+      "region": "Kalos",
+      "versions": [
+        "X",
+        "Y"
+      ],
+      "keywords": [
+        "lumiose city",
+        "prism tower",
+        "looker bureau"
+      ]
+    },
+    {
+      "id": "alola_aether_paradise",
+      "title": "Aether Paradise & Ultra Space",
+      "region": "Alola",
+      "versions": [
+        "Sun",
+        "Moon",
+        "Ultra Sun",
+        "Ultra Moon"
+      ],
+      "keywords": [
+        "aether paradise",
+        "ultra wormhole",
+        "nihilego",
+        "lusamine",
+        "necrozma"
+      ]
+    },
+    {
+      "id": "galar_slumbering_weald",
+      "title": "Slumbering Weald & Energy Plant",
+      "region": "Galar",
+      "versions": [
+        "Sword",
+        "Shield"
+      ],
+      "keywords": [
+        "slumbering weald",
+        "zacian",
+        "zamazenta",
+        "eternatus",
+        "rusted sword",
+        "rusted shield"
+      ]
+    },
+    {
+      "id": "hisui_temple_of_sinnoh",
+      "title": "Temple of Sinnoh & Dialga/Palkia Origin",
+      "region": "Hisui",
+      "versions": [
+        "Legends: Arceus"
+      ],
+      "keywords": [
+        "temple of sinnoh",
+        "origin forme",
+        "kamado",
+        "red chain",
+        "arceus fight"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "id": "paldea_great_crater_area_zero",
+  "title": "Great Crater of Paldea (Area Zero)",
+  "shortTitle": "Area Zero",
+  "category": "LORE & GEOGRAPHY • AREA ZERO ENCYCLOPEDIA",
+  "region": "Paldea",
+  "versions": [
+    "Scarlet",
+    "Violet"
+  ],
+  "aliases": [
+    "great crater",
+    "great crater of paldea",
+    "area zero",
+    "zero lab",
+    "zero gate",
+    "professor turo",
+    "professor sada",
+    "ai turo",
+    "ai sada",
+    "time machine",
+    "paradise protection protocol",
+    "the way home",
+    "paradox pokemon",
+    "scarlet book",
+    "violet book",
+    "heath",
+    "terapagos",
+    "booster energy"
+  ],
+  "coordinates": {
+    "x": 0.5,
+    "y": 0.5,
+    "mapAsset": "paldea_sv.png",
+    "locationName": "Great Crater of Paldea (Area Zero)"
+  },
+  "summary": "A colossal geological formation spanning the geographic center of Paldea, formed over 1,000,000 years ago by an ancient meteorite impact. At its bottom lies Area Zero and the Zero Lab, bathed in perpetual Terastal radiation and home to Paradox Pokémon pulled from the distant past or far future.",
+  "spokenAdvice": "The Great Crater of Paldea is a massive chasm formed over one million years ago by a celestial meteorite impact. Two hundred years ago, the naturalist Heath surveyed the crater and published the Scarlet and Violet Books, documenting enigmatic ancient and futuristic creatures. Ten years ago, Professor Sada in Scarlet, and Professor Turo in Violet, established the Zero Lab at the crater's crystalline floor, inventing a Time Machine powered by Terastal energy. Paradox Pokémon roaming Area Zero include ancient beasts like Roaring Moon and Great Tusk in Scarlet, and cybernetic weapons like Iron Valiant and Iron Hands in Violet. To reach the Zero Lab, complete all three storyline paths and unlock the security overrides at Research Stations 1 through 4.",
+  "sections": [
+    {
+      "heading": "📜 Ancient Formation & Geological History",
+      "content": [
+        "• Impact Origin (~1,000,000 BC): The Great Crater of Paldea was created when an enormous celestial meteorite impacted the center of the Paldean continent, piercing deep into the subterranean crust and releasing latent crystalline Terastal energy.",
+        "• The Terastal Phenomenon & Terapagos: The radiant energy permeating the cavern floors originates from the ancient Legendary Pokémon Terapagos, whose crystalline shell slumbered deep within the subterranean stratum for millions of years.",
+        "• Early Exploration (~2,000 BC): Ancient Paldean empires launched expeditions into the crater seeking mythical treasure, but lethal terrain, toxic crystal vapors, and ferocious native beasts turned back all early expeditions."
+      ]
+    },
+    {
+      "heading": "📖 The Area Zero Expedition & The Scarlet/Violet Books",
+      "content": [
+        "• Heath's Expedition (200 Years Ago): Sponsored by the Paldean government, the explorer and author Heath led an elite survey corps into Area Zero, accompanied by a Cyclizar companion and specialized researchers.",
+        "• The Scarlet / Violet Book: Heath penned a comprehensive journal recording fantastical monsters, strange glowing disks, mysterious plant life (Herba Mystica), and an enigmatic disc-shaped crystalline Pokémon. The general public regarded Heath's findings as wild delusions, permanently tarnishing his reputation.",
+        "• Occulture Magazine: In modern times, paranormal publications circulated Heath's sketches, theorizing the creatures were alien bio-weapons, robotic surveillance drones, or prehistoric ancestors."
+      ]
+    },
+    {
+      "heading": "🔬 Professor Sada & Professor Turo's Research",
+      "content": [
+        "• Zero Lab Foundation (10 Years Ago): Professor Sada (Scarlet) / Professor Turo (Violet) established a subterranean laboratory at the bottom of the crater to harness Terastal energy and materialize the creatures depicted in the historic journals.",
+        "• The Time Machine (5 Years Ago): Utilizing Terastal energy crystals as an unprecedented power source, the Professor engineered a functioning Time Machine capable of pulling Pokémon across temporal rifts: ancient epochs (Scarlet) or distant future centuries (Violet).",
+        "• The First Specimen: The first transferred specimen was Koraidon (Scarlet) / Miraidon (Violet). Later, a second aggressive specimen was summoned, sparking a catastrophic territorial fight inside the lab.",
+        "• The Professor's Sacrifice: To shield their companion Koraidon/Miraidon, the human Professor suffered a fatal blow. Before dying, they completed an artificial intelligence android (AI Sada / AI Turo) with identical intellect and memories."
+      ]
+    },
+    {
+      "heading": "🤖 AI Professor & The Paradise Protection Protocol",
+      "content": [
+        "• The AI's Realization: The AI Professor concluded that the relentless stream of aggressive Paradox Pokémon would escape Area Zero and utterly annihilate Paldea's delicate ecosystem.",
+        "• The Locked Override: The original Professor hardcoded the 'Paradise Protection Protocol', an automated defensive override that forces the AI into battle mode and locks all standard Poké Balls if anyone attempts to halt the Time Machine.",
+        "• The Way Home Climax: The player joins forces with Nemona, Arven, and Penny to infiltrate the crater, deactivate the lock terminals at all 4 Research Stations, defeat the AI Professor's Booster Energy party, and permanently halt the Time Machine."
+      ]
+    },
+    {
+      "heading": "🐾 Paradox Pokémon Encounters (Scarlet vs. Violet)",
+      "content": [
+        "• SCARLET ANCIENT PARADOX FORMS:",
+        "  - Great Tusk (Ground/Fighting): 'Ancient Donphan'. Roams grassy upper slopes near Research Stations 1 & 2, and cavern paths.",
+        "  - Scream Tail (Fairy/Psychic): 'Ancient Jigglypuff'. Spawns on upper meadows near Station 1 and shallow caverns.",
+        "  - Brute Bonnet (Grass/Dark): 'Ancient Amoonguss'. Spawns in shaded woodland pockets near Station 2.",
+        "  - Flutter Mane (Ghost/Fairy): 'Ancient Misdreavus'. Spawns inside dark subterranean crystal caverns (nighttime / cave depths).",
+        "  - Slither Wing (Bug/Fighting): 'Ancient Volcarona'. Bipedal crawler roaming grassy clearings near Stations 1 & 2.",
+        "  - Sandy Shocks (Electric/Ground): 'Ancient Magneton'. Spawns along rocky slopes and sheer crags near Station 2.",
+        "  - Roaring Moon (Dragon/Dark): 'Ancient Salamence'. Ultra-rare spawn in the secret waterfall cavern near Research Station 3.",
+        "  - Koraidon (Fighting/Dragon): 'The Winged King'. Second specimen catchable at the bottom ramp of Zero Lab after completing the story.",
+        "",
+        "• VIOLET FUTURE PARADOX FORMS:",
+        "  - Iron Treads (Ground/Steel): 'Future Donphan'. Spherical tread chassis roaming open areas near Stations 1 & 2.",
+        "  - Iron Bundle (Ice/Water): 'Future Delibird'. Cybernetic penguin with hydro-thruster tail. Spawns along rivers and upper meadows.",
+        "  - Iron Hands (Fighting/Electric): 'Future Hariyama'. Heavy cybernetic titan near Station 2 and rocky descends.",
+        "  - Iron Jugulis (Dark/Flying): 'Future Hydreigon'. Drone craft patrolling descending crystal tunnels between Stations 3 & 4.",
+        "  - Iron Moth (Fire/Poison): 'Future Volcarona'. Solar-satellite wings roaming sunny plateaus near Station 1.",
+        "  - Iron Thorns (Rock/Electric): 'Future Tyranitar'. Mechanized radioactive predator on high cliff ledges near Station 2.",
+        "  - Iron Valiant (Fairy/Fighting): 'Future Gallade/Gardevoir'. Dual energy blades, spawns exclusively in the secret waterfall cave near Station 3.",
+        "  - Miraidon (Electric/Dragon): 'The Iron Serpent'. Second specimen catchable at the bottom ramp of Zero Lab after completing the story."
+      ]
+    },
+    {
+      "heading": "🌲 Standard Wild Spawns by Elevation Layer",
+      "content": [
+        "• Upper Rim & Station 1 (Meadow): Espathra, Jumpluff, Corviknight, Girafarig, Hawlucha, Gogoat, Floette, Raichu, Pawmot, Garganacl.",
+        "• Mid-Elevation & Station 2 (Rocky Crag): Dudunsparce, Lycanroc (Day/Night), Medicham, Golduck, Chansey, Blissey (Top EXP grinding spot!).",
+        "• Lower Cavern & Station 3 (Waterway): Vaporeon, Golduck, Masquerain, Buizel, Floatzel, Drifblim.",
+        "• Deep Subterranean & Station 4 (Crystal Depths): Glimmora, Sableye, Dugtrio, Gengar, Gabite, Dragonite."
+      ]
+    },
+    {
+      "heading": "🎒 Key Items & TM Locations in Area Zero",
+      "content": [
+        "• Booster Energy: Held item that automatically activates Protosynthesis or Quark Drive without Sunny Day or Electric Terrain. Found on the ground inside the secret waterfall cave with Roaring Moon / Iron Valiant (and 5% wild hold).",
+        "• TM171 (Tera Blast): Located right outside the blast doors of the Zero Lab on the crater floor. Normal-type 80 BP move that transforms into the Pokémon's Tera Type upon Terastallizing.",
+        "• Master Ball: Awarded by Director Clavell at the Academy before descending into Area Zero.",
+        "• TMs & Treasures: TM064 (Bulk Up), TM086 (Rock Slide), TM115 (Dragon Pulse), TM163 (Hyper Beam), TM156 (Outrage), TM149 (Earthquake), Occa Berry, Passho Berry, Big Nuggets, PP Max, Ability Capsules."
+      ]
+    },
+    {
+      "heading": "🗺️ The Way Home Walkthrough & Station Sequence",
+      "content": [
+        "1. Prerequisite: Conquer all 8 Gyms (Victory Road), all 5 Titans (Path of Legends), and all 5 Team Star Bases (Starfall Street).",
+        "2. Zero Gate: Meet Arven, Nemona, and Penny at the circular facility on the crater's rim to activate the descent lift.",
+        "3. Research Station No. 1: Enter the first building, interact with the green console to disable Barrier Lock 1. Defeat Great Tusk (Scarlet) or Iron Treads (Violet) upon exit.",
+        "4. Research Station No. 2: Descend the path into the rocky crags. Override Lock 2 at the terminal. Defeat Scream Tail (Scarlet) or Iron Bundle (Violet).",
+        "5. Research Station No. 3: Navigate the descending ramp toward the waterfalls. Override Lock 3. Secret cave containing Roaring Moon / Iron Valiant and Booster Energy is hidden through the rock arch to the left of the path.",
+        "6. Research Station No. 4: Enter the cavernous subterranean depths. Override Lock 4 inside the crystal-encrusted ruin.",
+        "7. Zero Lab Climax: Approach the colossal crystal laboratory doors. Activate the terminal to open the blast doors, triggering a battle against an onslaught of Paradox Pokémon alongside Nemona, Penny, and Arven.",
+        "8. Time Machine Chamber: Face AI Sada / AI Turo. During the Paradise Protection Protocol, all standard Poké Balls are disabled. Deploy your partner Koraidon/Miraidon, Terastallize into Dragon type, and strike with Tera Blast for victory."
+      ]
+    }
+  ]
+}

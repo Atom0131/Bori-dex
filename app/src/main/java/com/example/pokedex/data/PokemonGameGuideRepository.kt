@@ -327,11 +327,152 @@ object PokemonGameGuideRepository {
         }
     }
 
+    fun openAssetStream(fileName: String, context: Context?): java.io.InputStream? {
+        if (context != null) {
+            return try {
+                context.assets.open(fileName)
+            } catch (_: Exception) {
+                null
+            }
+        }
+        val candidates = listOf(
+            java.io.File("src/main/assets/$fileName"),
+            java.io.File("app/src/main/assets/$fileName"),
+            java.io.File("Pokedex/PokedexApp/app/src/main/assets/$fileName")
+        )
+        val f = candidates.firstOrNull { it.exists() } ?: return null
+        return f.inputStream()
+    }
+
+    private var cachedEncyclopediaIndex: JSONObject? = null
+    private val cachedEncyclopediaGuides: MutableMap<String, JSONObject> = mutableMapOf()
+
+    fun loadEncyclopediaIndex(context: Context? = null): JSONObject? {
+        if (cachedEncyclopediaIndex != null) return cachedEncyclopediaIndex
+        return try {
+            openAssetStream("game_guides/regional_encyclopedia_index.json", context)?.use { input ->
+                val text = input.bufferedReader().use { it.readText() }
+                val obj = JSONObject(text)
+                cachedEncyclopediaIndex = obj
+                obj
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    fun loadEncyclopediaGuide(fileName: String, context: Context? = null): JSONObject? {
+        if (cachedEncyclopediaGuides.containsKey(fileName)) return cachedEncyclopediaGuides[fileName]
+        return try {
+            openAssetStream("game_guides/$fileName", context)?.use { input ->
+                val text = input.bufferedReader().use { it.readText() }
+                val obj = JSONObject(text)
+                cachedEncyclopediaGuides[fileName] = obj
+                obj
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    fun queryEncyclopedia(
+        q: String,
+        edition: String,
+        context: Context? = null
+    ): GuideQueryResult? {
+        val qNorm = normalizeForSearch(q)
+        if (qNorm.isBlank()) return null
+
+        val isAreaZeroQuery = matchesSearch(
+            q,
+            "Great Crater of Paldea",
+            listOf(
+                "area zero", "great crater", "zero lab", "zero gate", "professor turo", "professor sada",
+                "turo", "sada", "ai turo", "ai sada", "time machine", "paradise protection protocol",
+                "the way home", "paradox pokemon", "paradox", "scarlet book", "violet book", "heath",
+                "terapagos", "booster energy", "iron valiant", "roaring moon", "iron hands", "great tusk",
+                "scream tail", "iron bundle", "flutter mane", "slither wing", "iron jugulis", "sandy shocks",
+                "iron moth", "iron thorns"
+            )
+        )
+
+        val targetFile = if (isAreaZeroQuery) {
+            "paldea_great_crater_area_zero.json"
+        } else {
+            val indexObj = loadEncyclopediaIndex(context)
+            val entries = indexObj?.optJSONArray("entries")
+            var matchedFile: String? = null
+            if (entries != null) {
+                for (i in 0 until entries.length()) {
+                    val entry = entries.getJSONObject(i)
+                    val title = entry.optString("title", "")
+                    val kwArray = entry.optJSONArray("keywords")
+                    val kwList = mutableListOf<String>()
+                    if (kwArray != null) {
+                        for (k in 0 until kwArray.length()) kwList.add(kwArray.getString(k))
+                    }
+                    if (matchesSearch(q, title, kwList)) {
+                        matchedFile = entry.optString("file").takeIf { it.isNotBlank() }
+                        break
+                    }
+                }
+            }
+            matchedFile
+        } ?: return null
+
+        val guideObj = loadEncyclopediaGuide(targetFile, context) ?: return null
+        val title = guideObj.optString("title", "Game Guide")
+        val category = guideObj.optString("category", "CANONICAL ENCYCLOPEDIA")
+        val summary = guideObj.optString("summary", "")
+        val spoken = guideObj.optString("spokenAdvice", summary)
+        val coords = guideObj.optJSONObject("coordinates")
+        val xNorm = coords?.optDouble("x", 0.50)?.toFloat()
+        val yNorm = coords?.optDouble("y", 0.50)?.toFloat()
+        val locName = coords?.optString("locationName", title) ?: title
+        val mapAsset = coords?.optString("mapAsset") ?: PokemonMapHabitatRepository.getMapAssetForCartridge(edition)
+
+        val steps = mutableListOf<String>()
+        val sectionsArray = guideObj.optJSONArray("sections")
+        if (sectionsArray != null) {
+            for (i in 0 until sectionsArray.length()) {
+                val sec = sectionsArray.getJSONObject(i)
+                val heading = sec.optString("heading", "")
+                if (heading.isNotBlank()) steps.add(heading)
+                val contentArray = sec.optJSONArray("content")
+                if (contentArray != null) {
+                    for (c in 0 until contentArray.length()) {
+                        val line = contentArray.getString(c)
+                        if (line.isNotBlank()) steps.add(line)
+                    }
+                }
+                steps.add("")
+            }
+        }
+
+        return GuideQueryResult(
+            title = title,
+            category = "$category • ${edition.uppercase()} EDITION",
+            editionName = edition,
+            location = locName,
+            summary = summary,
+            steps = steps.filterIndexed { idx, s -> s.isNotBlank() || (idx > 0 && steps[idx - 1].isNotBlank()) },
+            prerequisites = "Requires completing Victory Road, Path of Legends, and ★ Starfall Street.",
+            mapAsset = mapAsset,
+            recommendedItems = listOf("Booster Energy", "Tera Blast TM171", "Master Ball"),
+            spokenAdvice = spoken,
+            pinX = xNorm,
+            pinY = yNorm,
+            pinLocationName = locName,
+            firstEncounter = "Zero Gate Lift (Central Paldea)",
+            subsequentAvailability = "Area Zero Caverns (Research Stations 1–4, Waterfall Cave, Zero Lab)",
+            itemIconAsset = "dowsing-machine.png"
+        )
+    }
+
     private fun loadData(context: Context?): JSONObject? {
         if (cachedData != null) return cachedData
-        if (context == null) return null
         return try {
-            context.assets.open("game_guides_index.json").use { inputStream ->
+            openAssetStream("game_guides_index.json", context)?.use { inputStream ->
                 val text = inputStream.bufferedReader().use { it.readText() }
                 val obj = JSONObject(text)
                 cachedData = obj
@@ -710,6 +851,10 @@ object PokemonGameGuideRepository {
         val data = loadData(context)
         val edition = editionId.trim()
 
+        // 0. Comprehensive Regional Encyclopedia (e.g. Great Crater of Paldea, Area Zero, Sada/Turo, Time Machine)
+        val encyclopediaMatch = queryEncyclopedia(q, edition, context)
+        if (encyclopediaMatch != null) return finalizeResult(encyclopediaMatch, rawQuery, context)
+
         // 1. Exact topic match (e.g. topic ID or exact name clicked from list)
         val exactTopicMatch = queryTopic(q, data, edition, mode = GuideSearchMode.EXACT)
         if (exactTopicMatch != null) return finalizeResult(exactTopicMatch, rawQuery, context)
@@ -836,6 +981,11 @@ object PokemonGameGuideRepository {
                 matchesSearch(q, lm.name, getLandmarkAliases(lm), mode = mode)
             }
         } ?: return null
+
+        if (matched.id == "area_zero" || matched.name.contains("Area Zero", ignoreCase = true) || matched.name.contains("Great Crater", ignoreCase = true)) {
+            val enc = queryEncyclopedia(q, edition, null)
+            if (enc != null) return enc
+        }
 
         val steps = mutableListOf<String>()
         if (!matched.tagline.isNullOrBlank()) {
