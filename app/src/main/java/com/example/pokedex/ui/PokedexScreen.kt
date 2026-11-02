@@ -4535,6 +4535,25 @@ fun PokedexDisplay(
                                         }
                                     }
 
+                                    // Type Guide Pill
+                                    Box(
+                                        modifier = Modifier
+                                            .height(28.dp)
+                                            .clip(RoundedCornerShape(6.dp))
+                                            .background(Color.Black.copy(alpha = 0.6f))
+                                            .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
+                                            .clickable { showTypeGuide = true }
+                                            .padding(horizontal = 8.dp, vertical = 2.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Text(
+                                            text = "TYPE GUIDE ℹ️",
+                                            color = Color(0xFF00FFCC),
+                                            fontSize = 9.sp,
+                                            fontWeight = FontWeight.Black
+                                        )
+                                    }
+
                                     // Forms & Evos Button
                                     Button(
                                         onClick = { showEvolutionModal = true },
@@ -4625,22 +4644,7 @@ fun PokedexDisplay(
                                                  }
                                              }
                                          }
-                                         Spacer(modifier = Modifier.width(6.dp))
-                                         Box(
-                                             modifier = Modifier
-                                                 .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(6.dp))
-                                             .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
-                                             .clickable { showTypeGuide = true }
-                                             .padding(horizontal = 7.dp, vertical = 4.dp),
-                                             contentAlignment = Alignment.Center
-                                         ) {
-                                             Text(
-                                                 text = "TYPE GUIDE ℹ️",
-                                                 color = Color(0xFF00FFCC),
-                                                 fontSize = 9.sp,
-                                                 fontWeight = FontWeight.Black
-                                             )
-                                         }
+                                         
                                      }
 
                                      Spacer(modifier = Modifier.height(3.dp))
