@@ -3145,38 +3145,6 @@ fun PokedexList(
 
 
 
-fun formatPokemonHeight(rawHeight: String?): String {
-    if (rawHeight.isNullOrBlank() || rawHeight.contains("?")) return "\uD83D\uDCCF HT: --"
-    val numStr = rawHeight.replace(Regex("[^0-9.]"), "")
-    val meters = numStr.toDoubleOrNull() ?: return "\uD83D\uDCCF HT: $rawHeight"
-    val totalInches = Math.round(meters * 39.3701).toInt()
-    val feet = totalInches / 12
-    val inches = totalInches % 12
-    return "\uD83D\uDCCF HT: ${meters}m \u2022 ${feet}'%02d\"".format(inches)
-}
-
-fun formatPokemonWeight(rawWeight: String?): String {
-    if (rawWeight.isNullOrBlank() || rawWeight.contains("?")) return "\u2696\uFE0F WT: --"
-    val numStr = rawWeight.replace(Regex("[^0-9.]"), "")
-    val kg = numStr.toDoubleOrNull() ?: return "\u2696\uFE0F WT: $rawWeight"
-    val lbs = kg * 2.20462
-    return "\u2696\uFE0F WT: ${String.format(java.util.Locale.US, "%.1f", kg)}kg \u2022 ${String.format(java.util.Locale.US, "%.1f", lbs)}lbs"
-}
-
-fun formatPokemonSizeCategory(rawHeight: String?): String {
-    if (rawHeight.isNullOrBlank() || rawHeight.contains("?")) return "\uD83C\uDFF7\uFE0F SIZE: STANDARD"
-    val numStr = rawHeight.replace(Regex("[^0-9.]"), "")
-    val meters = numStr.toDoubleOrNull() ?: return "\uD83C\uDFF7\uFE0F SIZE: STANDARD"
-    val sizeLabel = when {
-        meters < 0.5 -> "TINY"
-        meters <= 1.2 -> "SMALL"
-        meters <= 2.2 -> "MEDIUM"
-        meters <= 3.5 -> "LARGE"
-        else -> "GIGANTIC"
-    }
-    return "\uD83C\uDFF7\uFE0F SIZE: $sizeLabel"
-}
-
 @Composable
 
 fun PokedexDisplay(
@@ -4496,259 +4464,198 @@ fun PokedexDisplay(
 
                                 Spacer(modifier = Modifier.height(6.dp))
 
-                                // Row 3: STRONG TO (Offensive STAB Coverage 2×) + Ultimate Type Guide Launcher
-                                val isSpanishLocale = remember { java.util.Locale.getDefault().language == "es" }
-                                val offensiveStrengths = remember(state.pokemon.type) {
-                                    PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
-                                }
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 1.5.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text(
-                                        text = if (isSpanishLocale) "⚡ FUERTE C/" else "⚡ STRONG TO",
-                                        color = Color(0xFF00FFCC),
-                                        fontSize = 9.sp,
-                                        fontWeight = FontWeight.Black,
-                                        modifier = Modifier.padding(end = 5.dp)
-                                    )
-                                    Row(
-                                        modifier = Modifier
-                                            .weight(1f)
-                                            .horizontalScroll(rememberScrollState()),
-                                        horizontalArrangement = Arrangement.spacedBy(3.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        if (offensiveStrengths.isEmpty()) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(4.dp))
-                                                    .padding(horizontal = 5.dp, vertical = 2.dp)
-                                            ) {
-                                                Text(
-                                                    text = if (isSpanishLocale) "NINGUNA (1×)" else "NONE (1×)",
-                                                    color = Color.White.copy(alpha = 0.6f),
-                                                    fontSize = 8.sp,
-                                                    fontWeight = FontWeight.Bold
-                                                )
-                                            }
-                                        } else {
-                                            offensiveStrengths.forEach { t ->
-                                                TypePillBadge(
-                                                    type = t,
-                                                    multiplierLabel = "2×",
-                                                    isQuad = false,
-                                                    isSpanish = isSpanishLocale
-                                                )
-                                            }
-                                        }
-                                    }
-                                    Spacer(modifier = Modifier.width(6.dp))
-                                    Box(
-                                        modifier = Modifier
-                                            .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(6.dp))
-                                            .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
-                                            .clickable { showTypeGuide = true }
-                                            .padding(horizontal = 7.dp, vertical = 4.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(
-                                            text = "TYPE GUIDE ℹ️",
-                                            color = Color(0xFF00FFCC),
-                                            fontSize = 9.sp,
-                                            fontWeight = FontWeight.Black
-                                        )
-                                    }
-                                }
-
-                                Spacer(modifier = Modifier.height(3.dp))
-
-                                // Row 4: WEAK TO (Defensive Vulnerabilities 2× / 4×)
-                                val typeWeaknesses = remember(state.pokemon.type) {
-                                    PokemonTypeEffectiveness.getWeaknesses(state.pokemon.type)
-                                }
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 1.5.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text(
-                                        text = if (isSpanishLocale) "⚠️ DÉBIL A" else "⚠️ WEAK TO",
-                                        color = Color(0xFFFF7777),
-                                        fontSize = 9.sp,
-                                        fontWeight = FontWeight.Black,
-                                        modifier = Modifier.padding(end = 5.dp)
-                                    )
-                                    Row(
-                                        modifier = Modifier
-                                            .weight(1f)
-                                            .horizontalScroll(rememberScrollState()),
-                                        horizontalArrangement = Arrangement.spacedBy(3.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        if (typeWeaknesses.isEmpty()) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(4.dp))
-                                                    .padding(horizontal = 5.dp, vertical = 2.dp)
-                                            ) {
-                                                Text(
-                                                    text = if (isSpanishLocale) "NINGUNA" else "NONE",
-                                                    color = Color.White.copy(alpha = 0.6f),
-                                                    fontSize = 8.sp,
-                                                    fontWeight = FontWeight.Bold
-                                                )
-                                            }
-                                        } else {
-                                            typeWeaknesses.forEach { w ->
-                                                TypePillBadge(
-                                                    type = w.type,
-                                                    multiplierLabel = if (w.multiplier >= 4.0f) "4×" else "2×",
-                                                    isQuad = w.multiplier >= 4.0f,
-                                                    isSpanish = isSpanishLocale
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (showTypeGuide) {
-                                    TypeMatchupsDialog(
-                                        pokemonName = displayName,
-                                        typeString = state.pokemon.type,
-                                        onReadMatchups = {
-                                            viewModel.speakCustomText(
-                                                PokemonTypeEffectiveness.formatFullMatchupsForSpeech(
-                                                    displayName,
-                                                    PokemonTypeEffectiveness.getFullMatchups(state.pokemon.type),
-                                                    isSpanishLocale,
-                                                    PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
-                                                )
-                                            )
-                                        },
-                                        onDismiss = { showTypeGuide = false }
-                                    )
-                                }
-
-                                Spacer(modifier = Modifier.height(6.dp))
-
-
-
                                 val (entryFontSize, entryLineHeight) = when {
-                                    cleanedFlavorText.length <= 95 -> Pair(15.sp, 21.sp)
-                                    cleanedFlavorText.length <= 155 -> Pair(13.5.sp, 18.5.sp)
-                                    cleanedFlavorText.length <= 220 -> Pair(12.sp, 16.5.sp)
-                                    cleanedFlavorText.length <= 300 -> Pair(11.sp, 15.sp)
-                                    else -> Pair(10.5.sp, 14.sp)
-                                }
+                                     cleanedFlavorText.length <= 95 -> Pair(15.sp, 21.sp)
+                                     cleanedFlavorText.length <= 155 -> Pair(13.5.sp, 18.5.sp)
+                                     cleanedFlavorText.length <= 220 -> Pair(12.sp, 16.5.sp)
+                                     cleanedFlavorText.length <= 300 -> Pair(11.sp, 15.sp)
+                                     else -> Pair(10.5.sp, 14.sp)
+                                 }
 
-                                val formattedHeight = remember(state.pokemon.height) { formatPokemonHeight(state.pokemon.height) }
-                                val formattedWeight = remember(state.pokemon.weight) { formatPokemonWeight(state.pokemon.weight) }
-                                val formattedSize = remember(state.pokemon.height) { formatPokemonSizeCategory(state.pokemon.height) }
+                                 val isSpanishLocale = remember { java.util.Locale.getDefault().language == "es" }
+                                 val offensiveStrengths = remember(state.pokemon.type) {
+                                     PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
+                                 }
+                                 val typeWeaknesses = remember(state.pokemon.type) {
+                                     PokemonTypeEffectiveness.getWeaknesses(state.pokemon.type)
+                                 }
 
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(1f)
-                                        .background(Color.Black.copy(alpha = 0.40f), RoundedCornerShape(8.dp))
-                                        .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.25f), RoundedCornerShape(8.dp))
-                                        .padding(8.dp)
-                                ) {
-                                    // Physical Specs Telemetry Strip
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .horizontalScroll(rememberScrollState()),
-                                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        // Height Chip
-                                        Box(
-                                            modifier = Modifier
-                                                .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
-                                                .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.70f), RoundedCornerShape(5.dp))
-                                                .padding(horizontal = 7.dp, vertical = 3.dp)
-                                        ) {
-                                            Text(
-                                                text = formattedHeight,
-                                                color = Color(0xFF00FFCC),
-                                                fontWeight = FontWeight.Black,
-                                                fontSize = 9.5.sp
-                                            )
-                                        }
+                                 Column(
+                                     modifier = Modifier
+                                         .fillMaxWidth()
+                                         .weight(1f)
+                                         .background(Color.Black.copy(alpha = 0.35f), RoundedCornerShape(8.dp))
+                                         .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.25f), RoundedCornerShape(8.dp))
+                                         .padding(8.dp)
+                                 ) {
+                                     // Row 1 inside dark box: STRONG TO (Offensive STAB Coverage 2×) + Ultimate Type Guide Launcher
+                                     Row(
+                                         modifier = Modifier
+                                             .fillMaxWidth()
+                                             .padding(vertical = 1.5.dp),
+                                         verticalAlignment = Alignment.CenterVertically
+                                     ) {
+                                         Text(
+                                             text = if (isSpanishLocale) "⚡ FUERTE C/" else "⚡ STRONG TO",
+                                             color = Color(0xFF00FFCC),
+                                             fontSize = 9.sp,
+                                             fontWeight = FontWeight.Black,
+                                             modifier = Modifier.padding(end = 5.dp)
+                                         )
+                                         Row(
+                                             modifier = Modifier
+                                                 .weight(1f)
+                                                 .horizontalScroll(rememberScrollState()),
+                                             horizontalArrangement = Arrangement.spacedBy(3.dp),
+                                             verticalAlignment = Alignment.CenterVertically
+                                         ) {
+                                             if (offensiveStrengths.isEmpty()) {
+                                                 Box(
+                                                     modifier = Modifier
+                                                         .background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(4.dp))
+                                                         .padding(horizontal = 5.dp, vertical = 2.dp)
+                                                 ) {
+                                                     Text(
+                                                         text = if (isSpanishLocale) "NINGUNA (1×)" else "NONE (1×)",
+                                                         color = Color.White.copy(alpha = 0.6f),
+                                                         fontSize = 8.sp,
+                                                         fontWeight = FontWeight.Bold
+                                                     )
+                                                 }
+                                             } else {
+                                                 offensiveStrengths.forEach { t ->
+                                                     TypePillBadge(
+                                                         type = t,
+                                                         multiplierLabel = "2×",
+                                                         isQuad = false,
+                                                         isSpanish = isSpanishLocale
+                                                     )
+                                                 }
+                                             }
+                                         }
+                                         Spacer(modifier = Modifier.width(6.dp))
+                                         Box(
+                                             modifier = Modifier
+                                                 .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(6.dp))
+                                             .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.8f), RoundedCornerShape(6.dp))
+                                             .clickable { showTypeGuide = true }
+                                             .padding(horizontal = 7.dp, vertical = 4.dp),
+                                             contentAlignment = Alignment.Center
+                                         ) {
+                                             Text(
+                                                 text = "TYPE GUIDE ℹ️",
+                                                 color = Color(0xFF00FFCC),
+                                                 fontSize = 9.sp,
+                                                 fontWeight = FontWeight.Black
+                                             )
+                                         }
+                                     }
 
-                                        // Weight Chip
-                                        Box(
-                                            modifier = Modifier
-                                                .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
-                                                .border(1.dp, Color(0xFFFFCC00).copy(alpha = 0.70f), RoundedCornerShape(5.dp))
-                                                .padding(horizontal = 7.dp, vertical = 3.dp)
-                                        ) {
-                                            Text(
-                                                text = formattedWeight,
-                                                color = Color(0xFFFFCC00),
-                                                fontWeight = FontWeight.Black,
-                                                fontSize = 9.5.sp
-                                            )
-                                        }
+                                     Spacer(modifier = Modifier.height(3.dp))
 
-                                        // Size Classification Chip
-                                        Box(
-                                            modifier = Modifier
-                                                .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(5.dp))
-                                                .border(1.dp, Color.White.copy(alpha = 0.35f), RoundedCornerShape(5.dp))
-                                                .padding(horizontal = 7.dp, vertical = 3.dp)
-                                        ) {
-                                            Text(
-                                                text = formattedSize,
-                                                color = Color.White,
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 9.sp
-                                            )
-                                        }
-                                    }
+                                     // Row 2 inside dark box: WEAK TO (Defensive Vulnerabilities 2× / 4×)
+                                     Row(
+                                         modifier = Modifier
+                                             .fillMaxWidth()
+                                             .padding(vertical = 1.5.dp),
+                                         verticalAlignment = Alignment.CenterVertically
+                                     ) {
+                                         Text(
+                                             text = if (isSpanishLocale) "⚠️ DÉBIL A" else "⚠️ WEAK TO",
+                                             color = Color(0xFFFF7777),
+                                             fontSize = 9.sp,
+                                             fontWeight = FontWeight.Black,
+                                             modifier = Modifier.padding(end = 5.dp)
+                                         )
+                                         Row(
+                                             modifier = Modifier
+                                                 .weight(1f)
+                                                 .horizontalScroll(rememberScrollState()),
+                                             horizontalArrangement = Arrangement.spacedBy(3.dp),
+                                             verticalAlignment = Alignment.CenterVertically
+                                         ) {
+                                             if (typeWeaknesses.isEmpty()) {
+                                                 Box(
+                                                     modifier = Modifier
+                                                         .background(Color.White.copy(alpha = 0.1f), RoundedCornerShape(4.dp))
+                                                         .padding(horizontal = 5.dp, vertical = 2.dp)
+                                                 ) {
+                                                     Text(
+                                                         text = if (isSpanishLocale) "NINGUNA" else "NONE",
+                                                         color = Color.White.copy(alpha = 0.6f),
+                                                         fontSize = 8.sp,
+                                                         fontWeight = FontWeight.Bold
+                                                     )
+                                                 }
+                                             } else {
+                                                 typeWeaknesses.forEach { w ->
+                                                     TypePillBadge(
+                                                         type = w.type,
+                                                         multiplierLabel = if (w.multiplier >= 4.0f) "4×" else "2×",
+                                                         isQuad = w.multiplier >= 4.0f,
+                                                         isSpanish = isSpanishLocale
+                                                     )
+                                                 }
+                                             }
+                                         }
+                                     }
 
-                                    Spacer(modifier = Modifier.height(6.dp))
+                                     if (showTypeGuide) {
+                                         TypeMatchupsDialog(
+                                             pokemonName = displayName,
+                                             typeString = state.pokemon.type,
+                                             onReadMatchups = {
+                                                 viewModel.speakCustomText(
+                                                     PokemonTypeEffectiveness.formatFullMatchupsForSpeech(
+                                                         displayName,
+                                                         PokemonTypeEffectiveness.getFullMatchups(state.pokemon.type),
+                                                         isSpanishLocale,
+                                                         PokemonTypeEffectiveness.getOffensiveStrengths(state.pokemon.type)
+                                                     )
+                                                 )
+                                             },
+                                             onDismiss = { showTypeGuide = false }
+                                         )
+                                     }
 
-                                    // Subtle Terminal Divider
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(1.dp)
-                                            .background(
-                                                Brush.horizontalGradient(
-                                                    listOf(
-                                                        Color(0xFF00FFCC).copy(alpha = 0.6f),
-                                                        Color.White.copy(alpha = 0.2f),
-                                                        Color.Transparent
-                                                    )
-                                                )
-                                            )
-                                    )
+                                     Spacer(modifier = Modifier.height(6.dp))
 
-                                    Spacer(modifier = Modifier.height(6.dp))
+                                     // Subtle Terminal Divider
+                                     Box(
+                                         modifier = Modifier
+                                             .fillMaxWidth()
+                                             .height(1.dp)
+                                             .background(
+                                                 Brush.horizontalGradient(
+                                                     listOf(
+                                                         Color(0xFF00FFCC).copy(alpha = 0.6f),
+                                                         Color.White.copy(alpha = 0.2f),
+                                                         Color.Transparent
+                                                     )
+                                                 )
+                                             )
+                                     )
 
-                                    // Narrative Lore Box with Scroll
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .weight(1f)
-                                            .verticalScroll(rememberScrollState()),
-                                        contentAlignment = Alignment.TopStart
-                                    ) {
-                                        Text(
-                                            text = cleanedFlavorText,
-                                            color = Color.White,
-                                            fontWeight = FontWeight.Normal,
-                                            fontSize = entryFontSize,
-                                            lineHeight = entryLineHeight,
-                                            modifier = Modifier.fillMaxWidth()
-                                        )
-                                    }
-                                }
+                                     Spacer(modifier = Modifier.height(6.dp))
+
+                                     // Narrative Lore Box with Scroll
+                                     Box(
+                                         modifier = Modifier
+                                             .fillMaxWidth()
+                                             .weight(1f)
+                                             .verticalScroll(rememberScrollState()),
+                                         contentAlignment = Alignment.TopStart
+                                     ) {
+                                         Text(
+                                             text = cleanedFlavorText,
+                                             color = Color.White,
+                                             fontWeight = FontWeight.Normal,
+                                             fontSize = entryFontSize,
+                                             lineHeight = entryLineHeight,
+                                             modifier = Modifier.fillMaxWidth()
+                                         )
+                                     }
+                                 }
 
                             }
 
