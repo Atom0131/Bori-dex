@@ -196,6 +196,8 @@ val ALL_GAME_CARTRIDGES = listOf(
     GameCartridge("Pearl", "PEARL", listOf("Pearl"), Color(0xFFD81B60), Color.White, "Gen 4", "pearl.png"),
 
     GameCartridge("Platinum", "PLATINUM", listOf("Platinum"), Color(0xFF78909C), Color.White, "Gen 4", "platinum.png"),
+    GameCartridge("Brilliant Diamond", "BRILLIANT DIAMOND", listOf("Brilliant Diamond", "BrilliantDiamond"), Color(0xFF0288D1), Color.White, "Gen 4 Remake", "diamond.png"),
+    GameCartridge("Shining Pearl", "SHINING PEARL", listOf("Shining Pearl", "ShiningPearl"), Color(0xFFD81B60), Color.White, "Gen 4 Remake", "pearl.png"),
 
     GameCartridge("HeartGold", "HEARTGOLD", listOf("HeartGold", "Heartgold"), Color(0xFFFFA000), Color.Black, "Gen 2 Remake", "heartgold.png"),
 
@@ -9716,7 +9718,7 @@ fun GameGuideModal(
                                                         overflow = TextOverflow.Ellipsis
                                                     )
                                                     Text(
-                                                        text = "${res.category} • ${res.editionName.uppercase()} EDITION",
+                                                        text = if (res.category.contains("EDITION", ignoreCase = true)) res.category else "${res.category} • ${res.editionName.uppercase()} EDITION",
                                                         color = Color(0xFF00FFCC),
                                                         fontWeight = FontWeight.Bold,
                                                         fontSize = 10.sp,
@@ -9772,7 +9774,7 @@ fun GameGuideModal(
                                                         Text("🌐", fontSize = 16.sp)
                                                         Spacer(modifier = Modifier.width(6.dp))
                                                         Column {
-                                                            Text(text = "REGION-WIDE MART PROGRESSION", color = Color(0xFF00BFFF), fontSize = 9.sp, fontWeight = FontWeight.Black)
+                                                            Text(text = if (res.category.contains("ENCYCLOPEDIA", ignoreCase = true) || res.category.contains("LORE", ignoreCase = true)) "CONNECTED ZONES & SUB-AREAS" else "REGION-WIDE MART PROGRESSION", color = Color(0xFF00BFFF), fontSize = 9.sp, fontWeight = FontWeight.Black)
                                                             Text(text = res.subsequentAvailability.replace("Region-Wide Availability: ", "").replace("Subsequent Availability: ", ""), color = Color.White.copy(alpha = 0.95f), fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
                                                         }
                                                     }
@@ -9889,7 +9891,7 @@ fun GameGuideModal(
                                                     overflow = TextOverflow.Ellipsis
                                                 )
                                                 Text(
-                                                    text = "${res.category} • ${res.editionName.uppercase()} EDITION",
+                                                    text = if (res.category.contains("EDITION", ignoreCase = true)) res.category else "${res.category} • ${res.editionName.uppercase()} EDITION",
                                                     color = Color(0xFF00FFCC),
                                                     fontWeight = FontWeight.Bold,
                                                     fontSize = 10.sp,
@@ -9945,7 +9947,7 @@ fun GameGuideModal(
                                                     Text("🌐", fontSize = 16.sp)
                                                     Spacer(modifier = Modifier.width(6.dp))
                                                     Column {
-                                                        Text(text = "REGION-WIDE MART PROGRESSION", color = Color(0xFF00BFFF), fontSize = 9.sp, fontWeight = FontWeight.Black)
+                                                        Text(text = if (res.category.contains("ENCYCLOPEDIA", ignoreCase = true) || res.category.contains("LORE", ignoreCase = true)) "CONNECTED ZONES & SUB-AREAS" else "REGION-WIDE MART PROGRESSION", color = Color(0xFF00BFFF), fontSize = 9.sp, fontWeight = FontWeight.Black)
                                                         Text(text = res.subsequentAvailability.replace("Region-Wide Availability: ", "").replace("Subsequent Availability: ", ""), color = Color.White.copy(alpha = 0.95f), fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
                                                     }
                                                 }

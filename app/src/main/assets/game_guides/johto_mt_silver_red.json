@@ -1,0 +1,64 @@
+{
+  "id": "johto_mt_silver_red",
+  "title": "Mt. Silver & Champion Red Final Showdown",
+  "shortTitle": "Mt. Silver",
+  "category": "LORE & GEOGRAPHY • JOHTO ENCYCLOPEDIA",
+  "region": "Johto",
+  "versions": [
+    "Gold",
+    "Silver",
+    "Crystal",
+    "HeartGold",
+    "SoulSilver"
+  ],
+  "aliases": [
+    "mt silver",
+    "mount silver",
+    "silver cave",
+    "trainer red",
+    "red battle",
+    "champion red"
+  ],
+  "coordinates": {
+    "x": 0.9,
+    "y": 0.5,
+    "mapAsset": "johto_gsc.png",
+    "locationName": "Mt. Silver Summit (West of Route 28)"
+  },
+  "prerequisites": "Earn all 8 Johto Badges + all 8 Kanto Badges (16 Badges total) and speak to Professor Oak in Pallet Town.",
+  "recommendedItems": [
+    "Full Restore",
+    "Max Revive",
+    "Sacred Ash",
+    "Choice Band",
+    "Leftovers"
+  ],
+  "firstEncounter": "Victory Road Reception Gate (Route 28 West)",
+  "subsequentAvailability": "Mt. Silver Exterior, 1F–3F Caverns, Moltres Chamber (HGSS) & Summit",
+  "summary": "A towering snow-capped peak straddling the border of Johto and Kanto. Restricted to trainers holding all 16 Gym Badges, its freezing summit hosts the legendary silent Champion Red and his Lv. 81–88 party.",
+  "spokenAdvice": "Mount Silver is the ultimate post-game proving ground of Johto and Kanto. After earning all sixteen Gym Badges across both regions, talk to Professor Oak in Pallet Town to unlock the Route 28 security gate. Scale the dark cavern using Flash, Surf, Waterfall, and Rock Climb in HeartGold and SoulSilver to challenge Champion Red at the summit. Bring a Ground-type like Tyranitar or Quagsire to neutralize his Level 88 Light Ball Pikachu and weather setters to cancel the permanent hailstorm.",
+  "sections": [
+    {
+      "heading": "📜 The Legend of Pallet Town's Silent Champion",
+      "content": [
+        "• Three Years After Kanto: Following his triumph over Team Rocket and the Indigo League in Generation 1, Champion Red departed into solitary training atop Mt. Silver without a word, leaving Blue to serve as Viridian City's Gym Leader.",
+        "• Sacred Mountain: Revered as the most dangerous natural habitat in the eastern hemisphere, wild Pokémon inside Silver Cave reach levels 45–55."
+      ]
+    },
+    {
+      "heading": "⚔️ Champion Red's Roster & Counter-Strategy",
+      "content": [
+        "• GSC Roster: Pikachu (Lv. 81), Espeon (Lv. 73), Snorlax (Lv. 75), Venusaur (Lv. 77), Charizard (Lv. 77), Blastoise (Lv. 77).",
+        "• HGSS Roster (Permanent Hail): Pikachu (Lv. 88 @ Light Ball — Volt Tackle, Iron Tail, Quick Attack, Thunderbolt), Lapras (Lv. 80 — 100% accurate Blizzard), Snorlax (Lv. 82), Venusaur (Lv. 84), Charizard (Lv. 84), Blastoise (Lv. 84).",
+        "• Winning Tactics: Lead with a Ground-type (Garchomp, Mamoswine, Quagsire, Donphan) to blank Pikachu's Volt Tackle, then use Tyranitar's Sand Stream to overwrite the Hail so Lapras and Blastoise lose 100% accurate Blizzards."
+      ]
+    },
+    {
+      "heading": "🐾 Exclusive Wild Spawns & Legendary Birds",
+      "content": [
+        "• Rare Wild Pokémon: Larvitar & Pupitar (inner cavern), Misdreavus (night), Sneasel, Ursaring, Donphan, Skarmory, Quagsire, Golduck.",
+        "• Moltres (HGSS): Awaits at Lv. 50 inside the side waterfall chamber Requiring Rock Climb."
+      ]
+    }
+  ]
+}

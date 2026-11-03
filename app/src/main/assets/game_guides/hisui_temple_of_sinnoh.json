@@ -1,0 +1,54 @@
+{
+  "id": "hisui_temple_of_sinnoh",
+  "title": "Temple of Sinnoh, Origin Ball & Arceus",
+  "shortTitle": "Temple of Sinnoh",
+  "category": "LORE & GEOGRAPHY • HISUI ENCYCLOPEDIA",
+  "region": "Hisui",
+  "versions": [
+    "Legends: Arceus"
+  ],
+  "aliases": [
+    "temple of sinnoh",
+    "origin forme",
+    "kamado",
+    "red chain",
+    "arceus fight",
+    "volo",
+    "origin ball"
+  ],
+  "coordinates": {
+    "x": 0.51,
+    "y": 0.45,
+    "mapAsset": "hisui_la.png",
+    "locationName": "Temple of Sinnoh (Coronet Highlands Summit)"
+  },
+  "prerequisites": "Quell all 5 Noble Pokémon, complete the Lake Trials for the Red Chain, and ascend Coronet Highlands.",
+  "recommendedItems": [
+    "Origin Ball",
+    "Ultra Ball",
+    "Jet Ball",
+    "Sticky Glob",
+    "Max Revive"
+  ],
+  "firstEncounter": "Coronet Highlands Celestica Ruins & Primeval Grotto",
+  "subsequentAvailability": "Temple of Sinnoh Summit (Dialga, Palkia, Volo/Giratina & Arceus)",
+  "summary": "The ancient intact Celestica temple crowning Mount Coronet in the Hisui era—centuries before it crumbled into Spear Pillar. Site of the space-time rift crisis, the forging of the Origin Ball, Volo and Giratina's 8-Pokémon gauntlet, and the Azure Flute stairway to Arceus.",
+  "spokenAdvice": "The Temple of Sinnoh stands atop the Coronet Highlands in Legends: Arceus, long before it became known as Spear Pillar. After being exiled under the blood-red sky, pass the trials of Uxie, Mesprit, and Azelf to forge the Red Chain, defeat Commander Kamado at the summit, and catch either Dialga or Palkia while the other transforms into its Origin Forme. Retreat to wash Origin Ore into the unique Origin Ball—Hisui's guaranteed-catch counterpart to the Master Ball—and quell the Origin Forme deity. In the post-game, collect all seventeen Plates to defeat Volo and Giratina in an eight-phase gauntlet, then catch every Pokémon in Hisui to play the Azure Flute and challenge Arceus.",
+  "sections": [
+    {
+      "heading": "⚪ The Origin Ball (Hisui's Guaranteed Master Ball)",
+      "content": [
+        "• Forging the Origin Ball: Because Silph Co.'s modern Master Ball has not been invented yet in the Hisui era, Professor Laventon, Cyllene, and the clan leaders combine the shattered Red Chain fragments with Origin Ore from Primeval Grotto to craft the one-of-a-kind Origin Ball.",
+        "• Capturing Origin Dialga / Palkia: Dodge the deity's Roar of Time / Spacial Rend shockwaves in real-time action combat, stun it with Balms, and throw the Origin Ball for a 100% guaranteed capture."
+      ]
+    },
+    {
+      "heading": "👑 Volo's 8-Pokémon Gauntlet & Awakening Arceus",
+      "content": [
+        "1. Collecting the 17 Plates: Capture Heatran, Regigigas, Cresselia, Tornadus, Thundurus, Landorus, and Enamorus to gather the elemental Plates.",
+        "2. Volo + Giratina (8-Phase Battle): At the Temple of Sinnoh, Volo challenges you with his 6-Pokémon Cynthia-ancestral team, followed immediately—with ZERO healing break—by Altered Forme Giratina AND Origin Forme Giratina! Lead with an Alpha Sylveon, Cresselia, or Ursaluna.",
+        "3. The Azure Flute & Arceus: Register all 242 Hisui Pokédex species (Mythicals Darkrai/Shaymin not required) and play the Azure Flute at the Temple of Sinnoh to ascend the glowing staircase and claim the Legend Plate and Arceus."
+      ]
+    }
+  ]
+}

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.9] - 2026-11-02
+
+### Added & Enhanced
+- **Dexter's Ultimate Strategy Guide & 13 Strategy Domains**:
+  - Implemented `"Dexter's Strategy Guide (${edition.uppercase()})"` welcome overview on initial Guide launch and query clearing with `master-ball.png` item icon.
+  - Complete coverage across all 13 Strategy Domains: Healing Items, Key Items, Money Items, Event Items, Evolution Items, Battle & Held Items, Poké Balls & Capture, Missions & Roadblocks, Hidden Items & Dowsing, Braille & Secret Ciphers, Legendary Encounters, Event Pokémon & Myths, and Puzzles & Dungeons.
+- **28 Poké Ball Guides & Per-Game Master Ball Target Engine**:
+  - All 28 Poké Balls with precise catch multipliers, mechanics, and earliest unlock Poké Mart locations.
+  - Game-by-game Master Ball target recommendations across Gens 1–9, including critical warnings (FireRed/LeafGreen Roaming Beast Roar deletion bug, guaranteed-catch ball conservation for Ogerpon/Terapagos).
+  - Anti-mart guardrail excluding unique balls and key items from standard Poké Mart banners.
+- **10 Regional Dungeon Encyclopedias**:
+  - Integrated 10 landmark dungeon encyclopedias into the `Puzzles & Dungeons` domain and direct search (Great Crater of Paldea / Area Zero, Cerulean Cave, Mt. Silver, Sky Pillar, Spear Pillar & Distortion World, Giant Chasm, Terminus Cave, Ultra Space, Crown Tundra & Max Lair, Coronet Highlands & Temple of Sinnoh).
+  - Added `CONNECTED ZONES & SUB-AREAS` progression banners displaying sub-areas and research stations.
+- **100% 37-Cartridge Mainline UI Parity**:
+  - Added `Brilliant Diamond` and `Shining Pearl` to `ALL_GAME_CARTRIDGES` in `PokedexScreen.kt`.
+
 ## [1.9.8] - 2026-11-02
 
 ### Added & Enhanced

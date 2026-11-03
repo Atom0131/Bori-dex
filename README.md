@@ -30,6 +30,10 @@ Ready-to-install Android package available on GitHub Releases:
 | :---: | :---: | :---: |
 | <img src="docs/screenshots/meganium_forms.png" width="260" alt="Meganium Forms"/> | <img src="docs/screenshots/johto_region.png" width="260" alt="Johto Region"/> | <img src="docs/screenshots/voice_settings.png" width="260" alt="Voice Settings"/> |
 
+| Strategy Guide Overview | Master Ball Targets & Radar Pin | Regional Encyclopedia & Zones |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/guide_welcome.png" width="260" alt="Guide Overview"/> | <img src="docs/screenshots/guide_master_ball.png" width="260" alt="Master Ball Guide"/> | <img src="docs/screenshots/guide_area_zero.png" width="260" alt="Area Zero Encyclopedia"/> |
+
 ---
 
 ## ✨ Features
@@ -67,6 +71,12 @@ Ready-to-install Android package available on GitHub Releases:
 
 ### 🗣️ Phonetic Pronunciation Engine
 - Built-in phonetic dictionary resolving notoriously mispronounced Pokémon names (e.g., *Venusaur*, *Rayquaza*, *Arceus*, *Suicune*, *Feebas*).
+
+### 🧭 Dexter's Ultimate Strategy Guide & Regional Encyclopedias
+- **13 Specialized Strategy Domains**: Complete walkthrough guides for Healing Items, Key Items, Money Items, Event Items, Evolution Items, Battle & Held Items, Poké Balls & Capture, Missions & Roadblocks, Hidden Items & Dowsing, Braille & Secret Ciphers, Legendary Encounters, Event Pokémon & Myths, and Puzzles & Dungeons.
+- **28 Poké Ball Guides & Per-Game Master Ball Targets**: Catch rates, earliest Poké Mart unlock locations, and game-by-game Master Ball target recommendations across Gens 1–9 with critical bug/glitch alerts (e.g. FireRed/LeafGreen Roaming Beast Roar glitch).
+- **10 Regional Dungeon Encyclopedias**: Interactive guides with zone progression banners and map pinpoints for Area Zero, Cerulean Cave, Mt. Silver, Sky Pillar, Spear Pillar & Distortion World, Giant Chasm, Terminus Cave, Ultra Space, Crown Tundra & Max Lair, and Coronet Highlands & Temple of Sinnoh.
+- **37 Tactile Retro Game Cartridges**: Full mainline cartridge coverage including Red/Blue through Scarlet/Violet and Brilliant Diamond/Shining Pearl.
 
 ### 📱 Adaptive Edge-to-Edge Layout
 - Safe insets handling `.statusBarsPadding()` and `.navigationBarsPadding()` ensuring the camera punch-hole and clock never clip UI controls.

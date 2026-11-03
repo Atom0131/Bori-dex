@@ -1,0 +1,48 @@
+{
+  "id": "alola_aether_paradise",
+  "title": "Aether Paradise, Ultra Wormholes & Ultra Space",
+  "shortTitle": "Aether Paradise",
+  "category": "LORE & GEOGRAPHY • ALOLA ENCYCLOPEDIA",
+  "region": "Alola",
+  "versions": [
+    "Sun",
+    "Moon",
+    "Ultra Sun",
+    "Ultra Moon"
+  ],
+  "aliases": [
+    "aether paradise",
+    "ultra wormhole",
+    "ultra space",
+    "lusamine",
+    "ultra beast",
+    "type null"
+  ],
+  "coordinates": {
+    "x": 0.5,
+    "y": 0.5,
+    "mapAsset": "alola_sm.png",
+    "locationName": "Aether Paradise (Central Alola Sea)"
+  },
+  "prerequisites": "First visited after Akala Grand Trial; full infiltration after Ula'ula Grand Trial.",
+  "recommendedItems": [
+    "Beast Ball",
+    "Master Ball",
+    "Dusk Ball",
+    "Max Revive"
+  ],
+  "firstEncounter": "Hano Grand Resort Ferry after Akala Grand Trial (Olivia)",
+  "subsequentAvailability": "Conservation Area, Secret Labs A & B, Mansion & Ultra Warp Ride",
+  "summary": "A massive artificial floating island in the center of the Alola archipelago operated by the Aether Foundation. Beneath its conservation sanctuary lie Secret Labs A and B, where Type: Null was created and President Lusamine opens Ultra Wormholes into Ultra Space.",
+  "spokenAdvice": "Aether Paradise floats at the geographic center of Alola. During the main story after clearing Ula'ula Island, you infiltrate the facility with Hau and Gladion, descend to Secret Lab B to uncover the Type: Null project, and confront President Lusamine inside her trophy room before she escapes into Ultra Space. Gladion gifts you the Master Ball here after the infiltration, and in the post-game he gifts you a level 40 Type: Null in the Conservation Area alongside all seventeen Silvally Memory discs.",
+  "sections": [
+    {
+      "heading": "🔬 Secret Labs, Lusamine & Ultra Wormholes",
+      "content": [
+        "• Conservation Area & Lusamine's Mansion: Houses rescued Pokémon above deck while concealing cryogenically frozen specimens and Ultra Wormhole generators below.",
+        "• Master Ball & Type: Null: Gladion hands you the Master Ball at Aether Paradise during the story climax, and gifts you Type: Null (which evolves into Silvally via high Friendship) in the post-game.",
+        "• Ultra Beasts & Beast Balls: Standard Poké Balls suffer a 0.1x catch penalty against Nihilego, Buzzwole, Pheromosa, Xurkitree, Celesteela, Kartana, and Guzzlord—always use Beast Balls (5.0x multiplier) supplied by Wicke and Looker, and save your Master Ball for Tapu Lele, Tapu Fini, Necrozma, or Ultra Warp Ride Shiny Legendaries!"
+      ]
+    }
+  ]
+}

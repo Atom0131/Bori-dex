@@ -1,0 +1,57 @@
+{
+  "id": "hoenn_sky_pillar_rayquaza",
+  "title": "Sky Pillar & Rayquaza (Mach Bike & Delta Episode)",
+  "shortTitle": "Sky Pillar",
+  "category": "LORE & GEOGRAPHY • HOENN ENCYCLOPEDIA",
+  "region": "Hoenn",
+  "versions": [
+    "Ruby",
+    "Sapphire",
+    "Emerald",
+    "Omega Ruby",
+    "Alpha Sapphire"
+  ],
+  "aliases": [
+    "sky pillar",
+    "mach bike cracks",
+    "delta episode",
+    "zinnia",
+    "dragon ascent"
+  ],
+  "coordinates": {
+    "x": 0.68,
+    "y": 0.6,
+    "mapAsset": "hoenn_rse.png",
+    "locationName": "Sky Pillar (North of Route 131)"
+  },
+  "prerequisites": "Beat Elite Four (Ruby/Sapphire), Awaken Kyogre & Groudon at Sootopolis (Emerald), or Reach Delta Episode (ORAS).",
+  "recommendedItems": [
+    "Mach Bike",
+    "Master Ball",
+    "Ultra Ball",
+    "Timer Ball",
+    "Max Repel"
+  ],
+  "firstEncounter": "Route 131 Northern Reef Entrance (East of Pacifidlog Town)",
+  "subsequentAvailability": "Sky Pillar 1F–5F & Apex Summit (Lv. 70–80 Rayquaza & Deoxys)",
+  "summary": "An ancient Draconid stone spire rising into the ozone layer north of Route 131. Its crumbling floors require frame-perfect Mach Bike momentum to reach the apex where the Sky High Pokémon Rayquaza slumbers.",
+  "spokenAdvice": "The Sky Pillar stands north of Route 131 near Pacifidlog Town. In Ruby, Sapphire, and Emerald, you must equip the Mach Bike from Rydel's Cycles in Mauville City and build maximum speed to cross the cracked tiles on floors two and four. On the fourth floor, drop down the center hole of the cracked tile cluster to access the hidden staircase leading to the fifth floor and the summit. At the apex, save before engaging Level 70 Rayquaza, or complete the Delta Episode in Omega Ruby and Alpha Sapphire to ride Mega Rayquaza into space and battle Level 80 Deoxys.",
+  "sections": [
+    {
+      "heading": "📜 Draconid Lore & The Weather Trio",
+      "content": [
+        "• Ancient Draconid Monument: Constructed thousands of years ago by the Draconid people after Rayquaza descended from the ozone layer to quell the primal clash between Groudon and Kyogre.",
+        "• The Delta Episode (ORAS): Lorekeeper Zinnia summons Rayquaza at the Sky Pillar summit, where it consumes the player's Meteorite to learn Dragon Ascent and Mega Evolve without a Mega Stone to shatter a planet-killing asteroid housing Deoxys."
+      ]
+    },
+    {
+      "heading": "🚲 Step-by-Step Mach Bike Cracked Floor Guide (RSE)",
+      "content": [
+        "1. Preparation: Visit Rydel's Cycles in Mauville City and swap to the Mach Bike. Pack Max Repels so wild Lv. 38–55 Claydol, Banette, Golbat, and Altaria do not interrupt your bike momentum!",
+        "2. 2F Cracked Floor: Line up 3 tiles before the cracks, hold B to sprint straight west, then make two crisp 90-degree turns north and east without releasing movement.",
+        "3. 4F Drop Puzzle: Sprint across the first line of cracks and intentionally stop on the CENTER cracked tile of the upper cluster so you fall straight onto the isolated 3F platform leading to the 5F stairs.",
+        "4. Apex Capture: Rayquaza (Lv. 70, Dragon/Flying) knows Outrage (confuses itself), Rest (heals to 100% HP and sleeps), ExtremeSpeed, and Fly. In ORAS, catch Rayquaza during the story, then immediately use your Master Ball on Lv. 80 Deoxys in space!"
+      ]
+    }
+  ]
+}

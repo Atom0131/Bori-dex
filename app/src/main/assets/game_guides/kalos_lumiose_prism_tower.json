@@ -1,0 +1,48 @@
+{
+  "id": "kalos_lumiose_prism_tower",
+  "title": "Lumiose City, Prism Tower & Looker Bureau",
+  "shortTitle": "Lumiose City",
+  "category": "LORE & GEOGRAPHY • KALOS ENCYCLOPEDIA",
+  "region": "Kalos",
+  "versions": [
+    "X",
+    "Y",
+    "Legends: Z-A"
+  ],
+  "aliases": [
+    "lumiose city",
+    "prism tower",
+    "looker bureau",
+    "sycamore lab",
+    "lumiose blackout"
+  ],
+  "coordinates": {
+    "x": 0.5,
+    "y": 0.5,
+    "mapAsset": "kalos_xy.png",
+    "locationName": "Lumiose City (Central Kalos Hub)"
+  },
+  "prerequisites": "Accessible after Santalune Gym (South Boulevard); North Boulevard unlocks after restoring the Kalos Power Plant.",
+  "recommendedItems": [
+    "Charizardite X/Y",
+    "Venusaurite",
+    "Blastoisinite",
+    "Luxury Ball"
+  ],
+  "firstEncounter": "Route 4 South Boulevard Gate (After 1st Gym Badge)",
+  "subsequentAvailability": "South & North Boulevards, Prism Tower Gym, Lysandre Café & Looker Bureau",
+  "summary": "The sprawling metropolis at the heart of Kalos, radiating outward from the iconic Prism Tower. Home to Professor Sycamore's Lab (Kanto Starter + Mega Stone), Clemont's Electric Gym, Café Lysandre's secret Team Flare HQ, and the post-game Looker Bureau.",
+  "spokenAdvice": "Lumiose City is the central hub of the Kalos region, connecting Routes 4, 5, 13, 14, and 16 around Prism Tower. On your first visit along South Boulevard, battle Professor Sycamore on the third floor of his lab to receive Bulbasaur, Charmander, or Squirtle along with its Mega Stone. After clearing the Kalos Power Plant on Route 13, North Boulevard opens and you can challenge Clemont inside Prism Tower for your fifth badge. Maximize your Lumiose Style rating by visiting boutiques, cafés, and the PR Video studio to lower Mega Stone prices at the Vernal Avenue Stone Emporium from one million Pokédollars down to ten thousand.",
+  "sections": [
+    {
+      "heading": "🗼 Key Landmarks & Avenue Directory",
+      "content": [
+        "• Prism Tower (Centrico Plaza): Houses the 5th Kalos Gym led by Clemont (Lv. 35 Emolga, Lv. 35 Magneton, Lv. 37 Heliolisk) featuring a multi-floor trivia elevator.",
+        "• Sycamore Pokémon Lab (South Boulevard): Battle Prof. Sycamore on 3F to choose a Kanto starter and its Mega Stone (Charizardite X/Y, Venusaurite, Blastoisinite).",
+        "• Vernal Avenue (Stone Emporium): Sells the remaining Kanto starter Mega Stones; price drops from 1,000,000 to 10,000 Pokédollars at max Lumiose Style.",
+        "• Lysandre Café (Magenta Plaza): Inspect the hidden bookshelf switch behind the counter after the 7th Badge to infiltrate Team Flare's secret laboratory.",
+        "• Looker Bureau (Rouge Plaza): Post-game detective agency unlocking the 5-chapter Emma / Essentia & Xerosic storyline."
+      ]
+    }
+  ]
+}

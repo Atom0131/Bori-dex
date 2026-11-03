@@ -1,0 +1,68 @@
+{
+  "id": "kanto_cerulean_cave_mewtwo",
+  "title": "Cerulean Cave (Unknown Dungeon) & Mewtwo",
+  "shortTitle": "Cerulean Cave",
+  "category": "LORE & GEOGRAPHY • KANTO ENCYCLOPEDIA",
+  "region": "Kanto",
+  "versions": [
+    "Red",
+    "Blue",
+    "Yellow",
+    "FireRed",
+    "LeafGreen",
+    "HeartGold",
+    "SoulSilver",
+    "Let's Go Pikachu",
+    "Let's Go Eevee"
+  ],
+  "aliases": [
+    "cerulean cave",
+    "unknown dungeon",
+    "cerulean dungeon",
+    "berserk gene"
+  ],
+  "coordinates": {
+    "x": 0.57,
+    "y": 0.1,
+    "mapAsset": "kanto_rgby.png",
+    "locationName": "Cerulean Cave (North of Cerulean City)"
+  },
+  "prerequisites": "Enter the Hall of Fame (and restore the Sevii Network Machine with Ruby & Sapphire in FireRed/LeafGreen).",
+  "recommendedItems": [
+    "Master Ball",
+    "Dusk Ball",
+    "Ultra Ball",
+    "Timer Ball",
+    "Full Restore"
+  ],
+  "firstEncounter": "Route 24 Riverbank (Surf North-West from Cerulean City)",
+  "subsequentAvailability": "Cerulean Cave 1F, 2F & B1F Sanctum",
+  "summary": "A treacherous, multi-tiered subterranean labyrinth northwest of Cerulean City restricted strictly to League Champions. In its deepest subterranean lake rests Mewtwo (Lv. 70), the genetically engineered Psychic clone of Mew.",
+  "spokenAdvice": "Cerulean Cave, also known as the Unknown Dungeon, unlocks northwest of Cerulean City after you become League Champion, and after delivering the Ruby and Sapphire plates to Celio in FireRed and LeafGreen. Navigate using Surf, Rock Smash, and ladders through 1F and 2F to reach B1F, where Level 70 Mewtwo awaits on a solitary stone platform. Because Mewtwo has a base catch rate of 3 and spams Recover and Psychic, it is the number one recommended target for your Master Ball in Kanto.",
+  "sections": [
+    {
+      "heading": "📜 Lore & Cinnabar Mansion Origins",
+      "content": [
+        "• Genetic Engineering Project: Diary logs inside the ruined Pokémon Mansion on Cinnabar Island document how Dr. Fuji's expedition discovered a pregnant Mew in the Guyana jungle of South America.",
+        "• Birth of Mewtwo (February 6): Mew gave birth to Mewtwo, which was subjected to years of gene-splicing experiments until its psychic fury shattered the Cinnabar laboratory.",
+        "• Sanctuary in Cerulean Cave: Seeking isolation from humanity, Mewtwo fled to the deepest aquifer of the Unknown Dungeon, guarded by the Pokémon League until a Champion proves worthy."
+      ]
+    },
+    {
+      "heading": "🗺️ Floor-by-Floor Navigation & Mewtwo Walkthrough",
+      "content": [
+        "1. Unlocking the Entrance: Beat the Elite Four and Champion. In FireRed/LeafGreen, you must also complete the Sevii Islands post-game quest (recover the Ruby in Mt. Ember and the Sapphire in the Dotted Hole/Rocket Warehouse) before the guard steps aside.",
+        "2. Route 24 Approach: Surf north from Cerulean City's Nugget Bridge and follow the western waterway south to the cave mouth.",
+        "3. 1F to 2F Maze: Surf across the underground stream, climb the northwest plateau ladder into the 2F labyrinth, and take the northeast ladder back down to the isolated 1F ledge.",
+        "4. B1F Mewtwo Sanctum: Descend the final ladder to B1F, surf across the subterranean pool, and save before engaging Lv. 70 Mewtwo."
+      ]
+    },
+    {
+      "heading": "🐾 Wild Encounters & Rare Treasures",
+      "content": [
+        "• High-Level Wild Spawns (Lv. 46–67): Ditto, Chansey, Kadabra, Magneton, Electrode, Dodrio, Hypno,Marowak, Rhydon, Parasect, Raichu, Wobbuffet (FRLG), Golduck, Slowbro.",
+        "• Key Items: Master Ball #1 Target (Mewtwo), Max Revive, Full Restore, PP Max, Ultra Balls, Nugget, and hidden renewable fossils/Master Balls on 2F light spots in Let's Go Pikachu/Eevee."
+      ]
+    }
+  ]
+}

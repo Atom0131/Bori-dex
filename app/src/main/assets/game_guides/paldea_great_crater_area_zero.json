@@ -34,6 +34,16 @@
     "mapAsset": "paldea_sv.png",
     "locationName": "Great Crater of Paldea (Area Zero)"
   },
+  "prerequisites": "Requires completing Victory Road, Path of Legends, and ★ Starfall Street.",
+  "recommendedItems": [
+    "Booster Energy",
+    "Tera Blast TM171",
+    "Master Ball",
+    "Dusk Ball",
+    "Timer Ball"
+  ],
+  "firstEncounter": "Zero Gate Lift (Central Paldea)",
+  "subsequentAvailability": "Area Zero Caverns (Research Stations 1–4, Waterfall Cave, Zero Lab)",
   "summary": "A colossal geological formation spanning the geographic center of Paldea, formed over 1,000,000 years ago by an ancient meteorite impact. At its bottom lies Area Zero and the Zero Lab, bathed in perpetual Terastal radiation and home to Paradox Pokémon pulled from the distant past or far future.",
   "spokenAdvice": "The Great Crater of Paldea is a massive chasm formed over one million years ago by a celestial meteorite impact. Two hundred years ago, the naturalist Heath surveyed the crater and published the Scarlet and Violet Books, documenting enigmatic ancient and futuristic creatures. Ten years ago, Professor Sada in Scarlet, and Professor Turo in Violet, established the Zero Lab at the crater's crystalline floor, inventing a Time Machine powered by Terastal energy. Paradox Pokémon roaming Area Zero include ancient beasts like Roaring Moon and Great Tusk in Scarlet, and cybernetic weapons like Iron Valiant and Iron Hands in Violet. To reach the Zero Lab, complete all three storyline paths and unlock the security overrides at Research Stations 1 through 4.",
   "sections": [
@@ -49,7 +59,7 @@
       "heading": "📖 The Area Zero Expedition & The Scarlet/Violet Books",
       "content": [
         "• Heath's Expedition (200 Years Ago): Sponsored by the Paldean government, the explorer and author Heath led an elite survey corps into Area Zero, accompanied by a Cyclizar companion and specialized researchers.",
-        "• The Scarlet / Violet Book: Heath penned a comprehensive journal recording fantastical monsters, strange glowing disks, mysterious plant life (Herba Mystica), and an enigmatic disc-shaped crystalline Pokémon. The general public regarded Heath's findings as wild delusions, permanently tarnishing his reputation.",
+        "• The Scarlet / Violet Book: Heath penned a comprehensive journal recording fantastical monsters, strange glowing disks, mysterious plant life (Herba Mystica), and an enigmatic disc-shaped crystalline Pokémon.",
         "• Occulture Magazine: In modern times, paranormal publications circulated Heath's sketches, theorizing the creatures were alien bio-weapons, robotic surveillance drones, or prehistoric ancestors."
       ]
     },
@@ -107,7 +117,7 @@
       "heading": "🎒 Key Items & TM Locations in Area Zero",
       "content": [
         "• Booster Energy: Held item that automatically activates Protosynthesis or Quark Drive without Sunny Day or Electric Terrain. Found on the ground inside the secret waterfall cave with Roaring Moon / Iron Valiant (and 5% wild hold).",
-        "• TM171 (Tera Blast): Located right outside the blast doors of the Zero Lab on the crater floor. Normal-type 80 BP move that transforms into the Pokémon's Tera Type upon Terastallizing.",
+        "• TM171 (Tera Blast): Located right outside the blast doors of the Zero Lab on the crater floor.",
         "• Master Ball: Awarded by Director Clavell at the Academy before descending into Area Zero.",
         "• TMs & Treasures: TM064 (Bulk Up), TM086 (Rock Slide), TM115 (Dragon Pulse), TM163 (Hyper Beam), TM156 (Outrage), TM149 (Earthquake), Occa Berry, Passho Berry, Big Nuggets, PP Max, Ability Capsules."
       ]

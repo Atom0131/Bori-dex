@@ -1,0 +1,46 @@
+{
+  "id": "galar_slumbering_weald",
+  "title": "Slumbering Weald, Rusted Relics & Zacian/Zamazenta",
+  "shortTitle": "Slumbering Weald",
+  "category": "LORE & GEOGRAPHY • GALAR ENCYCLOPEDIA",
+  "region": "Galar",
+  "versions": [
+    "Sword",
+    "Shield"
+  ],
+  "aliases": [
+    "slumbering weald",
+    "rusted sword",
+    "rusted shield",
+    "darkest day",
+    "sordward",
+    "shielbert"
+  ],
+  "coordinates": {
+    "x": 0.45,
+    "y": 0.92,
+    "mapAsset": "galar_swsh.png",
+    "locationName": "Slumbering Weald (South of Postwick)"
+  },
+  "prerequisites": "Prologue visit at start of game; Altar unlocked during Darkest Day & Post-Game Episode.",
+  "recommendedItems": [
+    "Rusted Sword",
+    "Rusted Shield",
+    "Master Ball",
+    "Timer Ball"
+  ],
+  "firstEncounter": "Postwick West Gate (Prologue Wooloo Rescue)",
+  "subsequentAvailability": "Deep Fog Woods & Ancient Hero's Altar (Zacian / Zamazenta)",
+  "summary": "A mist-shrouded sacred forest bordering Postwick in southern Galar. Deep beyond the fog lies the ancient altar enshrining the Rusted Sword and Rusted Shield, where the Hero Kings Zacian and Zamazenta awaken to stop the Darkest Day.",
+  "spokenAdvice": "The Slumbering Weald lies directly west of your hometown in Postwick. Although dense fog turns you back at the beginning of your journey, you return with Hop during the Darkest Day crisis to claim the Rusted Sword in Sword or the Rusted Shield in Shield from the ancient altar. After becoming Champion and receiving the Master Ball from Professor Magnolia, return to the altar to quell Sordward and Shielbert's plot and capture Level 70 Zacian or Zamazenta atop Hammerlocke Energy Plant.",
+  "sections": [
+    {
+      "heading": "🗡️ The Darkest Day & Post-Game Capture Walkthrough",
+      "content": [
+        "1. Claiming the Rusted Relics: During the Darkest Day (before the Champion match with Leon), travel through the deepest mist of Slumbering Weald with Hop to pick up the Rusted Sword (Sword) or Rusted Shield (Shield) at the shrine.",
+        "2. Post-Game Questline: Visit the Slumbering Weald altar to trigger the Sordward & Shielbert storyline. Defeat the rampaging Dynamax Pokémon across Galar's stadiums.",
+        "3. Hammerlocke Energy Plant Tower: Ascend the tower, defeat the rampaging box wolf, then save before challenging Lv. 70 Zacian (Sword) or Lv. 70 Zamazenta (Shield) on the roof! Equip its Rusted Sword/Shield immediately to unlock Crowned form and Behemoth Blade / Behemoth Bash."
+      ]
+    }
+  ]
+}

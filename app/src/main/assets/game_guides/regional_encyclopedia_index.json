@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "2.0",
   "description": "Master index mapping canonical region locations and lore queries to comprehensive offline guide documents.",
   "entries": [
     {
@@ -46,6 +46,7 @@
     },
     {
       "id": "kanto_cerulean_cave_mewtwo",
+      "file": "kanto_cerulean_cave_mewtwo.json",
       "title": "Cerulean Cave & Mewtwo",
       "region": "Kanto",
       "versions": [
@@ -54,18 +55,18 @@
         "Yellow",
         "FireRed",
         "LeafGreen",
-        "Let's Go, Pikachu!",
-        "Let's Go, Eevee!"
+        "Let's Go Pikachu",
+        "Let's Go Eevee"
       ],
       "keywords": [
         "cerulean cave",
         "unknown dungeon",
-        "mewtwo",
-        "master ball"
+        "cerulean dungeon"
       ]
     },
     {
       "id": "johto_mt_silver_red",
+      "file": "johto_mt_silver_red.json",
       "title": "Mt. Silver & Red Final Battle",
       "region": "Johto",
       "versions": [
@@ -79,11 +80,13 @@
         "mt silver",
         "mount silver",
         "trainer red",
-        "red battle"
+        "red battle",
+        "champion red"
       ]
     },
     {
       "id": "hoenn_sky_pillar_rayquaza",
+      "file": "hoenn_sky_pillar_rayquaza.json",
       "title": "Sky Pillar & Rayquaza",
       "region": "Hoenn",
       "versions": [
@@ -95,12 +98,13 @@
       ],
       "keywords": [
         "sky pillar",
-        "rayquaza",
-        "mach bike cracks"
+        "mach bike cracks",
+        "delta episode"
       ]
     },
     {
       "id": "sinnoh_spear_pillar_coronet",
+      "file": "sinnoh_spear_pillar_coronet.json",
       "title": "Mt. Coronet & Spear Pillar",
       "region": "Sinnoh",
       "versions": [
@@ -113,15 +117,13 @@
       "keywords": [
         "spear pillar",
         "mt coronet",
-        "dialga",
-        "palkia",
-        "giratina",
-        "hall of origin",
-        "arceus"
+        "distortion world",
+        "hall of origin"
       ]
     },
     {
       "id": "unova_giant_chasm_kyurem",
+      "file": "unova_giant_chasm_kyurem.json",
       "title": "Giant Chasm & Kyurem",
       "region": "Unova",
       "versions": [
@@ -132,18 +134,19 @@
       ],
       "keywords": [
         "giant chasm",
-        "kyurem",
         "dna splicers",
         "lacunosa meteor"
       ]
     },
     {
       "id": "kalos_lumiose_prism_tower",
+      "file": "kalos_lumiose_prism_tower.json",
       "title": "Lumiose City & Prism Tower",
       "region": "Kalos",
       "versions": [
         "X",
-        "Y"
+        "Y",
+        "Legends: Z-A"
       ],
       "keywords": [
         "lumiose city",
@@ -153,6 +156,7 @@
     },
     {
       "id": "alola_aether_paradise",
+      "file": "alola_aether_paradise.json",
       "title": "Aether Paradise & Ultra Space",
       "region": "Alola",
       "versions": [
@@ -164,13 +168,12 @@
       "keywords": [
         "aether paradise",
         "ultra wormhole",
-        "nihilego",
-        "lusamine",
-        "necrozma"
+        "ultra space"
       ]
     },
     {
       "id": "galar_slumbering_weald",
+      "file": "galar_slumbering_weald.json",
       "title": "Slumbering Weald & Energy Plant",
       "region": "Galar",
       "versions": [
@@ -179,15 +182,14 @@
       ],
       "keywords": [
         "slumbering weald",
-        "zacian",
-        "zamazenta",
-        "eternatus",
         "rusted sword",
-        "rusted shield"
+        "rusted shield",
+        "darkest day"
       ]
     },
     {
       "id": "hisui_temple_of_sinnoh",
+      "file": "hisui_temple_of_sinnoh.json",
       "title": "Temple of Sinnoh & Dialga/Palkia Origin",
       "region": "Hisui",
       "versions": [
@@ -196,9 +198,9 @@
       "keywords": [
         "temple of sinnoh",
         "origin forme",
-        "kamado",
-        "red chain",
-        "arceus fight"
+        "origin ball",
+        "celestica flute",
+        "volo"
       ]
     }
   ]

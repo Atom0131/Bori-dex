@@ -1,0 +1,59 @@
+{
+  "id": "sinnoh_spear_pillar_coronet",
+  "title": "Mt. Coronet, Spear Pillar & Distortion World",
+  "shortTitle": "Spear Pillar",
+  "category": "LORE & GEOGRAPHY • SINNOH ENCYCLOPEDIA",
+  "region": "Sinnoh",
+  "versions": [
+    "Diamond",
+    "Pearl",
+    "Platinum",
+    "Brilliant Diamond",
+    "Shining Pearl"
+  ],
+  "aliases": [
+    "spear pillar",
+    "mt coronet",
+    "distortion world",
+    "hall of origin",
+    "adamant orb",
+    "lustrous orb",
+    "griseous orb"
+  ],
+  "coordinates": {
+    "x": 0.5,
+    "y": 0.35,
+    "mapAsset": "sinnoh_pt.png",
+    "locationName": "Spear Pillar (Mt. Coronet Summit)"
+  },
+  "prerequisites": "Earn 7 Gym Badges (Icicle Badge from Candice) and liberate the Lake Guardians at Team Galactic Veilstone HQ.",
+  "recommendedItems": [
+    "Dusk Ball",
+    "Timer Ball",
+    "Ultra Ball",
+    "Escape Rope",
+    "Max Repel"
+  ],
+  "firstEncounter": "Mt. Coronet Oreburgh/Eterna Pass (Early) • Summit Climb after 7th Badge",
+  "subsequentAvailability": "Spear Pillar, Distortion World (Platinum) & Hall of Origin",
+  "summary": "The sacred mountain range dividing Sinnoh into eastern and western halves. At its zenith lies Spear Pillar, the ruined celestial temple where Cyrus summons Dialga, Palkia, and Giratina—and where the Azure Flute unveils the Hall of Origin.",
+  "spokenAdvice": "Spear Pillar crowns the highest peak of Mount Coronet at the center of Sinnoh. After earning your seventh badge in Snowpoint City and freeing Uxie, Mesprit, and Azelf at Team Galactic's Veilstone headquarters, enter Mount Coronet from Route 207 with Surf, Strength, Rock Smash, Defog, and Rock Climb. Defeat Commanders Mars and Jupiter in a Multi Battle alongside your rival, then face Cyrus and capture Level 47 Dialga in Diamond, Palkia in Pearl, or descend into the gravity-defying Distortion World in Platinum to capture Origin Forme Giratina.",
+  "sections": [
+    {
+      "heading": "📜 Creation Myth of Sinnoh & The Red Chain",
+      "content": [
+        "• The Original One: Sinnoh mythology records that Arceus emerged from an egg in a vortex of chaos, creating Dialga (Time), Palkia (Space), and Giratina (Antimatter) at the site that became Spear Pillar.",
+        "• Team Galactic's Plot: Cyrus extracts the crystals of Uxie (Knowledge), Mesprit (Emotion), and Azelf (Willpower) to forge the Red Chain, shackling the Creation Trio until Giratina drags him into the Distortion World in Platinum."
+      ]
+    },
+    {
+      "heading": "🗺️ Summit Ascent & Distortion World Walkthrough",
+      "content": [
+        "1. Required HMs: Enter Mt. Coronet from Route 207 (east of Oreburgh City). Surf across the subterranean pool and use Rock Climb on the northern wall.",
+        "2. Upper Snowfields: Push through the snow-covered exterior cliffs using Rock Climb and Strength to reach the Temple entrance.",
+        "3. Spear Pillar Climax: Defeat Mars & Jupiter with Barry. In Diamond/Pearl, battle Cyrus and catch Dialga/Palkia (catch rate 30 — easy with Dusk/Ultra Balls!).",
+        "4. Distortion World (Platinum): Follow Cynthia across rotating 90-degree gravity platforms, drop Strength boulders onto Uxie, Mesprit, and Azelf's sunken pits, defeat Cyrus's 5-Pokémon team (Gyarados, Honchkrow, Crobat, Weavile, Houndoom), and catch Lv. 47 Giratina."
+      ]
+    }
+  ]
+}

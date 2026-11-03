@@ -1,0 +1,55 @@
+{
+  "id": "unova_giant_chasm_kyurem",
+  "title": "Giant Chasm, Kyurem & DNA Splicers",
+  "shortTitle": "Giant Chasm",
+  "category": "LORE & GEOGRAPHY • UNOVA ENCYCLOPEDIA",
+  "region": "Unova",
+  "versions": [
+    "Black",
+    "White",
+    "Black 2",
+    "White 2"
+  ],
+  "aliases": [
+    "giant chasm",
+    "dna splicers",
+    "lacunosa meteor",
+    "black kyurem",
+    "white kyurem",
+    "ghetsis giant chasm"
+  ],
+  "coordinates": {
+    "x": 0.77,
+    "y": 0.25,
+    "mapAsset": "unova_bw.png",
+    "locationName": "Giant Chasm (North of Route 13 / East of Lacunosa Town)"
+  },
+  "prerequisites": "Post-game in Black/White; 8th Gym Badge + Plasma Frigate in Black 2/White 2.",
+  "recommendedItems": [
+    "Master Ball",
+    "Dusk Ball",
+    "Timer Ball",
+    "Ultra Ball"
+  ],
+  "firstEncounter": "Route 13 Coastal Cliff Entrance (South of Lacunosa Town)",
+  "subsequentAvailability": "Outer Crater Rim, Central Basin Forest & Kyurem Ice Cavern",
+  "summary": "A freezing meteor crater east of Lacunosa Town. Local legend warns that a man-eating monster emerges from the crater at night—the boundary Dragon/Ice Legendary Kyurem, the empty shell left behind when the Original Dragon split into Reshiram and Zekrom.",
+  "spokenAdvice": "The Giant Chasm is located on Route 13 just south of Lacunosa Town in eastern Unova. To unlock Kyurem's inner sanctum in Black and White, navigate the clockwise forest maze in the central basin and touch the small water puddle in the exact center of the woods, which triggers a flash blizzard that freezes the entire crater solid. Walk up the snowdrift into the northern cave to battle Level 75 Kyurem in Black and White, or return post-game in Black 2 and White 2 to catch Level 70 Kyurem and obtain the DNA Splicers to fuse Black Kyurem or White Kyurem.",
+  "sections": [
+    {
+      "heading": "📜 The Original Dragon & Lacunosa Legend",
+      "content": [
+        "• The Twin Heroes' Split: When the ancient Unovan twin princes warred over Truth (Reshiram) and Ideals (Zekrom), their single Original Dragon split into two, leaving behind a third frozen husk—Kyurem.",
+        "• Abidaya / Abductions Myth: The walled architecture of Lacunosa Town was built because residents believed Kyurem descended at night to spirit away people and Pokémon."
+      ]
+    },
+    {
+      "heading": "❄️ How to Freeze the Crater Basin & Catch Kyurem",
+      "content": [
+        "1. Entrance Puzzle: Surf and push the Strength boulder at the Route 13 cliff entrance, then navigate the outer crater rim cave.",
+        "2. Central Forest Blizzard Trigger (BW): Walk to the tiny pond in the dead center of the basin forest. Kyurem's roar triggers a flash snowstorm that fills the basin with walkable snow, allowing you to enter the north cave and catch Lv. 75 Kyurem.",
+        "3. Ghetsis Climax & DNA Splicers (B2W2): During the story, defeat Black/White Kyurem (cannot be caught during story) and Ghetsis. After entering the Hall of Fame, catch N's Reshiram/Zekrom at Dragonspiral Tower, then return to Giant Chasm to catch Lv. 70 Kyurem (top Master Ball target!) and claim the DNA Splicers."
+      ]
+    }
+  ]
+}

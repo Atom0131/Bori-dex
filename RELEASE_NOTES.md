@@ -1,3 +1,48 @@
+# 🚀 Release Notes - Bori-dex v1.9.9
+
+**Release Date:** November 2, 2026  
+**Platform:** Android (API 24 to API 36 / 37 Adaptive Ready)  
+**Binary:** `Bori-dex-v1.9.9.apk` / `app-debug.apk`  
+**Master Dataset:** [Bori-dex 1,025 Pokemon Master Vision Dataset](https://www.kaggle.com/datasets/atom0131/boridex-pokemon-master-dataset-494k)  
+
+---
+
+## What's New in v1.9.9
+
+### 🧭 1. Dexter's Ultimate Strategy Guide & 13 Strategy Domains
+- **Comprehensive Welcome Hub**: Opening `🧭 GUIDE` or clearing queries presents `"Dexter's Strategy Guide (${edition.uppercase()})"`, featuring the authentic `master-ball.png` item icon and structured quick-starts for:
+  - **13 Specialized Strategy Domains**: Healing Items, Key Items, Money Items, Event Items, Evolution Items, Battle & Held Items, Poké Balls & Capture, Missions & Roadblocks, Hidden Items & Dowsing, Braille & Secret Ciphers, Legendary Encounters, Event Pokémon & Myths, and Puzzles & Dungeons.
+  - **28 Poké Ball & Master Ball Guides**: Detailed catch multipliers, earliest mart unlock locations, and full per-game Master Ball target strategies across Generations 1–9.
+  - **10 Regional Dungeon Encyclopedias**: Deep multi-section guides for the greatest landmarks and dungeons in Pokémon history.
+
+### 🔴 2. Complete 28-Ball Catch Mechanics & Per-Game Master Ball Target Engine
+- **Per-Game Master Ball Targets**: Game-specific strategic advice pinpointing the optimal use of the Master Ball:
+  - *FireRed / LeafGreen*: Urgent warning for Roaming Raikou/Entei due to the infamous Gen 3 Roar deletion glitch (Roar deletes the beast permanently from save memory); Mewtwo in Cerulean Cave B1F as runner-up.
+  - *HeartGold / SoulSilver*: Roaming Latias/Latios or Raikou/Entei to avoid tedious Mean Look tracking.
+  - *Ruby / Sapphire / Emerald*: Roaming Latios/Latias or Rayquaza at Sky Pillar.
+  - *Diamond / Pearl / Platinum / BDSP*: Roaming Mesprit or Cresselia.
+  - *Scarlet / Violet*: Second Koraidon/Miraidon (Lv. 72, catch rate 3) at Area Zero Zero Lab, or the Four Treasures of Ruin (Chien-Pao, Chi-Yu, Ting-Lu, Wo-Chien); critical warning *not* to waste Master Balls on Ogerpon or Terapagos, which are 100% guaranteed catches in any ball.
+- **Strict Anti-Mart Guardrail**: Master Ball, Apricorn Balls, Safari/Sport Balls, and ancient items are strictly excluded from standard Poké Mart progression banners, preventing false mart availability tags.
+
+### 🏛️ 3. 10 Canonical Regional Dungeon Encyclopedias
+- **Direct Browsing & Search Integration**: Surfaced all 10 Regional Dungeon Encyclopedias directly within the 13th domain (`Puzzles & Dungeons`) and via natural search:
+  1. **Great Crater of Paldea (Area Zero)**: Impact formation, Zero Gate lift, Research Stations 1–4, Zero Lab, and Underdepths.
+  2. **Cerulean Cave (Unknown Dungeon)**: Post-game Celio network quest unlock, Mewtwo B1F chambers, and fossil relics.
+  3. **Mt. Silver (Silver Cave)**: 16-badge unlock, Red championship climax, and high-level wild Tyranitar cavern.
+  4. **Sky Pillar**: Mach Bike cracked-floor acrobatics, Rayquaza summit ascent, and Weather Trio awakening.
+  5. **Spear Pillar & Distortion World**: Mt. Coronet ascent, Cyrus climax, Distortion World anti-gravity platforming, and Giratina capture.
+  6. **Giant Chasm**: Kyurem crater forest, Plasma Frigate invasion, and DNA Splicers cavern.
+  7. **Terminus Cave**: Historic coal mine maze, Zygarde 50% chamber, and hidden Orbs.
+  8. **Ultra Space & Resolution Cave**: Ultra Wormhole warp mechanics, Poni Island depths, and Ultra Beast encounters.
+  9. **The Crown Tundra & Max Lair**: Peony's expedition, Legendary Clues 1–3, Dynamax Adventures 100% catch rate strategy, and Calyrex steed bonding.
+  10. **Coronet Highlands & Temple of Sinnoh**: Hisui ancient ruins, Mount Coronet climb, Dialga/Palkia Origin Forme battles, and the Origin Ball.
+- **Connected Zones & Sub-Areas**: Dedicated UI progression banner displaying all internal chambers, sub-levels, and research outposts.
+
+### 🎮 4. 100% 37-Cartridge Parity in UI Switcher
+- Added **Brilliant Diamond** (`0xFF4FC3F7`) and **Shining Pearl** (`0xFFF48FB1`) to `ALL_GAME_CARTRIDGES` in `PokedexScreen.kt`, completing all 37 mainline editions in the UI cartridge switcher with tailored palette chips and mascot styling.
+
+---
+
 # 🚀 Release Notes - Bori-dex v1.9.8
 
 **Release Date:** November 2, 2026  

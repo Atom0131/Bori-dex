@@ -74,11 +74,34 @@ object PokemonGameGuideRepository {
         "leppa_berry" to "leppa-berry.png",
         "status_berries" to "cheri-berry.png",
         "pokeball_types" to "poke-ball.png",
-        "ultra_ball" to "ultra-ball.png",
         "master_ball" to "master-ball.png",
+        "master_ball_targets" to "master-ball.png",
+        "ultra_ball" to "ultra-ball.png",
+        "great_ball" to "great-ball.png",
+        "poke_ball" to "poke-ball.png",
+        "premier_ball" to "premier-ball.png",
         "quick_ball" to "quick-ball.png",
         "dusk_ball" to "dusk-ball.png",
         "timer_ball" to "timer-ball.png",
+        "net_ball" to "net-ball.png",
+        "dive_ball" to "dive-ball.png",
+        "nest_ball" to "nest-ball.png",
+        "repeat_ball" to "repeat-ball.png",
+        "luxury_ball" to "luxury-ball.png",
+        "heal_ball" to "heal-ball.png",
+        "fast_ball" to "fast-ball.png",
+        "heavy_ball" to "heavy-ball.png",
+        "level_ball" to "level-ball.png",
+        "lure_ball" to "lure-ball.png",
+        "love_ball" to "love-ball.png",
+        "friend_ball" to "friend-ball.png",
+        "moon_ball" to "moon-ball.png",
+        "safari_ball" to "safari-ball.png",
+        "sport_ball" to "sport-ball.png",
+        "dream_ball" to "dream-ball.png",
+        "beast_ball" to "beast-ball.png",
+        "cherish_ball" to "cherish-ball.png",
+        "park_ball" to "park-ball.png",
         "amulet_coin" to "amulet-coin.png",
         "nugget" to "nugget.png",
         "big_pearl" to "big-pearl.png",
@@ -405,13 +428,12 @@ object PokemonGameGuideRepository {
             if (entries != null) {
                 for (i in 0 until entries.length()) {
                     val entry = entries.getJSONObject(i)
-                    val title = entry.optString("title", "")
                     val kwArray = entry.optJSONArray("keywords")
                     val kwList = mutableListOf<String>()
                     if (kwArray != null) {
                         for (k in 0 until kwArray.length()) kwList.add(kwArray.getString(k))
                     }
-                    if (matchesSearch(q, title, kwList)) {
+                    if (kwList.isNotEmpty() && matchesSearch(q, kwList.first(), kwList)) {
                         matchedFile = entry.optString("file").takeIf { it.isNotBlank() }
                         break
                     }
@@ -425,11 +447,33 @@ object PokemonGameGuideRepository {
         val category = guideObj.optString("category", "CANONICAL ENCYCLOPEDIA")
         val summary = guideObj.optString("summary", "")
         val spoken = guideObj.optString("spokenAdvice", summary)
+        val guideRegion = guideObj.optString("region", "")
         val coords = guideObj.optJSONObject("coordinates")
-        val xNorm = coords?.optDouble("x", 0.50)?.toFloat()
-        val yNorm = coords?.optDouble("y", 0.50)?.toFloat()
+        val defaultX = coords?.optDouble("x", 0.50)?.toFloat()
+        val defaultY = coords?.optDouble("y", 0.50)?.toFloat()
         val locName = coords?.optString("locationName", title) ?: title
-        val mapAsset = coords?.optString("mapAsset") ?: PokemonMapHabitatRepository.getMapAssetForCartridge(edition)
+        val defaultMapAsset = coords?.optString("mapAsset") ?: PokemonMapHabitatRepository.getMapAssetForCartridge(edition)
+        val editionMapAsset = PokemonMapHabitatRepository.getMapAssetForCartridge(edition)
+        val sameRegion = guideRegion.isNotBlank() && editionMapAsset.startsWith(guideRegion.lowercase())
+        val mapAsset = if (sameRegion) editionMapAsset else defaultMapAsset
+        val (xNorm, yNorm) = if (sameRegion && mapAsset != defaultMapAsset) {
+            val eraCoords = resolveMapCoordinates(edition, locName)
+            Pair(eraCoords?.first ?: defaultX, eraCoords?.second ?: defaultY)
+        } else {
+            Pair(defaultX, defaultY)
+        }
+
+        val prereq = guideObj.optString("prerequisites", "Requires story progression.")
+        val firstEnc = guideObj.optString("firstEncounter", locName)
+        val subAvail = guideObj.optString("subsequentAvailability", locName)
+        val recItems = mutableListOf<String>()
+        val recArr = guideObj.optJSONArray("recommendedItems")
+        if (recArr != null) {
+            for (r in 0 until recArr.length()) recItems.add(recArr.getString(r))
+        }
+        if (recItems.isEmpty()) {
+            recItems.addAll(listOf("Ultra Ball", "Dusk Ball", "Master Ball"))
+        }
 
         val steps = mutableListOf<String>()
         val sectionsArray = guideObj.optJSONArray("sections")
@@ -456,16 +500,16 @@ object PokemonGameGuideRepository {
             location = locName,
             summary = summary,
             steps = steps.filterIndexed { idx, s -> s.isNotBlank() || (idx > 0 && steps[idx - 1].isNotBlank()) },
-            prerequisites = "Requires completing Victory Road, Path of Legends, and ★ Starfall Street.",
+            prerequisites = prereq,
             mapAsset = mapAsset,
-            recommendedItems = listOf("Booster Energy", "Tera Blast TM171", "Master Ball"),
+            recommendedItems = recItems,
             spokenAdvice = spoken,
             pinX = xNorm,
             pinY = yNorm,
             pinLocationName = locName,
-            firstEncounter = "Zero Gate Lift (Central Paldea)",
-            subsequentAvailability = "Area Zero Caverns (Research Stations 1–4, Waterfall Cave, Zero Lab)",
-            itemIconAsset = "dowsing-machine.png"
+            firstEncounter = firstEnc,
+            subsequentAvailability = subAvail,
+            itemIconAsset = resolveItemIconAsset(title, context = context) ?: "dowsing-machine.png"
         )
     }
 
@@ -499,6 +543,15 @@ object PokemonGameGuideRepository {
                 for (j in 0 until tArray.length()) tList.add(tArray.getString(j))
             }
             val catId = c.getString("id")
+            if (catId.equals("puzzles_dungeons", ignoreCase = true)) {
+                val encIds = listOf(
+                    "enc_area_zero", "enc_cerulean_cave", "enc_mt_silver", "enc_sky_pillar", "enc_spear_pillar",
+                    "enc_giant_chasm", "enc_terminus_cave", "enc_ultra_space", "enc_crown_tundra", "enc_coronet_highlands"
+                )
+                for (eid in encIds) {
+                    if (!tList.contains(eid)) tList.add(eid)
+                }
+            }
             list.add(
                 GuideCategory(
                     id = catId,
@@ -607,6 +660,34 @@ object PokemonGameGuideRepository {
                             categoryId = categoryId,
                             aliases = aList,
                             iconAsset = resolveItemIconAsset(itemName, topicId = itemId, context = context)
+                        )
+                    )
+                }
+            }
+        }
+
+        if (categoryId.equals("puzzles_dungeons", ignoreCase = true)) {
+            val encyclopediaDungeons = listOf(
+                Triple("enc_area_zero", "Area Zero (Great Crater of Paldea)", listOf("area zero", "great crater", "paradox", "zero lab")),
+                Triple("enc_cerulean_cave", "Cerulean Cave (Unknown Dungeon)", listOf("cerulean cave", "mewtwo cave", "unknown dungeon")),
+                Triple("enc_mt_silver", "Mt. Silver Cave (Red & Tyranitar)", listOf("mt silver", "mount silver", "red battle")),
+                Triple("enc_sky_pillar", "Sky Pillar (Rayquaza Tower)", listOf("sky pillar", "mach bike", "rayquaza")),
+                Triple("enc_spear_pillar", "Spear Pillar & Distortion World", listOf("spear pillar", "mt coronet", "distortion world", "giratina")),
+                Triple("enc_giant_chasm", "Giant Chasm (Kyurem Lair)", listOf("giant chasm", "kyurem", "plasma frigate")),
+                Triple("enc_terminus_cave", "Terminus Cave (Zygarde Lair)", listOf("terminus cave", "zygarde", "kalos dungeon")),
+                Triple("enc_ultra_space", "Ultra Space & Resolution Cave", listOf("ultra space", "ultra wormhole", "resolution cave", "guzzlord")),
+                Triple("enc_crown_tundra", "Crown Tundra & Dynamax Max Lair", listOf("crown tundra", "max lair", "calyrex", "dynamax adventures")),
+                Triple("enc_coronet_highlands", "Coronet Highlands & Temple of Sinnoh", listOf("coronet highlands", "temple of sinnoh", "arceus", "origin ball"))
+            )
+            for ((eid, ename, ealiases) in encyclopediaDungeons) {
+                if (seenIds.add(eid)) {
+                    list.add(
+                        GuideTopicItem(
+                            id = eid,
+                            name = ename,
+                            categoryId = categoryId,
+                            aliases = ealiases,
+                            iconAsset = "dowsing-machine.png"
                         )
                     )
                 }
@@ -796,12 +877,66 @@ object PokemonGameGuideRepository {
             loc.contains("castelia") -> Triple(0.50f, 0.85f, "Castelia City")
             loc.contains("nimbasa") -> Triple(0.50f, 0.55f, "Nimbasa City")
             loc.contains("driftveil") -> Triple(0.35f, 0.55f, "Driftveil City")
+            loc.contains("mistralton") -> Triple(0.23f, 0.42f, "Mistralton City")
+            loc.contains("opelucid") -> Triple(0.56f, 0.28f, "Opelucid City")
+            loc.contains("accumula") -> Triple(0.75f, 0.80f, "Accumula Town")
+            loc.contains("striaton") -> Triple(0.72f, 0.70f, "Striaton City")
+            loc.contains("nacrene") -> Triple(0.62f, 0.72f, "Nacrene City")
+            loc.contains("entralink") || loc.contains("entree forest") -> Triple(0.50f, 0.52f, "Entralink (Central Unova)")
             loc.contains("undella") || loc.contains("abyssal") -> Triple(0.90f, 0.50f, "Undella Bay")
             loc.contains("giant chasm") -> Triple(0.85f, 0.30f, "Giant Chasm")
             loc.contains("shopping mall nine") || loc.contains("route 9") -> Triple(0.75f, 0.45f, "Shopping Mall Nine")
 
+            // KALOS
+            loc.contains("vaniville") -> Triple(0.60f, 0.86f, "Vaniville Town")
+            loc.contains("aquacorde") -> Triple(0.56f, 0.82f, "Aquacorde Town")
+            loc.contains("santalune") -> Triple(0.54f, 0.74f, "Santalune City")
+            loc.contains("lumiose") || loc.contains("prism tower") -> Triple(0.50f, 0.50f, "Lumiose City")
+            loc.contains("cyllage") -> Triple(0.25f, 0.58f, "Cyllage City")
+            loc.contains("geosenge") -> Triple(0.18f, 0.44f, "Geosenge Town")
+            loc.contains("shalour") -> Triple(0.26f, 0.38f, "Shalour City")
+            loc.contains("coumarine") -> Triple(0.32f, 0.42f, "Coumarine City")
+            loc.contains("laverre") || loc.contains("ball factory") -> Triple(0.54f, 0.31f, "Laverre City")
+            loc.contains("anistar") -> Triple(0.82f, 0.45f, "Anistar City")
+            loc.contains("snowbelle") || loc.contains("pokemon village") || loc.contains("pokémon village") -> Triple(0.68f, 0.72f, "Snowbelle City / Pokémon Village")
+            loc.contains("kiloude") -> Triple(0.76f, 0.85f, "Kiloude City")
+
+            // ALOLA
+            loc.contains("iki town") -> Triple(0.28f, 0.65f, "Iki Town (Melemele)")
+            loc.contains("hau'oli") || loc.contains("hauoli") -> Triple(0.26f, 0.72f, "Hau'oli City")
+            loc.contains("ten carat") -> Triple(0.26f, 0.75f, "Ten Carat Hill")
+            loc.contains("heahea") -> Triple(0.42f, 0.45f, "Heahea City (Akala)")
+            loc.contains("paniola") || loc.contains("royal avenue") -> Triple(0.45f, 0.42f, "Paniola Town")
+            loc.contains("konikoni") -> Triple(0.38f, 0.55f, "Konikoni City")
+            loc.contains("aether paradise") || loc.contains("aether") -> Triple(0.50f, 0.50f, "Aether Paradise")
+            loc.contains("malie") || loc.contains("hokulani") -> Triple(0.65f, 0.52f, "Malie City / Mt. Hokulani (Ula'ula)")
+            loc.contains("po town") -> Triple(0.62f, 0.38f, "Po Town")
+            loc.contains("seafolk") || loc.contains("poni") || loc.contains("altar of the") -> Triple(0.78f, 0.75f, "Poni Island")
+
+            // GALAR
+            loc.contains("postwick") -> Triple(0.49f, 0.89f, "Postwick")
+            loc.contains("slumbering weald") -> Triple(0.45f, 0.92f, "Slumbering Weald")
+            loc.contains("wedgehurst") -> Triple(0.50f, 0.82f, "Wedgehurst")
+            loc.contains("motostoke") -> Triple(0.48f, 0.62f, "Motostoke")
+            loc.contains("turffield") -> Triple(0.35f, 0.52f, "Turffield")
+            loc.contains("hulbury") -> Triple(0.66f, 0.54f, "Hulbury")
+            loc.contains("hammerlocke") -> Triple(0.50f, 0.55f, "Hammerlocke")
+            loc.contains("stow-on-side") || loc.contains("stow on side") || loc.contains("ballonlea") -> Triple(0.38f, 0.50f, "Stow-on-Side / Ballonlea")
+            loc.contains("circhester") || loc.contains("spikemuth") -> Triple(0.62f, 0.35f, "Circhester")
+            loc.contains("wyndon") -> Triple(0.50f, 0.22f, "Wyndon")
+            loc.contains("freezington") || loc.contains("crown shrine") || loc.contains("crown tundra") || loc.contains("max lair") -> Triple(0.52f, 0.96f, "Crown Tundra (Freezington)")
+            loc.contains("isle of armor") || loc.contains("cram-o-matic") || loc.contains("master dojo") -> Triple(0.82f, 0.55f, "Isle of Armor (Master Dojo)")
+
+            // HISUI
+            loc.contains("jubilife village") -> Triple(0.30f, 0.65f, "Jubilife Village")
+            loc.contains("obsidian fieldlands") -> Triple(0.36f, 0.70f, "Obsidian Fieldlands")
+            loc.contains("crimson mirelands") -> Triple(0.67f, 0.70f, "Crimson Mirelands")
+            loc.contains("cobalt coastlands") -> Triple(0.82f, 0.52f, "Cobalt Coastlands")
+            loc.contains("coronet highlands") || loc.contains("temple of sinnoh") -> Triple(0.51f, 0.45f, "Temple of Sinnoh (Coronet Highlands)")
+            loc.contains("alabaster icelands") || loc.contains("snowpoint temple") -> Triple(0.46f, 0.20f, "Alabaster Icelands")
+
             // PALDEA
-            loc.contains("mesagoza") -> Triple(0.50f, 0.75f, "Mesagoza Poké Mart")
+            loc.contains("mesagoza") || loc.contains("academy") -> Triple(0.50f, 0.75f, "Mesagoza Poké Mart")
             loc.contains("los platos") -> Triple(0.50f, 0.85f, "Los Platos Pokémon Center")
             loc.contains("cabo poco") -> Triple(0.48f, 0.92f, "Cabo Poco")
             loc.contains("cortondo") -> Triple(0.42f, 0.80f, "Cortondo")
@@ -827,6 +962,7 @@ object PokemonGameGuideRepository {
                     regionTitle.contains("HOENN") -> Triple(0.180f, 0.580f, "Oldale Town Mart (First Encounter)")
                     regionTitle.contains("JOHTO") -> Triple(0.70f, 0.70f, "Cherrygrove City Mart (First Encounter)")
                     regionTitle.contains("SINNOH") -> Triple(0.40f, 0.75f, "Sandgem Town Mart (First Encounter)")
+                    regionTitle.contains("HISUI") -> Triple(0.30f, 0.65f, "Jubilife Village General Store (First Encounter)")
                     regionTitle.contains("UNOVA") -> Triple(0.50f, 0.85f, "Castelia City / Accumula (First Encounter)")
                     regionTitle.contains("KALOS") -> Triple(0.42f, 0.70f, "Aquacorde Town (First Encounter)")
                     regionTitle.contains("ALOLA") -> Triple(0.35f, 0.65f, "Hau'oli City Mart (First Encounter)")
@@ -838,7 +974,10 @@ object PokemonGameGuideRepository {
                 }
             }
 
-            else -> null
+            else -> {
+                val lm = RegionMapLandmarksRepository.findLandmarkByName(locationText, editionOrRegion)
+                if (lm != null) Triple(lm.xNorm, lm.yNorm, lm.name) else null
+            }
         }
     }
 
@@ -851,7 +990,7 @@ object PokemonGameGuideRepository {
         val data = loadData(context)
         val edition = editionId.trim()
 
-        // 0. Comprehensive Regional Encyclopedia (e.g. Great Crater of Paldea, Area Zero, Sada/Turo, Time Machine)
+        // 0. Comprehensive Regional Encyclopedia (e.g. Great Crater of Paldea, Area Zero, Cerulean Cave, Sky Pillar, etc.)
         val encyclopediaMatch = queryEncyclopedia(q, edition, context)
         if (encyclopediaMatch != null) return finalizeResult(encyclopediaMatch, rawQuery, context)
 
@@ -913,25 +1052,26 @@ object PokemonGameGuideRepository {
 
         if (tokenMatch != null) return finalizeResult(tokenMatch, rawQuery, context)
 
-        // 4. Helpful General Fallback
-        val fallbackIcon = resolveItemIconAsset(rawQuery, context = context)
+        // 4. Helpful General Fallback & Welcome Overview
+        val isHelpOverview = q == "help" || q.isBlank()
+        val fallbackIcon = if (isHelpOverview) "master-ball.png" else resolveItemIconAsset(rawQuery, context = context)
         return GuideQueryResult(
-            title = "Pokémon Guide: \"$rawQuery\"",
+            title = if (isHelpOverview) "Dexter's Strategy Guide (${edition.uppercase()})" else "Pokémon Guide: \"$rawQuery\"",
             category = "GENERAL STRATEGY",
             editionName = edition,
             location = "Pokémon World (${edition.uppercase()})",
             summary = "Dexter can help you find items, solve puzzles, catch legendaries, or navigate roadblocks for $edition.",
             steps = listOf(
-                "• Browse Topics: Tap '📚 TOPICS & ITEMS' in the header to explore all 12 strategy domains.",
-                "• Search an item: 'Exp. Share', 'Bicycle', 'Running Shoes', 'Amulet Coin', 'Leftovers'",
-                "• Search a roadblock: 'Sudowoodo', 'Snorlax', 'Psyduck', 'Devon Goods'",
-                "• Search a puzzle: 'Trick House', 'Lt. Surge', 'Ice Path', 'Silph Co. warp pads'",
-                "• Search a legendary: 'Mewtwo', 'Rayquaza', 'Wo-Chien 32 stakes', 'Sealed Chamber Braille'"
+                "• Browse All 13 Strategy Domains: Tap '📚 TOPICS ▼' or 'BROWSE 13 STRATEGY DOMAINS ▶' to explore items, puzzles, legendaries & walkthroughs.",
+                "• All 27 Poké Balls & Master Ball Targets: Open 'Poké Balls & Catch Rates' for every ball's catch multiplier and the #1 Pokémon to use your Master Ball on in $edition.",
+                "• Regional Dungeon Encyclopedias: Search 'Area Zero', 'Cerulean Cave', 'Mt. Silver', 'Sky Pillar', 'Spear Pillar', 'Giant Chasm', 'Prism Tower', 'Aether Paradise', 'Slumbering Weald', or 'Temple of Sinnoh'.",
+                "• Search an item or roadblock: 'Exp. Share', 'Bicycle', 'Amulet Coin', 'Leftovers', 'Sudowoodo', 'Snorlax', 'Psyduck', 'Devon Goods'",
+                "• Search a puzzle or legendary: 'Trick House', 'Lt. Surge', 'Ice Path', 'Silph Co. warp pads', 'Mewtwo', 'Rayquaza', 'Wo-Chien 32 stakes', 'Sealed Chamber Braille'"
             ),
             prerequisites = null,
             mapAsset = PokemonMapHabitatRepository.getMapAssetForCartridge(edition),
             recommendedItems = emptyList(),
-            spokenAdvice = "In Pokémon $edition, you can browse all strategy domains or search for any item, obstacle, dungeon puzzle, or legendary encounter.",
+            spokenAdvice = "In Pokémon $edition, you can browse all 13 strategy domains, check all 27 Poké Balls and the best Master Ball target Pokémon, or search for any item, obstacle, dungeon puzzle, or legendary encounter.",
             itemIconAsset = fallbackIcon
         )
     }
@@ -1063,13 +1203,36 @@ object PokemonGameGuideRepository {
                 else if (topic.has("generalPrerequisites") && topic.getString("generalPrerequisites").isNotBlank()) topic.getString("generalPrerequisites")
                 else null
 
-                val mapAsset = verInfo?.optString("mapAsset")
-                    ?: PokemonMapHabitatRepository.getMapAssetForCartridge(edition)
+                val editionMapAsset = PokemonMapHabitatRepository.getMapAssetForCartridge(edition)
+                val verMapAsset = verInfo?.optString("mapAsset")?.takeIf { it.isNotBlank() }
+                val topicMapAsset = topic.optString("mapAsset").takeIf { it.isNotBlank() }
+
+                val mapAsset = when {
+                    verMapAsset != null -> {
+                        val sameRegionPrefix = verMapAsset.substringBefore("_") == editionMapAsset.substringBefore("_")
+                        if (sameRegionPrefix) editionMapAsset else verMapAsset
+                    }
+                    verInfo != null -> editionMapAsset
+                    else -> {
+                        val editionCoords = resolveMapCoordinates(edition, location)
+                        if (editionCoords != null) editionMapAsset else (topicMapAsset ?: editionMapAsset)
+                    }
+                }
 
                 val stepList = instructions.split("\n").filter { it.isNotBlank() }
                 val catFormatted = catId.replace("_", " ").uppercase()
 
-                val pinObj = verInfo?.optJSONObject("pin") ?: topic.optJSONObject("pin")
+                val kantoEraChanged = verMapAsset != null &&
+                    verMapAsset.startsWith("kanto_") &&
+                    mapAsset.startsWith("kanto_") &&
+                    verMapAsset != mapAsset
+
+                val pinObj = if (verInfo != null) {
+                    if (kantoEraChanged) null else (verInfo.optJSONObject("pin") ?: topic.optJSONObject("pin"))
+                } else {
+                    val editionCoords = resolveMapCoordinates(edition, location)
+                    if (editionCoords != null) null else topic.optJSONObject("pin")
+                }
                 val explicitX = pinObj?.optDouble("x", -1.0)?.toFloat()?.takeIf { it >= 0 }
                 val explicitY = pinObj?.optDouble("y", -1.0)?.toFloat()?.takeIf { it >= 0 }
                 val explicitArea = pinObj?.optString("area")
@@ -1077,7 +1240,12 @@ object PokemonGameGuideRepository {
                 val resolvedCoords = if (explicitX != null && explicitY != null) {
                     Triple(explicitX, explicitY, explicitArea ?: location)
                 } else {
-                    resolveMapCoordinates(verKey ?: edition, location)
+                    resolveMapCoordinates(if (kantoEraChanged) edition else (verKey ?: edition), location)
+                        ?: topic.optJSONObject("pin")?.let { fallbackPin ->
+                            val fx = fallbackPin.optDouble("x", -1.0).toFloat().takeIf { it >= 0 }
+                            val fy = fallbackPin.optDouble("y", -1.0).toFloat().takeIf { it >= 0 }
+                            if (fx != null && fy != null) Triple(fx, fy, fallbackPin.optString("area", location)) else null
+                        }
                 }
 
                 val (firstEnc, subAvail) = resolveMartProgression(
@@ -1097,7 +1265,7 @@ object PokemonGameGuideRepository {
 
                 val spokenText = if (subAvail != null && firstEnc != null) {
                     val cleanFirst = firstEnc.replace("First Encounter / Earliest Unlock: ", "").replace("First Encounter: ", "")
-                    "In Pokémon ${verKey ?: edition}, $name is first encountered at $cleanFirst. After this point, it is available at every single Poké Mart across the region."
+                    "In Pokémon ${verKey ?: edition}, $name is first encountered at $cleanFirst. After this point, it is available at every single Poké Mart across the region. $instructions"
                 } else {
                     "In Pokémon ${verKey ?: edition}, $name is at $location. $instructions"
                 }
@@ -1534,18 +1702,49 @@ object PokemonGameGuideRepository {
         val lowerName = name.lowercase()
         val lowerLoc = location.lowercase()
         val lowerInst = instructions.lowercase()
+
+        // Never treat Master Ball, Apricorn Balls, Safari/Sport/Park Balls, Dream/Beast/Cherish Balls,
+        // or unique Key Items / Roadblocks as standard Poké Mart stock!
+        val nonMartKeywords = listOf(
+            "master ball", "best pokémon for master ball", "origin ball",
+            "fast ball", "heavy ball", "level ball", "lure ball", "love ball", "friend ball", "moon ball",
+            "safari ball", "sport ball", "dream ball", "beast ball", "cherish ball", "park ball",
+            "secretpotion", "secret potion", "psyduck", "max revive", "sacred ash", "leftovers",
+            "bicycle", "exp. share", "exp share", "silph scope", "devon scope", "poke flute", "poké flute",
+            "squirtbottle", "squirt bottle", "dowsing", "fishing rod", "old rod", "good rod", "super rod",
+            "amulet coin", "running shoes", "link cable", "linking cord", "ability patch"
+        )
+        if (nonMartKeywords.any { lowerName.contains(it) }) {
+            return Pair(null, null)
+        }
+
+        val isMartBall = lowerName.contains("poké ball") ||
+            lowerName.contains("poke ball") ||
+            lowerName.contains("great ball") ||
+            lowerName.contains("ultra ball") ||
+            lowerName.contains("premier ball") ||
+            lowerName.contains("quick ball") ||
+            lowerName.contains("dusk ball") ||
+            lowerName.contains("timer ball") ||
+            lowerName.contains("net ball") ||
+            lowerName.contains("dive ball") ||
+            lowerName.contains("nest ball") ||
+            lowerName.contains("repeat ball") ||
+            lowerName.contains("luxury ball") ||
+            lowerName.contains("heal ball")
+
         val isMartOrProgressiveItem = lowerName.contains("potion") ||
-            lowerName.contains("ball") ||
+            isMartBall ||
             lowerName.contains("repel") ||
             lowerName.contains("revive") ||
             lowerName.contains("antidote") ||
-            lowerName.contains("heal") ||
+            lowerName.contains("full heal") ||
+            lowerName.contains("status heal") ||
             lowerName.contains("awakening") ||
             lowerName.contains("escape rope") ||
             lowerLoc.contains("mart") ||
-            lowerInst.contains("mart") ||
-            lowerInst.contains("pokémon center") ||
-            lowerInst.contains("pokemon center")
+            lowerInst.contains("poké mart") ||
+            lowerInst.contains("poke mart")
 
         if (!isMartOrProgressiveItem) return Pair(null, null)
 
