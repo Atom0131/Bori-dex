@@ -13,16 +13,17 @@
 
 ---
 
-## 📥 Download APK
+## 📥 Download APK & Official Tutorial
 
 Ready-to-install Android package available on GitHub Releases:
 - 📲 **[Download Latest Bori-dex APK](https://github.com/Atom0131/Bori-dex/releases)** *(Android 7.0+ / API 24–36 compatible)*
+- 📖 **[Read the Complete User & Developer Tutorial](docs/USER_AND_DEVELOPER_TUTORIAL.md)** *(Step-by-step Trainer's Guide for Camera Scanning, 37 Cartridges, Town Maps, 13 Strategy Domains & Master Ball Targets + Owner/Developer Build & ML Handbook)*
 
 ---
 
 ## 📸 Screenshots
 
-| Bori-dex Index | Pokémon Detail | Voice & Accent Settings |
+| Bori-dex Index | Pokémon Detail & Terminal | Voice & Accent Settings |
 | :---: | :---: | :---: |
 | <img src="docs/screenshots/main_screen.png" width="260" alt="Index Screen"/> | <img src="docs/screenshots/detail_screen.png" width="260" alt="Detail Screen"/> | <img src="docs/screenshots/settings_dropdown.png" width="260" alt="Settings Screen"/> |
 
@@ -30,9 +31,13 @@ Ready-to-install Android package available on GitHub Releases:
 | :---: | :---: | :---: |
 | <img src="docs/screenshots/meganium_forms.png" width="260" alt="Meganium Forms"/> | <img src="docs/screenshots/johto_region.png" width="260" alt="Johto Region"/> | <img src="docs/screenshots/voice_settings.png" width="260" alt="Voice Settings"/> |
 
-| Strategy Guide Overview | Master Ball Targets & Radar Pin | Regional Encyclopedia & Zones |
+| Strategy Guide Overview | All 28 Poké Balls & Capture | Regional Encyclopedia (Area Zero) |
 | :---: | :---: | :---: |
-| <img src="docs/screenshots/guide_welcome.png" width="260" alt="Guide Overview"/> | <img src="docs/screenshots/guide_master_ball.png" width="260" alt="Master Ball Guide"/> | <img src="docs/screenshots/guide_area_zero.png" width="260" alt="Area Zero Encyclopedia"/> |
+| <img src="docs/screenshots/guide_welcome.png" width="260" alt="Guide Overview"/> | <img src="docs/screenshots/guide_pokeballs_list.png" width="260" alt="All 28 Poké Balls"/> | <img src="docs/screenshots/guide_area_zero.png" width="260" alt="Area Zero Encyclopedia"/> |
+
+| Master Ball Targets (Scarlet) | Master Ball Targets (FireRed Roar Bug) | Interactive Region Pinpoints |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/guide_master_ball.png" width="260" alt="Master Ball Scarlet"/> | <img src="docs/screenshots/guide_master_ball_firered.png" width="260" alt="Master Ball FireRed"/> | <img src="docs/screenshots/guide_welcome.png" width="260" alt="Interactive Region Pinpoints"/> |
 
 ---
 
