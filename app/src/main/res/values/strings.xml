@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Bori-dex</string>
+    <string name="accessibility_service_label">Bori-dex Battle Overlay Scanner</string>
+    <string name="accessibility_service_description">Provides a floating Bori-dex scanner reticle and tactical battle guide overlay (typing, 4x/2x weaknesses, resistances, immunities, and STAB strengths) over retro Pokémon emulators and games.</string>
 </resources>

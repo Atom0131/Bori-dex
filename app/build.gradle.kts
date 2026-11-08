@@ -22,8 +22,8 @@ android {
         applicationId = "com.example.pokedex"
         minSdk = 24
         targetSdk = 36
-        versionCode = 16
-        versionName = "1.9.9"
+        versionCode = 17
+        versionName = "2.0.0"
         buildConfigField("String", "GEMINI_API_KEY", geminiApiKey)
     }
 
@@ -62,6 +62,7 @@ dependencies {
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.activity.compose)
+  implementation("androidx.savedstate:savedstate-ktx:1.2.1")
 
   // Arch Components
   implementation(libs.androidx.lifecycle.runtime.compose)

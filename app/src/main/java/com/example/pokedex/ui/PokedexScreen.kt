@@ -2603,6 +2603,38 @@ fun PokedexHeader(
         
 
         // Strategy Guide Button
+        val headerContext = LocalContext.current
+        var showOverlaySetupDialog by remember { mutableStateOf(false) }
+
+        Button(
+            onClick = {
+                val enabled = com.example.pokedex.overlay.PokedexOverlayAccessibilityService.isAccessibilityServiceEnabled(headerContext)
+                if (enabled) {
+                    val shown = com.example.pokedex.overlay.PokedexOverlayAccessibilityService.showOverlay(
+                        com.example.pokedex.overlay.OverlayMode.SCANNER_RETICLE
+                    )
+                    if (!shown) {
+                        headerContext.sendBroadcast(
+                            android.content.Intent(com.example.pokedex.overlay.PokedexOverlayAccessibilityService.ACTION_OVERLAY_CONTROL).apply {
+                                setPackage(headerContext.packageName)
+                                putExtra("cmd", "show")
+                            }
+                        )
+                    }
+                } else {
+                    showOverlaySetupDialog = true
+                }
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
+            shape = RoundedCornerShape(8.dp),
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+            modifier = Modifier.height(36.dp)
+        ) {
+            Text("🎯 OVERLAY", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 10.sp)
+        }
+
+        Spacer(modifier = Modifier.width(6.dp))
+
         Button(
             onClick = { viewModel.openGuideModal() },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC)),
@@ -2613,16 +2645,75 @@ fun PokedexHeader(
             Text("🧭 GUIDE", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 11.sp)
         }
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(6.dp))
 
         // Settings Button
         Button(
             onClick = onOpenSettings,
             colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
             shape = RoundedCornerShape(8.dp),
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
             modifier = Modifier.height(36.dp)
         ) {
             Text("SETTINGS", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 11.sp)
+        }
+
+        Spacer(modifier = Modifier.width(6.dp))
+
+        // Trainer Tutorial Help Button
+        Button(
+            onClick = { viewModel.openTutorial() },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E2836)),
+            shape = RoundedCornerShape(8.dp),
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+            modifier = Modifier
+                .height(36.dp)
+                .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), RoundedCornerShape(8.dp))
+        ) {
+            Text("❓", fontSize = 13.sp)
+        }
+
+        if (showOverlaySetupDialog) {
+            AlertDialog(
+                onDismissRequest = { showOverlaySetupDialog = false },
+                containerColor = Color(0xFF141822),
+                title = {
+                    Text(
+                        "🎯 BATTLE OVERLAY SCANNER",
+                        color = Color(0xFF00FFCC),
+                        fontWeight = FontWeight.Black,
+                        fontSize = 15.sp
+                    )
+                },
+                text = {
+                    Text(
+                        "Enable 'Bori-dex Battle Overlay Scanner' in Android Accessibility Settings to float the animated Invizimals/Chaotic Pokédex scanner reticle over any retro Pokémon emulator and get instant 4x/2x weaknesses, immunities, and STAB strengths during battle.",
+                        color = Color.White,
+                        fontSize = 12.sp,
+                        lineHeight = 17.sp
+                    )
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            showOverlaySetupDialog = false
+                            headerContext.startActivity(
+                                android.content.Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
+                                    addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                            )
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FFCC))
+                    ) {
+                        Text("OPEN ACCESSIBILITY SETTINGS", color = Color.Black, fontWeight = FontWeight.Black, fontSize = 11.sp)
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showOverlaySetupDialog = false }) {
+                        Text("CANCEL", color = Color.LightGray)
+                    }
+                }
+            )
         }
 
     }
@@ -3375,217 +3466,317 @@ fun PokedexDisplay(
 
 
                 is PokedexState.WhosThat -> {
-
-                    var randomId by remember { mutableStateOf((1..151).random()) }
-
-                    val assetUrl = "file:///android_asset/sprites/${randomId}.png"
-
-
-
-                    val infiniteTransition = rememberInfiniteTransition()
-
-                    val scale by infiniteTransition.animateFloat(
-
-                        initialValue = 0.8f,
-
-                        targetValue = 1.2f,
-
-                        animationSpec = infiniteRepeatable(
-
-                            animation = tween(800, easing = FastOutSlowInEasing),
-
-                            repeatMode = RepeatMode.Reverse
-
-                        ),
-
-                        label = "bounce"
-
-                    )
-
-
-
-                    Column(
-
-                        horizontalAlignment = Alignment.CenterHorizontally,
-
-                        verticalArrangement = Arrangement.Center,
-
-                        modifier = Modifier.fillMaxSize()
-
-                    ) {
-
-                        Text(
-
-                            text = "WHO'S THAT POKEMON?",
-
-                            color = Color(0xFFFFCC00),
-
-                            fontSize = 28.sp,
-
-                            fontWeight = FontWeight.Black,
-
-                            style = androidx.compose.ui.text.TextStyle(
-
-                                shadow = Shadow(
-
-                                    color = Color.Blue,
-
-                                    offset = Offset(4f, 4f),
-
-                                    blurRadius = 8f
-
-                                )
-
-                            )
-
-                        )
-
-
-
-                        Spacer(modifier = Modifier.height(32.dp))
-
-
-
-                        val silhouetteMatrix = ColorMatrix(
-
-                            floatArrayOf(
-
-                                0f, 0f, 0f, 0f, 0f,
-
-                                0f, 0f, 0f, 0f, 0f,
-
-                                0f, 0f, 0f, 0f, 0f,
-
-                                0f, 0f, 0f, 1f, 0f
-
-                            )
-
-                        )
-
-
-
-                        AsyncImage(
-
-                            model = assetUrl,
-
-                            contentDescription = "WHO'S THAT POKEMON?",
-
-                            modifier = Modifier.size(150.dp).graphicsLayer {
-
-                                scaleX = scale
-
-                                scaleY = scale
-
-                            },
-
-                            colorFilter = ColorFilter.colorMatrix(silhouetteMatrix)
-
-                        )
-
-                        
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        
-
-                        Text(
-
-                            text = "ANALYZING...",
-
-                            color = Color.White,
-
-                            fontSize = 20.sp,
-
-                            fontWeight = FontWeight.Bold
-
-                        )
-
+                    val pokemon = state.pokemon
+                    val spriteUrl = when {
+                        state.isShiny && !pokemon?.shinySpriteUrl.isNullOrEmpty() -> pokemon?.shinySpriteUrl
+                        !pokemon?.spriteUrl.isNullOrEmpty() -> pokemon?.spriteUrl
+                        pokemon != null -> "file:///android_asset/sprites/${pokemon.id}.png"
+                        else -> null
                     }
 
+                    // 1997 Anime Sunburst / Radial Background & Dynamic Animations
+                    val infiniteTransition = rememberInfiniteTransition(label = "whos_that_anim")
+                    val rayRotation by infiniteTransition.animateFloat(
+                        initialValue = 0f,
+                        targetValue = 360f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(22000, easing = LinearEasing),
+                            repeatMode = RepeatMode.Restart
+                        ),
+                        label = "ray_rot"
+                    )
+
+                    // Title text pulse and entrance
+                    val textScale by infiniteTransition.animateFloat(
+                        initialValue = 0.95f,
+                        targetValue = 1.05f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(850, easing = FastOutSlowInEasing),
+                            repeatMode = RepeatMode.Reverse
+                        ),
+                        label = "text_scale"
+                    )
+
+                    // Silhouette dynamic breathing / floating animation alongside text
+                    val silhouetteFloatY by infiniteTransition.animateFloat(
+                        initialValue = -7f,
+                        targetValue = 7f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(1100, easing = FastOutSlowInEasing),
+                            repeatMode = RepeatMode.Reverse
+                        ),
+                        label = "silhouette_float"
+                    )
+                    val silhouetteScale by infiniteTransition.animateFloat(
+                        initialValue = 0.93f,
+                        targetValue = 1.06f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(850, easing = FastOutSlowInEasing),
+                            repeatMode = RepeatMode.Reverse
+                        ),
+                        label = "silhouette_scale"
+                    )
+
+                    val silhouetteMatrix = remember {
+                        ColorMatrix(
+                            floatArrayOf(
+                                0f, 0f, 0f, 0f, 0f,
+                                0f, 0f, 0f, 0f, 0f,
+                                0f, 0f, 0f, 0f, 0f,
+                                0f, 0f, 0f, 1f, 0f
+                            )
+                        )
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clipToBounds()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color(0xFF0D1B2A),
+                                        Color(0xFF1B263B),
+                                        Color(0xFF0F172A)
+                                    )
+                                )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        // Background rotating anime rays
+                        androidx.compose.foundation.Canvas(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .graphicsLayer { rotationZ = rayRotation }
+                        ) {
+                            val center = Offset(size.width / 2f, size.height / 2f)
+                            val radius = maxOf(size.width, size.height) * 1.3f
+                            val rayCount = 12
+                            val sweepAngle = 360f / (rayCount * 2)
+                            for (i in 0 until rayCount) {
+                                val startAngle = i * (sweepAngle * 2)
+                                drawArc(
+                                    color = Color(0x18415A77),
+                                    startAngle = startAngle,
+                                    sweepAngle = sweepAngle,
+                                    useCenter = true,
+                                    size = androidx.compose.ui.geometry.Size(radius * 2, radius * 2),
+                                    topLeft = Offset(center.x - radius, center.y - radius)
+                                )
+                            }
+                        }
+
+                        // Ambient Pokeball watermark
+                        Box(
+                            modifier = Modifier
+                                .size(240.dp)
+                                .graphicsLayer { alpha = 0.07f }
+                                .border(8.dp, Color.White, CircleShape)
+                        )
+
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp)
+                        ) {
+                            // "WHO'S THAT POKÉMON?" Anime Title Banner
+                            Text(
+                                text = "WHO'S THAT POKÉMON?",
+                                color = Color(0xFFFFDE00),
+                                fontSize = if (isCompact) 22.sp else 26.sp,
+                                fontWeight = FontWeight.Black,
+                                textAlign = TextAlign.Center,
+                                style = androidx.compose.ui.text.TextStyle(
+                                    shadow = Shadow(
+                                        color = Color(0xFF1D4ED8),
+                                        offset = Offset(4f, 4f),
+                                        blurRadius = 6f
+                                    )
+                                ),
+                                modifier = Modifier
+                                    .graphicsLayer {
+                                        scaleX = textScale
+                                        scaleY = textScale
+                                    }
+                                    .padding(horizontal = 8.dp)
+                            )
+
+                            Spacer(modifier = Modifier.height(20.dp))
+
+                            // Animated Silhouette Container alongside title
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .size(if (isCompact) 170.dp else 210.dp)
+                                    .graphicsLayer {
+                                        translationY = silhouetteFloatY
+                                        scaleX = silhouetteScale
+                                        scaleY = silhouetteScale
+                                    }
+                            ) {
+                                // Subtle backing spotlight aura
+                                Box(
+                                    modifier = Modifier
+                                        .size(if (isCompact) 140.dp else 170.dp)
+                                        .background(
+                                            Brush.radialGradient(
+                                                colors = listOf(
+                                                    Color(0x33FFDE00),
+                                                    Color(0x153B82F6),
+                                                    Color.Transparent
+                                                )
+                                            ),
+                                            shape = CircleShape
+                                        )
+                                )
+
+                                if (spriteUrl != null) {
+                                    AsyncImage(
+                                        model = spriteUrl,
+                                        contentDescription = "Who's That Pokémon Silhouette",
+                                        modifier = Modifier.fillMaxSize(),
+                                        colorFilter = ColorFilter.colorMatrix(silhouetteMatrix)
+                                    )
+                                } else {
+                                    Image(
+                                        bitmap = state.capturedImage.asImageBitmap(),
+                                        contentDescription = "Who's That Pokémon Silhouette",
+                                        modifier = Modifier.fillMaxSize(),
+                                        colorFilter = ColorFilter.colorMatrix(silhouetteMatrix)
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            // Scan status badge
+                            Surface(
+                                shape = RoundedCornerShape(12.dp),
+                                color = Color(0xCC0B132B),
+                                border = BorderStroke(1.dp, Color(0x44FFDE00)),
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    text = if (state.isShiny) "✨ RARE FREQUENCY DETECTED..." else "🔍 IDENTIFYING FREQUENCY...",
+                                    color = if (state.isShiny) Color(0xFFFFD700) else Color(0xFFE0E1DD),
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    letterSpacing = 1.sp,
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                                )
+                            }
+                        }
+                    }
                 }
 
                 is PokedexState.Reveal -> {
-
                     val formTitle = PokemonFormDetector.formatFormDisplayName(state.pokemon.name)
-
                     val revealTitle = if (state.isShiny) "IT'S A SHINY ${formTitle.uppercase()}!" else "IT'S ${formTitle.uppercase()}!"
-
                     val revealSprite = if (state.isShiny && !state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
-
                         state.pokemon.shinySpriteUrl
-
                     } else {
-
                         state.pokemon.spriteUrl
-
                     }
 
-                    Column(
+                    val revealTransition = rememberInfiniteTransition(label = "reveal_anim")
+                    val revealScale by revealTransition.animateFloat(
+                        initialValue = 0.98f,
+                        targetValue = 1.03f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(800, easing = FastOutSlowInEasing),
+                            repeatMode = RepeatMode.Reverse
+                        ),
+                        label = "reveal_scale"
+                    )
 
-                        horizontalAlignment = Alignment.CenterHorizontally,
-
-                        verticalArrangement = Arrangement.Center,
-
-                        modifier = Modifier.fillMaxSize()
-
-                    ) {
-
-                        Text(
-
-                            text = revealTitle,
-
-                            color = Color(0xFFFFCC00),
-
-                            fontSize = 28.sp,
-
-                            fontWeight = FontWeight.Black,
-
-                            style = androidx.compose.ui.text.TextStyle(
-
-                                shadow = Shadow(
-
-                                    color = Color.Blue,
-
-                                    offset = Offset(4f, 4f),
-
-                                    blurRadius = 8f
-
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clipToBounds()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color(0xFF0D1B2A),
+                                        Color(0xFF1B263B),
+                                        Color(0xFF0F172A)
+                                    )
                                 )
-
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp)
+                        ) {
+                            Text(
+                                text = revealTitle,
+                                color = Color(0xFFFFDE00),
+                                fontSize = if (isCompact) 22.sp else 26.sp,
+                                fontWeight = FontWeight.Black,
+                                textAlign = TextAlign.Center,
+                                style = androidx.compose.ui.text.TextStyle(
+                                    shadow = Shadow(
+                                        color = Color(0xFF1D4ED8),
+                                        offset = Offset(4f, 4f),
+                                        blurRadius = 6f
+                                    )
+                                ),
+                                modifier = Modifier
+                                    .graphicsLayer {
+                                        scaleX = revealScale
+                                        scaleY = revealScale
+                                    }
+                                    .padding(horizontal = 8.dp)
                             )
 
-                        )
+                            Spacer(modifier = Modifier.height(20.dp))
 
-                        Spacer(modifier = Modifier.height(32.dp))
+                            Row(
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Surface(
+                                    shape = RoundedCornerShape(12.dp),
+                                    border = BorderStroke(2.dp, Color(0x66415A77)),
+                                    color = Color.Black
+                                ) {
+                                    Image(
+                                        bitmap = state.capturedImage.asImageBitmap(),
+                                        contentDescription = "Captured",
+                                        modifier = Modifier.size(if (isCompact) 110.dp else 140.dp)
+                                    )
+                                }
 
-                        Row(horizontalArrangement = Arrangement.Center) {
+                                Spacer(modifier = Modifier.width(16.dp))
 
-                            Image(
-
-                                bitmap = state.capturedImage.asImageBitmap(),
-
-                                contentDescription = "Captured",
-
-                                modifier = Modifier.size(150.dp)
-
-                            )
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            AsyncImage(
-
-                                model = revealSprite,
-
-                                contentDescription = state.pokemon.name,
-
-                                modifier = Modifier.size(150.dp)
-
-                            )
-
+                                Box(
+                                    contentAlignment = Alignment.Center,
+                                    modifier = Modifier
+                                        .size(if (isCompact) 130.dp else 160.dp)
+                                        .background(
+                                            Brush.radialGradient(
+                                                colors = listOf(
+                                                    if (state.isShiny) Color(0x66FFD700) else Color(0x443B82F6),
+                                                    Color.Transparent
+                                                )
+                                            ),
+                                            shape = CircleShape
+                                        )
+                                ) {
+                                    AsyncImage(
+                                        model = revealSprite,
+                                        contentDescription = state.pokemon.name,
+                                        modifier = Modifier.fillMaxSize()
+                                    )
+                                }
+                            }
                         }
-
                     }
-
                 }
 
 
@@ -6065,7 +6256,24 @@ fun SettingsDialog(viewModel: PokedexViewModel, onDismiss: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(10.dp))
 
+                // Replay Trainer Tutorial
+                Button(
+                    onClick = {
+                        onDismiss()
+                        viewModel.openTutorial()
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF161F2B)),
+                    shape = RoundedCornerShape(6.dp),
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(36.dp)
+                        .border(1.dp, Color(0xFF00FFCC).copy(alpha = 0.6f), RoundedCornerShape(6.dp))
+                ) {
+                    Text("📖 REPLAY TRAINER TUTORIAL", color = Color(0xFF00FFCC), fontWeight = FontWeight.Black, fontSize = 11.5.sp)
+                }
 
+                Spacer(modifier = Modifier.height(8.dp))
 
                 // Bottom Action Buttons: TEST VOICE & CLOSE
 
@@ -6193,6 +6401,11 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
     val isGuideModalOpen by viewModel.isGuideModalOpen.collectAsState()
     if (isGuideModalOpen) {
         GameGuideModal(viewModel = viewModel, onDismiss = { viewModel.closeGuideModal() })
+    }
+
+    val showTutorial by viewModel.showTutorial.collectAsState()
+    if (showTutorial) {
+        TrainerTutorialModal(viewModel = viewModel, onDismiss = { viewModel.dismissTutorial() })
     }
 
     BoxWithConstraints(

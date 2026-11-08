@@ -34,7 +34,11 @@ sealed class PokedexState {
     object Idle : PokedexState()
     object LoadingModel : PokedexState()
     object Scanning : PokedexState()
-    data class WhosThat(val capturedImage: Bitmap) : PokedexState()
+    data class WhosThat(
+        val capturedImage: Bitmap,
+        val pokemon: PokemonEntity? = null,
+        val isShiny: Boolean = false
+    ) : PokedexState()
     data class Reveal(val pokemon: PokemonEntity, val capturedImage: Bitmap, val isShiny: Boolean = false) : PokedexState()
     data class Result(val pokemon: PokemonEntity, val isShiny: Boolean = false) : PokedexState()
     data class Error(val message: String) : PokedexState()
@@ -193,6 +197,50 @@ class PokedexViewModel(
 
     private val _autoReadDexEntry = MutableStateFlow(prefs.getBoolean("auto_read_dex_entry", true))
     val autoReadDexEntry: StateFlow<Boolean> = _autoReadDexEntry.asStateFlow()
+
+    // --- TRAINER TUTORIAL ONBOARDING & HELP ---
+    private val _showTutorial = MutableStateFlow(!prefs.getBoolean("has_seen_tutorial", false))
+    val showTutorial: StateFlow<Boolean> = _showTutorial.asStateFlow()
+
+    private val _tutorialStepIndex = MutableStateFlow(0)
+    val tutorialStepIndex: StateFlow<Int> = _tutorialStepIndex.asStateFlow()
+
+    private val _hasCompletedFirstTutorialStep = MutableStateFlow(prefs.getBoolean("has_seen_tutorial", false))
+    val hasCompletedFirstTutorialStep: StateFlow<Boolean> = _hasCompletedFirstTutorialStep.asStateFlow()
+
+    fun openTutorial() {
+        tts.stop()
+        PokemonSoundPlayer.stop()
+        _isSpeaking.value = false
+        _tutorialStepIndex.value = 0
+        _hasCompletedFirstTutorialStep.value = false
+        _showTutorial.value = true
+        scanningJob?.cancel()
+    }
+
+    fun onTutorialStepChanged(stepIndex: Int) {
+        _tutorialStepIndex.value = stepIndex
+        if (stepIndex >= 1) {
+            _hasCompletedFirstTutorialStep.value = true
+        } else {
+            tts.stop()
+            PokemonSoundPlayer.stop()
+            _isSpeaking.value = false
+        }
+    }
+
+    fun dismissTutorial() {
+        _showTutorial.value = false
+        _hasCompletedFirstTutorialStep.value = true
+        prefs.edit().putBoolean("has_seen_tutorial", true).apply()
+    }
+
+    fun testTutorialVoice() {
+        if (_showTutorial.value && !_hasCompletedFirstTutorialStep.value) return
+        tts.stop()
+        _isSpeaking.value = false
+        tts.speak("Greetings, Pokémon Trainer. I am Dexter, your AI Pokédex field companion. All audio and optical scanning systems are operational.")
+    }
 
     // --- ULTIMATE POKÉMON GAME GUIDE & QUEST NAVIGATOR ---
     private val _isGuideModalOpen = MutableStateFlow(false)
@@ -694,16 +742,19 @@ class PokedexViewModel(
         val rawFlavor = getEffectiveFlavorText(pokemon)
         val cleanedFlavor = rawFlavor.replace("\n", " ").replace("\u000c", " ").replace("\\f", " ").replace(Regex("\\s+"), " ").trim()
 
-        if (autoSpeak && _autoReadDexEntry.value) {
+        val canAutoSpeak = autoSpeak && !_showTutorial.value && _hasCompletedFirstTutorialStep.value
+
+        if (canAutoSpeak && _autoReadDexEntry.value) {
             tts.speak("${evoText}${typeText}${cleanedFlavor}")
         }
 
-        if (autoSpeak && _autoPlayCryEntry.value) {
+        if (canAutoSpeak && _autoPlayCryEntry.value) {
             playPokemonCry(pokemon.id)
         }
     }
 
     fun readFlavorText(pokemon: PokemonEntity, flavorText: String, isShiny: Boolean = false) {
+        if (_showTutorial.value && !_hasCompletedFirstTutorialStep.value) return
         tts.stop()
         _isSpeaking.value = false
         val baseFormName = PokemonFormDetector.formatFormDisplayName(pokemon.name)
@@ -724,6 +775,7 @@ class PokedexViewModel(
     }
 
     fun speakCustomText(text: String) {
+        if (_showTutorial.value && !_hasCompletedFirstTutorialStep.value) return
         tts.stop()
         _isSpeaking.value = false
         tts.speak(text)
@@ -860,7 +912,7 @@ class PokedexViewModel(
             _isSpeaking.value = false
 
             if (_playFanfare.value && finalBitmap != null) {
-                _uiState.value = PokedexState.WhosThat(finalBitmap)
+                _uiState.value = PokedexState.WhosThat(finalBitmap, pokemon = pokemon, isShiny = isShiny)
                 PokemonSoundPlayer.playWhosThatPokemon(getApplication())
                 delay(3400)
             }
@@ -1378,7 +1430,7 @@ class PokedexViewModel(
                     _isSpeaking.value = false
 
                     if (_playFanfare.value) {
-                        _uiState.value = PokedexState.WhosThat(bitmap)
+                        _uiState.value = PokedexState.WhosThat(bitmap, pokemon = pokemon, isShiny = isShiny)
                         PokemonSoundPlayer.playWhosThatPokemon(getApplication())
                         delay(3400)
                     }

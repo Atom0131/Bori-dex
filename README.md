@@ -83,9 +83,17 @@ Ready-to-install Android package available on GitHub Releases:
 - **10 Regional Dungeon Encyclopedias**: Interactive guides with zone progression banners and map pinpoints for Area Zero, Cerulean Cave, Mt. Silver, Sky Pillar, Spear Pillar & Distortion World, Giant Chasm, Terminus Cave, Ultra Space, Crown Tundra & Max Lair, and Coronet Highlands & Temple of Sinnoh.
 - **37 Tactile Retro Game Cartridges**: Full mainline cartridge coverage including Red/Blue through Scarlet/Violet and Brilliant Diamond/Shining Pearl.
 
-### 📱 Adaptive Edge-to-Edge Layout
+### 📱 Adaptive Edge-to-Edge Layout & Foldable Dual-Screen Book Mode
 - Safe insets handling `.statusBarsPadding()` and `.navigationBarsPadding()` ensuring the camera punch-hole and clock never clip UI controls.
-- Responsive design adapting gracefully to compact phones, large screens, foldables, and tablets.
+- Responsive design adapting gracefully to compact phones, large screens, foldables (Samsung Galaxy Z Fold / Pixel 9 Pro Fold dual-screen book layout with central metallic hinge), and tablets.
+
+### 🎯 Floating Battle Overlay Scanner (`🎯 OVERLAY`)
+- **In-Game Tactical Reticle**: Float an animated Invizimals/Chaotic scanner reticle over any retro Pokémon emulator (GBA, NDS, Switch) or web screen via Android's `AccessibilityService`.
+- **Instant Battle Matchups**: Tap **SCAN** in-game to run on-device Float32 TFLite classification on the area inside the reticle and immediately view **4× / 2× Weaknesses**, **Resistances**, **Immunities**, and **STAB Offensive Strengths** with spoken Dexter tactical audio.
+
+### 📖 Interactive 5-Step Trainer Field Manual (`❓`)
+- **Guided Onboarding**: Interactive 5-card tutorial covering the AI Vision Scanner & Battle Overlay, Ultimate Strategy Guide, Dexter Voice & 1997 Hardware DSP, 37 Retro Game Cartridges, and Pro Controls.
+- **Silent-on-Open & Live Voice Engine Test**: Remains completely silent when first opened so the user is never overstimulated on launch, unlocking speech once Step 1 is completed and providing an interactive **TEST DEXTER VOICE ENGINE** button on Step 3. Reopen anytime via the `❓` header button or inside **Settings**.
 
 ---
 
