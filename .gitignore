@@ -16,6 +16,7 @@ gen/
 out/
 build/
 app/build/
+app/build_bad/
 */build/
 
 # Gradle files
