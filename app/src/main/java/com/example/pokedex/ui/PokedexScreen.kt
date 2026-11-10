@@ -115,6 +115,17 @@ fun getColorForType(type: String): Color {
 
 }
 
+fun getPokemonSpriteModel(pokemon: PokemonEntity?, isShiny: Boolean = false): String? {
+    if (pokemon == null) return null
+    return if (pokemon.id in 1..151 && !isShiny) {
+        "file:///android_asset/sprites/${pokemon.id}.png"
+    } else if (isShiny && !pokemon.shinySpriteUrl.isNullOrEmpty()) {
+        pokemon.shinySpriteUrl
+    } else {
+        pokemon.spriteUrl
+    }
+}
+
 
 
 data class GroupedEditionEntry(
@@ -1610,13 +1621,9 @@ fun EvolutionAndFormsModal(
                                         ) {
 
                                             AsyncImage(
-
-                                                model = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evo.targetId}.png",
-
+                                                model = if (evo.targetId in 1..151) "file:///android_asset/sprites/${evo.targetId}.png" else "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evo.targetId}.png",
                                                 contentDescription = evo.targetName,
-
                                                 modifier = Modifier.size(48.dp)
-
                                             )
 
                                         }
@@ -3184,13 +3191,9 @@ fun PokedexList(
                     ) {
 
                         AsyncImage(
-
-                            model = pokemon.spriteUrl,
-
+                            model = getPokemonSpriteModel(pokemon),
                             contentDescription = pokemon.name,
-
                             modifier = Modifier.size(56.dp)
-
                         )
 
                         Spacer(modifier = Modifier.width(14.dp))
@@ -3467,12 +3470,7 @@ fun PokedexDisplay(
 
                 is PokedexState.WhosThat -> {
                     val pokemon = state.pokemon
-                    val spriteUrl = when {
-                        state.isShiny && !pokemon?.shinySpriteUrl.isNullOrEmpty() -> pokemon?.shinySpriteUrl
-                        !pokemon?.spriteUrl.isNullOrEmpty() -> pokemon?.spriteUrl
-                        pokemon != null -> "file:///android_asset/sprites/${pokemon.id}.png"
-                        else -> null
-                    }
+                    val spriteModel = getPokemonSpriteModel(pokemon, state.isShiny)
 
                     // 1997 Anime Sunburst / Radial Background & Dynamic Animations
                     val infiniteTransition = rememberInfiniteTransition(label = "whos_that_anim")
@@ -3499,19 +3497,19 @@ fun PokedexDisplay(
 
                     // Silhouette dynamic breathing / floating animation alongside text
                     val silhouetteFloatY by infiniteTransition.animateFloat(
-                        initialValue = -7f,
-                        targetValue = 7f,
+                        initialValue = -6f,
+                        targetValue = 6f,
                         animationSpec = infiniteRepeatable(
-                            animation = tween(1100, easing = FastOutSlowInEasing),
+                            animation = tween(900, easing = FastOutSlowInEasing),
                             repeatMode = RepeatMode.Reverse
                         ),
                         label = "silhouette_float"
                     )
                     val silhouetteScale by infiniteTransition.animateFloat(
-                        initialValue = 0.93f,
-                        targetValue = 1.06f,
+                        initialValue = 0.95f,
+                        targetValue = 1.05f,
                         animationSpec = infiniteRepeatable(
-                            animation = tween(850, easing = FastOutSlowInEasing),
+                            animation = tween(750, easing = FastOutSlowInEasing),
                             repeatMode = RepeatMode.Reverse
                         ),
                         label = "silhouette_scale"
@@ -3605,11 +3603,11 @@ fun PokedexDisplay(
 
                             Spacer(modifier = Modifier.height(20.dp))
 
-                            // Animated Silhouette Container alongside title
+                            // Centered Animated Silhouette Stage
                             Box(
                                 contentAlignment = Alignment.Center,
                                 modifier = Modifier
-                                    .size(if (isCompact) 170.dp else 210.dp)
+                                    .size(if (isCompact) 180.dp else 220.dp)
                                     .graphicsLayer {
                                         translationY = silhouetteFloatY
                                         scaleX = silhouetteScale
@@ -3619,7 +3617,7 @@ fun PokedexDisplay(
                                 // Subtle backing spotlight aura
                                 Box(
                                     modifier = Modifier
-                                        .size(if (isCompact) 140.dp else 170.dp)
+                                        .size(if (isCompact) 150.dp else 180.dp)
                                         .background(
                                             Brush.radialGradient(
                                                 colors = listOf(
@@ -3632,9 +3630,9 @@ fun PokedexDisplay(
                                         )
                                 )
 
-                                if (spriteUrl != null) {
+                                if (spriteModel != null) {
                                     AsyncImage(
-                                        model = spriteUrl,
+                                        model = spriteModel,
                                         contentDescription = "Who's That Pokémon Silhouette",
                                         modifier = Modifier.fillMaxSize(),
                                         colorFilter = ColorFilter.colorMatrix(silhouetteMatrix)
@@ -3674,22 +3672,36 @@ fun PokedexDisplay(
                 is PokedexState.Reveal -> {
                     val formTitle = PokemonFormDetector.formatFormDisplayName(state.pokemon.name)
                     val revealTitle = if (state.isShiny) "IT'S A SHINY ${formTitle.uppercase()}!" else "IT'S ${formTitle.uppercase()}!"
-                    val revealSprite = if (state.isShiny && !state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
-                        state.pokemon.shinySpriteUrl
-                    } else {
-                        state.pokemon.spriteUrl
-                    }
+                    val revealSprite = getPokemonSpriteModel(state.pokemon, state.isShiny)
 
                     val revealTransition = rememberInfiniteTransition(label = "reveal_anim")
+                    val rayRotation by revealTransition.animateFloat(
+                        initialValue = 0f,
+                        targetValue = 360f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(12000, easing = LinearEasing),
+                            repeatMode = RepeatMode.Restart
+                        ),
+                        label = "ray_rot"
+                    )
                     val revealScale by revealTransition.animateFloat(
                         initialValue = 0.98f,
-                        targetValue = 1.03f,
+                        targetValue = 1.05f,
                         animationSpec = infiniteRepeatable(
-                            animation = tween(800, easing = FastOutSlowInEasing),
+                            animation = tween(650, easing = FastOutSlowInEasing),
                             repeatMode = RepeatMode.Reverse
                         ),
                         label = "reveal_scale"
                     )
+
+                    // Lightning flash burst entrance on reveal
+                    val flashAlpha = remember { Animatable(1f) }
+                    LaunchedEffect(Unit) {
+                        flashAlpha.animateTo(
+                            targetValue = 0f,
+                            animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing)
+                        )
+                    }
 
                     Box(
                         modifier = Modifier
@@ -3706,6 +3718,37 @@ fun PokedexDisplay(
                             ),
                         contentAlignment = Alignment.Center
                     ) {
+                        // Background rotating anime rays
+                        androidx.compose.foundation.Canvas(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .graphicsLayer { rotationZ = rayRotation }
+                        ) {
+                            val center = Offset(size.width / 2f, size.height / 2f)
+                            val radius = maxOf(size.width, size.height) * 1.3f
+                            val rayCount = 12
+                            val sweepAngle = 360f / (rayCount * 2)
+                            for (i in 0 until rayCount) {
+                                val startAngle = i * (sweepAngle * 2)
+                                drawArc(
+                                    color = if (state.isShiny) Color(0x28FFDE00) else Color(0x2500FFCC),
+                                    startAngle = startAngle,
+                                    sweepAngle = sweepAngle,
+                                    useCenter = true,
+                                    size = androidx.compose.ui.geometry.Size(radius * 2, radius * 2),
+                                    topLeft = Offset(center.x - radius, center.y - radius)
+                                )
+                            }
+                        }
+
+                        // Ambient Pokeball watermark
+                        Box(
+                            modifier = Modifier
+                                .size(240.dp)
+                                .graphicsLayer { alpha = 0.10f }
+                                .border(8.dp, Color(0xFF00FFCC), CircleShape)
+                        )
+
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
@@ -3736,44 +3779,71 @@ fun PokedexDisplay(
 
                             Spacer(modifier = Modifier.height(20.dp))
 
-                            Row(
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
+                            // Centered Full-Color Pokémon Stage (In exact same spot as silhouette!)
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .size(if (isCompact) 180.dp else 220.dp)
+                                    .graphicsLayer {
+                                        scaleX = revealScale
+                                        scaleY = revealScale
+                                    }
                             ) {
-                                Surface(
-                                    shape = RoundedCornerShape(12.dp),
-                                    border = BorderStroke(2.dp, Color(0x66415A77)),
-                                    color = Color.Black
-                                ) {
-                                    Image(
-                                        bitmap = state.capturedImage.asImageBitmap(),
-                                        contentDescription = "Captured",
-                                        modifier = Modifier.size(if (isCompact) 110.dp else 140.dp)
-                                    )
-                                }
-
-                                Spacer(modifier = Modifier.width(16.dp))
-
+                                // Triumphant radiant spotlight glow
                                 Box(
-                                    contentAlignment = Alignment.Center,
                                     modifier = Modifier
-                                        .size(if (isCompact) 130.dp else 160.dp)
+                                        .size(if (isCompact) 160.dp else 200.dp)
                                         .background(
                                             Brush.radialGradient(
                                                 colors = listOf(
-                                                    if (state.isShiny) Color(0x66FFD700) else Color(0x443B82F6),
+                                                    if (state.isShiny) Color(0x66FFD700) else Color(0x5500FFCC),
+                                                    Color(0x223B82F6),
                                                     Color.Transparent
                                                 )
                                             ),
                                             shape = CircleShape
                                         )
-                                ) {
-                                    AsyncImage(
-                                        model = revealSprite,
-                                        contentDescription = state.pokemon.name,
-                                        modifier = Modifier.fillMaxSize()
+                                )
+
+                                AsyncImage(
+                                    model = revealSprite,
+                                    contentDescription = state.pokemon.name,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+
+                                // White-out lightning flash overlay
+                                if (flashAlpha.value > 0.01f) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .graphicsLayer { alpha = flashAlpha.value }
+                                            .background(
+                                                Brush.radialGradient(
+                                                    listOf(Color.White, Color(0xCC00FFCC), Color.Transparent)
+                                                ),
+                                                shape = CircleShape
+                                            )
                                     )
                                 }
+                            }
+
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            // Triumphant identification badge
+                            Surface(
+                                shape = RoundedCornerShape(12.dp),
+                                color = Color(0xCC0B132B),
+                                border = BorderStroke(1.5.dp, if (state.isShiny) Color(0xFFFFDE00) else Color(0xFF00FFCC)),
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    text = "★ IDENTIFIED: #${"%03d".format(state.pokemon.id)} ${formTitle.uppercase()} ★",
+                                    color = if (state.isShiny) Color(0xFFFFDE00) else Color(0xFF00FFCC),
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.Black,
+                                    letterSpacing = 1.sp,
+                                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp)
+                                )
                             }
                         }
                     }
@@ -3843,14 +3913,8 @@ fun PokedexDisplay(
 
                                 }
 
-                            } else if (showShiny && !state.pokemon.shinySpriteUrl.isNullOrEmpty()) {
-
-                                state.pokemon.shinySpriteUrl
-
                             } else {
-
-                                state.pokemon.spriteUrl
-
+                                getPokemonSpriteModel(state.pokemon, showShiny)
                             }
 
 

@@ -463,7 +463,7 @@ fun ActiveScannerHud(
 
                     // Translucent Holographic Sprite
                     AsyncImage(
-                        model = if (candidatePokemon.id in 1..151 && !isCandidateShiny) "file:///android_asset/sprites/${candidatePokemon.id}.png" else if (isCandidateShiny && !candidatePokemon.shinySpriteUrl.isNullOrEmpty()) candidatePokemon.shinySpriteUrl else candidatePokemon.spriteUrl,
+                        model = getPokemonSpriteModel(candidatePokemon, isCandidateShiny),
                         contentDescription = candidatePokemon.name,
                         modifier = Modifier
                             .size(125.dp)

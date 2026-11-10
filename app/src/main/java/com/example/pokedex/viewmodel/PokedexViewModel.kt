@@ -44,6 +44,9 @@ sealed class PokedexState {
     data class Error(val message: String) : PokedexState()
 }
 
+private const val WHOS_THAT_FANFARE_DELAY_MS = 2200L // Dialed back from 1700ms for authentic TV suspense stager
+private const val REVEAL_HOLD_DELAY_MS = 1300L
+
 class PokedexViewModel(
     application: Application,
     private val savedStateHandle: SavedStateHandle? = null
@@ -889,6 +892,24 @@ class PokedexViewModel(
         } catch (_: Exception) {}
     }
 
+    fun preloadPokemonSprite(pokemon: PokemonEntity, isShiny: Boolean = false) {
+        try {
+            val spriteUri = if (pokemon.id in 1..151 && !isShiny) {
+                "file:///android_asset/sprites/${pokemon.id}.png"
+            } else if (isShiny && !pokemon.shinySpriteUrl.isNullOrEmpty()) {
+                pokemon.shinySpriteUrl
+            } else {
+                pokemon.spriteUrl
+            }
+            val request = coil.request.ImageRequest.Builder(getApplication())
+                .data(spriteUri)
+                .memoryCachePolicy(coil.request.CachePolicy.ENABLED)
+                .diskCachePolicy(coil.request.CachePolicy.ENABLED)
+                .build()
+            coil.Coil.imageLoader(getApplication()).enqueue(request)
+        } catch (_: Exception) {}
+    }
+
     private fun lockConsensus(pokemon: PokemonEntity, bitmap: Bitmap?, isShiny: Boolean = _isCandidateShiny.value) {
         consensusJob?.cancel()
         consensusJob = viewModelScope.launch(kotlinx.coroutines.Dispatchers.Main) {
@@ -907,14 +928,16 @@ class PokedexViewModel(
             lockStreakFrames = 0
             _scanStreak.value = 0
             _scanProgress.value = 0f
-            _candidatePokemon.value = null
+            _candidatePokemon.value = pokemon
             tts.stop()
             _isSpeaking.value = false
+
+            preloadPokemonSprite(pokemon, isShiny)
 
             if (_playFanfare.value && finalBitmap != null) {
                 _uiState.value = PokedexState.WhosThat(finalBitmap, pokemon = pokemon, isShiny = isShiny)
                 PokemonSoundPlayer.playWhosThatPokemon(getApplication())
-                delay(3400)
+                delay(WHOS_THAT_FANFARE_DELAY_MS)
             }
 
             if (!isActive) return@launch
@@ -927,7 +950,7 @@ class PokedexViewModel(
                 _uiState.value = PokedexState.Reveal(pokemon, finalBitmap, isShiny = isShiny)
                 val announcement = if (isShiny) "It's a Shiny $formTitle!" else "It's $formTitle!"
                 tts.speak(announcement)
-                delay(1600)
+                delay(REVEAL_HOLD_DELAY_MS)
             }
 
             if (!isActive) return@launch
@@ -1245,6 +1268,7 @@ class PokedexViewModel(
                                 formList.firstOrNull { it.name.equals(disambiguation.resolvedFormName, ignoreCase = true) } ?: baseEntity
                             }
                             _candidatePokemon.value = resolvedEntity
+                            preloadPokemonSprite(resolvedEntity, _isCandidateShiny.value)
                         }
                     } else {
                         // Periodic re-evaluation as clearer / sharper frames arrive
@@ -1267,6 +1291,7 @@ class PokedexViewModel(
                                         forms.firstOrNull { it.name.equals(disambiguation.resolvedFormName, ignoreCase = true) } ?: baseEntity
                                     }
                                     _candidatePokemon.value = resolvedEntity
+                                    preloadPokemonSprite(resolvedEntity, _isCandidateShiny.value)
                                 }
                             }
                         }
@@ -1329,7 +1354,8 @@ class PokedexViewModel(
         val cropY = (rawBitmap.height - minDim) / 2
         val bitmap = Bitmap.createBitmap(rawBitmap, cropX, cropY, minDim, minDim)
 
-        _uiState.value = PokedexState.WhosThat(bitmap)
+        _uiState.value = PokedexState.Scanning
+        _scanStatusText.value = "ANALYZING IMAGE..."
 
         consensusJob?.cancel()
         consensusJob = viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
@@ -1429,10 +1455,12 @@ class PokedexViewModel(
                     tts.stop()
                     _isSpeaking.value = false
 
+                    preloadPokemonSprite(pokemon, isShiny)
+
                     if (_playFanfare.value) {
                         _uiState.value = PokedexState.WhosThat(bitmap, pokemon = pokemon, isShiny = isShiny)
                         PokemonSoundPlayer.playWhosThatPokemon(getApplication())
-                        delay(3400)
+                        delay(WHOS_THAT_FANFARE_DELAY_MS)
                     }
 
                     if (!isActive) return@launch
@@ -1445,7 +1473,7 @@ class PokedexViewModel(
                         _uiState.value = PokedexState.Reveal(pokemon, bitmap, isShiny = isShiny)
                         val announcement = if (isShiny) "It's a Shiny $formTitle!" else "It's $formTitle!"
                         tts.speak(announcement)
-                        delay(1600)
+                        delay(REVEAL_HOLD_DELAY_MS)
                     }
 
                     if (!isActive) return@launch

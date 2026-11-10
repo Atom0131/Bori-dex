@@ -74,6 +74,7 @@ import com.example.pokedex.data.PokemonTypeEffectiveness
 import com.example.pokedex.tts.OfflineTTS
 import com.example.pokedex.tts.VoiceProfile
 import com.example.pokedex.ui.getColorForType
+import com.example.pokedex.ui.getPokemonSpriteModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -1420,13 +1421,7 @@ fun OverlayScannerAndBattleHud(
 
                     // 2. Scanned Pokémon Identity Banner + Type Badges + Audio Briefing
                     if (activePokemon != null) {
-                        val spriteModel = if (activePokemon.id in 1..151 && !isShiny) {
-                            "file:///android_asset/sprites/${activePokemon.id}.png"
-                        } else if (isShiny && !activePokemon.shinySpriteUrl.isNullOrEmpty()) {
-                            activePokemon.shinySpriteUrl
-                        } else {
-                            activePokemon.spriteUrl
-                        }
+                        val spriteModel = getPokemonSpriteModel(activePokemon, isShiny)
 
                         Row(
                             modifier = Modifier
