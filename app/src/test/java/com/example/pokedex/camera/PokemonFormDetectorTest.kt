@@ -119,6 +119,32 @@ class PokemonFormDetectorTest {
     }
 
     @Test
+    fun testNormalGreenRayquazaDisambiguation() {
+        val baseRay = createDummyPokemon(384, "rayquaza", "rayquaza-mega")
+        val megaRay = createDummyPokemon(10079, "rayquaza-mega", "rayquaza")
+        val forms = listOf(megaRay)
+
+        // Green statue on a dark desk with shadows (blackPixelPct 0.42, greenPct 0.25)
+        val profile = ColorProfile(
+            dominantHue = 125f,
+            avgSaturation = 0.45f,
+            avgValue = 0.40f,
+            blackPixelPct = 0.42f,
+            whitePixelPct = 0.02f,
+            cyanBluePct = 0.01f,
+            yellowGoldPct = 0.06f,
+            redOrangePct = 0.04f,
+            greenPct = 0.25f,
+            purpleVioletPct = 0f
+        )
+
+        val result = PokemonFormDetector.disambiguateFromProfile(profile, baseRay, forms)
+        assertEquals("rayquaza", result.resolvedFormName)
+        assertFalse("Normal green Rayquaza must NOT be flagged as shiny", result.isShiny)
+        assertTrue(result.confidence >= 0.85f)
+    }
+
+    @Test
     fun testAlolanVulpixDisambiguation() {
         val baseVulpix = createDummyPokemon(37, "vulpix", "vulpix-alola")
         val alolanVulpix = createDummyPokemon(10103, "vulpix-alola", "vulpix")

@@ -2827,7 +2827,9 @@ fun PokedexList(
 
     viewModel: PokedexViewModel,
 
-    listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState()
+    listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState(),
+
+    selectedPokemonId: Int? = null
 
 ) {
 
@@ -3166,6 +3168,9 @@ fun PokedexList(
 
             items(pokemonList, key = { it.id }) { pokemon ->
 
+                val isSelected = selectedPokemonId == pokemon.id
+                val selectionBorder = if (isSelected) androidx.compose.foundation.BorderStroke(2.dp, Color(0xFF00FFCC)) else null
+
                 Card(
 
                     modifier = Modifier
@@ -3177,6 +3182,8 @@ fun PokedexList(
                         .padding(vertical = 4.dp),
 
                     colors = CardDefaults.cardColors(containerColor = getColorForType(pokemon.type)),
+
+                    border = selectionBorder,
 
                     shape = RoundedCornerShape(10.dp)
 
@@ -3338,9 +3345,11 @@ fun PokedexDisplay(
 
     ) {
 
+        val activeSelectedId = (uiState as? PokedexState.Result)?.pokemon?.id
+
         if (isListOnly) {
 
-            PokedexList(pokemonList, searchQuery, viewModel, listState)
+            PokedexList(pokemonList, searchQuery, viewModel, listState, selectedPokemonId = activeSelectedId)
 
         } else {
 
@@ -3348,7 +3357,7 @@ fun PokedexDisplay(
 
                 is PokedexState.Idle -> {
 
-                    PokedexList(pokemonList, searchQuery, viewModel, listState)
+                    PokedexList(pokemonList, searchQuery, viewModel, listState, selectedPokemonId = activeSelectedId)
 
                 }
 
@@ -6419,11 +6428,18 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
 
     var lastViewedPokemonId by remember { mutableStateOf<Int?>(null) }
 
-    LaunchedEffect(uiState) {
-        if (uiState is PokedexState.Result) {
-            lastViewedPokemonId = (uiState as PokedexState.Result).pokemon.id
-        } else if (uiState is PokedexState.Idle && lastViewedPokemonId != null) {
-            val targetIdx = filteredPokemonList.indexOfFirst { it.id == lastViewedPokemonId }
+    LaunchedEffect(uiState, filteredPokemonList) {
+        val currentState = uiState
+        val activePokemonId = when (currentState) {
+            is PokedexState.Result -> currentState.pokemon.id
+            is PokedexState.Idle -> lastViewedPokemonId
+            else -> null
+        }
+        if (currentState is PokedexState.Result) {
+            lastViewedPokemonId = currentState.pokemon.id
+        }
+        if (activePokemonId != null) {
+            val targetIdx = filteredPokemonList.indexOfFirst { it.id == activePokemonId }
             if (targetIdx >= 0) {
                 listState.animateScrollToItem(targetIdx)
             }
@@ -6482,17 +6498,13 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
     ) {
         val isWide = maxWidth > 600.dp
 
-        LaunchedEffect(isWide, filteredPokemonList, searchQuery) {
-            if (isWide && filteredPokemonList.isNotEmpty()) {
-                val currentPokemon = (uiState as? PokedexState.Result)?.pokemon
-                val currentInList = currentPokemon != null && filteredPokemonList.any { it.id == currentPokemon.id }
-                if (!currentInList) {
-                    viewModel.selectPokemon(
-                        pokemon = filteredPokemonList.first(),
-                        autoSpeak = false,
-                        recordHistory = false
-                    )
-                }
+        LaunchedEffect(isWide, filteredPokemonList) {
+            if (isWide && filteredPokemonList.isNotEmpty() && uiState is PokedexState.Idle) {
+                viewModel.selectPokemon(
+                    pokemon = filteredPokemonList.first(),
+                    autoSpeak = false,
+                    recordHistory = false
+                )
             }
         }
 

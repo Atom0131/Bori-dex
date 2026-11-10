@@ -718,6 +718,24 @@ class PokedexViewModel(
         _isSpeaking.value = false
         _uiState.value = PokedexState.Result(pokemon, isShiny = isShiny)
 
+        // Clear search query so the list shows the scanned / selected Pokemon
+        if (_searchQuery.value.isNotEmpty()) {
+            _searchQuery.value = ""
+            prefs.edit().putString("last_search_query", "").apply()
+            savedStateHandle?.set("last_search_query", "")
+        }
+
+        // Ensure the active region filter includes the selected Pokemon
+        val curRegion = _selectedRegion.value
+        if (curRegion != null && !curRegion.matches(pokemon)) {
+            val matchingRegion = com.example.pokedex.data.PokemonRegion.values().firstOrNull { 
+                it != com.example.pokedex.data.PokemonRegion.POKEMON_GO && 
+                it != com.example.pokedex.data.PokemonRegion.COSTUMES && 
+                it.matches(pokemon) 
+            }
+            selectRegion(matchingRegion)
+        }
+
         // Persist active view state
         prefs.edit()
             .putString("last_active_state", "RESULT")
@@ -1127,15 +1145,15 @@ class PokedexViewModel(
                 val top2DisplayName = nameMatcher.extractName(fusedTop2Label)?.uppercase() ?: "--"
 
                 // 2. Multi-Tier Background & Ambient Clutter Rejection
-                // Must have at least 15% confidence and beat #2 by 2.0% or 1.20x ratio
-                val MIN_ACQUISITION_CONFIDENCE = 0.15f
-                val MIN_PEAK_MARGIN = 0.025f
+                // Scaled for 1025-class distribution (random is 0.098%).
+                val MIN_ACQUISITION_CONFIDENCE = 0.10f
+                val MIN_PEAK_MARGIN = 0.020f
                 val MIN_PEAK_RATIO = 1.20f
 
                 val leadMargin = fusedTop1Val - fusedTop2Val
                 val leadRatio = if (fusedTop2Val > 0f) fusedTop1Val / fusedTop2Val else 10f
-                val isRecognizedTarget = (fusedTop1Val >= MIN_ACQUISITION_CONFIDENCE) &&
-                        (leadMargin >= MIN_PEAK_MARGIN || leadRatio >= MIN_PEAK_RATIO)
+                val isRecognizedTarget = (fusedTop1Val >= MIN_ACQUISITION_CONFIDENCE && (leadMargin >= MIN_PEAK_MARGIN || leadRatio >= MIN_PEAK_RATIO)) ||
+                        (fusedTop1Val >= 0.08f && leadRatio >= 1.80f)
 
                 if (!isRecognizedTarget) {
                     // Non-Pokémon object or target lost: decay streak rapidly by 3 frames per iteration
@@ -1170,7 +1188,7 @@ class PokedexViewModel(
                     if (fusedTop1Idx == activeCand) {
                         effectiveLeaderIdx = activeCand
                         effectiveLeaderVal = fusedTop1Val
-                    } else if (activeVal < MIN_ACQUISITION_CONFIDENCE || activeVal < 0.12f) {
+                    } else if (activeVal < MIN_ACQUISITION_CONFIDENCE || activeVal < 0.08f) {
                         // Active candidate collapsed: immediately switch to new leader!
                         effectiveLeaderIdx = fusedTop1Idx
                         effectiveLeaderVal = fusedTop1Val
@@ -1222,11 +1240,12 @@ class PokedexViewModel(
                 val isGlareAttractor = rawCandName?.lowercase() in GLARE_ATTRACTORS
                 val targetLockFrames = when {
                     isGlareAttractor && effectiveTargetConf < 0.60f -> 999 // Strictly forbid auto-locking glare
-                    effectiveTargetConf >= 0.65f -> 8
-                    effectiveTargetConf >= 0.40f -> 10
-                    effectiveTargetConf >= 0.26f && (currentLeadRatio >= 1.40f || currentMargin >= 0.07f) -> 12
-                    effectiveTargetConf >= 0.22f && currentLeadRatio >= 1.80f -> 14
-                    effectiveTargetConf >= 0.17f && currentLeadRatio >= 2.50f -> 16
+                    effectiveTargetConf >= 0.70f -> 14 // ~1.2s - lets CameraX auto-exposure and reticle settle
+                    effectiveTargetConf >= 0.50f -> 18 // ~1.5s - gives user authentic "LOCKING IN 3.. 2.. 1.." countdown
+                    effectiveTargetConf >= 0.30f -> 22 // ~1.8s
+                    effectiveTargetConf >= 0.18f && currentLeadRatio >= 1.35f -> 25 // ~2.1s
+                    effectiveTargetConf >= 0.12f && currentLeadRatio >= 1.50f -> 28 // ~2.4s
+                    effectiveTargetConf >= 0.08f && currentLeadRatio >= 2.00f -> 30 // ~2.6s
                     else -> 999 // Advisory mode: never auto-locks on weak guesses, user can tap 1-Tap LOCK FAB
                 }
 
@@ -1271,28 +1290,26 @@ class PokedexViewModel(
                             preloadPokemonSprite(resolvedEntity, _isCandidateShiny.value)
                         }
                     } else {
-                        // Periodic re-evaluation as clearer / sharper frames arrive
-                        val forms = _candidateForms.value
-                        if (forms.isNotEmpty() && lockStreakFrames % 3 == 0) {
+                        // Periodic re-evaluation as clearer / sharper / better-exposed frames arrive
+                        if (lockStreakFrames % 3 == 0) {
                             val baseEntity = pokemonDao.getPokemonByName(rawCandName)
                             if (baseEntity != null) {
+                                val forms = _candidateForms.value
                                 val sampleBitmap = sharpestBitmap ?: bitmap
                                 val disambiguation = PokemonFormDetector.disambiguate(
                                     bitmap = sampleBitmap,
                                     basePokemon = baseEntity,
                                     availableForms = forms
                                 )
-                                if (disambiguation.confidence >= 0.80f) {
-                                    _isCandidateShiny.value = disambiguation.isShiny
-                                    _detectedFormReason.value = disambiguation.reason
-                                    val resolvedEntity = if (disambiguation.resolvedFormName.equals(baseEntity.name, ignoreCase = true)) {
-                                        baseEntity
-                                    } else {
-                                        forms.firstOrNull { it.name.equals(disambiguation.resolvedFormName, ignoreCase = true) } ?: baseEntity
-                                    }
-                                    _candidatePokemon.value = resolvedEntity
-                                    preloadPokemonSprite(resolvedEntity, _isCandidateShiny.value)
+                                _isCandidateShiny.value = disambiguation.isShiny
+                                _detectedFormReason.value = disambiguation.reason
+                                val resolvedEntity = if (disambiguation.resolvedFormName.equals(baseEntity.name, ignoreCase = true)) {
+                                    baseEntity
+                                } else {
+                                    forms.firstOrNull { it.name.equals(disambiguation.resolvedFormName, ignoreCase = true) } ?: baseEntity
                                 }
+                                _candidatePokemon.value = resolvedEntity
+                                preloadPokemonSprite(resolvedEntity, _isCandidateShiny.value)
                             }
                         }
                     }
@@ -1325,7 +1342,8 @@ class PokedexViewModel(
                 logScannerTelemetry(logLine)
 
                 // 5. Consensus Locked: Reached targetLockFrames AND meets minimum confidence
-                if (lockStreakFrames >= targetLockFrames && targetLockFrames <= 30 && highestStreakConfidence >= 0.17f && effectiveLeaderVal >= 0.15f) {
+                val minConfidenceForLock = if (currentLeadRatio >= 2.00f) 0.08f else if (currentLeadRatio >= 1.50f) 0.11f else 0.15f
+                if (lockStreakFrames >= targetLockFrames && targetLockFrames <= 30 && highestStreakConfidence >= minConfidenceForLock && effectiveLeaderVal >= minConfidenceForLock) {
                     if (rawCandName?.lowercase() in GLARE_ATTRACTORS && highestStreakConfidence < 0.60f) {
                         return@launch
                     }

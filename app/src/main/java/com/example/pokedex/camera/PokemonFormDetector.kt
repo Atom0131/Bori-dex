@@ -182,8 +182,8 @@ object PokemonFormDetector {
         // 1. SPECIFIC HIGH-PROFILE FORM RECOGNITION RULES
         when (baseName) {
             "rayquaza" -> {
-                // Shiny Rayquaza: Jet-black body with yellow markings
-                if (profile.blackPixelPct >= 0.40f && profile.avgValue < 0.42f) {
+                // Shiny Rayquaza: Jet-black obsidian body with yellow markings and NO green
+                if (profile.blackPixelPct >= 0.50f && profile.avgValue < 0.35f && profile.greenPct < 0.06f) {
                     val isMega = profile.yellowGoldPct >= 0.12f
                     val form = if (isMega && formNames.contains("rayquaza-mega")) "rayquaza-mega" else "rayquaza"
                     return FormDisambiguationResult(form, isShiny = true, confidence = 0.88f, reason = "Shiny Black Rayquaza palette detected")
@@ -193,6 +193,10 @@ object PokemonFormDetector {
                     if (profile.yellowGoldPct >= 0.16f || (profile.greenPct >= 0.20f && profile.yellowGoldPct >= 0.10f && profile.redOrangePct >= 0.08f)) {
                         return FormDisambiguationResult("rayquaza-mega", isShiny = false, confidence = 0.85f, reason = "Mega Rayquaza plasma tendrils and golden chin markings detected")
                     }
+                }
+                // Standard Green Rayquaza: Emerald / forest green body
+                if (profile.greenPct >= 0.08f || (profile.dominantHue in 75f..160f && profile.avgSaturation >= 0.20f)) {
+                    return FormDisambiguationResult("rayquaza", isShiny = false, confidence = 0.90f, reason = "Emerald green Rayquaza body detected")
                 }
             }
 
