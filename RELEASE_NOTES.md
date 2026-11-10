@@ -1,3 +1,58 @@
+# 🚀 Release Notes - Bori-dex v2.0.1
+
+**Release Date:** November 10, 2026  
+**Platform:** Android (API 24 to API 36 / 37 Adaptive Ready)  
+**Binary:** `Bori-dex-v2.0.1.apk` / `app-debug.apk`  
+**Commit:** `bfb0399` | **Tag:** `v2.0.1`  
+
+---
+
+## What's New in v2.0.1
+
+### 📸 1. Calibrated Auto-Lock Temporal Runway (~1.5s Countdown)
+- Dialed back the consensus locking runway from 6 frames (0.36s) to a deliberate **18–22 frames (~1.5s–1.8s)** for confidence $\ge 50\%$.
+- Restores the authentic anime Pokédex countdown (`"ACQUIRING: POKEMON..."` ➔ `"LOCKING IN 3..."` ➔ `"2..."` ➔ `"1..."` ➔ `"LOCKED!"`), giving users visual confirmation and time to center the camera.
+- Gives CameraX 3A algorithms (auto-exposure, auto-focus, auto-white-balance) ample frames to stabilize lighting before locking.
+- Scaled background rejection confidence floor down to 10% (100× above random baseline for 1,025 classes), eliminating false `"No Pokemon detected"` lockouts on real 3D figurines.
+
+### 🎨 2. Physical Color Disambiguation Guardrails (Green Rayquaza Fix)
+- Required strict green absence (`greenPct < 0.06f`) for Shiny Rayquaza to prevent physical green statues under desk shadows from being falsely flagged as Shiny Black Rayquaza.
+- Added explicit emerald green Rayquaza body detection (`greenPct >= 0.08f` or green hue band) returning `isShiny = false, confidence = 0.90f`.
+- Enabled dynamic candidate re-evaluation every 3 frames without being blocked by stale confidence thresholds, ensuring camera exposure improvements update colors in real time.
+
+### 📱 3. Dual-Screen Foldable List Synchronization
+- `selectPokemon()` automatically clears stale search queries (e.g. `"999"`) and synchronizes the active region filter so the scanned Pokémon is present in the left index list.
+- Guarded wide-screen cold boot effect so it never hijacks the selection to `filteredPokemonList.first()` during `Scanning`, `WhosThat`, or `Reveal`.
+- The left panel `LazyColumn` now automatically animates scroll directly to the scanned Pokémon on `PokedexState.Result`.
+- Rendered a glowing neon teal selection border (`BorderStroke(2.dp, Color(0xFF00FFCC))`) around the active Pokémon's card in the left list.
+
+---
+
+# 🚀 Release Notes - Bori-dex v2.0.0
+
+**Release Date:** November 8, 2026  
+**Platform:** Android (API 24 to API 36 / 37 Adaptive Ready)  
+**Binary:** `Bori-dex-v2.0.0.apk` / `app-debug.apk`  
+**Tag:** `v2.0.0`  
+
+---
+
+## What's New in v2.0.0
+
+### ❓ 1. Interactive 5-Step Trainer Field Manual
+- Companion-guided interactive onboarding modal led by Dexter (authentic 1997 anime Pokédex AI).
+- Step 1: AI Vision Scanner & Floating Battle Overlay.
+- Step 2: Ultimate Strategy Guide & Regional Encyclopedias.
+- Step 3: Dexter Voice Engine & Live DSP Voice Test.
+- Step 4: 37 Retro Game Cartridges & Dynamic Lore.
+- Step 5: Settings, Customization & Replay.
+- Silent-on-open gate suppresses automatic speech on initial launch and during Step 1.
+
+### 🎯 2. Floating Battle Overlay Scanner
+- System-level accessibility overlay (`PokedexOverlayAccessibilityService`) floating over Android emulators and web browsers with live 4×/2× battle weakness readouts.
+
+---
+
 # 🚀 Release Notes - Bori-dex v1.9.9
 
 **Release Date:** November 2, 2026  
