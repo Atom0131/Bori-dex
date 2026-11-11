@@ -41,7 +41,7 @@ abstract class PokedexDatabase : RoomDatabase() {
         fun syncAssetDataIfNeeded(context: Context, dao: PokemonDao) {
             val prefs = context.getSharedPreferences("pokedex_prefs", Context.MODE_PRIVATE)
             val currentSyncVersion = prefs.getInt("pokemon_data_asset_version", 0)
-            if (currentSyncVersion < 13) {
+            if (currentSyncVersion < 14) {
                 syncAssetData(context, dao)
             }
         }
@@ -88,7 +88,7 @@ abstract class PokedexDatabase : RoomDatabase() {
                     )
                 }
                 dao.insertAll(pokemonList)
-                context.getSharedPreferences("pokedex_prefs", Context.MODE_PRIVATE).edit().putInt("pokemon_data_asset_version", 13).apply()
+                context.getSharedPreferences("pokedex_prefs", Context.MODE_PRIVATE).edit().putInt("pokemon_data_asset_version", 14).apply()
                 android.util.Log.d("PokedexDatabase", "Successfully synced ${pokemonList.size} Pokemon entries to database.")
             } catch (e: Exception) {
                 android.util.Log.e("PokedexDatabase", "Error syncing asset data to database", e)

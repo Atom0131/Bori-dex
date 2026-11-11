@@ -312,7 +312,8 @@ object PokemonMapHabitatRepository {
     )
 
     fun cleanFlavorText(rawText: String): String {
-        return rawText
+        val standardAcronyms = setOf("DNA", "TM", "HM", "HP", "PC", "TV", "GO", "AM", "PM", "EXP", "STAB", "IV", "EV")
+        val cleaned = rawText
             .replace(Regex("This Pok[ée]mon does not naturally inhabit the [^.]+\\([^)]+\\)\\.\\s*(?:National\\s+Pok[ée]dex\\s+entry:\\s*)?", RegexOption.IGNORE_CASE), "")
             .replace(Regex("This Pok[ée]mon is not documented in the [^.]+\\.\\s*(?:National\\s+Pok[ée]dex\\s+entry:\\s*)?", RegexOption.IGNORE_CASE), "")
             .replace(Regex("^National\\s+Pok[ée]dex\\s+entry:\\s*", RegexOption.IGNORE_CASE), "")
@@ -325,6 +326,18 @@ object PokemonMapHabitatRepository {
             .replace("\\f", " ")
             .replace(Regex("\\s+"), " ")
             .trim()
+
+        return cleaned.replace(Regex("\\b[A-Z]{2,}(?:'s)?\\b")) { matchResult ->
+            val match = matchResult.value
+            val isPoss = match.endsWith("'s", ignoreCase = true)
+            val baseWord = if (isPoss) match.substring(0, match.length - 2) else match
+            if (standardAcronyms.contains(baseWord)) {
+                match
+            } else {
+                val titleCased = baseWord.lowercase().replaceFirstChar { it.uppercase() }
+                if (isPoss) "$titleCased's" else titleCased
+            }
+        }
     }
 
     fun getDebutMapAssetForPokemon(pokemonId: Int): String {

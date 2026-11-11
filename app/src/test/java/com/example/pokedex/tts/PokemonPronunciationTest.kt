@@ -249,6 +249,52 @@ class PokemonPronunciationTest {
         assertEquals("Type Null", PokemonPronunciation.formatForSpeech("Type: Null"))
         assertEquals("Porygon Two", PokemonPronunciation.formatForSpeech("Porygon2"))
         assertEquals("Porygon Z", PokemonPronunciation.formatForSpeech("Porygon-Z"))
-        assertEquals("Ho-Oh", PokemonPronunciation.formatForSpeech("Ho-Oh"))
+        assertEquals("Ho Oh", PokemonPronunciation.formatForSpeech("Ho-Oh"))
+    }
+
+    @Test
+    fun testAllCapsPokemonNamesAndPossessivesDoNotSpellOut() {
+        loadProductionPronunciationAssets()
+
+        // 1. All-caps species names and possessives from legacy Game Boy/DS entries
+        val beldumInput = "Instead of blood, a powerful magnetic force courses throughout BELDUM's body."
+        val beldumExpected = "Instead of blood, a powerful magnetic force courses throughout Beldum's body."
+        assertEquals(beldumExpected, PokemonPronunciation.formatForSpeech(beldumInput))
+
+        val eeveeInput = "The light of the moon changed EEVEE's genetic structure."
+        val eeveeExpected = "The light of the moon changed Eevee's genetic structure."
+        assertEquals(eeveeExpected, PokemonPronunciation.formatForSpeech(eeveeInput))
+
+        val charizardInput = "It is said that CHARIZARD's fire burns hotter if it has experienced harsh battles."
+        val charizardExpected = "It is said that Charizard's fire burns hotter if it has experienced harsh battles."
+        assertEquals(charizardExpected, PokemonPronunciation.formatForSpeech(charizardInput))
+
+        val dialgaInput = "It is said that time flows when DIALGA's heart beats."
+        val dialgaExpected = "It is said that time flows when Dialga's heart beats."
+        assertEquals(dialgaExpected, PokemonPronunciation.formatForSpeech(dialgaInput))
+
+        val lugiaInput = "LUGIA's wings pack devastating power."
+        val lugiaExpected = "Lugia's wings pack devastating power."
+        assertEquals(lugiaExpected, PokemonPronunciation.formatForSpeech(lugiaInput))
+
+        val aggronInput = "They are used to determine the AGGRON's age."
+        val aggronExpected = "They are used to determine the Aggron's age."
+        assertEquals(aggronExpected, PokemonPronunciation.formatForSpeech(aggronInput))
+
+        // 2. Bare uppercase words
+        assertEquals("Charizard", PokemonPronunciation.formatForSpeech("CHARIZARD"))
+        assertEquals("Eevee", PokemonPronunciation.formatForSpeech("EEVEE"))
+        assertEquals("Lugia", PokemonPronunciation.formatForSpeech("LUGIA"))
+        assertEquals("Dialga", PokemonPronunciation.formatForSpeech("DIALGA"))
+
+        // 3. Genuine acronym preservation (must not be altered)
+        val dnaInput = "Deoxys was born from a mutated virus with strange DNA."
+        assertEquals(dnaInput, PokemonPronunciation.formatForSpeech(dnaInput))
+
+        val hpInput = "Restores 50 HP when used in battle."
+        assertEquals(hpInput, PokemonPronunciation.formatForSpeech(hpInput))
+
+        val tmInput = "Teaches TM 24 Thunderbolt."
+        assertEquals(tmInput, PokemonPronunciation.formatForSpeech(tmInput))
     }
 }

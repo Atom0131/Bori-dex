@@ -115,14 +115,28 @@ fun getColorForType(type: String): Color {
 
 }
 
+private val MISSING_FORM_SPRITE_IDS = setOf(10264, 10265, 10266, 10267, 10268, 10269, 10270, 10271, 10301)
+
+fun isLocalAssetSpriteAvailable(pokemonId: Int): Boolean {
+    return (pokemonId in 1..1025) || (pokemonId in 10001..10326 && !MISSING_FORM_SPRITE_IDS.contains(pokemonId))
+}
+
 fun getPokemonSpriteModel(pokemon: PokemonEntity?, isShiny: Boolean = false): String? {
     if (pokemon == null) return null
-    return if (pokemon.id in 1..151 && !isShiny) {
-        "file:///android_asset/sprites/${pokemon.id}.png"
-    } else if (isShiny && !pokemon.shinySpriteUrl.isNullOrEmpty()) {
-        pokemon.shinySpriteUrl
+    return if (isShiny) {
+        if (isLocalAssetSpriteAvailable(pokemon.id)) {
+            "file:///android_asset/sprites_shiny/${pokemon.id}.png"
+        } else if (!pokemon.shinySpriteUrl.isNullOrEmpty()) {
+            pokemon.shinySpriteUrl
+        } else {
+            pokemon.spriteUrl
+        }
     } else {
-        pokemon.spriteUrl
+        if (isLocalAssetSpriteAvailable(pokemon.id)) {
+            "file:///android_asset/sprites/${pokemon.id}.png"
+        } else {
+            pokemon.spriteUrl
+        }
     }
 }
 

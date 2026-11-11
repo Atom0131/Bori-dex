@@ -1,3 +1,24 @@
+# Release Notes - Bori-dex v2.0.2 (Build 19)
+**Release Date**: November 11, 2026  
+**Target Hardware**: Samsung Galaxy Z Fold & Pixel 9 Pro Fold Form Factors  
+**Vision Model**: MobileNetV2 Float32 Unquantized (14.1 MB, 1,025 classes)  
+
+---
+
+### Key Highlights
+1. **Fluid Dexter Speech & Zero Letter-by-Letter Spelling**:
+   - Fixed a dictionary case-preservation defect in `PokemonPronunciation.kt` where matching all-caps names (`BELDUM's`, `CHARIZARD's`, `EEVEE's`) returned all-caps text, causing Android TextToSpeech to treat them as acronyms and spell out letters.
+   - Enforced TitleCase return invariant and added all-caps word normalization preserving genuine acronyms (`DNA`, `HP`, `TM`, etc.).
+   - Sanitized 142 entries in `pokemon_data.json` and 25 hyphenated pronunciation entries in `pokemon_pronunciations.json`.
+   - Bumped Room DB sync to version 14 so upgraded devices immediately re-populate their SQLite tables with sanitized entries.
+
+2. **Universal Offline Sprite Caching (1,342 Entities, 99.3% Coverage)**:
+   - Bundled all 1,025 National Pokédex sprites, 1,025 shiny variants, and 317 battle form sprites locally in assets (~2.84 MB total).
+   - Sprites load instantaneously (0ms) on cold start without network requests or GitHub raw timeouts.
+   - Configured persistent 100MB Coil disk cache via custom `PokedexApplication.kt`.
+
+---
+
 # 🚀 Release Notes - Bori-dex v2.0.1
 
 **Release Date:** November 10, 2026  

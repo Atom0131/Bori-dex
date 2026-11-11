@@ -108,9 +108,6 @@ object PokemonPronunciation {
             ?: pronunciationMap[base.replace(" ", "-")]?.let { if (isPossessive) "$it's" else if (isTrailingApos) "$it'" else it }
 
         if (direct != null) {
-            if (direct.equals(word, ignoreCase = true)) {
-                return word
-            }
             return direct
         }
 
@@ -133,8 +130,8 @@ object PokemonPronunciation {
                 }
             }
             if (anyChanged) {
-                // If the word was a canonical compound like Ho-Oh, keep hyphen; otherwise use space for fluid speech
-                return if (word.equals("Ho-Oh", ignoreCase = true)) "Ho-Oh" else resolvedParts.joinToString(" ")
+                // If the word was a canonical compound like Ho-Oh, use fluid space so TTS speaks it naturally
+                return if (word.equals("Ho-Oh", ignoreCase = true)) "Ho Oh" else resolvedParts.joinToString(" ")
             }
         }
 
@@ -154,10 +151,10 @@ object PokemonPronunciation {
             ?: pronunciationMap[lower.replace("'", "")]
             ?: pronunciationMap[base]?.let { if (isPossessive) "$it's" else if (isTrailingApos) "$it'" else it }
 
-        if (direct != null && direct.equals(token, ignoreCase = true)) {
-            return token
+        if (direct != null) {
+            return direct
         }
-        return direct
+        return null
     }
 
     /**
@@ -185,6 +182,20 @@ object PokemonPronunciation {
         // 3. Clean Pokédex terms
         text = text.replace("(?i)\\bPOKéMON\\b".toRegex(), "Pokemon")
         text = text.replace("(?i)\\bPOKEMON\\b".toRegex(), "Pokemon")
+
+        // 3.1. Normalize all-caps words (2+ letters) that are NOT real acronyms so Android TTS never spells them out letter-by-letter
+        val standardAcronyms = setOf("DNA", "TM", "HM", "HP", "PC", "TV", "GO", "AM", "PM", "EXP", "STAB", "IV", "EV")
+        text = text.replace(Regex("\\b[A-Z]{2,}(?:'s)?\\b")) { matchResult ->
+            val match = matchResult.value
+            val isPoss = match.endsWith("'s", ignoreCase = true)
+            val baseWord = if (isPoss) match.substring(0, match.length - 2) else match
+            if (standardAcronyms.contains(baseWord)) {
+                match
+            } else {
+                val titleCased = baseWord.lowercase().replaceFirstChar { it.uppercase() }
+                if (isPoss) "$titleCased's" else titleCased
+            }
+        }
 
         // 3.5. Multi-word phrase replacement protected by sentinel tokens so Step 4 never re-mutates them
         val multiWordPlaceholders = mutableListOf<String>()

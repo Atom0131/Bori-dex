@@ -1,3 +1,15 @@
+## [2.0.2] - 2026-11-11
+### Fixed
+- **Dexter Pronunciation Engine Letter-Spelling Bug**: Fixed case-preservation defect in `PokemonPronunciation.kt` where all-caps names (`BELDUM's`, `CHARIZARD's`, `EEVEE's`, `LUGIA's`, `DIALGA's`) were returned verbatim and spelled out letter-by-letter by Android TTS.
+- **All-Caps Flavor Text Sanitization**: Sanitized 142 Pokémon entries in `pokemon_data.json` and added Step 3.1 all-caps normalization in `PokemonPronunciation.kt` and `PokemonMapHabitatRepository.kt`.
+- **Hyphenated Pronunciation Stutters**: Sanitized 25 pronunciation entries in `pokemon_pronunciations.json` (including `Ho-Oh` -> `Ho Oh`, `deoxys-speed` -> `Deeoksis Speed Forme`) to prevent synthesizer pauses.
+- **Room Database Sync Guard**: Bumped `pokemon_data_asset_version` from 13 to 14 in `PokedexDatabase.kt` and `PokedexViewModel.kt` to force upgraded devices to re-sync sanitized data into SQLite.
+
+### Added
+- **Universal Offline Sprite Bundling**: Bundled all 1,025 standard front sprites, 1,025 shiny sprites, and 317 in-game battle form sprites (#10001–#10326) in local assets (1,342 entities total, 99.3% coverage), eliminating remote network latency on cold starts.
+- **Persistent Coil Disk Cache (`PokedexApplication.kt`)**: Implemented custom `Application` class configuring 100MB persistent disk cache and 25% memory cache.
+- **Unit Test Coverage**: Added `testAllCapsPokemonNamesAndPossessivesDoNotSpellOut` in `PokemonPronunciationTest.kt`.
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
