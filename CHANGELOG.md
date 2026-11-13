@@ -1,3 +1,8 @@
+## [2.0.4] - 2026-11-13
+### Changed & Fixed
+- **"Who's That Pokémon?!" Transition Pacing**: Increased `WHOS_THAT_FANFARE_DELAY_MS` (`2200ms` -> `3500ms`) and `REVEAL_HOLD_DELAY_MS` (`1300ms` -> `2200ms`) in `PokedexViewModel.kt`, and slowed `WhosThat` / `Reveal` pulse, float, and flash tweens in `PokedexScreen.kt`.
+- **Silhouette & Reveal Circle Centering**: Anchored the ambient Pokéball watermark circle inside the silhouette/reveal stage `Box` in `PokedexScreen.kt` with `Alignment.Center` and `ContentScale.Fit` so the silhouette and revealed sprite remain geometrically centered in the circle on all screen sizes.
+
 ## [2.0.2] - 2026-11-11
 ### Fixed
 - **Dexter Pronunciation Engine Letter-Spelling Bug**: Fixed case-preservation defect in `PokemonPronunciation.kt` where all-caps names (`BELDUM's`, `CHARIZARD's`, `EEVEE's`, `LUGIA's`, `DIALGA's`) were returned verbatim and spelled out letter-by-letter by Android TTS.

@@ -22,8 +22,8 @@ android {
         applicationId = "com.example.pokedex"
         minSdk = 24
         targetSdk = 36
-        versionCode = 20
-        versionName = "2.0.3"
+        versionCode = 21
+        versionName = "2.0.4"
         buildConfigField("String", "GEMINI_API_KEY", geminiApiKey)
     }
 
