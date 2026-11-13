@@ -3535,10 +3535,10 @@ fun PokedexDisplay(
 
                     // Title text pulse and entrance
                     val textScale by infiniteTransition.animateFloat(
-                        initialValue = 0.95f,
-                        targetValue = 1.05f,
+                        initialValue = 0.96f,
+                        targetValue = 1.04f,
                         animationSpec = infiniteRepeatable(
-                            animation = tween(850, easing = FastOutSlowInEasing),
+                            animation = tween(1250, easing = FastOutSlowInEasing),
                             repeatMode = RepeatMode.Reverse
                         ),
                         label = "text_scale"
@@ -3546,19 +3546,19 @@ fun PokedexDisplay(
 
                     // Silhouette dynamic breathing / floating animation alongside text
                     val silhouetteFloatY by infiniteTransition.animateFloat(
-                        initialValue = -6f,
-                        targetValue = 6f,
+                        initialValue = -3f,
+                        targetValue = 3f,
                         animationSpec = infiniteRepeatable(
-                            animation = tween(900, easing = FastOutSlowInEasing),
+                            animation = tween(1400, easing = FastOutSlowInEasing),
                             repeatMode = RepeatMode.Reverse
                         ),
                         label = "silhouette_float"
                     )
                     val silhouetteScale by infiniteTransition.animateFloat(
-                        initialValue = 0.95f,
-                        targetValue = 1.05f,
+                        initialValue = 0.96f,
+                        targetValue = 1.04f,
                         animationSpec = infiniteRepeatable(
-                            animation = tween(750, easing = FastOutSlowInEasing),
+                            animation = tween(1200, easing = FastOutSlowInEasing),
                             repeatMode = RepeatMode.Reverse
                         ),
                         label = "silhouette_scale"
@@ -3613,14 +3613,6 @@ fun PokedexDisplay(
                             }
                         }
 
-                        // Ambient Pokeball watermark
-                        Box(
-                            modifier = Modifier
-                                .size(240.dp)
-                                .graphicsLayer { alpha = 0.07f }
-                                .border(8.dp, Color.White, CircleShape)
-                        )
-
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
@@ -3650,23 +3642,27 @@ fun PokedexDisplay(
                                     .padding(horizontal = 8.dp)
                             )
 
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
 
-                            // Centered Animated Silhouette Stage
+                            // Centered Animated Silhouette Stage (Circle + Aura + Silhouette share exact center)
+                            val stageCircleSize = if (isCompact) 200.dp else 240.dp
+                            val spriteSize = if (isCompact) 155.dp else 190.dp
                             Box(
                                 contentAlignment = Alignment.Center,
-                                modifier = Modifier
-                                    .size(if (isCompact) 180.dp else 220.dp)
-                                    .graphicsLayer {
-                                        translationY = silhouetteFloatY
-                                        scaleX = silhouetteScale
-                                        scaleY = silhouetteScale
-                                    }
+                                modifier = Modifier.size(stageCircleSize)
                             ) {
+                                // Ambient Pokeball watermark anchored to the silhouette center
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .graphicsLayer { alpha = 0.09f }
+                                        .border(8.dp, Color.White, CircleShape)
+                                )
+
                                 // Subtle backing spotlight aura
                                 Box(
                                     modifier = Modifier
-                                        .size(if (isCompact) 150.dp else 180.dp)
+                                        .size(if (isCompact) 160.dp else 195.dp)
                                         .background(
                                             Brush.radialGradient(
                                                 colors = listOf(
@@ -3679,18 +3675,30 @@ fun PokedexDisplay(
                                         )
                                 )
 
+                                val spriteModifier = Modifier
+                                    .size(spriteSize)
+                                    .graphicsLayer {
+                                        translationY = silhouetteFloatY
+                                        scaleX = silhouetteScale
+                                        scaleY = silhouetteScale
+                                    }
+
                                 if (spriteModel != null) {
                                     AsyncImage(
                                         model = spriteModel,
                                         contentDescription = "Who's That Pokémon Silhouette",
-                                        modifier = Modifier.fillMaxSize(),
+                                        alignment = Alignment.Center,
+                                        contentScale = ContentScale.Fit,
+                                        modifier = spriteModifier,
                                         colorFilter = ColorFilter.colorMatrix(silhouetteMatrix)
                                     )
                                 } else {
                                     Image(
                                         bitmap = state.capturedImage.asImageBitmap(),
                                         contentDescription = "Who's That Pokémon Silhouette",
-                                        modifier = Modifier.fillMaxSize(),
+                                        alignment = Alignment.Center,
+                                        contentScale = ContentScale.Fit,
+                                        modifier = spriteModifier,
                                         colorFilter = ColorFilter.colorMatrix(silhouetteMatrix)
                                     )
                                 }
@@ -3735,9 +3743,9 @@ fun PokedexDisplay(
                     )
                     val revealScale by revealTransition.animateFloat(
                         initialValue = 0.98f,
-                        targetValue = 1.05f,
+                        targetValue = 1.04f,
                         animationSpec = infiniteRepeatable(
-                            animation = tween(650, easing = FastOutSlowInEasing),
+                            animation = tween(1000, easing = FastOutSlowInEasing),
                             repeatMode = RepeatMode.Reverse
                         ),
                         label = "reveal_scale"
@@ -3748,7 +3756,7 @@ fun PokedexDisplay(
                     LaunchedEffect(Unit) {
                         flashAlpha.animateTo(
                             targetValue = 0f,
-                            animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing)
+                            animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
                         )
                     }
 
@@ -3790,14 +3798,6 @@ fun PokedexDisplay(
                             }
                         }
 
-                        // Ambient Pokeball watermark
-                        Box(
-                            modifier = Modifier
-                                .size(240.dp)
-                                .graphicsLayer { alpha = 0.10f }
-                                .border(8.dp, Color(0xFF00FFCC), CircleShape)
-                        )
-
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
@@ -3826,22 +3826,27 @@ fun PokedexDisplay(
                                     .padding(horizontal = 8.dp)
                             )
 
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
 
-                            // Centered Full-Color Pokémon Stage (In exact same spot as silhouette!)
+                            // Centered Full-Color Pokémon Stage (In exact same centered circle as silhouette!)
+                            val revealCircleSize = if (isCompact) 200.dp else 240.dp
+                            val revealSpriteSize = if (isCompact) 155.dp else 190.dp
                             Box(
                                 contentAlignment = Alignment.Center,
-                                modifier = Modifier
-                                    .size(if (isCompact) 180.dp else 220.dp)
-                                    .graphicsLayer {
-                                        scaleX = revealScale
-                                        scaleY = revealScale
-                                    }
+                                modifier = Modifier.size(revealCircleSize)
                             ) {
+                                // Ambient Pokeball watermark anchored to the reveal center
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .graphicsLayer { alpha = 0.12f }
+                                        .border(8.dp, Color(0xFF00FFCC), CircleShape)
+                                )
+
                                 // Triumphant radiant spotlight glow
                                 Box(
                                     modifier = Modifier
-                                        .size(if (isCompact) 160.dp else 200.dp)
+                                        .size(if (isCompact) 165.dp else 205.dp)
                                         .background(
                                             Brush.radialGradient(
                                                 colors = listOf(
@@ -3857,7 +3862,14 @@ fun PokedexDisplay(
                                 AsyncImage(
                                     model = revealSprite,
                                     contentDescription = state.pokemon.name,
-                                    modifier = Modifier.fillMaxSize()
+                                    alignment = Alignment.Center,
+                                    contentScale = ContentScale.Fit,
+                                    modifier = Modifier
+                                        .size(revealSpriteSize)
+                                        .graphicsLayer {
+                                            scaleX = revealScale
+                                            scaleY = revealScale
+                                        }
                                 )
 
                                 // White-out lightning flash overlay

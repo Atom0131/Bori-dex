@@ -44,8 +44,8 @@ sealed class PokedexState {
     data class Error(val message: String) : PokedexState()
 }
 
-private const val WHOS_THAT_FANFARE_DELAY_MS = 2200L // Dialed back from 1700ms for authentic TV suspense stager
-private const val REVEAL_HOLD_DELAY_MS = 1300L
+private const val WHOS_THAT_FANFARE_DELAY_MS = 3500L // ~3.5s: comfortable human processing time for silhouette & fanfare
+private const val REVEAL_HOLD_DELAY_MS = 2200L       // ~2.2s: time to read reveal title & hear announcement
 
 class PokedexViewModel(
     application: Application,
