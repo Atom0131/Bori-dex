@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -68,6 +69,9 @@ import com.example.pokedex.tts.VoiceProfile
 import com.example.pokedex.viewmodel.PokedexState
 import com.example.pokedex.viewmodel.PokedexViewModel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 fun getColorForType(type: String): Color {
 
@@ -556,7 +560,7 @@ fun RegionSelectionModal(
 
 
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
 
 
@@ -2843,7 +2847,9 @@ fun PokedexList(
 
     listState: androidx.compose.foundation.lazy.LazyListState = androidx.compose.foundation.lazy.rememberLazyListState(),
 
-    selectedPokemonId: Int? = null
+    selectedPokemonId: Int? = null,
+
+    listAlpha: Float = 1.0f
 
 ) {
 
@@ -3176,20 +3182,38 @@ fun PokedexList(
 
             state = listState,
 
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .graphicsLayer { alpha = listAlpha }
 
         ) {
 
             items(pokemonList, key = { it.id }) { pokemon ->
 
                 val isSelected = selectedPokemonId == pokemon.id
-                val selectionBorder = if (isSelected) androidx.compose.foundation.BorderStroke(2.dp, Color(0xFF00FFCC)) else null
+                val glowAlpha by animateFloatAsState(
+                    targetValue = if (isSelected) 1f else 0f,
+                    animationSpec = tween(durationMillis = 350, easing = LinearOutSlowInEasing),
+                    label = "glow_${pokemon.id}"
+                )
+                val selectionBorder = if (glowAlpha > 0.01f) {
+                    androidx.compose.foundation.BorderStroke(2.dp, Color(0xFF00FFCC).copy(alpha = glowAlpha))
+                } else null
 
                 Card(
 
                     modifier = Modifier
 
                         .fillMaxWidth()
+
+                        .animateItem(
+                            fadeInSpec = tween(280, easing = LinearOutSlowInEasing),
+                            fadeOutSpec = tween(180, easing = FastOutLinearInEasing),
+                            placementSpec = spring(
+                                stiffness = Spring.StiffnessMediumLow,
+                                dampingRatio = Spring.DampingRatioNoBouncy
+                            )
+                        )
 
                         .clickable { viewModel.selectPokemon(pokemon) }
 
@@ -3319,6 +3343,8 @@ fun PokedexDisplay(
 
     isCompact: Boolean = false,
 
+    listAlpha: Float = 1.0f,
+
     modifier: Modifier = Modifier
 
 ) {
@@ -3363,7 +3389,7 @@ fun PokedexDisplay(
 
         if (isListOnly) {
 
-            PokedexList(pokemonList, searchQuery, viewModel, listState, selectedPokemonId = activeSelectedId)
+            PokedexList(pokemonList, searchQuery, viewModel, listState, selectedPokemonId = activeSelectedId, listAlpha = listAlpha)
 
         } else {
 
@@ -3371,7 +3397,7 @@ fun PokedexDisplay(
 
                 is PokedexState.Idle -> {
 
-                    PokedexList(pokemonList, searchQuery, viewModel, listState, selectedPokemonId = activeSelectedId)
+                    PokedexList(pokemonList, searchQuery, viewModel, listState, selectedPokemonId = activeSelectedId, listAlpha = listAlpha)
 
                 }
 
@@ -3884,7 +3910,18 @@ fun PokedexDisplay(
 
                     }
 
-
+                    AnimatedContent(
+                        targetState = state.pokemon.id,
+                        transitionSpec = {
+                            (fadeIn(animationSpec = tween(280, easing = LinearOutSlowInEasing)) +
+                             scaleIn(initialScale = 0.98f, animationSpec = tween(280, easing = LinearOutSlowInEasing)))
+                            .togetherWith(
+                                fadeOut(animationSpec = tween(160, easing = FastOutLinearInEasing))
+                            )
+                        },
+                        label = "detailCardAnim",
+                        modifier = Modifier.fillMaxSize()
+                    ) { _ ->
 
                     Card(
 
@@ -4872,11 +4909,19 @@ fun PokedexDisplay(
                                 Spacer(modifier = Modifier.height(if (isCompact) 3.dp else 6.dp))
 
                                 val (entryFontSize, entryLineHeight) = when {
-                                     cleanedFlavorText.length <= 95 -> Pair(15.sp, 21.sp)
-                                     cleanedFlavorText.length <= 155 -> Pair(13.5.sp, 18.5.sp)
-                                     cleanedFlavorText.length <= 220 -> Pair(12.sp, 16.5.sp)
-                                     cleanedFlavorText.length <= 300 -> Pair(11.sp, 15.sp)
-                                     else -> Pair(10.5.sp, 14.sp)
+                                     isCompact -> when {
+                                         cleanedFlavorText.length <= 95 -> Pair(13.sp, 17.5.sp)
+                                         cleanedFlavorText.length <= 155 -> Pair(12.sp, 16.sp)
+                                         cleanedFlavorText.length <= 220 -> Pair(11.sp, 14.5.sp)
+                                         else -> Pair(10.sp, 13.5.sp)
+                                     }
+                                     else -> when {
+                                         cleanedFlavorText.length <= 95 -> Pair(15.sp, 21.sp)
+                                         cleanedFlavorText.length <= 155 -> Pair(13.5.sp, 18.5.sp)
+                                         cleanedFlavorText.length <= 220 -> Pair(12.sp, 16.5.sp)
+                                         cleanedFlavorText.length <= 300 -> Pair(11.sp, 15.sp)
+                                         else -> Pair(10.5.sp, 14.sp)
+                                     }
                                  }
 
                                  val isSpanishLocale = remember { java.util.Locale.getDefault().language == "es" }
@@ -5175,6 +5220,8 @@ fun PokedexDisplay(
 
                     }
 
+                    }
+
                 }
 
                 is PokedexState.Error -> {
@@ -5399,7 +5446,7 @@ fun SettingsDialog(viewModel: PokedexViewModel, onDismiss: () -> Unit) {
 
 
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
 
 
@@ -6341,7 +6388,7 @@ fun SettingsDialog(viewModel: PokedexViewModel, onDismiss: () -> Unit) {
 
 
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 // Replay Trainer Tutorial
                 Button(
@@ -6440,22 +6487,64 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
             }
     }
 
+    val detailListState = rememberSaveable(saver = androidx.compose.foundation.lazy.LazyListState.Saver) {
+        androidx.compose.foundation.lazy.LazyListState()
+    }
+
     var lastViewedPokemonId by remember { mutableStateOf<Int?>(null) }
 
-    LaunchedEffect(uiState, filteredPokemonList) {
-        val currentState = uiState
-        val activePokemonId = when (currentState) {
-            is PokedexState.Result -> currentState.pokemon.id
+    val activePokemonId = remember(uiState, lastViewedPokemonId) {
+        when (val state = uiState) {
+            is PokedexState.Result -> state.pokemon.id
+            is PokedexState.Reveal -> state.pokemon.id
+            is PokedexState.WhosThat -> state.pokemon?.id
             is PokedexState.Idle -> lastViewedPokemonId
             else -> null
         }
-        if (currentState is PokedexState.Result) {
-            lastViewedPokemonId = currentState.pokemon.id
+    }
+
+    LaunchedEffect(uiState) {
+        if (uiState is PokedexState.Result) {
+            lastViewedPokemonId = (uiState as PokedexState.Result).pokemon.id
         }
-        if (activePokemonId != null) {
+    }
+
+    val listAlpha = remember { Animatable(1f) }
+
+    LaunchedEffect(activePokemonId, filteredPokemonList) {
+        if (activePokemonId != null && filteredPokemonList.isNotEmpty()) {
             val targetIdx = filteredPokemonList.indexOfFirst { it.id == activePokemonId }
             if (targetIdx >= 0) {
-                listState.animateScrollToItem(targetIdx)
+                // Ensure LazyColumn has populated its items before scrolling
+                snapshotFlow { listState.layoutInfo.totalItemsCount }
+                    .filter { it > targetIdx }
+                    .first()
+
+                val visibleIndices = listState.layoutInfo.visibleItemsInfo.map { it.index }
+                if (targetIdx !in visibleIndices || visibleIndices.firstOrNull() == targetIdx || visibleIndices.lastOrNull() == targetIdx) {
+                    val scrollTarget = maxOf(0, targetIdx - 1)
+                    val currentFirstIdx = listState.firstVisibleItemIndex
+                    val distance = kotlin.math.abs(targetIdx - currentFirstIdx)
+
+                    if (distance <= 6) {
+                        listState.animateScrollToItem(scrollTarget)
+                    } else {
+                        val intermediate = if (targetIdx > currentFirstIdx) {
+                            maxOf(0, targetIdx - 2)
+                        } else {
+                            minOf(filteredPokemonList.lastIndex, targetIdx + 2)
+                        }
+                        // Soft cross-dissolve to soften the leap across offscreen distance
+                        listAlpha.animateTo(0.35f, tween(70, easing = FastOutLinearInEasing))
+                        listState.scrollToItem(intermediate)
+                        kotlinx.coroutines.coroutineScope {
+                            launch {
+                                listAlpha.animateTo(1.0f, tween(260, easing = LinearOutSlowInEasing))
+                            }
+                            listState.animateScrollToItem(scrollTarget)
+                        }
+                    }
+                }
             }
         }
     }
@@ -6508,7 +6597,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
             .background(Color(0xFFCC0000))
             .statusBarsPadding()
             .navigationBarsPadding()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = 14.dp, vertical = 6.dp)
     ) {
         val isWide = maxWidth > 600.dp
 
@@ -6531,7 +6620,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                     isCompact = false
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 Row(
                     modifier = Modifier
@@ -6552,6 +6641,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                             isListOnly = true,
                             listState = listState,
                             isCompact = false,
+                            listAlpha = listAlpha.value,
                             modifier = Modifier.fillMaxSize()
                         )
                     }
@@ -6584,13 +6674,13 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                         } else {
                             PokedexDisplay(
                                 uiState = uiState,
-                                pokemonList = emptyList(),
+                                pokemonList = filteredPokemonList,
                                 searchQuery = "",
                                 viewModel = viewModel,
                                 onGalleryClick = launchGallery,
                                 isListOnly = false,
-                                listState = listState,
-                                isCompact = false,
+                                listState = detailListState,
+                                isCompact = true,
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
@@ -6615,6 +6705,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                     isListOnly = false,
                     listState = listState,
                     isCompact = true,
+                    listAlpha = listAlpha.value,
                     modifier = Modifier.weight(1f)
                 )
                 if (uiState !is PokedexState.Idle) {
@@ -7913,7 +8004,7 @@ fun PokemonMapHabitatModal(
 
 
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
 
 
@@ -8385,7 +8476,7 @@ fun TypeMatchupsDialog(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 // Scrollable categories: 2-Column Battle Matrix for wide/foldable screens, 1-Column for portrait
                 if (isWide) {
@@ -8593,7 +8684,7 @@ fun TypeMatchupsDialog(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 // Bottom Buttons
                 Row(
@@ -8777,7 +8868,7 @@ fun GuideCategoryPopoutModal(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 // Body: View A (Category Adaptive Grid) vs View B (Topic Adaptive Grid)
                 if (activeCategory == null) {
@@ -9854,7 +9945,7 @@ fun GameGuideModal(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 // 2. Search & Ask Input Bar
                 OutlinedTextField(
@@ -9904,7 +9995,7 @@ fun GameGuideModal(
                     }
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 // 3. Tactile Strategy Domain Launcher Bar (Zero Side-Scrolling)
                 Row(
@@ -9947,7 +10038,7 @@ fun GameGuideModal(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 // 4. Results Card & Walkthrough Display
                 Box(
@@ -10112,7 +10203,7 @@ fun GameGuideModal(
                                             )
                                         }
 
-                                        Spacer(modifier = Modifier.height(10.dp))
+                                        Spacer(modifier = Modifier.height(6.dp))
 
                                         // Step-by-Step Instructions
                                         Text(
@@ -10286,7 +10377,7 @@ fun GameGuideModal(
                                     }
 
                                     if (res.mapAsset != null) {
-                                        Spacer(modifier = Modifier.height(10.dp))
+                                        Spacer(modifier = Modifier.height(6.dp))
                                         GuideMapPinCanvas(
                                             mapAsset = res.mapAsset,
                                             pinX = res.pinX,
@@ -10298,7 +10389,7 @@ fun GameGuideModal(
                                         )
                                     }
 
-                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Spacer(modifier = Modifier.height(6.dp))
 
                                     // Step-by-Step Instructions
                                     Text(

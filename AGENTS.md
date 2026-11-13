@@ -25,7 +25,7 @@ A necessary supporting edit is in scope only if it is required to make the liste
 Plan mode is still the gate, for everything. Hit /plan for every task, large or small. There is no task too small to skip the plan, and no "just fix that one line quickly" bypass. A small fix still gets a short plan, approval, then execution.
 Auto-enter makes tool prompts cheap, so the plan is now the only human check before writes, especially on a phone. Clicks are free now. Quality is not traded for fewer clicks. If a job takes 1000 clicks to verify correctly, take the 1000 clicks.
 - State 0, no plan: read-only. Unlimited project reading. No writes, edits, or state-changing commands. The only writable file is the plan artifact.
-- State 1, plan presented, not approved: still read-only. Always output the full plan directly in the conversation response (bring the plan here) in addition to creating the plan artifact so the user can review it immediately without opening side panels. Approval means only Proceed, or an explicit yes, y, do it, or go in reply to the plan. Silence, questions, or looks good are not approval.
+- State 1, plan presented, not approved: still read-only. Approval means only Proceed, or an explicit yes, y, do it, or go in reply to the plan. Silence, questions, or looks good are not approval.
 - State 2, plan approved: first write this line at the top of the plan artifact, before anything else:
   STATUS: APPROVED by user, covers Steps 1-N of this plan.
   Copy that line into every summary and refnote so it survives compaction. On resume, if the line exists, resume executing the listed steps. If it is missing, return to State 0 and plan first.
@@ -44,7 +44,7 @@ A surgical plan is short and exact, not verbose. It must contain:
 - DONE MEANS: the verifiable end state, for example build passes, APK installed on the phone, model exported with numbers reported.
 - VERIFICATION: the exact build, test, screenshot, log, or run check for each change.
 - OUT OF SCOPE: what not to touch.
-Vague plans cause re-asking later. Be concrete now, always output the full plan text directly in the chat when presenting it in addition to creating the plan artifact, then stop writing and wait for approval.
+Vague plans cause re-asking later. Be concrete now, then stop writing and wait for approval.
 
 ## 5. Execution, after one approval
 That single approval is blanket approval for everything enumerated in the plan, in order.
