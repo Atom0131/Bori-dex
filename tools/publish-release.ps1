@@ -1,7 +1,8 @@
 param (
     [string]$Tag = "v1.0.0",
     [string]$Repo = "Atom0131/Bori-dex",
-    [string]$ApkPath = ""
+    [string]$ApkPath = "",
+    [switch]$NotesOnly = $false
 )
 
 $ErrorActionPreference = "Stop"
@@ -54,21 +55,32 @@ $headers = @{
     "Accept"        = "application/vnd.github+json"
 }
 
-# 3. Fetch or Create Release
+# 3. Prepare clean UTF-8 Release Notes (top release section only)
+$releaseNotesPath = "$PSScriptRoot\..\RELEASE_NOTES.md"
+$bodyText = "Bori-dex $Tag release."
+if (Test-Path $releaseNotesPath) {
+    $content = [System.IO.File]::ReadAllText($releaseNotesPath, [System.Text.Encoding]::UTF8)
+    $sections = [regex]::Split($content, "(?m)(?=^# )") | Where-Object { $_.Trim().Length -gt 0 }
+    if ($sections -and $sections.Count -gt 0) {
+        $topSection = $sections[0].Trim()
+        $topSection = $topSection -replace "(\r?\n)+---\s*$", ""
+        $bodyText = $topSection.Substring(0, [math]::Min(3500, $topSection.Length))
+    }
+}
+
+# 4. Fetch or Create Release (and sync UTF-8 release body)
 Write-Host "[*] Querying GitHub release for tag '$Tag'..." -ForegroundColor Yellow
 $releaseUrl = "https://api.github.com/repos/$Repo/releases/tags/$Tag"
 $release = $null
 try {
     $release = Invoke-RestMethod -Uri $releaseUrl -Headers $headers -Method Get
+    Write-Host "[*] Updating release notes body for '$Tag'..." -ForegroundColor Yellow
+    $patchBody = @{ body = $bodyText } | ConvertTo-Json -Depth 5
+    $patchBytes = [System.Text.Encoding]::UTF8.GetBytes($patchBody)
+    $release = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/$($release.id)" -Headers $headers -Method Patch -Body $patchBytes -ContentType "application/json; charset=utf-8"
+    Write-Host ("[+] Updated Release notes for: '" + $release.name + "' (ID: " + $release.id + ")") -ForegroundColor Green
 } catch {
     Write-Host "[*] Release '$Tag' not found. Creating release '$Tag' on GitHub..." -ForegroundColor Yellow
-    
-    $releaseNotesPath = "$PSScriptRoot\..\RELEASE_NOTES.md"
-    $bodyText = "Bori-dex $Tag release."
-    if (Test-Path $releaseNotesPath) {
-        $content = Get-Content $releaseNotesPath -Raw
-        $bodyText = $content.Substring(0, [math]::Min(3500, $content.Length))
-    }
     
     $createBody = @{
         tag_name = $Tag
@@ -85,6 +97,11 @@ try {
 }
 
 Write-Host ("[+] Found Release: '" + $release.name + "' (ID: " + $release.id + ")") -ForegroundColor Green
+
+if ($NotesOnly) {
+    Write-Host "[+] NotesOnly mode: skipping APK asset upload." -ForegroundColor Green
+    exit 0
+}
 
 # 4. Check if asset already exists and delete it if so
 $existingAsset = $release.assets | Where-Object { $_.name -eq $assetName }

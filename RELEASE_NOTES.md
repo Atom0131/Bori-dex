@@ -1,19 +1,13 @@
 # 🚀 Release Notes - Bori-dex v2.0.4 (Build 21)
-**Release Date**: November 13, 2026  
-**Platform**: Android (API 24 to API 36 / 37 Adaptive Ready)  
-**Target Hardware**: Samsung Galaxy Z Fold, Pixel 9 Pro Fold & Standard Android Phones  
-**Binary**: `Bori-dex-v2.0.4.apk`  
-
----
+**Release Date:** November 13, 2026  
+**Platform:** Android 7.0+ (API 24–36)  
+**Target Hardware:** Samsung Galaxy Z Fold, Pixel 9 Pro Fold & Standard Android Phones  
+**Binary:** `Bori-dex-v2.0.4.apk`  
 
 ### What's New in v2.0.4
-1. **"Who's That Pokémon?!" Pacing & Suspense Calibration**:
-   - Increased the `"WHO'S THAT POKÉMON?"` silhouette intermission (`WHOS_THAT_FANFARE_DELAY_MS`) from `2200ms` to `3500ms` and the `"IT'S [POKÉMON]!"` reveal hold (`REVEAL_HOLD_DELAY_MS`) from `1300ms` to `2200ms` so the transition feels deliberate and easy to process without dragging.
-   - Slowed the pulse, float, scale, and reveal-flash tweens in `PokedexScreen.kt` for smoother, less jarring motion.
-2. **Centered Silhouette & Reveal Circle Alignment**:
-   - Anchored the ambient Pokéball watermark circle directly inside the silhouette and reveal stage `Box` (`200.dp` compact / `240.dp` expanded) with `Alignment.Center` and `ContentScale.Fit`, ensuring the Pokémon silhouette and revealed sprite are geometrically centered inside the circle across compact cover screens, phones, and unfolded foldables.
-3. **Includes v2.0.3 Enhancements**:
-   - Two-stage leap-frog / snap-and-glide scroll engine, soft dissolve list transition, animated `#00FFCC` neon selection border, and unfolded dual-pane detail layout (`detailListState` decoupled).
+- **Smoother "Who's That Pokémon?!" Pacing:** Slowed down the silhouette suspense intermission (`3.5s`) and reveal hold (`2.2s`), along with gentler pulse, float, and flash animations so each scan is easy to follow without feeling rushed.
+- **Centered Silhouette & Reveal Circle:** Fixed an alignment offset so both the Pokémon silhouette and the full-color reveal sprite sit dead-center inside the Pokéball watermark circle on cover screens, phones, and unfolded foldables.
+- **Includes v2.0.3 Updates:** Smooth two-stage leap-frog / snap-and-glide list scrolling, soft dissolve transitions, animated `#00FFCC` selection glow, and dual-pane foldable detail layout.
 
 ---
 
